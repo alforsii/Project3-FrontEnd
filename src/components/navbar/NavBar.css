@@ -1,0 +1,33 @@
+/* Colors
+navbar color: light blue: #0794f3
+hover color: Light blue: #068ce6
+White: #fff
+*/
+
+nav.navbar {
+    background-color: #0794f3;
+    /* background-color: #302e2e; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    padding: 10px;
+}
+nav.navbar .nav-group {
+    /* display: flex; */
+
+}
+
+.nav-items, .menu-icon {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+}
+.nav-items:hover {
+    color: #fff;
+    background-color: #068ce6;
+    /* background-color: #202122; */
+}
