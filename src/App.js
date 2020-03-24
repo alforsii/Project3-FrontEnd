@@ -7,20 +7,20 @@ import {projects as Projects} from './components/projects/Projects';
 import ProjectDetails from './components/projects/ProjectDetails';
 import UserForm from './components/signup-form/UserForm'
 import SideBar from './components/sidebar/SideBar'
+import toggle from './components/sidebar/toggle'
 
 import './App.css';
- import toggle from './components/sidebar/toggle'
 
 export class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {  };
+    this.state = { route: '' };
   }
 
   componentDidMount(){
    toggle()
   }
- 
+
   render() {
     return  (
       <div className="App">
@@ -28,7 +28,7 @@ export class App extends Component {
         <SideBar />
         <Switch>
           <Route exact path='/' component={Home}/>
-          <Route exact path='/about' component={About}/>
+          <Route exact path='/about' component={About} />
           <Route exact path='/signup' component={UserForm}/>
           {/* <Route exact path='/side-bar' component={SideBar}/> */}
           <Route exact path='/projects' component={Projects}/>

@@ -1,3 +1,8 @@
+/* Colors
+navbar color: light blue: #0794f3
+hover color: Light blue: #068ce6
+White: #fff
+*/
 
 .main-sidebar {
     position: absolute;
@@ -5,6 +10,7 @@
     background-color: rgba(19, 18, 18, 0.3);
     min-width: 100vw;
     min-height: 100vh;
+    overflow: hidden;
     z-index: 5;
     display: none;
     animation-name: main-sidebar;
@@ -18,26 +24,27 @@
 }
 .hide-main-sidebar {
     animation-name: hide-main-sidebar;
-    animation-duration: 0.6s;
+    animation-duration: 1s;
     animation-fill-mode: forwards;
     animation-timing-function: ease-in-out;
-    display: none;
 }
 @keyframes hide-main-sidebar {
-    0%{opacity: 1;}
-    100%{opacity: 0;}
+    0%{opacity: 1;display: flex;}
+    100%{opacity: 0;display: none;}
 }
 .side-bar {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 0;
     left: 0;
     width: 250px;
     height: 100vh;
     background-color: #fff;
-    color: rgba(8, 8, 8, 0.466);
+    color: #0794f3;
     z-index: 6;
     font-size: 18px;
-    overflow: scroll;
+    overflow: hidden;
     display: none;
     animation-name: sidebar;
     animation-duration: 0.8s;
@@ -58,9 +65,10 @@
     animation-timing-function: ease-in-out;
 }
 @keyframes hide-sidebar {
-    0%{left: 0px;}
-    100%{left: -250px;}
+    0%{left: 0px;display: flex;}
+    100%{left: -250px;display: none;}
 }
+
 h4 {
     margin: 0;
     padding: 10px;
@@ -70,7 +78,7 @@ hr {
     border-radius: 50%;
 }
 .user {
-    position: fixed;
+    /* position: fixed; */
     height: 200px;
     width: 250px;
     z-index: 6;
@@ -81,13 +89,12 @@ hr {
     flex-direction: column;
 }
 .sections {
-    padding-top: 200px;
     padding-bottom: 20px;
+    overflow-y: scroll;
 }
 .sections ul {
     margin: 0;
     padding: 0;
-    width: 100%;
 }
 .sections li{
     padding: 5px 20px;
@@ -96,20 +103,19 @@ hr {
 .sections a {
     padding: 10px;
     text-decoration: none;
-    color: #fff;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    color: rgba(8, 8, 8, 0.466);
+    color: #0794f3;
 }
 .sections a li span {
-    padding-left: 20px;
+    padding: 20px;
 }
 .sections a li span:last-child {
     /* font-size: 20px; */
 }
 .sections a:hover {
-    background-color: #999;
+    background-color: #0794f3;
     color: #fff;
     width: 100%;
 }

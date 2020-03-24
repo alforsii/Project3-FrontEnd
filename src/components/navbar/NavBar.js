@@ -19,8 +19,10 @@ export default function NavBar() {
                 <Link to='/projects' className='nav-items'>Projects</Link>
                 <NavLink exact to="/faq" className='nav-items' activeStyle={{fontWeight: 'bold', color: '#fff'}} activeClassName="selected">FAQs</NavLink>
                 <Link to='/contacts' className='nav-items'>Contacts</Link>
-                {/* <Link to='/signup' className='nav-items'>Signup</Link> */}
-                <a href='/signup' className='nav-items'>Signup</a>
+                <Link to='/signup' className='nav-items'>Signup</Link>
+                <Link to='/signup' className='nav-items'>Login</Link>
+                <Link to='/signup' className='nav-items'>Logout</Link>
+                {/* <a href='/signup' className='nav-items'>Signup</a> */}
                 <span id='menu-bars-btn' className='nav-items'><span className='fas fa-bars'></span></span>
             </div>
         </nav>
