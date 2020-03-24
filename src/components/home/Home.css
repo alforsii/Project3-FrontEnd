@@ -1,0 +1,208 @@
+/* Colors
+navbar color: light blue: #0794f3
+hover color: Light blue: #068ce6
+White: #fff
+const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600', '#eb4f82', '#73cae3', '#027ebc', ]
+*/
+:root {
+    --primaryColor: #62bdfa;
+    --lightBlue: #068ce6;
+    --mainWhite: #fff;
+    --mainBlack: #222;
+    --mainGrey: #ececec;
+    --mainSpacing: 0.1rem;
+    --mainTransition: all 0.2s linear;
+  }
+
+.main-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+    background-color: #edf8fd;
+}
+.icons-div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  min-width: 550px;
+  max-width: 40vw;
+  height: 70vh;
+  border-radius: 50%;
+  background-color: var(--primaryColor);
+  padding: 50px 120px;
+}
+.icons-bg{
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--lightBlue);
+}
+.hide-hint {
+    font-family: monospace;
+    position: absolute;
+    top: 0;
+    font-size: 14px;
+    background-color: #62bdfa;
+    border-radius: 7px;
+    padding: 1px 5px;
+    border-bottom-left-radius: initial;
+    display: none;
+}
+.show-icon-hint {
+    display: block;
+}
+.icons {
+    position: relative;
+    /* padding: 20px; */
+    opacity: 0.7;
+    border-radius: 50%;
+    cursor: pointer;
+    text-transform: capitalize;
+    /* margin: 20px; */
+}
+ span.icons  {
+    font-size: 30px;
+    color: var(--mainWhite);
+    transition: var( --mainTransition);
+}
+span.icons:hover {
+    opacity: 1;
+    transform: scale(1.7);
+    z-index: 10;
+}
+
+.icons.graduation-cap {
+    /* background-color: #ff7802; */
+    padding: 25px;
+    font-size: 40px;
+
+}
+.icons.chart-pie {
+    /* background-color: #00809e; */
+    padding: 20px;
+    font-size: 50px;
+}
+.icons.telegram {
+    /* background-color: #20c579; */
+    padding: 20px;
+
+}
+.icons.gratipay {
+    /* background-color: #eb4f82;; */
+    padding: 10px;
+}
+.icons.grav {
+    /* background-color: #ff7802; */
+    padding: 7px;
+
+}
+.icons.star-half {
+    /* background-color: #eb4f82; */
+    padding: 13px;
+
+}
+.icons.star {
+    /* background-color: #73cae3; */
+    padding: 23px;
+
+}
+.icons.glasses {
+    /* background-color: #ffe602; */
+    padding: 10px;
+
+}
+.icons.book-open {
+    /* background-color: #027ebc; */
+    padding: 35px;
+    font-size: 55px;
+}
+.icons.globe-americas {
+    /* background-color: #ff7802; */
+    padding: 20px;
+    font-size: 40px;
+}
+.icons.microscope {
+    /* background-color: #73cae3; */
+    padding: 30px;
+    font-size: 45px;
+}
+.icons.settings {
+    /* background-color: #ff7802; */
+    padding: 25px;
+
+}
+.icons.atom {
+    /* background-color: #42a703; */
+    padding: 15px;
+
+}
+.icons.flask {
+    /* background-color: #155769; */
+    padding: 15px;
+
+}
+.icons.rocket {
+    /* background-color: #0da7d1; */
+    padding: 30px;
+
+}
+.icons.space-shuttle {
+    /* background-color: #ff7802; */
+    padding: 10px;
+
+}
+.icons.podcast {
+    /* background-color: #8269d0; */
+    padding: 10px;
+ font-size: 40px;
+}
+.icons.laptop {
+    /* background-color: #2a0891; */
+    padding: 35px;
+    font-size: 40px;
+}
+.icons.power-off {
+    /* background-color: #58585a; */
+    padding: 10px;
+    font-size: 25px;
+}
+.icons.headphones {
+    /* background-color: #4f0280; */
+    padding: 25px;
+    font-size: 25px;
+}
+.icons.bus {
+    /* background-color: #a733f0; */
+    padding: 7px;
+    font-size: 25px;
+}
+.icons.comment {
+    /* background-color: #171718; */
+    padding: 10px;
+    font-size: 25px;
+}
+.icons.sticky-note {
+    /* background-color: #171718; */
+    padding: 15px;
+    font-size: 25px;
+}
+.icons.user-friends {
+    /* background-color: #171718; */
+    padding: 25px;
+    font-size: 35px;
+}
+.icons.images {
+    /* background-color: #171718; */
+    padding: 15px;
+    font-size: 35px;
+}
+.icons.info {
+    /* background-color: #171718; */
+    padding: 15px;
+    font-size: 25px;
+}

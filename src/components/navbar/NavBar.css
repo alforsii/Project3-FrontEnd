@@ -13,8 +13,7 @@ nav.navbar {
     height: 30px;
     padding: 10px;
 }
-nav.navbar .nav-group {
-    /* display: flex; */
+nav.navbar .nav-group a{
 
 }
 

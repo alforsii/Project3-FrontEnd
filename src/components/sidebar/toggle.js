@@ -14,14 +14,12 @@
     })
 
     mainSidebar.addEventListener('click', event => {
-        if(sidebar.classList.contains('show-sidebar')){
-            sidebar.classList.add('hide-sidebar')
-            mainSidebar.classList.add('hide-main-sidebar')
-            setTimeout(()=>{
+        sidebar.classList.add('hide-sidebar')
+        mainSidebar.classList.add('hide-main-sidebar')
+        setTimeout(()=>{
             mainSidebar.classList.remove('show-sidebar')
-            // sidebar.classList.remove('show-sidebar')
-            },300)
-        }
+            sidebar.classList.remove('show-sidebar')
+        },700)
     })
 
 }
