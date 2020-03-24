@@ -9,7 +9,7 @@ export default function NavBar() {
                 <Link to='/' className='nav-items'><span className='fas fa-school'></span></Link>
                 <Link to='/' className='nav-items'><span className='fas fa-comment-dots'></span></Link>
                 <Link to='/' className='nav-items'><span className='fas fa-bell'></span></Link>
-                <Link to='/' className='nav-items'><span className='fas fa-envelope'></span></Link>
+                <Link to='/message-board' className='nav-items'><span className='fas fa-envelope'></span></Link>
                 <Link to='/' className='nav-items'><span className='fas fa-moon'></span></Link>
                 <Link to='/' className='nav-items'><span className='fab fa-github'></span></Link>
             </div>

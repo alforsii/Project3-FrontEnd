@@ -1,0 +1,193 @@
+/* Colors
+navbar color: light blue: #0794f3
+hover color: Light blue: #068ce6
+White: #fff
+*/
+.main-message-board {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    min-width: 1200px;
+    box-sizing: border-box;
+}
+.nav-sidebar {
+    width: 5%;
+    background-color: #fff;
+    height: 100vh;
+}
+.sidebar-icons {
+    padding-top: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+div.nav-sidebar span {
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 7px;
+    color: #000;
+    opacity: 0.7;
+    transition: opacity 0.2s linear;
+}
+div.nav-sidebar span:hover {
+    cursor: pointer;
+    /* opacity: 1; */
+    color: #fff;
+    background-color: #0794f3;
+}
+
+/*  users list */
+
+.users-list {
+    padding-top: 70px;
+    min-width: 35%;
+    /* background-color: #4b4c4d; */
+    height: 100vh;
+    background-color: #ddd;
+    box-sizing: border-box;
+}
+input#search-user {
+    font-size: 14px;
+    width: 420px;
+    height: 40px;
+    background-color: #ddd;
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 15px 40px 15px 20px;
+}
+input#search-user:focus {
+    outline: 0;
+}
+#search-div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#search-icon {
+    position: absolute;
+    top: 5px;
+    right: 25px;
+    padding: 5px;
+    font-size: 20px;
+    color: rgb(248, 247, 247);
+    cursor: pointer;
+}
+.main-user-div {
+    overflow: scroll;
+    height: 400px;
+}
+.user-div {
+    width: 450px;
+    position: relative;
+}
+.user1:hover {
+    background-color: #0794f3;
+    color: #fff;
+    cursor: pointer;
+}
+.user {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 400px;
+    height: 40px;
+    background-color: #fff;
+    margin: 10px 15px;
+    padding: 15px 10px;
+}
+.user a {
+    padding: 5px;
+}
+a.username {
+    /* width: 100px; */
+    font-size: 14px;
+    text-decoration: none;
+    color: #111;
+    font-weight: bold;
+}
+a.username:hover {
+    color: #0794f3;
+}
+.user p{
+    margin: 0;
+    font-size: 12px;
+    padding: 5px;
+}
+.user h5{
+    margin: 0;
+    font-size: 12px;
+    padding: 5px;
+}
+.user-image-div {
+    width: 50px;
+}
+.user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+#msg-created-time {
+    position: absolute;
+    z-index: 1;
+    right: 30px;
+    top: 10px;
+    padding: 10px;
+    font-size: 12px;
+}
+
+/* message-board */
+.message-board {
+    min-width: 55%;
+    height: 100vh;
+    box-sizing: border-box;
+    margin: 0 auto;
+    background-color: #fff;
+}
+.message-board-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 50px;
+    height: 80px;
+    width: 100%;
+    border-bottom: 1px solid rgb(235, 233, 233);
+}
+.message-board-nav div:last-child span{
+    padding: 7px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.message-board-nav div:last-child span:hover {
+    background-color: #0794f3;
+    color: #fff;
+}
+.message-board-body {
+    height: 400px;
+    width: 100%;
+    /* background-color: rgb(90, 63, 63); */
+    overflow: scroll;
+}
+.message-board-footer {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid rgb(235, 233, 233);
+}
+.message-board-footer input {
+    width: 70%;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+.message-board-footer span {
+    padding: 5px;
+    color: #0794f3;
+}
+.message-board-footer span:first-child {
+    color: gold;
+}
+.message-board-footer span:nth-child(2) {
+    color: #666;
+}

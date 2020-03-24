@@ -5,19 +5,20 @@ White: #fff
 */
 
 nav.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
     background-color: #0794f3;
-    /* background-color: #302e2e; */
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 30px;
     padding: 10px;
 }
-nav.navbar .nav-group a{
-
-}
-
-.nav-items, .menu-icon {
+.nav-items, 
+.menu-icon {
     margin: 0 5px;
     text-decoration: none;
     color: #fff;
@@ -28,5 +29,4 @@ nav.navbar .nav-group a{
 .nav-items:hover {
     color: #fff;
     background-color: #068ce6;
-    /* background-color: #202122; */
 }
