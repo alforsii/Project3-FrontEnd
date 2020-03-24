@@ -21,6 +21,7 @@ export class SideBar extends Component {
                     <ul>
                         <Link to='/'><li><span className='fas fa-chalkboard-teacher'></span><span>Dashboard</span></li></Link> 
                         <Link to='/'><li><span className='fas fa-users'></span><span>Teachers</span></li></Link>
+                        <Link to='/'><li><span className='fas fa-users'></span><span>Parents</span></li></Link>
                         <Link to='/'><li><span className='fas fa-users'></span><span>Students</span></li></Link>
                         <Link to='/'><li><span className='fas fa-lock'></span><span>Authentication</span></li></Link>
                         <Link to='/'><li><span className='fas fa-graduation-cap'></span><span>Classes</span></li></Link>

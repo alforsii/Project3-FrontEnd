@@ -44,10 +44,6 @@ render(){
               <i className='fas fa-chart-pie'></i>
               <i className='hide-hint'>grades</i>
             </span>
-            <span className='icons telegram'>
-              <i className='fab fa-telegram'></i>
-              <i className='hide-hint'>telegram</i>
-            </span>
             <span className='icons gratipay'>
               <i className='fab fa-gratipay'></i>
               <i className='hide-hint'>gratipay</i>
@@ -139,6 +135,10 @@ render(){
             <span className='icons images'>
               <i className="fas fa-images"></i>
               <i className='hide-hint'>images</i>
+            </span>
+            <span className='icons calculator'>
+              <i className="fas fa-calculator"></i>
+              <i className='hide-hint'>calculator</i>
             </span>
           </div>
         </div>
