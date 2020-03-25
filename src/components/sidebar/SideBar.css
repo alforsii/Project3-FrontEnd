@@ -11,7 +11,7 @@ White: #fff
     min-width: 100vw;
     min-height: 100vh;
     overflow: hidden;
-    z-index: 5;
+    z-index: 11;
     display: none;
     animation-name: main-sidebar;
     animation-duration: 0.8s;
@@ -42,7 +42,7 @@ White: #fff
     height: 100vh;
     background-color: #fff;
     color: #0794f3;
-    z-index: 6;
+    z-index: 12;
     font-size: 18px;
     overflow: hidden;
     display: none;
@@ -77,7 +77,7 @@ hr {
     width: 80%;
     border-radius: 50%;
 }
-.user {
+.user-sidebar {
     /* position: fixed; */
     height: 200px;
     width: 250px;

@@ -18,7 +18,8 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 30px;
+    /* padding: 20px 0px 0; */
+    height: 100vh;
     background-color: #edf8fd;
 }
 .icons-div {
@@ -31,7 +32,7 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
   height: 70vh;
   border-radius: 50%;
   background-color: var(--primaryColor);
-  padding: 50px 120px;
+  padding: 30px 200px 50px;
 }
 .icons-bg{
     box-sizing: border-box;
