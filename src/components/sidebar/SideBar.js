@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import './SideBar.css'
-import './toggle'
+// import './toggle'
 
 
 export class SideBar extends Component {
@@ -10,7 +10,7 @@ export class SideBar extends Component {
            <>
                 <div id='main-sidebar' className='main-sidebar'></div>
                 <div id='side-bar' className='side-bar'>
-                <div className='user'>
+                <div className='user-sidebar'>
                     <img src='' alt=''/>
                     <h4><span className='fas fa-user-circle'></span></h4>
                     <h4>User name</h4>

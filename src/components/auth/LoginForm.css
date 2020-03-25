@@ -1,0 +1,39 @@
+/* Colors
+navbar color: light blue: #0794f3
+hover color: Light blue: #068ce6
+White: #fff
+const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600', '#eb4f82', '#73cae3', '#027ebc', ]
+*/
+#main-login {
+    width: 100vw;
+    /* height: 100vh; */
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 400px;
+    padding: 20px;
+    margin: 10% auto;
+    background-color: rgb(97, 95, 95);
+}
+#login-form input {
+    width: 80%;
+    padding: 10px;
+}
+#login-form label {
+    padding: 5px;
+    margin-top: 10px;
+}
+#login-form button {
+    padding: 10px 30px;
+    color: #fff;
+    background-color:  #0794f3;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10px;
+}
