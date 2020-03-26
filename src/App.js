@@ -8,10 +8,8 @@ import { projects as Projects } from './components/projects/Projects';
 import ProjectDetails from './components/projects/ProjectDetails';
 import UserForm from './components/signup-form/UserForm';
 import SideBar from './components/sidebar/SideBar';
-import toggle from './components/sidebar/toggle';
 import MessageBoard from './components/messageBoard/MessageBoard';
 import LoginForm from './components/auth/LoginForm';
-// import SignupForm from './components/auth/SignupForm';
 import axios from 'axios'
 
 import './App.css';
@@ -20,40 +18,26 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
+      user: null,
       loggedIn: false,
-      userSignup: [{
-        username: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-      }]
+      isLoading: true,
+      userSignup: [{username: '', firstName: '', lastName: '', email: '', password: ''}]
     };
-    this.isUserLoggedIn = this.isUserLoggedIn()
   }
 
-  isUserLoggedIn = () => {
-    axios.get('/api/auth/isLoggedIn')
-    .then(user => {
-    console.log("Output for: App -> isUserLoggedIn -> user", user)
-      if(user) {
-        this.setState({ user, loggedIn: true})
-      }else {
-        this.setState({ user: {}, loggedIn: false})
-      }
-    })
-    .catch(err => console.log(err))
+  isUserLoggedIn = async () => {
+    try {
+      const res = await axios.get('/api/auth/isLoggedIn');
+      this.setState({ user: res.data.user , loggedIn: true, isLoading: false})
+    } catch (err) {
+       console.log("isUserLoggedIn -> err", err)
+    }
   }
 
-  handleSignup =  e => {
-  console.log("Output for: App -> data", e)
+  handleSignup = async e => {
     e.preventDefault()
-      axios.post('/api/auth/signup', this.state.userSignup[0])
-      .then(newUser => {
-        this.setState({ loggedIn: true, user: newUser})
-      })
-      .catch(err => console.log(err))
+    const res = await axios.post('/api/auth/signup', this.state.userSignup[0]);
+    this.setState({ user: res.data.user , loggedIn: true, isLoading: false})
   }
 
   handleChange = e => {
@@ -65,56 +49,64 @@ export class App extends Component {
         userSignup: [updateUser]
     })
   }
-
-  componentDidMount() {
-    // this.isUserLoggedIn()
-    if (this.state.loggedIn) {
-      toggle();
-     setTimeout(()=> {
-     },500)
-    }
+  userLogout = async () => {
+    await axios.post('/api/auth/logout');
+    this.setState({ loggedIn: false, user: null})
   }
-componentDidUpdate = () => {
-  toggle();
-}
+  componentDidMount() {
+    console.log('componentDidMount')
+    this.isUserLoggedIn()
+  }
+  updateState = () => {
+    this.isUserLoggedIn()
+  }
+
+// componentDidUpdate = () => {
+//   console.log('componentDidUpdate')
+// }
+// UNSAFE_componentWillMount = () => {
+// console.log('UNSAFE_componentWillMount')
+// // this.isUserLoggedIn()
+// }
+// UNSAFE_componentWillUpdate = (props, state) => {
+// console.log({props, state})
+// }
+
   render() {
     const { loggedIn, user } = this.state;
-    console.log(" this.state",  this.state)
    
     return (
       <div className="App">
-        <NavBar loggedIn={loggedIn} />
-        <SideBar />
+         {/* { isLoading && <i className="fa  fa-spinner fa-spin"></i> */}
+         <div>
+          <NavBar loggedIn={loggedIn} userLogout={this.userLogout}/>
+          <SideBar />
+  
+          <Switch>
+            <Route
+              exact strict
+              path="/"
+              render={props => {
+                return loggedIn? <Home {...props} user={user}/> : <HomePage {...props} handleChange={this.handleChange}  handleSubmit={ this.handleSignup}/>
+              }}
+            />
+            <Route exact strict path="/login" render={props => {
+            return  loggedIn ? <Redirect to='/' /> : <LoginForm {...props} updateState={this.updateState} />
+            }} />
 
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={props => {
-              return loggedIn? <Home {...props} user={user}/> : <HomePage {...props} handleChange={this.handleChange}  handleSubmit={ this.handleSignup}/>
-            }}
-          />
-          <Route
-            exact
-            path="/login"
-            render={props => 
-               !loggedIn? <LoginForm /> : <Redirect to='/'/> } />
-          {/* <Route
-            exact
-            path="/signup"
-            render={props => !loggedIn? <SignupForm /> : <Redirect to='/'/>}
-          /> */}
-          <Route exact path="/about" component={About} />
-          <Route exact path="/user-update" component={UserForm} />
-          <Route exact path="/projects" component={Projects} />
-          <Route exact path="/projects/:id" component={ProjectDetails} />
-          <Route exact path='/message-board' component={MessageBoard} />
-          <Route
-            exact
-            path="/message-board/:id"
-            render={props => <MessageBoard {...props} />}
-          />
-        </Switch>
+            <Route exact strict path="/about" component={About} />
+            <Route exact strict path="/user-update" component={UserForm} />
+            <Route exact strict path="/projects" component={Projects} />
+            <Route exact strict path="/projects/:id" component={ProjectDetails} />
+            <Route exact strict path='/message-board' component={MessageBoard} />
+            <Route
+              exact strict
+              path="/message-board/:id"
+              render={props => <MessageBoard {...props} />}
+            />
+          </Switch>
+         </div>
+       {/* )} */}
       </div>
     );
   }
