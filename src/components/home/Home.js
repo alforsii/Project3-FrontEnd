@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import toggle from '../sidebar/toggle'
+import toggle from '../sidebar/toggle'
 import './Home.css'
 
 class home extends Component {
@@ -7,15 +7,9 @@ class home extends Component {
   generateRandomColor = () =>{
     // return '#'+Math.floor(Math.random()*16777215).toString(16);
     const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600', '#eb4f82', '#73cae3', '#027ebc', ]
-    // const paddings = ['10x','20px', '25px', '15px', '13px', '7px', '30px', '25px', '5px', '3px', '35px']
-    // const lightColors = ['#cdeef7', '#cad6f0', '#ffd5d6', '#feffd5', '#f3caf4', '#feffd5', '#96df6d', '#f09cd0', '#f7a4c0']
-    // const len = document.querySelectorAll('.icons').length
-    // const colorsArr = Array.from({length: len},(v, i) => colors[Math.floor(Math.random()*colors.length)])
-    // const margins = ['0 5px', '0 7px', '0 3px', '0 5px', '0 5px']
-    // document.querySelector('.icons-div').style.backgroundColor ='#cae6f2'
+
       document.querySelectorAll('.icons').forEach(eachIcon => {
         eachIcon.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
-        // eachIcon.style.padding =  paddings[Math.floor(Math.random()*paddings.length)]
         eachIcon.style.margin =  '1px'
       })
   }
@@ -34,13 +28,14 @@ class home extends Component {
 componentDidMount = () => {
   this.generateRandomColor()
   this.showHint()
-  // toggle()
+  toggle()
 }
 render(){
-  
+  const { user } = this.props
     return (
       <div className='main-icons'>
         <div className='icons-div'>
+        <h2 style={{margin:0}}> Welcome {user.firstName} </h2>
           <div className='icons-bg'>
             <span className='icons chart-pie'>
               <i className='fas fa-chart-pie'></i>

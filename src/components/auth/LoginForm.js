@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom'
+import axios from 'axios'
 import './LoginForm.css'
 
 export class UserLogin extends Component {
@@ -12,8 +14,10 @@ export class UserLogin extends Component {
     this.setState({ [e.target.name]: e.target.value})
   }
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault()
+    await axios.post('/api/auth/login', this.state)
+    this.props.updateState()
   }
 
   render() {
@@ -42,16 +46,16 @@ export class UserLogin extends Component {
               placeholder="**********"
             />
 
-            <button type="submit">
+            <button to='/login' type="submit">
               Login
             </button>
 
             <p>
               Don't have an account?
-              <a href="/auth/signup">Sign up</a>
+              <Link to='/'>Sign up</Link>
             </p>
           </form>
-          {message ? <div className="error-message">{{ message }}</div> : ''}
+          {message ? <div className="error-message">{ message}</div> : ''}
         </div>
     );
   }

@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import './SideBar.css'
-// import './toggle'
-
 
 export class SideBar extends Component {
+
     render() {
         return (
            <>

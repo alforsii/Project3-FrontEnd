@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Redirect} from 'react-router-dom'
+import { Link} from 'react-router-dom'
 
 
 const UserSignup = ({handleChange, handleSubmit}) => {
@@ -43,7 +43,7 @@ const UserSignup = ({handleChange, handleSubmit}) => {
 
           <p>
             Already have an account?
-            <a href="/auth/login">Login</a>
+            <Link to="/login">Login</Link>
           </p>
         </form>
       </div>

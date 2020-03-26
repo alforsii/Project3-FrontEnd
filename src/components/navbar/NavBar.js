@@ -2,7 +2,7 @@ import React from 'react'
 import { Link,  NavLink } from 'react-router-dom';
 import './NavBar.css'
 
-export default function NavBar({loggedIn}) {
+export default function NavBar({loggedIn, userLogout}) {
 
     if(loggedIn) {
         return (
@@ -21,19 +21,20 @@ export default function NavBar({loggedIn}) {
                     <Link to='/projects' className='nav-items'>Projects</Link>
                     <NavLink exact to="/faq" className='nav-items' activeStyle={{fontWeight: 'bold', color: '#fff'}} activeClassName="selected">FAQs</NavLink>
                     <Link to='/contacts' className='nav-items'>Contacts</Link>
-                    <Link to='/logout' className='nav-items'>Logout</Link>
+                    <Link to='/' className='nav-items' onClick={userLogout} >Logout</Link>
                     <span id='menu-bars-btn' className='nav-items'><span className='fas fa-bars'></span></span>
                 </div>
             </nav>
         )
-    } else {
+    } 
+    else {
         return (
             <nav className='navbar'>
                 <div className='nav-group'>
                     <Link to='/' className='nav-items'><span className='fas fa-school'></span></Link>
                 </div>
                 <div className='nav-group'>
-                    <Link to='/signup' className='nav-items'>Signup</Link>
+                    {/* <Link to='/signup' className='nav-items'>Signup</Link> */}
                     <Link to='/login' className='nav-items'>Login</Link>
                 </div>
             </nav>
