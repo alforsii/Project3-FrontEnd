@@ -21,7 +21,6 @@ export class UserLogin extends Component {
   }
 
   render() {
-    console.log(this.state)
     const { message } = this.props;
     return (
         <div id='main-login'>

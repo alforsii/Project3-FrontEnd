@@ -1,19 +1,18 @@
 import React from 'react';
 // import { Switch, Redirect} from 'react-router-dom';
 import SignupForm from '../auth/SignupForm'
-// import Home from './Home'
+import './LandingPage.css'
+
 
 
 const HomePage = ({handleSubmit, handleChange}) => {
 
-//   render() {
-    //   if(this.state.loggedIn){ return <Redirect to='/home'/>}
         return (
             <div>
               {/* Welcome Page Container */}
-              <div className="welcome-page-container">
+              <div className="landing-page-container">
                 <div>
-                  <h1>Welcome to Ironbook!</h1>
+                  <h1>Welcome to IronSchool!</h1>
                   <h3>Join, connect and share your memories.</h3>
                   <h4>
                     <i className="fas fa-users fa-fw"></i>Connect with friends
@@ -27,16 +26,11 @@ const HomePage = ({handleSubmit, handleChange}) => {
                 </div>
       
                 {/* { Sign up form  */}
-
                     <SignupForm handleSubmit={handleSubmit} handleChange={handleChange}/>
-
                 {/* End of Sign Up form  */}
               </div>
-              {/* End of Welcome Page Container */}
             </div>
           );
-   
-//   }
 }
 
 export default HomePage;

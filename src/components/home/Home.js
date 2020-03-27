@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import toggle from '../sidebar/toggle'
+// import toggle from '../sidebar/toggle'
 import './Home.css'
 
 class home extends Component {
@@ -28,7 +28,7 @@ class home extends Component {
 componentDidMount = () => {
   this.generateRandomColor()
   this.showHint()
-  toggle()
+  // toggle()
 }
 render(){
   const { user } = this.props

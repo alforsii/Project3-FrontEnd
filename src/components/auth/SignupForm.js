@@ -7,7 +7,7 @@ const UserSignup = ({handleChange, handleSubmit}) => {
 
     return (
       <div>
-        <form onSubmit={handleSubmit} action=''>
+        <form id='signup-form' onSubmit={handleSubmit} action=''>
           <h1>
             <i className="fas fa-user-plus"></i>Sign up
           </h1>
@@ -37,7 +37,7 @@ const UserSignup = ({handleChange, handleSubmit}) => {
           </label>
           <input onChange={handleChange} type="password" name="password" placeholder="**********" />
 
-          <button  type="submit">
+          <button id='signup-form-btn'  type="submit">
             Signup
           </button>
 

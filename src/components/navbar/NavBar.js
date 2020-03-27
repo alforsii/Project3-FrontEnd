@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link,  NavLink } from 'react-router-dom';
+import toggleSideBar from '../sidebar/toggle'
 import './NavBar.css'
 
 export default function NavBar({loggedIn, userLogout}) {
@@ -22,7 +23,7 @@ export default function NavBar({loggedIn, userLogout}) {
                     <NavLink exact to="/faq" className='nav-items' activeStyle={{fontWeight: 'bold', color: '#fff'}} activeClassName="selected">FAQs</NavLink>
                     <Link to='/contacts' className='nav-items'>Contacts</Link>
                     <Link to='/' className='nav-items' onClick={userLogout} >Logout</Link>
-                    <span id='menu-bars-btn' className='nav-items'><span className='fas fa-bars'></span></span>
+                    <span onClick={()=> toggleSideBar()} id='menu-bars-btn' className='nav-items'><span className='fas fa-bars'></span></span>
                 </div>
             </nav>
         )
