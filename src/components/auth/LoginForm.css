@@ -18,7 +18,15 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
     height: 400px;
     padding: 20px;
     margin: 10% auto;
-    background-color: rgb(97, 95, 95);
+    opacity: 0;
+    animation-name: login;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+@keyframes login {
+    0% { opacity: 0;}
+    100% { opacity: 1;}
 }
 #login-form input {
     width: 80%;
@@ -31,9 +39,18 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
 #login-form button {
     padding: 10px 30px;
     color: #fff;
-    background-color:  #0794f3;
+    background-color:  #068ce6;
     font-size: 16px;
     border-radius: 10px;
     border: none;
     margin-top: 10px;
+    cursor: pointer;
+}
+#login-form button:hover {
+    background-color:  #0794f3;
+}
+form#login-form a{
+    color: #0794f3;
+    text-decoration: none;
+    padding: 5px;
 }

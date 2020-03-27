@@ -4,6 +4,7 @@
     const sidebar = document.getElementById('side-bar')
     const menuHamburger = document.getElementById('menu-bars-btn')
     menuHamburger.style.cursor = 'pointer'
+    
     menuHamburger.addEventListener('click', event => {
         if(sidebar.classList.contains('hide-sidebar')){
             mainSidebar.classList.remove('hide-main-sidebar')

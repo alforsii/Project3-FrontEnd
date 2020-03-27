@@ -1,0 +1,52 @@
+.landing-page-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    opacity: 0;
+    animation: landing;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1.2s;
+    animation-fill-mode: forwards;
+}
+@keyframes landing {
+    0% {opacity: 0; }
+    100% {opacity: 1;}
+}
+.landing-page-container div {
+    width: 50vw;
+    padding: 20px;
+}
+
+.landing-page-container div form#signup-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+form#signup-form input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+button#signup-form-btn {
+    padding: 10px 30px;
+    color: #fff;
+    background-color:  #068ce6;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+button#signup-form-btn:hover {
+    background-color:  #0794f3;
+}
+form#signup-form a{
+    color: #0794f3;
+    text-decoration: none;
+    padding: 5px;
+}

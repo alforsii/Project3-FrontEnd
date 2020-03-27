@@ -1,16 +1,100 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
-import UserConversation from './UserConversation';
-import data from '../../data/users';
+import BoardNav from './Nav';
+import moment from 'moment'
 import './MessageBoard.css';
 
-const users = [...data].map((user, i) => {
-  return { ...user, _id: i + 1 };
-});
+import axios from 'axios'
 
 export class MessageBoard extends Component {
 
+  state = {
+    user: this.props.user,
+    users: this.props.users,
+    receiver: undefined,
+    message: '',
+    messages: false,
+    dataFromDB: undefined,
+    receivers: undefined,
+
+  }
+
+  //Handle Submit - Send message
+  handleMessageSubmit = async e => {
+    e.preventDefault()
+    let res = await axios.post(`/api/messages/add-new-message`, {
+      otherUser: this.state.receiver,
+      message: this.state.message
+    })
+    // console.log("New Message", res)
+    this.setState(prevState => (
+      {  messages: [...prevState.messages, res.data] }
+    ))
+    this.setState({ message: ''})
+  }
+
+  //Handle input change
+  handleMessage = e => {
+    this.setState({message: e.target.value})
+  }
+
+  //Update message history list (left side with user image and las message and time)
+  updateReceiver = async (receiver) => {
+    this.setState(({ receiver}))
+    // console.log(" receiver", receiver)
+    if(receiver.message){
+      const filterBoard = this.state.dataFromDB.filter(board => {
+        return board.messages[0].receiverID._id.toString() === receiver._id.toString()
+       })
+       this.setState({messages: filterBoard[0].messages})
+   } else {
+    const aUser = this.state.users.filter(user => user._id.toString() === receiver._id.toString())
+    if(aUser[0].userChatBoards.length === 0){
+      this.setState({messages: []})
+    }else {
+    const filterBoard =  aUser[0].userChatBoards.filter(board => {
+        return board.messages[0].receiverID._id.toString() === receiver._id.toString()
+       })
+      this.setState({messages: filterBoard[0].messages})
+    }
+   }
+  }
+
+  //Get messages
+  getMessages = async () => {
+    console.log('==========================================')
+    // let res = await axios.get(`/api/messages`, { params: { id: this.state.user._id}})
+    const res = await axios.get(`/api/messages`)
+
+    this.setState({ dataFromDB: res.data})
+     const receivers = res.data.map(board => {
+     const receiverObj = board.messages[board.messages.length -1].receiverID
+     const createdAt = board.messages[board.messages.length -1].createdAt
+    //  receiverObj.createdAt = createdAt.split('.')[0].slice(-8,-3)
+     receiverObj.createdAt = moment(createdAt).calendar()
+
+    //  receiverObj.createdAt = moment(createdAt).startOf('hour').fromNow()
+     receiverObj.message = board.messages[board.messages.length -1].message
+    //  receiverObj.createdAt = moment(`${createdAt}`)
+     return receiverObj 
+    }).sort((a,b) => b.createdAt > a.createdAt ? 1 : -1)
+
+    this.setState({receivers})
+    return res
+  }
+  componentDidMount = () => {
+    this.getMessages()
+    // this.timer = setInterval(this.getMessages, 4000);
+    
+  }
+  componentWillUnmount() {
+    console.log("========  is UNMOUNTED! ========");
+    // clearInterval(this.timer); // !!!
+}
+
   render() {
+    const { messages, users, receivers, message} = this.state
+    // console.log("Output receivers", receivers)
     return (
       <div>
         <div className="main-message-board">
@@ -44,53 +128,55 @@ export class MessageBoard extends Component {
             {/* users list */}
             <div className="users-div">
               { users.map(user => {
+                const {_id, path, username,} = user
                   return (
-                    <div key={user._id} className="user-user-list">
-                    <Link to={`/message-board/${user._id}`}>
+                    <div key={_id} className="user-user-list">
+                    <Link to={`/message-board/${_id}`} onClick={()=> this.updateReceiver(user)}>
                       <div className="user-image-div">
-                        <img className="user-image" src={user.path} alt={user.username} />
+                        <img className="user-image" src={path} alt={username} />
                       </div>
                     </Link>
                   </div>
                   )
               })}
             </div>
-            {/* messaging history */}
+            {/* messaging history with user image*/}
             <div className="messages-history">
-              {users.map(user => {
+              {receivers? receivers.map(user => {
+                const {_id, path, username,firstName, lastName, message, createdAt} = user
                 return (
-                  <Link key={user._id} to={`/message-board/${user._id}`}>
+                  <Link key={_id} to={`/message-board/${_id}`} onClick={()=>this.updateReceiver(user)}>
                     <div className="user-div">
                       <div className="user user1">
                         <div className="user-image-div">
                           <img
                             className="user-image"
-                            src={user.path}
-                            alt={user.username}
+                            src={path}
+                            alt={username}
                           />
                         </div>
                         <div>
                           <h5 className="username">
-                            {user.firstName} {user.lastName}
+                            {firstName} {lastName}
                           </h5>
-                          <p>Some message will be here...</p>
+                          <p> {message.length > 35? message.slice(0,35) : message}...</p>
                         </div>
-                        <span id="msg-created-time">12:00 pm</span>
+                        <span id="msg-created-time"> {createdAt}</span>
                       </div>
                     </div>
                   </Link>
                 );
-              })}
+              }): ''}
             </div>
           </div>
 
-          <div className="message-board">
+          <div id='"message-board' className="message-board">
             <div className="message-board-nav">
               <Switch>
-                <Route
+                <Route exact strict
                   path="/message-board/:id"
                   render={props => (
-                    <UserConversation {...props} users={users} />
+                    <BoardNav {...props} users={users} />
                   )}
                 />
               </Switch>
@@ -110,12 +196,64 @@ export class MessageBoard extends Component {
 
             <div className="message-board-body">
                 <div id='messageBoardUsers'>
-
+                  {/* all messages goes here */}
+                    <div className='conversation-div'>
+                      {messages
+                          ? <div>
+                            {messages.map(msg => {
+                             return msg.author.username !== msg.sender? (
+                                <div key={msg._id} className='receiver each-user-msg-div'> 
+                                    <div className="chat-message" >
+                                      <div className="parent-msg-div">
+                                          <span className="hideBtn">
+                                            <i className="fas fa-eye-slash"></i>
+                                          </span>
+                                          <div className="msg-div">
+                                              <span>{msg.message} </span>
+                                          </div>  
+                                      </div>
+                                          <div className="user-in-chat">
+                                            <div>
+                                              <Link to="/profile/user-details">
+                                              <img className="user-image" src={msg.receiverID.path} alt={msg.receiverID.firstName} />
+                                              </Link>
+                                            </div>
+                                            
+                                          </div>
+                                  </div>
+                                </div>
+                              ) : (
+                                <div key={msg._id} className='current-user each-user-msg-div'> 
+                                     <div className="chat-message">
+                                    <div  className="user-in-chat">
+                                        <div>
+                                            <Link to="/profile/user-details">
+                                            <img className="user-image" src={msg.author.path} alt={msg.author.firstName} />
+                                            </Link>
+                                        </div> 
+                                    </div>
+                                    <div className="parent-msg-div">
+                                        <div className="msg-div">
+                                            <span>{msg.message}</span>
+                                        </div> 
+                                          <span className="deleteMsgBtn" >
+                                            <i className="far fa-trash-alt"></i>
+                                          </span>
+                                    </div>
+                                </div>
+                                </div>
+                              )
+                            })}
+                          </div>
+                          : <p>Loading...</p>}
+                    </div>
                 </div>
             </div>
 
-            <form id='message-form' className="message-board-footer">
-              <input id="message-input" type='text' placeholder="Type your message..." />
+            <form onSubmit={this.handleMessageSubmit} id='message-form' className="message-board-footer">
+              <input id="message-input" onChange={this.handleMessage} 
+              value={message}
+              type='text' placeholder="Type your message..." />
 
                 <span className="icons message-icon"><i className="fas fa-smile"></i></span>
                 <span className="icons message-icon"><i className="fas fa-paperclip"></i></span>

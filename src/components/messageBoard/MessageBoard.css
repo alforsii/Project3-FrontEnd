@@ -177,8 +177,57 @@ input#search-user:focus {
 .message-board-body {
     height: 400px;
     width: 100%;
-    /* background-color: rgb(90, 63, 63); */
+
     overflow: scroll;
+}
+.conversation-div {
+}
+.each-user-msg-div {
+    /* width: 300px; */
+    /* display: flex; */
+    padding: 10px;
+    margin: 5px;
+}
+.each-user-msg-div {
+    /* width: 300px; */
+    font-size: 14px;
+}
+.chat-message {
+    display: flex;
+    margin: 2px 0;
+    width: 100%;
+  }
+  .msg-div {
+    width: 200px;
+    background-color: lightskyblue;
+    border-radius: 7px;
+    padding: 7px;
+  }
+  .parent-msg-div {
+    display: flex;
+    align-items: flex-end;
+    font-family: monospace;
+    padding: 7px 7px 0 0;
+    width: 100%;
+    font-size: 14px;
+  }
+  .deleteMsgBtn,
+  .hideBtn {
+    color: transparent;
+    transition: transform 0.5s ease-in-out;
+    padding-bottom: 5px;
+  }
+  .chat-message:hover span.deleteMsgBtn,
+.chat-message:hover span.hideBtn {
+  color: #999;
+  transition: transform 0.5s ease-in-out;
+  cursor: pointer;
+}
+.chat-message span.deleteMsgBtn:hover {
+  color: red;
+}
+.chat-message span.hideBtn:hover {
+  color: green;
 }
 .message-board-footer {
     display: flex;

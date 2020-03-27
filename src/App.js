@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React, { Component, createContext } from 'react';
+import { Switch, Route, Redirect,  } from 'react-router-dom';
 import NavBar from './components/navbar/NavBar';
 import Home from './components/home/Home';
-import HomePage from './components/home/HomePage';
+import LandingPage from './components/home/LandingPage';
 import About from './components/about/About';
 import { projects as Projects } from './components/projects/Projects';
 import ProjectDetails from './components/projects/ProjectDetails';
@@ -14,11 +14,13 @@ import axios from 'axios'
 
 import './App.css';
 
+export const { Provider, Consumer} = createContext()
 export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: null,
+      users: null,
       loggedIn: false,
       isLoading: true,
       userSignup: [{username: '', firstName: '', lastName: '', email: '', password: ''}]
@@ -29,9 +31,16 @@ export class App extends Component {
     try {
       const res = await axios.get('/api/auth/isLoggedIn');
       this.setState({ user: res.data.user , loggedIn: true, isLoading: false})
+      this.getUsers()
     } catch (err) {
        console.log("isUserLoggedIn -> err", err)
     }
+  }
+
+  getUsers = async () => {
+    let res = await axios.get(`/api/auth/users`)
+    console.log("getUsers -> res", res)
+    this.setState({ users: res.data})
   }
 
   handleSignup = async e => {
@@ -60,25 +69,15 @@ export class App extends Component {
   updateState = () => {
     this.isUserLoggedIn()
   }
-
-// componentDidUpdate = () => {
-//   console.log('componentDidUpdate')
-// }
-// UNSAFE_componentWillMount = () => {
-// console.log('UNSAFE_componentWillMount')
-// // this.isUserLoggedIn()
-// }
-// UNSAFE_componentWillUpdate = (props, state) => {
-// console.log({props, state})
-// }
-
+  
   render() {
-    const { loggedIn, user } = this.state;
+    const { loggedIn, user, users } = this.state;
+    console.log("this.state", this.state)
    
     return (
       <div className="App">
          {/* { isLoading && <i className="fa  fa-spinner fa-spin"></i> */}
-         <div>
+         <Provider value={this.state}>
           <NavBar loggedIn={loggedIn} userLogout={this.userLogout}/>
           <SideBar />
   
@@ -87,7 +86,7 @@ export class App extends Component {
               exact strict
               path="/"
               render={props => {
-                return loggedIn? <Home {...props} user={user}/> : <HomePage {...props} handleChange={this.handleChange}  handleSubmit={ this.handleSignup}/>
+                return loggedIn? <Home {...props} user={user}/> : <LandingPage {...props} handleChange={this.handleChange}  handleSubmit={ this.handleSignup}/>
               }}
             />
             <Route exact strict path="/login" render={props => {
@@ -98,14 +97,16 @@ export class App extends Component {
             <Route exact strict path="/user-update" component={UserForm} />
             <Route exact strict path="/projects" component={Projects} />
             <Route exact strict path="/projects/:id" component={ProjectDetails} />
-            <Route exact strict path='/message-board' component={MessageBoard} />
+            <Route exact strict path='/message-board' render={props => {
+              return <MessageBoard user={user} users={users}/>
+            }} />
             <Route
               exact strict
               path="/message-board/:id"
-              render={props => <MessageBoard {...props} />}
+              render={props => loggedIn? <MessageBoard {...props} /> : <Redirect to='/'/>}
             />
           </Switch>
-         </div>
+         </Provider>
        {/* )} */}
       </div>
     );
