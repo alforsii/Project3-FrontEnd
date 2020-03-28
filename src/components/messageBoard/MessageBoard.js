@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import BoardNav from './Nav';
+import Loader from '../loader/Loader'
 import moment from 'moment'
 import './MessageBoard.css';
 
 import axios from 'axios'
 
 export class MessageBoard extends Component {
+  timer = 0
+      state = {
+        user: this.props.user,
+        users: this.props.users,
+        receiver: undefined,
+        message: '',
+        messages: [],
+        userBoards: undefined,
+        receivers: undefined,
+        isLoading: false
+      }
 
-  state = {
-    user: this.props.user,
-    users: this.props.users,
-    receiver: undefined,
-    message: '',
-    messages: false,
-    userBoards: undefined,
-    receivers: undefined,
-
-  }
 
   //Handle Submit - Send message
   handleMessageSubmit = async e => {
@@ -27,11 +29,12 @@ export class MessageBoard extends Component {
       message: this.state.message
     })
     console.log("New Message", res)
-    this.setState(prevState => (
-      {  messages: [...prevState.messages, res.data] }
-    ))
+    // this.setState(prevState => (
+    //   {  messages: [...prevState.messages, res.data] }
+    // ))
     this.setState({ message: ''})
     this.getUserBoards() // to update message history list
+    this.updateMessageBoard()
   }
 
   //Handle input change
@@ -40,18 +43,41 @@ export class MessageBoard extends Component {
   }
 
   //Update message history list (left side with user image and las message and time)
-  updateMessageBoard = async (receiver) => {
-    this.setState({ receiver})
-    const res = await axios.post('/api/messages/board', receiver)
-    this.setState({ messages: res.data})
+  updateMessageBoard = async () => {
+    // this.showLoading()
+    
+  if(this.state.receiver){
+    const res = await axios.post('/api/messages/board', this.state.receiver)
+  console.log("res", res)
+  // const isTheSameUser = [res.data[0].receiverID._id].includes(this.state.receiver._id.toString())
+  // console.log("isTheSameUser", isTheSameUser)
+  setTimeout(()=> {
+    // this.removeLoading()
+    this.setState({ messages: res.data, isLoading: false})
+  }, 500)
+  }
+  // if(isTheSameUser && res.data.length > this.state.messages.length) {
+  // }
+    
   }
 
+  switchUser = (receiver) => {
+    this.setState({receiver, isLoading: true })
+    this.updateMessageBoard()
+    setTimeout(()=> {
+    },300)
+  }
   //Get messages
   getUserBoards = async () => {
+    // this.showLoading()
+    this.setState({ isLoading: true })
     // let res = await axios.get(`/api/messages`, { params: { id: this.state.user._id}})
     const res = await axios.get(`/api/messages`)
-    this.setState({ userBoards: res.data})
-    
+    setTimeout(()=> {
+      // this.removeLoading()
+      this.setState({ userBoards: res.data, isLoading: false})
+      // this.timer = setInterval(this.updateMessageBoard, 2000);
+    }, 500)
   }
 
   getReceivers = (userBoards) => {
@@ -69,16 +95,24 @@ export class MessageBoard extends Component {
   }
   componentDidMount = () => {
     this.getUserBoards()
-    // this.timer = setInterval(this.getUserBoards, 4000);
+    this.timer = setInterval(this.updateMessageBoard, 1800);
     
   }
+  
   componentWillUnmount() {
     console.log("========  component UNMOUNTED! ========");
-    // clearInterval(this.timer); // !!!
+    clearInterval(this.timer); // !!!
 }
 
+showLoading() {
+  document.querySelector('.loader').classList.add('show');
+ }
+  removeLoading() {
+  document.querySelector('.loader').classList.remove('show');
+ }
+
   render() {
-    const { messages, users, userBoards, message} = this.state
+    const { messages, users, userBoards, message, isLoading} = this.state
     // console.log("Output receivers", receivers)
     return (
       <div>
@@ -116,7 +150,7 @@ export class MessageBoard extends Component {
                 const {_id, path, username,} = user
                   return (
                     <div key={_id} className="user-user-list">
-                    <Link to={`/message-board/${_id}`} onClick={()=> this.updateMessageBoard(user)}>
+                    <Link to={`/message-board/${_id}`} onClick={()=> this.switchUser(user)}>
                       <div className="user-image-div">
                         <img className="user-image" src={path} alt={username} />
                       </div>
@@ -132,7 +166,7 @@ export class MessageBoard extends Component {
                 const {_id, path, username,firstName, lastName, lastMessage, createdAt} = user
                 // const lastMessage = messages[messages.length -1]
                  return (
-                    <Link key={_id} to={`/message-board/${_id}`} onClick={()=>this.updateMessageBoard(user)}>
+                    <Link key={_id} to={`/message-board/${_id}`} onClick={()=>this.switchUser(user)}>
                       <div className="user-div">
                         <div className="user user1">
                           <div className="user-image-div">
@@ -187,7 +221,7 @@ export class MessageBoard extends Component {
                 <div id='messageBoardUsers'>
                   {/* all messages goes here */}
                     <div className='conversation-div'>
-                      {messages
+                      {messages.length > 0
                           ? <div>
                             {messages.map(msg => {
                              return msg.author.username !== msg.sender? (
@@ -234,7 +268,11 @@ export class MessageBoard extends Component {
                               )
                             })}
                           </div>
-                          : <p>Loading...</p>}
+                          : <div className="loader">
+                              <div className="circle"></div>
+                              <div className="circle"></div>
+                              <div className="circle"></div>
+                          </div>}
                     </div>
                 </div>
             </div>
