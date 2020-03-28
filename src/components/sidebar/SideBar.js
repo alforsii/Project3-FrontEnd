@@ -5,15 +5,15 @@ import './SideBar.css'
 export class SideBar extends Component {
 
     render() {
+        const { firstName, lastName, path} = this.props.user
         return (
            <>
                 <div id='main-sidebar' className='main-sidebar'></div>
                 <div id='side-bar' className='side-bar'>
                 <div className='user-sidebar'>
-                    <img src='' alt=''/>
-                    <h4><span className='fas fa-user-circle'></span></h4>
-                    <h4>User name</h4>
-                    <h4>User title</h4>
+                    <img className='user-image' src={path} alt={firstName}/>
+                    <h4> {firstName} {lastName} </h4>
+                    <h4> {'title'} </h4>
                     <hr/>
                 </div>
                 <div className='sections'>

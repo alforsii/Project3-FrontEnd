@@ -14,7 +14,7 @@ export class MessageBoard extends Component {
     receiver: undefined,
     message: '',
     messages: false,
-    dataFromDB: undefined,
+    userBoards: undefined,
     receivers: undefined,
 
   }
@@ -26,74 +26,59 @@ export class MessageBoard extends Component {
       otherUser: this.state.receiver,
       message: this.state.message
     })
-    // console.log("New Message", res)
+    console.log("New Message", res)
     this.setState(prevState => (
       {  messages: [...prevState.messages, res.data] }
     ))
     this.setState({ message: ''})
+    this.getUserBoards() // to update message history list
   }
 
   //Handle input change
   handleMessage = e => {
-    this.setState({message: e.target.value})
+    this.setState({[e.target.name]: e.target.value})
   }
 
   //Update message history list (left side with user image and las message and time)
-  updateReceiver = async (receiver) => {
-    this.setState(({ receiver}))
-    // console.log(" receiver", receiver)
-    if(receiver.message){
-      const filterBoard = this.state.dataFromDB.filter(board => {
-        return board.messages[0].receiverID._id.toString() === receiver._id.toString()
-       })
-       this.setState({messages: filterBoard[0].messages})
-   } else {
-    const aUser = this.state.users.filter(user => user._id.toString() === receiver._id.toString())
-    if(aUser[0].userChatBoards.length === 0){
-      this.setState({messages: []})
-    }else {
-    const filterBoard =  aUser[0].userChatBoards.filter(board => {
-        return board.messages[0].receiverID._id.toString() === receiver._id.toString()
-       })
-      this.setState({messages: filterBoard[0].messages})
-    }
-   }
+  updateMessageBoard = async (receiver) => {
+    this.setState({ receiver})
+    const res = await axios.post('/api/messages/board', receiver)
+    this.setState({ messages: res.data})
   }
 
   //Get messages
-  getMessages = async () => {
-    console.log('==========================================')
+  getUserBoards = async () => {
     // let res = await axios.get(`/api/messages`, { params: { id: this.state.user._id}})
     const res = await axios.get(`/api/messages`)
+    this.setState({ userBoards: res.data})
+    
+  }
 
-    this.setState({ dataFromDB: res.data})
-     const receivers = res.data.map(board => {
-     const receiverObj = board.messages[board.messages.length -1].receiverID
-     const createdAt = board.messages[board.messages.length -1].createdAt
-    //  receiverObj.createdAt = createdAt.split('.')[0].slice(-8,-3)
-     receiverObj.createdAt = moment(createdAt).calendar()
+  getReceivers = (userBoards) => {
+    return userBoards.map(board => {
+      const receiverObj = board.messages[0].receiverID
+      const createdAt = board.messages[board.messages.length -1].createdAt
+      receiverObj.createdAt = moment(createdAt).calendar()
+      receiverObj.lastMessage = board.messages[board.messages.length -1]
 
-    //  receiverObj.createdAt = moment(createdAt).startOf('hour').fromNow()
-     receiverObj.message = board.messages[board.messages.length -1].message
-    //  receiverObj.createdAt = moment(`${createdAt}`)
-     return receiverObj 
-    }).sort((a,b) => b.createdAt > a.createdAt ? 1 : -1)
-
-    this.setState({receivers})
-    return res
+    return receiverObj 
+      if(board.messages.length > 0){
+      }
+      return board.messages[0].receiverID
+     }).sort((a,b) => b.createdAt > a.createdAt ? -1 : 1)
   }
   componentDidMount = () => {
-    this.getMessages()
-    // this.timer = setInterval(this.getMessages, 4000);
+    this.getUserBoards()
+    // this.timer = setInterval(this.getUserBoards, 4000);
     
   }
   componentWillUnmount() {
-    console.log("========  is UNMOUNTED! ========");
+    console.log("========  component UNMOUNTED! ========");
     // clearInterval(this.timer); // !!!
 }
 
   render() {
-    const { messages, users, receivers, message} = this.state
+    const { messages, users, userBoards, message} = this.state
     // console.log("Output receivers", receivers)
     return (
       <div>
@@ -131,7 +116,7 @@ export class MessageBoard extends Component {
                 const {_id, path, username,} = user
                   return (
                     <div key={_id} className="user-user-list">
-                    <Link to={`/message-board/${_id}`} onClick={()=> this.updateReceiver(user)}>
+                    <Link to={`/message-board/${_id}`} onClick={()=> this.updateMessageBoard(user)}>
                       <div className="user-image-div">
                         <img className="user-image" src={path} alt={username} />
                       </div>
@@ -142,30 +127,34 @@ export class MessageBoard extends Component {
             </div>
             {/* messaging history with user image*/}
             <div className="messages-history">
-              {receivers? receivers.map(user => {
-                const {_id, path, username,firstName, lastName, message, createdAt} = user
-                return (
-                  <Link key={_id} to={`/message-board/${_id}`} onClick={()=>this.updateReceiver(user)}>
-                    <div className="user-div">
-                      <div className="user user1">
-                        <div className="user-image-div">
-                          <img
-                            className="user-image"
-                            src={path}
-                            alt={username}
-                          />
+              {userBoards? this.getReceivers(userBoards).map(user => {
+              // console.log("receiver-> user", user)
+                const {_id, path, username,firstName, lastName, lastMessage, createdAt} = user
+                // const lastMessage = messages[messages.length -1]
+                 return (
+                    <Link key={_id} to={`/message-board/${_id}`} onClick={()=>this.updateMessageBoard(user)}>
+                      <div className="user-div">
+                        <div className="user user1">
+                          <div className="user-image-div">
+                            <img
+                              className="user-image"
+                              src={path}
+                              alt={username}
+                            />
+                          </div>
+                          <div>
+                            <h5 className="username">
+                              {firstName} {lastName}
+                            </h5>
+                            <p>{lastMessage.author._id.toString() === this.state.user._id.toString() ? 'You: ' : lastMessage.author.firstName + ': '} 
+                            {lastMessage.message.length > 25? lastMessage.message.slice(0,25) : lastMessage.message}...</p>
+                          </div>
+                          <span id="msg-created-time"> {createdAt}</span>
                         </div>
-                        <div>
-                          <h5 className="username">
-                            {firstName} {lastName}
-                          </h5>
-                          <p> {message.length > 35? message.slice(0,35) : message}...</p>
-                        </div>
-                        <span id="msg-created-time"> {createdAt}</span>
                       </div>
-                    </div>
-                  </Link>
-                );
+                    </Link>
+                  ) 
+
               }): ''}
             </div>
           </div>
@@ -253,6 +242,7 @@ export class MessageBoard extends Component {
             <form onSubmit={this.handleMessageSubmit} id='message-form' className="message-board-footer">
               <input id="message-input" onChange={this.handleMessage} 
               value={message}
+              name= 'message'
               type='text' placeholder="Type your message..." />
 
                 <span className="icons message-icon"><i className="fas fa-smile"></i></span>
