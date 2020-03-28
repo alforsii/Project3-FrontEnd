@@ -72,14 +72,14 @@ export class App extends Component {
   
   render() {
     const { loggedIn, user, users } = this.state;
-    console.log("this.state", this.state)
+    // console.log("this.state", this.state)
    
     return (
       <div className="App">
          {/* { isLoading && <i className="fa  fa-spinner fa-spin"></i> */}
          <Provider value={this.state}>
           <NavBar loggedIn={loggedIn} userLogout={this.userLogout}/>
-          <SideBar />
+          {user ? <SideBar user={user}/> : ''}
   
           <Switch>
             <Route
