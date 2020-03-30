@@ -6,7 +6,6 @@ import './LandingPage.css'
 
 
 const HomePage = ({handleSubmit, handleChange}) => {
-
         return (
             <div>
               {/* Welcome Page Container */}
@@ -23,6 +22,13 @@ const HomePage = ({handleSubmit, handleChange}) => {
                   <h4>
                     <i className="fas fa-share-square fa-fw"></i>Share memories
                   </h4>
+                  <footer>
+            Made with
+            <span role='img' aria-label='emoji'>
+              ♥️
+            </span>
+            at Ironhack Miami - PTWD October 2019
+          </footer>
                 </div>
       
                 {/* { Sign up form  */}

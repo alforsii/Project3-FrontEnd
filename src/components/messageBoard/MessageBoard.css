@@ -114,6 +114,13 @@ input#search-user:focus {
 .messages-history a {
     /* padding: 5px; */
 }
+span.message-you {
+    color: green;
+}
+span.message-other {
+    color: black;
+    font-weight: bold;
+}
 .messages-history a {
     font-size: 14px;
     text-decoration: none;
@@ -180,16 +187,12 @@ input#search-user:focus {
 
     overflow: scroll;
 }
-.conversation-div {
-}
+
 .each-user-msg-div {
-    /* width: 300px; */
-    /* display: flex; */
     padding: 10px;
     margin: 5px;
 }
 .each-user-msg-div {
-    /* width: 300px; */
     font-size: 14px;
 }
 .chat-message {
