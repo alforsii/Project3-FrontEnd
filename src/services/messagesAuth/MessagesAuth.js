@@ -8,9 +8,9 @@ const service = axios.create({
 
 
 export const AUTH_MESSAGES = {
-    addNewMessage:  data =>  service.post('/api/messages/add-new-message', data),
-    updateUserBoard:  data =>  service.post('/api/messages/board', data),
     getMessages:  () =>  service.get('/api/messages'),
+    updateUserBoard:  data =>  service.post('/api/messages/board', data),
+    addNewMessage:  data =>  service.post('/api/messages/add-new-message', data),
 
 }
 
