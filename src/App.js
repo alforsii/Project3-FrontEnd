@@ -14,7 +14,6 @@ import axios from 'axios'
 
 import './App.css';
 
-export const { Provider, Consumer} = createContext()
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -30,6 +29,7 @@ export class App extends Component {
   isUserLoggedIn = async () => {
     try {
       const res = await axios.get('/api/auth/isLoggedIn');
+      // console.log("Output for: App -> isUserLoggedIn -> res", res)
       this.setState({ user: res.data.user , loggedIn: true, isLoading: false})
       this.getUsers()
     } catch (err) {
@@ -39,7 +39,7 @@ export class App extends Component {
 
   getUsers = async () => {
     let res = await axios.get(`/api/auth/users`)
-    console.log("getUsers -> res", res)
+    // console.log("getUsers -> res", res)
     this.setState({ users: res.data})
   }
 
@@ -77,7 +77,6 @@ export class App extends Component {
     return (
       <div className="App">
          {/* { isLoading && <i className="fa  fa-spinner fa-spin"></i> */}
-         <Provider value={this.state}>
           <NavBar loggedIn={loggedIn} userLogout={this.userLogout}/>
           {user ? <SideBar user={user}/> : ''}
   
@@ -106,8 +105,6 @@ export class App extends Component {
               render={props => loggedIn? <MessageBoard {...props} /> : <Redirect to='/'/>}
             />
           </Switch>
-         </Provider>
-       {/* )} */}
       </div>
     );
   }
