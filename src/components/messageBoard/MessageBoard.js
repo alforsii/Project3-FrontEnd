@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
-import BoardNav from './Nav';
-// import Loader from '../loader/Loader'
+import BoardNavbar from './BoardNavbar';
+import Loader from '../loader/Loader'
 import moment from 'moment';
 import './MessageBoard.css';
 // import axios from 'axios'
@@ -15,10 +15,12 @@ export class MessageBoard extends Component {
     users: this.props.users,
     receiver: undefined,
     message: '',
-    messages: [],
+    messages: false,
+    newMessages: false,
     userBoards: undefined,
     receivers: undefined,
     isLoading: false,
+    isNewBoard: false
   };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -30,13 +32,18 @@ export class MessageBoard extends Component {
     //   otherUser: this.state.receiver,
     //   message: this.state.message
     // })
-    AUTH_MESSAGES.addNewMessage({
-      otherUser: this.state.receiver,
+    this.setState({ message: '' });
+    console.log("this.state.receiver", this.state.receiver)
+    await AUTH_MESSAGES.addNewMessage({
+      otherUser: {
+        _id: this.state.receiver._id,
+        username: this.state.receiver.username
+      },
       message: this.state.message,
     });
-    this.setState({ message: '' });
-    // this.getUserBoards() // to update message history list
-    // this.updateMessageBoard()
+    this.getUserBoards() // to update message history list
+    this.updateMessageBoard()
+    this.setState({ isNewBoard: true })
   };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -49,39 +56,60 @@ export class MessageBoard extends Component {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //Update message history list (left side with user image and las message and time)
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  updateMessageBoard = async userSwitched => {
+  updateMessageBoard = async (delay) => {
     if (this.state.receiver) {
       // const res = await axios.post('/api/messages/board', {id: this.state.receiver})
       const res = await AUTH_MESSAGES.updateUserBoard({
         id: this.state.receiver._id,
       });
-
+      const { messages, newMessages} = res.data
       setTimeout(() => {
-        this.setState({ messages: res.data, isLoading: false });
-        const chatMessages = document.querySelector('.message-board-body');
-        if (chatMessages) {
-          chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-      }, 1000);
+        this.setState({ messages, newMessages });
+      }, 300);
     }
   };
+
+ //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  //Scroll down messages on load or when new message
+  //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  scrollMessagesDown = () => {
+    setTimeout(() => {
+      const chatMessages = document.querySelector('.message-board-body');
+      if (chatMessages) {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    }, 100);
+  }
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
+    if (nextState.isNewBoard === true && this.state.isNewBoard === false) {
+      setTimeout(()=> {
+        this.scrollMessagesDown()
+      this.setState({ isNewBoard: false })
+      },500)
+    }
+  }
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //Switch Chat board user
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   switchUser = receiver => {
-    this.setState({ receiver, isLoading: true });
-    this.updateMessageBoard();
+    this.setState({ 
+      receiver, isLoading: true , 
+      messages: false, newMessages: false, isNewBoard: true 
+    });
+    setTimeout(()=> {
+      this.scrollMessagesDown()
+    },1500 )
+    // this.updateMessageBoard();
   };
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //Get User boards to get messages
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   getUserBoards = async () => {
-    // let res = await axios.get(`/api/messages`, { params: { id: this.state.user._id}})
     const res = await AUTH_MESSAGES.getMessages();
     // const res = await axios.get(`/api/messages`)
     setTimeout(() => {
       this.setState({ userBoards: res.data, isLoading: false });
-    }, 500);
+    }, 300);
   };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -90,11 +118,10 @@ export class MessageBoard extends Component {
   getReceivers = userBoards => {
     return userBoards
       .map(board => {
-        const receiverObj = board.messages[0].receiverID;
-        const createdAt = board.messages[board.messages.length - 1].createdAt;
+        const receiverObj = board.newMessages[0].receiverID;
+        const createdAt = board.newMessages[board.newMessages.length - 1].createdAt;
         receiverObj.createdAt = moment(createdAt).calendar();
-        receiverObj.lastMessage = board.messages[board.messages.length - 1];
-        // console.log("receiverObj", receiverObj)
+        receiverObj.lastMessage = board.newMessages[board.newMessages.length - 1];
         return receiverObj;
       })
       .sort((a, b) => (b.createdAt > a.createdAt ? -1 : 1));
@@ -104,11 +131,10 @@ export class MessageBoard extends Component {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   componentDidMount = () => {
     this.setState({ isLoading: true });
-    this.getUserBoards();
     this.timer = setInterval(() => {
       this.getUserBoards();
       this.updateMessageBoard();
-    }, 1800);
+    }, 3000);
   };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -128,8 +154,7 @@ export class MessageBoard extends Component {
   //  }
 
   render() {
-    const { messages, users, userBoards, message, isLoading } = this.state;
-    // console.log(" this.state",  this.state)
+    const { messages, newMessages, users, userBoards, message, isLoading } = this.state;
 
     return (
       <div>
@@ -339,7 +364,7 @@ export class MessageBoard extends Component {
                   exact
                   strict
                   path="/message-board/:id"
-                  render={props => <BoardNav {...props} users={users} />}
+                  render={props => <BoardNavbar {...props} users={users} />}
                 />
               </Switch>
               <div>
@@ -360,9 +385,8 @@ export class MessageBoard extends Component {
               <div id="messageBoardUsers">
                 {/* all messages goes here */}
                 <div className="conversation-div">
-                  {messages.length > 0 && !isLoading ? (
-                    <div>
-                      {messages.map(msg => {
+                  { newMessages? (
+                      newMessages.map(msg => {
                         return msg.author.username !== msg.sender ? (
                           <div
                             key={msg._id}
@@ -380,6 +404,7 @@ export class MessageBoard extends Component {
                               <div className="user-in-chat">
                                 <div>
                                   <Link to="/profile/user-details">
+                                    {/* {msg.receiverID.firstName+': '} */}
                                     <img
                                       className="user-image"
                                       src={msg.receiverID.path}
@@ -398,7 +423,8 @@ export class MessageBoard extends Component {
                             <div className="chat-message">
                               <div className="user-in-chat">
                                 <div>
-                                  <Link to="/profile/user-details">
+                                  <Link to="/profile/user-details"> 
+                                  {/* {'You: '} */}
                                     <img
                                       className="user-image"
                                       src={msg.author.path}
@@ -418,17 +444,10 @@ export class MessageBoard extends Component {
                             </div>
                           </div>
                         );
-                      })}
-                    </div>
-                  ) : (
-                    <div>Loading...</div>
-                  )
-                  // <div className="loader">
-                  //     <div className="circle"></div>
-                  //     <div className="circle"></div>
-                  //     <div className="circle"></div>
-                  // </div>
-                  }
+                      })
+
+                  ) : isLoading? <Loader/>
+                  : '' }
                 </div>
               </div>
             </div>
