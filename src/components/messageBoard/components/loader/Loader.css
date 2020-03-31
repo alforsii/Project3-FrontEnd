@@ -4,7 +4,7 @@
     opacity: 1;
     display: flex;
     position: relative;
-    top: 30px;
+    top: 100px;
     left: 20%;
     transition: opacity 0.3s ease-in;
   }

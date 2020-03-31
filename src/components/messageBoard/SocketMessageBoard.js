@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
+import socketIOClient from "socket.io-client";
 import moment from 'moment';
 // import axios from 'axios'
 
@@ -10,7 +11,7 @@ import Loader from './components/loader/Loader';
 import './MessageBoard.css';
 import { AUTH_MESSAGES } from '../../services/messagesAuth/MessagesAuth';
 
-
+const socket = socketIOClient('http://127.0.0.1:3001');
 export class MessageBoard extends Component {
   timer = 0;
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -25,6 +26,9 @@ export class MessageBoard extends Component {
     userBoards: undefined,
     receivers: undefined,
     isLoading: false,
+    endpoint: "http://127.0.0.1:3001",
+    reqCancelled: false,
+    status: false
   };
 
  
@@ -33,48 +37,70 @@ export class MessageBoard extends Component {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   componentDidMount = () => {
     this.setState({ isLoading: true });
+    // this.getUserBoards();
+    // this.updateMessageBoard();
+
+    socket.emit('greeting', {
+      user: this.state.user.firstName
+    })
+
+    socket.on('output', data => {
+      if(data){
+        this.setState(prevState => ({
+          newMessages: data
+        }))
+      }
+    })
+    socket.on('message', message => {
+    console.log("message", message)
+    })
+    socket.on('status', online => {
+    console.log("online", online)
+    this.setState({ status: online})
+    })
+
+    //check for new updates
     this.timer = setInterval(() => {
       this.getUserBoards();
       this.updateMessageBoard();
-    }, 2000);
+    }, 3000);
   };
+  //==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+checkForNewMessage = () => {
 
+
+}
    //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //2.Switch Chat board user - get user Chat board  if clicked
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  timeOut = 0
+  timeout = 0
   switchUser = receiver => {
     this.setState({
      receiver,
      isLoading: true,
      messages: false,
      newMessages: false,
-     readMessage: true
+     readMessage: true,
    });
-   
-    this.state.timeOut = setTimeout(() => {
+   //  this.updateMessageStatus(receiver)
+   //   this.scrollMessagesDown();
+   this.updateStatus(receiver)
+   this.timeout = setTimeout(() => {
+     socket.emit("get-user-messages", [this.state.user._id, receiver._id ]);
     this.scrollMessagesDown();
      //here will call to update new msg unread/read status
    }, 2000);
  };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  //Updates message status
+  //Updates user status (online? true:false) and  messages status/read
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
-//   updateMessageStatus = async () => {
-//     const res = await AUTH_MESSAGES.updateStatus({
-//       otherUserId: user._id,
-//     })
-
-//     if(this.state.newMessages){
-//       console.log("updateMessageStatus -> data", this.state.newMessages)
-//      const msgIds = this.state.newMessages.map(msg => msg._id )
-//       const res = await AUTH_MESSAGES.updateStatus({
-//         otherUserId: this.state.receiver._id,
-//         newMessages: msgIds
-//       })
-//     }
-// }
+  updateStatus = async (theUser, messages) => {
+    socket.emit('update-status', [
+       this.state.user._id,
+      theUser._id,
+     ])
+}
 
  //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //3.Handle input change - if typing
@@ -93,7 +119,6 @@ export class MessageBoard extends Component {
     //   message: this.state.message
     // })
     this.setState({ message: '' });
-    console.log('this.state.receiver', this.state.receiver);
     await AUTH_MESSAGES.addNewMessage({
       otherUser: {
         _id: this.state.receiver._id,
@@ -101,8 +126,8 @@ export class MessageBoard extends Component {
       },
       message: this.state.message,
     });
-    await this.getUserBoards(); // to update message history list
-    await this.updateMessageBoard();
+    // await this.getUserBoards(); // to update message history list
+    // await this.updateMessageBoard();
      this.scrollMessagesDown()
   };
 
@@ -142,7 +167,7 @@ export class MessageBoard extends Component {
         chatMessages.scrollTop = chatMessages.scrollHeight;
       }
       
-    }, 300);
+    }, 2000);
   };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -168,20 +193,25 @@ export class MessageBoard extends Component {
   componentWillUnmount() {
     console.log('========  component UNMOUNTED! ========');
     clearInterval(this.timer); // !!!
+    socket.off("get-user-messages");
+    socket.off("output");
+    socket.emit('disconnect', {user: this.state.user.firstName})
   }
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   render() {
     const {
+      // eslint-disable-next-line
       messages,
       newMessages,
       users,
       userBoards,
       message,
       isLoading,
+      status
     } = this.state;
-
+// const currUser
     return (
       <div>
         <div className="main-message-board">
@@ -271,9 +301,6 @@ export class MessageBoard extends Component {
                     // console.log("receiver-> user", user)
                     const {
                       _id,
-                      path,
-                      firstName,
-                      lastName,
                       lastMessage,
                       createdAt,
                     } = user;
@@ -287,10 +314,6 @@ export class MessageBoard extends Component {
                           yourId.toString()
                         ? lastMessage.author
                         : '';
-                    const theUserId = theUser._id;
-                    const theUserPath = theUser.path;
-                    const theUserName = theUser.firstName;
-                    const theUserLastName = theUser.lastName;
 
                     // const lastMessage = messages[messages.length -1]
                     return (
@@ -298,26 +321,22 @@ export class MessageBoard extends Component {
                         {_id.toString() === yourId.toString() ? (
                           <MessagedUser
                             switchUser={user => this.switchUser(user)}
-                            userId={theUserId}
                             user={theUser}
-                            path={theUserPath}
-                            firstName={theUserName}
-                            lastName={theUserLastName}
                             lastMessage={lastMessage}
                             state={this.state}
                             createdAt={createdAt}
+                            status={status}
+                            currUser={this.state.user}
                           />
                         ) : (
                           <MessagedUser
                             switchUser={user => this.switchUser(user)}
-                            userId={_id}
                             user={user}
-                            path={path}
-                            firstName={firstName}
-                            lastName={lastName}
                             lastMessage={lastMessage}
                             state={this.state}
                             createdAt={createdAt}
+                            status={status}
+                            currUser={this.state.user}
                           />
                         )}
                       </div>
