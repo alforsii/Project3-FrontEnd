@@ -44,14 +44,14 @@ div.nav-sidebar a:hover {
     min-width: 35%;
     /* background-color: #4b4c4d; */
     height: 100vh;
-    background-color: #ddd;
+    background-color: #eff1f3;;
     box-sizing: border-box;
 }
 input#search-user {
     font-size: 14px;
     width: 420px;
     height: 40px;
-    background-color: #ddd;
+    background-color: #eff1f3;;
     border: 1px solid #999;
     border-radius: 5px;
     padding: 15px 40px 15px 20px;
@@ -71,7 +71,7 @@ input#search-user:focus {
     right: 25px;
     padding: 5px;
     font-size: 20px;
-    color: rgb(248, 247, 247);
+    color: #555;
     cursor: pointer;
 }
 .users-div {
@@ -188,50 +188,8 @@ span.message-other {
     overflow: scroll;
 }
 
-.each-user-msg-div {
-    padding: 10px;
-    margin: 5px;
-}
-.each-user-msg-div {
-    font-size: 14px;
-}
-.chat-message {
-    display: flex;
-    margin: 2px 0;
-    width: 100%;
-  }
-  .msg-div {
-    width: 200px;
-    background-color: lightskyblue;
-    border-radius: 7px;
-    padding: 7px;
-  }
-  .parent-msg-div {
-    display: flex;
-    align-items: flex-end;
-    font-family: monospace;
-    padding: 7px 7px 0 0;
-    width: 100%;
-    font-size: 14px;
-  }
-  .deleteMsgBtn,
-  .hideBtn {
-    color: transparent;
-    transition: transform 0.5s ease-in-out;
-    padding-bottom: 5px;
-  }
-  .chat-message:hover span.deleteMsgBtn,
-.chat-message:hover span.hideBtn {
-  color: #999;
-  transition: transform 0.5s ease-in-out;
-  cursor: pointer;
-}
-.chat-message span.deleteMsgBtn:hover {
-  color: red;
-}
-.chat-message span.hideBtn:hover {
-  color: green;
-}
+
+  
 .message-board-footer {
     display: flex;
     padding: 10px;

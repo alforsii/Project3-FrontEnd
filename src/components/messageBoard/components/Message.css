@@ -1,0 +1,56 @@
+/* msg bgColor: #eff1f3; */
+.chat-message {
+    display: flex;
+    align-items: flex-end;
+    margin: 2px 0;
+    width: 100%;
+  }
+.user-in-chat a {
+  text-decoration: none;
+  padding: 5px;
+  color: #333;
+  font-weight: bold;
+}
+.current-user a{
+  color: green;
+}
+  .msg-div {
+    max-width: 40vw;
+    background-color: #eff1f3;
+    color: #222;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 10px 10px 5px 10px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  .icon-dlt-hide {
+      padding: 10px;
+  }
+  .parent-msg-div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: monospace;
+    padding-top: 5px;
+    width: 100%;
+    font-size: 14px;
+  }
+  .deleteMsgBtn,
+  .hideBtn {
+    color: transparent;
+    transition: transform 0.5s ease-in-out;
+    padding-bottom: 5px;
+  }
+  .chat-message:hover span.deleteMsgBtn,
+.chat-message:hover span.hideBtn {
+  color: #999;
+  transition: transform 0.5s ease-in-out;
+  cursor: pointer;
+}
+.chat-message span.deleteMsgBtn:hover {
+  color: red;
+}
+.chat-message span.hideBtn:hover {
+  color: green;
+}
