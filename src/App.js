@@ -32,15 +32,27 @@ export class App extends Component {
 
   isUserLoggedIn = async () => {
     try {
-      this.setState({isLoading: true, message: 'Checking authentication'})
+      this.setState({isLoading: true, message: 'Checking authentication...'})
       const res = await axios.get('/api/auth/isLoggedIn');
+      this.setState({user: res.data.user })
+      const timer = Math.floor(Math.random()* 3000) + 1000
       // console.log("Output for: App -> isUserLoggedIn -> res", res)
       setTimeout(()=> {
-        this.setState({ user: res.data.user , loggedIn: true, isLoading: false})
+        this.setState({ loggedIn: true})
         this.getUsers()
-      }, 2000)
+      }, 1000)
+      setTimeout(()=> {
+        this.setState({isLoading: false})
+      },timer)
     } catch (err) {
-       console.log("isUserLoggedIn -> err", err)
+       if(err.response.status === 401){
+        console.log(err.response.data.message)
+      }else{
+        console.log(err)
+      }
+      setTimeout(()=> {
+        this.setState({isLoading: false})
+      },1500)
     }
   }
 
@@ -53,10 +65,11 @@ export class App extends Component {
 
   handleSignup = async e => {
     e.preventDefault()
-    this.setState({isLoading: true, message: 'Signing up, please wait!'})
+    this.setState({isLoading: true, message: 'Signing in...'})
     const res = await axios.post('/api/auth/signup', this.state.userSignup[0]);
+    this.setState({ user: res.data.user })
     setTimeout(()=> {
-      this.setState({ user: res.data.user , loggedIn: true, isLoading: false})
+      this.setState({ loggedIn: true, isLoading: false})
     },2000)
   }
 
@@ -70,10 +83,11 @@ export class App extends Component {
     })
   }
   userLogout = async () => {
-    this.setState({isLoading: true, message: 'Logging in, please wait...'})
+    this.setState({isLoading: true, message: 'Logging out...'})
     await axios.post('/api/auth/logout');
+    this.setState({ loggedIn: false, user: null })
     setTimeout(() => {
-      this.setState({ loggedIn: false, user: null, isLoading: false})
+      this.setState({ isLoading: false})
     }, 2000)
   }
   componentDidMount() {
@@ -90,13 +104,12 @@ export class App extends Component {
    
     return (
       <div className="App">
-         {/* { isLoading && <i className="fa  fa-spinner fa-spin"></i> */}
           <NavBar loggedIn={loggedIn} userLogout={this.userLogout}/>
           {user ? <SideBar user={user}/> : ''}
 
         {isLoading? <>
           <Loader message={message}/>
-          <Loader2/></> : 
+          <Loader2 message={message}/></> : 
           <Switch>
             <Route
               exact strict
