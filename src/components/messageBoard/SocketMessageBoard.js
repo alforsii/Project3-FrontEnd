@@ -73,7 +73,7 @@ checkForNewMessage = () => {
    //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //2.Switch Chat board user - get user Chat board  if clicked
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  timeout = 0
+
   switchUser = receiver => {
     this.setState({
      receiver,
@@ -84,10 +84,10 @@ checkForNewMessage = () => {
    });
    //  this.updateMessageStatus(receiver)
    //   this.scrollMessagesDown();
-   this.updateStatus(receiver)
-   this.timeout = setTimeout(() => {
-     socket.emit("get-user-messages", [this.state.user._id, receiver._id ]);
-    this.scrollMessagesDown();
+   socket.emit("get-user-messages", [this.state.user._id, receiver._id ]);
+  //  this.updateStatus(receiver)
+   setTimeout(() => {
+     this.scrollMessagesDown();
      //here will call to update new msg unread/read status
    }, 2000);
  };
@@ -95,7 +95,8 @@ checkForNewMessage = () => {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //Updates user status (online? true:false) and  messages status/read
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
-  updateStatus = async (theUser, messages) => {
+  updateStatus = (theUser) => {
+    console.log(" theUser", theUser)
     socket.emit('update-status', [
        this.state.user._id,
       theUser._id,
@@ -128,7 +129,7 @@ checkForNewMessage = () => {
     });
     // await this.getUserBoards(); // to update message history list
     // await this.updateMessageBoard();
-     this.scrollMessagesDown()
+    this.scrollMessagesDown()
   };
 
   
@@ -147,9 +148,11 @@ checkForNewMessage = () => {
   updateMessageBoard = async () => {
     if (this.state.receiver) {
       // const res = await axios.post('/api/messages/board', {id: this.state.receiver})
+      console.log("update-> res")
       const res = await AUTH_MESSAGES.updateUserBoard({
         id: this.state.receiver._id,
       });
+      console.log("update-> res", res)
       const { messages, newMessages } = res.data;
       this.setState({ messages, newMessages });
       // setTimeout(() => {
@@ -195,7 +198,6 @@ checkForNewMessage = () => {
     clearInterval(this.timer); // !!!
     socket.off("get-user-messages");
     socket.off("output");
-    socket.emit('disconnect', {user: this.state.user.firstName})
   }
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -374,15 +376,23 @@ checkForNewMessage = () => {
               <div id="messageBoardUsers">
                 {/* all messages goes here */}
                 <div className="conversation-div">
+                  { newMessages ? newMessages.map((msg, i) => {
+
+                    if(msg.new){
+                      return <div key={i}>---------- New Today --------------- </div>
+                    }
+                  }): ''}
                   {newMessages ? (
                     newMessages.map(msg => {
                       return msg.author.username !== msg.sender ? (
                         <Message
                           key={msg._id}
                           currUser={this.state.user}
-                          user={msg.author}
+                          msg={msg}
+                          user={msg.receiverID}
                           id={msg._id}
                           message={msg.message}
+                          isNew={msg.new}
                           path={msg.receiverID.path}
                           firstName={msg.receiverID.firstName}
                           lastName={msg.receiverID.lastName}
