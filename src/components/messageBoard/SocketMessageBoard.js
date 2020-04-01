@@ -4,20 +4,21 @@ import socketIOClient from "socket.io-client";
 import moment from 'moment';
 // import axios from 'axios'
 
+import { AUTH_MESSAGES } from '../../services/messagesAuth/MessagesAuth';
+import { AuthContext} from '../../myContext/AuthProvider'
 import BoardNavbar from './components/BoardNavbar';
 import MessagedUser from './components/MessagedUser';
 import Message from './components/Message';
 import Loader from './components/loader/Loader';
 import './MessageBoard.css';
-import { AUTH_MESSAGES } from '../../services/messagesAuth/MessagesAuth';
 
 const socket = socketIOClient('http://127.0.0.1:3001');
 export class MessageBoard extends Component {
   timer = 0;
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   state = {
-    user: this.props.user,
-    users: this.props.users,
+    user: this.context.state.user,
+    users: this.context.state.users,
     receiver: undefined,
     message: '',
     messages: false,
@@ -26,8 +27,6 @@ export class MessageBoard extends Component {
     userBoards: undefined,
     receivers: undefined,
     isLoading: false,
-    endpoint: "http://127.0.0.1:3001",
-    reqCancelled: false,
     status: false
   };
 
@@ -36,9 +35,10 @@ export class MessageBoard extends Component {
     //1. Component did mount - then getUserBoards and updateMessageBoard
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   componentDidMount = () => {
+    if (!this.context.state.loggedIn) {
+      return this.props.history.push('/');
+    }
     this.setState({ isLoading: true });
-    // this.getUserBoards();
-    // this.updateMessageBoard();
 
     socket.emit('greeting', {
       user: this.state.user.firstName
@@ -82,8 +82,6 @@ checkForNewMessage = () => {
      newMessages: false,
      readMessage: true,
    });
-   //  this.updateMessageStatus(receiver)
-   //   this.scrollMessagesDown();
    socket.emit("get-user-messages", [this.state.user._id, receiver._id ]);
   //  this.updateStatus(receiver)
    setTimeout(() => {
@@ -127,8 +125,6 @@ checkForNewMessage = () => {
       },
       message: this.state.message,
     });
-    // await this.getUserBoards(); // to update message history list
-    // await this.updateMessageBoard();
     this.scrollMessagesDown()
   };
 
@@ -148,15 +144,11 @@ checkForNewMessage = () => {
   updateMessageBoard = async () => {
     if (this.state.receiver) {
       // const res = await axios.post('/api/messages/board', {id: this.state.receiver})
-      console.log("update-> res")
       const res = await AUTH_MESSAGES.updateUserBoard({
         id: this.state.receiver._id,
       });
-      console.log("update-> res", res)
       const { messages, newMessages } = res.data;
       this.setState({ messages, newMessages });
-      // setTimeout(() => {
-      // }, 300);
     }
   };
 
@@ -213,7 +205,7 @@ checkForNewMessage = () => {
       isLoading,
       status
     } = this.state;
-// const currUser
+
     return (
       <div>
         <div className="main-message-board">
@@ -300,14 +292,13 @@ checkForNewMessage = () => {
             <div className="messages-history">
               {userBoards
                 ? this.getReceivers(userBoards).map(user => {
-                    // console.log("receiver-> user", user)
                     const {
                       _id,
                       lastMessage,
                       createdAt,
                     } = user;
+
                     const yourId = this.state.user._id;
-                    // const users = [lastMessage.receiverID._id, lastMessage.author._id]
                     const theUser =
                       lastMessage.receiverID._id.toString() !==
                       yourId.toString()
@@ -316,8 +307,6 @@ checkForNewMessage = () => {
                           yourId.toString()
                         ? lastMessage.author
                         : '';
-
-                    // const lastMessage = messages[messages.length -1]
                     return (
                       <div key={_id}>
                         {_id.toString() === yourId.toString() ? (
@@ -376,12 +365,6 @@ checkForNewMessage = () => {
               <div id="messageBoardUsers">
                 {/* all messages goes here */}
                 <div className="conversation-div">
-                  { newMessages ? newMessages.map((msg, i) => {
-
-                    if(msg.new){
-                      return <div key={i}>---------- New Today --------------- </div>
-                    }
-                  }): ''}
                   {newMessages ? (
                     newMessages.map(msg => {
                       return msg.author.username !== msg.sender ? (
@@ -454,5 +437,7 @@ checkForNewMessage = () => {
     );
   }
 }
+
+MessageBoard.contextType = AuthContext
 
 export default MessageBoard;
