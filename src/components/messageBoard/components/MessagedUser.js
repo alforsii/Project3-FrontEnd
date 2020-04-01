@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function MessagedUser(props) {
     const { lastMessage, state, createdAt, switchUser,
-      status, currUser } = props
+      status } = props
     const { _id, path,firstName, lastName } = props.user
       const myStyle = status? {backgroundColor: 'green', width: '7px', height: '7px', borderRadius: '50%'} : {}
   return (

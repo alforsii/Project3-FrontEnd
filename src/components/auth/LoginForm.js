@@ -1,30 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom'
-import axios from 'axios'
 import './LoginForm.css'
 
-export class UserLogin extends Component {
+export const UserLogin = ({handleLoginSubmit, handleLoginInput, message}) => {
 
-  state = {
-    email: '',
-    password: ''
-  }
-
-  handleLoginChange = e => {
-    this.setState({ [e.target.name]: e.target.value})
-  }
-
-  handleLoginSubmit = async e => {
-    e.preventDefault()
-    await axios.post('/api/auth/login', this.state)
-    this.props.userLoggedIn()
-  }
-
-  render() {
-    const { message } = this.props;
     return (
         <div id='main-login'>
-          <form onSubmit={this.handleLoginSubmit} id='login-form'>
+          <form onSubmit={handleLoginSubmit} id='login-form'>
             <h1>
               <i className="fas fa-sign-in-alt"></i>
               Login
@@ -33,12 +15,12 @@ export class UserLogin extends Component {
             <label htmlFor="email">
               Email
             </label>
-            <input onChange={this.handleLoginChange} type="email" name="email" className="form-control" />
+            <input onChange={handleLoginInput} type="email" name="email" className="form-control" />
 
             <label htmlFor="password">
               Password
             </label>
-            <input onChange={this.handleLoginChange}
+            <input onChange={handleLoginInput}
               type="password"
               name="password"
               className="form-control"
@@ -57,7 +39,7 @@ export class UserLogin extends Component {
           {message ? <div className="error-message">{ message}</div> : ''}
         </div>
     );
-  }
+
 }
 
 export default UserLogin;
