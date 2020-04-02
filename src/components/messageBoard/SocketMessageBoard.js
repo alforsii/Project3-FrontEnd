@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
-import socketIOClient from "socket.io-client";
+// import socketIOClient from "socket.io-client";
 import moment from 'moment';
-// import axios from 'axios'
 
 import { AUTH_MESSAGES } from '../../services/messagesAuth/MessagesAuth';
 import { AuthContext} from '../../myContext/AuthProvider'
@@ -12,7 +11,7 @@ import Message from './components/Message';
 import Loader from './components/loader/Loader';
 import './MessageBoard.css';
 
-const socket = socketIOClient('http://127.0.0.1:3001');
+// const socket = socketIOClient('http://127.0.0.1:3001');
 export class MessageBoard extends Component {
   timer = 0;
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -26,7 +25,7 @@ export class MessageBoard extends Component {
     readMessage: false,
     userBoards: undefined,
     receivers: undefined,
-    isLoading: false,
+    isLoading: true,
     status: false
   };
 
@@ -35,41 +34,13 @@ export class MessageBoard extends Component {
     //1. Component did mount - then getUserBoards and updateMessageBoard
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   componentDidMount = () => {
-    if (!this.context.state.loggedIn) {
-      return this.props.history.push('/');
-    }
-    this.setState({ isLoading: true });
-
-    socket.emit('greeting', {
-      user: this.state.user.firstName
-    })
-
-    socket.on('output', data => {
-      if(data){
-        this.setState(prevState => ({
-          newMessages: data
-        }))
-      }
-    })
-    socket.on('message', message => {
-    console.log("message", message)
-    })
-    socket.on('status', online => {
-    console.log("online", online)
-    this.setState({ status: online})
-    })
-
     //check for new updates
     this.timer = setInterval(() => {
       this.getUserBoards();
       this.updateMessageBoard();
-    }, 3000);
+    }, 2000);
   };
-  //==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-checkForNewMessage = () => {
 
-
-}
    //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //2.Switch Chat board user - get user Chat board  if clicked
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -82,23 +53,15 @@ checkForNewMessage = () => {
      newMessages: false,
      readMessage: true,
    });
-   socket.emit("get-user-messages", [this.state.user._id, receiver._id ]);
   //  this.updateStatus(receiver)
-   setTimeout(() => {
-     this.scrollMessagesDown();
-     //here will call to update new msg unread/read status
-   }, 2000);
+  this.scrollMessagesDown();
  };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //Updates user status (online? true:false) and  messages status/read
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
-  updateStatus = (theUser) => {
-    console.log(" theUser", theUser)
-    socket.emit('update-status', [
-       this.state.user._id,
-      theUser._id,
-     ])
+  updateStatus = async (theUser) => {
+    await AUTH_MESSAGES.updateStatus({otherUser: {_id: theUser._id}})
 }
 
  //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -113,10 +76,6 @@ checkForNewMessage = () => {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   handleMessageSubmit = async e => {
     e.preventDefault();
-    //  await axios.post(`/api/messages/add-new-message`, {
-    //   otherUser: this.state.receiver,
-    //   message: this.state.message
-    // })
     this.setState({ message: '' });
     await AUTH_MESSAGES.addNewMessage({
       otherUser: {
@@ -134,7 +93,6 @@ checkForNewMessage = () => {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   getUserBoards = async () => {
     const res = await AUTH_MESSAGES.getUserBoards();
-    // const res = await axios.get(`/api/messages/boards`)
     this.setState({ userBoards: res.data, isLoading: false });
   };
 
@@ -143,7 +101,6 @@ checkForNewMessage = () => {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   updateMessageBoard = async () => {
     if (this.state.receiver) {
-      // const res = await axios.post('/api/messages/board', {id: this.state.receiver})
       const res = await AUTH_MESSAGES.updateUserBoard({
         id: this.state.receiver._id,
       });
@@ -156,13 +113,10 @@ checkForNewMessage = () => {
   //Scrolls down messages on load or when new message
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   scrollMessagesDown = () => {
-    setTimeout(() => {
-      const chatMessages = document.querySelector('.message-board-body');
-      if (chatMessages) {
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }
-      
-    }, 2000);
+    const chatMessages = document.querySelector('.message-board-body');
+    if (chatMessages) {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
   };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -188,8 +142,6 @@ checkForNewMessage = () => {
   componentWillUnmount() {
     console.log('========  component UNMOUNTED! ========');
     clearInterval(this.timer); // !!!
-    socket.off("get-user-messages");
-    socket.off("output");
   }
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -291,7 +243,7 @@ checkForNewMessage = () => {
             {/* messaging history with user image*/}
             <div className="messages-history">
               {userBoards
-                ? this.getReceivers(userBoards).map(user => {
+                ? this.getReceivers(userBoards).map((user, i) => {
                     const {
                       _id,
                       lastMessage,
@@ -308,7 +260,7 @@ checkForNewMessage = () => {
                         ? lastMessage.author
                         : '';
                     return (
-                      <div key={_id}>
+                      <div key={_id + i}>
                         {_id.toString() === yourId.toString() ? (
                           <MessagedUser
                             switchUser={user => this.switchUser(user)}

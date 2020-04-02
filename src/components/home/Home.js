@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import toggle from '../sidebar/toggle'
 import './Home.css'
 
 class home extends Component {
@@ -18,7 +17,7 @@ class home extends Component {
     document.querySelectorAll('.icons').forEach((icon, i) => {
       icon.addEventListener('mouseenter', event => {
         icon.children[1].classList.add('show-icon-hint')
-      })
+      })                   
       icon.addEventListener('mouseleave', event => {
         icon.children[1].classList.remove('show-icon-hint')
       })
@@ -49,10 +48,6 @@ render(){
               <i className='fab fa-grav'></i>
               <i className='hide-hint'>grav</i>
             </span>
-            {/* <span className='icons star-half'>
-              <i className="fas fa-star-half-alt"></i>
-              <i className='hide-hint'>star</i>
-            </span> */}
             <span className='icons star'>
               <i className="fas fa-star"></i>
               <i className='hide-hint'>star</i>
@@ -137,15 +132,16 @@ render(){
               <i className="fas fa-calculator"></i>
               <i className='hide-hint'>calculator</i>
             </span>
-          </div>
-        </div>
         <span className='icons info'>
           <i className="fas fa-info"></i>
           <i className='hide-hint'>info</i>
         </span>
+          </div>
+        </div>
       </div>
     )
   }
 }
+
 
 export default home;

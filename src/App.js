@@ -20,11 +20,16 @@ import "./App.css";
 
 export class App extends Component {
   componentDidMount() {
+<<<<<<< HEAD
+    this.context.updateState(({ message: 'Checking authentication...'}))
+    // this.context.isUserLoggedIn()
+=======
     this.context.updateState({
       isLoading: true,
       message: "Checking authentication..."
     });
     this.context.isUserLoggedIn();
+>>>>>>> aec419e2b133206c8b15f403edd03c21e9eda8dc
   }
 
   render() {
@@ -40,6 +45,77 @@ export class App extends Component {
     } = this.context;
     return (
       <div className="App">
+<<<<<<< HEAD
+      <NavBar loggedIn={loggedIn} userLogout={handleLogout} />
+      {user && <SideBar user={user} />}
+      {/* 
+      Your App component only mounts once(when user is initially loading the website(or if you refresh))
+      so isLoading should be set to true in starting state and changed to false when you get back that  
+      response from the backend. 
+      After that isLoading should only be set to true when you are making a call to the backend and waiting for the response.
+       */}
+      {isLoading ? (
+        <>
+          <Loader message={message} />
+          <Loader2 message={message} />
+        </>
+      ) : (
+        <Switch>
+          {loggedIn && (
+            <>
+              <Route
+                exact
+                strict
+                path="/"
+                render={props => <Home {...props} user={user} />}
+              />
+              <Route
+                exact
+                strict
+                path="/message-board"
+                render={() => <SocketMessageBoard />}
+              />
+              <Route
+                exact
+                strict
+                path="/message-board/:id"
+                render={() => <SocketMessageBoard />}
+              />
+              <Route exact strict path="/about" component={About} />
+              <Route exact strict path="/user-update" component={UserForm} />
+              <Route exact strict path="/projects" component={Projects} />
+              <Route exact strict path="/projects/:id" component={ProjectDetails}/>
+            </>
+          )}
+          <Route exact strict path="/login"
+            render={props => {
+              return loggedIn ? (
+                <Redirect to="/" />
+              ) : (
+                <LoginForm
+                  {...props}
+                  userLoggedIn={isUserLoggedIn}
+                  handleLoginInput={handleLoginInput}
+                  handleLoginSubmit={handleLoginSubmit}
+                />
+              );
+            }}
+          />
+          <Route exact strict path="/"
+            render={props => <LandingPage
+                {...props}
+                handleSignupInput={handleSignupInput}
+                handleSignupSubmit={handleSignupSubmit}
+              />
+            }
+          />
+          <Route exact strict 
+            path="/message-board"
+            render={() => <Redirect to="/" />}/>
+        </Switch>
+      )}
+    </div>
+=======
         <NavBar loggedIn={loggedIn} userLogout={handleLogout} />
         {user && <SideBar user={user} />}
         {/* 
@@ -127,6 +203,7 @@ export class App extends Component {
           </Switch>
         )}
       </div>
+>>>>>>> aec419e2b133206c8b15f403edd03c21e9eda8dc
     );
   }
 }

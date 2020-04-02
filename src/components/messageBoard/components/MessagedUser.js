@@ -22,7 +22,7 @@ export default function MessagedUser(props) {
             </h5>
             <p>
               {lastMessage.author._id.toString() ===
-              state.user._id.toString() ? (
+              state.user?._id.toString() ? (
                 <span className="message-you"> {'You: '} </span>
               ) : (
                 <span className="message-other">

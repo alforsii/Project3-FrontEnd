@@ -1,27 +1,14 @@
 import React from 'react'
 import { Route, Redirect} from 'react-router-dom'
-import auth from '../auth'
+// import auth from '../../utils/auth'
 
-export default function protectedRoute({component: Component, ...rest}) {
-    return (
-        <div>
-            <Route
-                {...rest}
-                render={props => {
-                    if(auth.isAuthenticated()){
-                        return <Component {...props} />
-                    } else {
-                        return <Redirect to={
-                            {
-                                pathname: '/',
-                                state: {
-                                    from: props.location
-                                }
-                            }
-                        } />
-                    }
-                }}
+export default function protectedRoute(props) {
+    const {component: Component, ...rest} =props
+    console.log("Output for: protectedRoute -> props", props)
+    return ( <Route exact strict path={props.to}
+                render={props =>  
+                    rest.loggedIn ? <Component {...props} {...rest}/> : ''
+                }
             />
-        </div>
     )
 }

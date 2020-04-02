@@ -2,12 +2,12 @@ import React from 'react';
 import { Link} from 'react-router-dom'
 
 
-const UserSignup = ({handleChange, handleSubmit}) => {
+const UserSignup = ({handleSignupInput, handleSignupSubmit}) => {
 
 
     return (
       <div>
-        <form id='signup-form' onSubmit={handleSubmit} action=''>
+        <form id='signup-form' onSubmit={handleSignupSubmit} action=''>
           <h1>
             <i className="fas fa-user-plus"></i>Sign up
           </h1>
@@ -15,27 +15,27 @@ const UserSignup = ({handleChange, handleSubmit}) => {
           <label htmlFor="username">
             Username
           </label>
-          <input onChange={handleChange} type="text" name="username" />
+          <input onChange={handleSignupInput} type="text" name="username" />
 
           <label  htmlFor="firstName">
             First Name
           </label>
-          <input onChange={handleChange} type="text" name="firstName" />
+          <input onChange={handleSignupInput} type="text" name="firstName" />
 
           <label  htmlFor="lastName">
             Last Name
           </label>
-          <input onChange={handleChange} type="text" name="lastName" />
+          <input onChange={handleSignupInput} type="text" name="lastName" />
 
           <label  htmlFor="email">
             Email
           </label>
-          <input onChange={handleChange} type="email" name="email" />
+          <input onChange={handleSignupInput} type="email" name="email" />
 
           <label  htmlFor="password">
             Password
           </label>
-          <input onChange={handleChange} type="password" name="password" placeholder="**********" />
+          <input onChange={handleSignupInput} type="password" name="password" placeholder="**********" />
 
           <button id='signup-form-btn'  type="submit">
             Signup
