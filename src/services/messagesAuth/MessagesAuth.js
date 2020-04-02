@@ -1,11 +1,10 @@
-import axios from 'axios'
-const BASE_URL = process.env.REACT_APP_BASE_URL
+import axios from "axios";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const service = axios.create({
-    baseURL: BASE_URL,
-    withCredentials: true
-})
-
+  baseURL: BASE_URL,
+  withCredentials: true
+});
 
 export const AUTH_MESSAGES = {
     updateStatus: data => service.post('/api/messages/update-status', data),
@@ -15,4 +14,4 @@ export const AUTH_MESSAGES = {
 
 }
 
-export default AUTH_MESSAGES
+export default AUTH_MESSAGES;
