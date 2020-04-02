@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 export  const myProjects = [
@@ -25,22 +25,38 @@ export  const myProjects = [
     }
   ]
 
-export const projects = () => {
+export class projects extends Component   {
+
+  componentDidMount(){
+    console.log("this.props", this.props)
+    if(!this.props.loggedIn){
+      this.props.history.push('/')
+      // this.props.history.goBack()
+      // this.props.history.goForward()
+    }
+  }
  
-  return (
-    <div>
-      <h2>Projects:</h2>
-      {myProjects.map((eachProject, index) => {
-        return (
-          <div key={eachProject.id}>
-            <h3>
-            <Link to={`/projects/${eachProject.id}`}>{eachProject.name}</Link>
-            </h3>
-            <h4>{eachProject.technologies}</h4>
-            <hr />
-          </div>
-        )
-      })}
-  </div>
-  )
+  render(){
+    const { users } = this.props
+    console.log("Output for: projects -> render -> this.props", this.props)
+    return (
+      <div>
+  
+          <h2>Projects:</h2>
+        {myProjects.map((eachProject, index) => {
+          return (
+            <div key={eachProject.id}>
+              <h3>
+              <Link to={`/projects/${eachProject.id}`}>{eachProject.name}</Link>
+              </h3>
+              <h4>{eachProject.technologies}</h4>
+              <hr />
+            </div>
+          )
+        })}
+        <h2>Users</h2>
+      { users.map(user => <ul key={user._id}><li>{user.username}</li></ul>)}
+    </div>
+    )
+  }
 }

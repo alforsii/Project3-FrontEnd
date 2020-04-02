@@ -4,7 +4,7 @@ import './Message.css'
 
 // eslint-disable-next-line
 export default function Message({  message, path, firstName, lastName, currUser, user }) {
-    const isCurrentUser = currUser._id.toString() === user._id.toString()
+    const isCurrentUser = currUser?._id.toString() === user?._id.toString()
     // const myStyle = !isCurrentUser? {display: 'flex', flexDirection: 'row-reverse', justifyContent: 'flex-end', alignItems: 'flex-end'} : {}
     // const myStyle2 = !isCurrentUser? {display: 'flex', flexDirection: 'row-reverse', justifyContent: 'flex-start', alignItems: 'center'} : {}
   return (

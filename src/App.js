@@ -20,8 +20,8 @@ import './App.css';
 
 export class App extends Component {
   componentDidMount() {
-    this.context.updateState(({ isLoading: true, message: 'Checking authentication...'}))
-    this.context.isUserLoggedIn()
+    this.context.updateState(({ message: 'Checking authentication...'}))
+    // this.context.isUserLoggedIn()
   }
  
   render() {
@@ -44,8 +44,8 @@ export class App extends Component {
               render={props => {
                 return loggedIn? <Home {...props} user={user}/> 
                 : <LandingPage {...props} 
-                 handleChange={handleSignupInput} 
-                 handleSubmit={ handleSignupSubmit}/>
+                handleSignupInput={handleSignupInput} 
+                handleSignupSubmit={ handleSignupSubmit}/>
               }}
             />
             <Route exact strict path="/login" render={props => {

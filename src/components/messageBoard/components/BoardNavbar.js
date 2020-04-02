@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function UserConversation(props) {
    const { match:{params: {id}}, users } = props
-   const user = users.filter(user => user._id.toString() === id)[0]
+   const user = users?.filter(user => user._id.toString() === id)[0]
    //note! - here _doc is when u make from DB copy of collections it returns diff array of users where each user will be inside _doc prop
   return (
     <div>

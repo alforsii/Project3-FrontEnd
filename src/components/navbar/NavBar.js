@@ -20,7 +20,7 @@ export default function NavBar({loggedIn, userLogout}) {
                     <Link to='/' className='nav-items'>Home</Link>
                     <Link to='/about' className='nav-items'>About</Link>
                     <Link to='/projects' className='nav-items'>Projects</Link>
-                    <NavLink exact to="/faq" className='nav-items' activeStyle={{fontWeight: 'bold', color: '#fff'}} activeClassName="selected">FAQs</NavLink>
+                    <NavLink exact to="/user-update" className='nav-items' activeStyle={{fontWeight: 'bold', color: '#fff'}} activeClassName="selected">FAQs</NavLink>
                     <Link to='/contacts' className='nav-items'>Contacts</Link>
                     <Link to='/' className='nav-items' onClick={userLogout} >Logout</Link>
                     <span onClick={()=> toggleSideBar()} id='menu-bars-btn' className='nav-items'><span className='fas fa-bars'></span></span>

@@ -19,12 +19,12 @@ export class AuthProvider extends Component {
       },
       formLogin: { email: '', password: '' },
       loggedIn: false,
-      isLoading: false,
+      isLoading: true,
       message: false,
     };
   }
   componentDidMount() {
-    this.getUsers();
+    this.isUserLoggedIn()
   }
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -35,7 +35,6 @@ export class AuthProvider extends Component {
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   getUsers = async () => {
     const res = await AUTH_SERVICE.getUsers();
-    // let res = await axios.get(`/api/auth/users`)
     this.setState({ users: res.data });
   };
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -55,21 +54,16 @@ export class AuthProvider extends Component {
   isUserLoggedIn = async () => {
     try {
       const res = await AUTH_SERVICE.isLoggedIn();
-      // const res = await axios.get('/api/auth/isLoggedIn');
-      this.setState({ user: res.data.user });
-
-      setTimeout(() => {
-        this.setState({ loggedIn: true });
-        this.getUsers();
-      }, 1000);
+       this.setState({ user: res.data.user,loggedIn: true  }, this.getUsers )
+ 
       setTimeout(() => {
         this.setState({ isLoading: false });
       }, 1500);
     } catch (err) {
       this.displayError(err);
-      setTimeout(() => {
-        this.setState({ isLoading: false });
-      }, 2000);
+      this.setState({ isLoading: false });
+      // setTimeout(() => {
+      // }, 2000);
     }
   };
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -88,10 +82,9 @@ export class AuthProvider extends Component {
   handleLoginSubmit = async e => {
     e.preventDefault();
     try {
-      this.setState({ isLoading: true, message: 'Checking authentication...' });
-      // const res = await axios.post('/api/auth/login', this.state.formLogin)
+      this.setState({ isLoading: true, message: 'Logging in 🤞 ' });
       const res = await AUTH_SERVICE.login(this.state.formLogin);
-      await this.getUsers();
+      // await this.getUsers();
       const {
         data: { user },
       } = res;
@@ -103,15 +96,12 @@ export class AuthProvider extends Component {
         },
         user,
         loggedIn: true,
-      }));
+      }),this.getUsers);
 
-      setTimeout(() => {
-        this.setState({ message: 'Logging in 🤞 ' });
-      }, 1500);
       setTimeout(() => {
         this.setState({ isLoading: false });
         this.props.history.push('/');
-      }, 2500);
+      }, 2000);
     } catch (err) {
       this.displayError(err);
     }
@@ -121,9 +111,8 @@ export class AuthProvider extends Component {
   handleSignupSubmit = async e => {
     e.preventDefault();
     try {
-      this.setState({ isLoading: true, message: 'Signing up...' });
+      this.setState({isLoading: true, message: 'Signing up...' });
       const res = await AUTH_SERVICE.signup(this.state.formSignup);
-      // const res = await axios.post('/api/auth/signup', this.state.formSignup);
       const {
         data: { user },
       } = res;
@@ -136,12 +125,12 @@ export class AuthProvider extends Component {
           email: '',
           password: '',
         },
-        currentUser: user,
         user,
-      }));
+        loggedIn: true,
+      }),this.getUsers);
 
       setTimeout(() => {
-        this.setState({ loggedIn: true, isLoading: false });
+        this.setState({ isLoading: false });
         this.props.history.push('/');
       }, 2000);
     } catch (err) {
@@ -165,7 +154,6 @@ export class AuthProvider extends Component {
     try {
       this.setState({ isLoading: true, message: 'Logging out...' });
       await AUTH_SERVICE.logout();
-      // await axios.post('/api/auth/logout');
       this.setState({ loggedIn: false, user: null, users: null });
       setTimeout(() => {
         this.setState({ message: 'Successfully logged out!' });

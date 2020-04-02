@@ -5,7 +5,7 @@ import './LandingPage.css'
 
 
 
-const HomePage = ({handleSubmit, handleChange}) => {
+const HomePage = ({handleSignupSubmit, handleSignupInput}) => {
         return (
             <div>
               {/* Welcome Page Container */}
@@ -32,7 +32,7 @@ const HomePage = ({handleSubmit, handleChange}) => {
                 </div>
       
                 {/* { Sign up form  */}
-                    <SignupForm handleSubmit={handleSubmit} handleChange={handleChange}/>
+                    <SignupForm handleSignupSubmit={handleSignupSubmit} handleSignupInput={handleSignupInput}/>
                 {/* End of Sign Up form  */}
               </div>
             </div>
