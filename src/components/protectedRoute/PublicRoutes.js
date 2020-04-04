@@ -16,7 +16,7 @@ export default function protectedRoute(props) {
               loggedIn ? (
                 <Redirect to="/home" />
               ) : (
-                <Component {...props} {...rest} />
+                <Component {...props} {...rest} context={context}/>
               )
             }
           />

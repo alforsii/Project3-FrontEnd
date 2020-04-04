@@ -2,7 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import './LoginForm.css'
 
-export const UserLogin = ({handleLoginSubmit, handleLoginInput, message}) => {
+export const UserLogin = (props) => {
+const {handleLoginSubmit, handleLoginInput} = props.context
+const {message} = props.context.state
 
     return (
         <div id='main-login'>

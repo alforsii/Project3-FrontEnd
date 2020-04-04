@@ -27,21 +27,10 @@ export  const myProjects = [
 
 export class projects extends Component   {
 
-  componentDidMount(){
-    console.log("this.props", this.props)
-    if(!this.props.loggedIn){
-      this.props.history.push('/')
-      // this.props.history.goBack()
-      // this.props.history.goForward()
-    }
-  }
- 
   render(){
-    const { users } = this.props
-    console.log("Output for: projects -> render -> this.props", this.props)
+    const { users } = this.props.context.state
     return (
       <div>
-  
           <h2>Projects:</h2>
         {myProjects.map((eachProject, index) => {
           return (

@@ -5,7 +5,8 @@ import './LandingPage.css'
 
 
 
-const HomePage = ({handleSignupSubmit, handleSignupInput}) => {
+const HomePage = (props) => {
+  const {handleSignupSubmit, handleSignupInput} = props.context
         return (
             <div>
               {/* Welcome Page Container */}

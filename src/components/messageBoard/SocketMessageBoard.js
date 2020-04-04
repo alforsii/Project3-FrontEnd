@@ -15,8 +15,8 @@ export class MessageBoard extends Component {
   timer = 0;
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   state = {
-    user: this.props.user,
-    users: this.props.users,
+    user: this.props.context.state.user,
+    users: this.props.context.state.users,
     receiver: undefined,
     message: '',
     messages: false,
