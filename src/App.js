@@ -26,87 +26,26 @@ export class App extends Component {
   }
 
   render() {
-    // eslint-disable-next-line
-    const { loggedIn, isLoading, message, user, users } = this.context.state;
-    const {
-      handleLoginInput,
-      handleLoginSubmit,
-      handleSignupInput,
-      handleSignupSubmit,
-      handleLogout,
-      isUserLoggedIn,
-    } = this.context;
+    const { loggedIn, isLoading, message, user } = this.context.state;
+    const { handleLogout } = this.context;
     return (
       <div className="App">
         <NavBar loggedIn={loggedIn} userLogout={handleLogout} />
         {user && <SideBar user={user} />}
+
         {isLoading ? (
-          <>
-            <Loader message={message} />
-            <Loader2 message={message} />
-          </>
+          <><Loader message={message}/><Loader2 message={message}/></>
         ) : (
           <Switch>
-            <PublicRoute
-              exact
-              strict
-              path="/"
-              handleSignupInput={handleSignupInput}
-              handleSignupSubmit={handleSignupSubmit}
-              component={LandingPage}
-            />
-            <PublicRoute
-              exact
-              strict
-              path="/login"
-              userLoggedIn={isUserLoggedIn}
-              handleLoginInput={handleLoginInput}
-              handleLoginSubmit={handleLoginSubmit}
-              component={LoginForm}
-            />
-            <ProtectedRoute
-              exact
-              strict
-              path="/message-board"
-              user={user}
-              users={users}
-              component={SocketMessageBoard}
-            />
-            <ProtectedRoute
-              exact
-              strict
-              path="/message-board/:id"
-              user={user}
-              users={users}
-              component={SocketMessageBoard}
-            />
-            <ProtectedRoute
-              exact
-              strict
-              path="/home"
-              user={user}
-              component={Home}
-            />
-            <ProtectedRoute exact strict path="/about" component={About} />
-            <ProtectedRoute
-              exact
-              strict
-              path="/user-update"
-              component={UserForm}
-            />
-            <ProtectedRoute
-              exact
-              strict
-              path="/projects"
-              users={users}
-              component={Projects}
-            />
-            <ProtectedRoute
-              exact
-              strict
-              path="/projects/:id"
-              component={ProjectDetails}
-            />
+            <PublicRoute exact path="/" component={LandingPage} />
+            <PublicRoute exact path="/login" component={LoginForm} />
+            <ProtectedRoute exact path="/home" component={Home} />
+            <ProtectedRoute exact path="/about" component={About} />
+            <ProtectedRoute exact path="/user-update" component={UserForm} />
+            <ProtectedRoute exact path="/projects" component={Projects} />
+            <ProtectedRoute exact path="/projects/:id" component={ProjectDetails}/>
+            <ProtectedRoute exact path="/message-board" component={SocketMessageBoard}/>
+            <ProtectedRoute exact path="/message-board/:id" component={SocketMessageBoard}/>
           </Switch>
         )}
       </div>

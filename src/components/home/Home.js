@@ -30,7 +30,7 @@ componentDidMount = () => {
   // toggle()
 }
 render(){
-  const { user } = this.props
+  const { user } = this.props.context.state
     return (
       <div className='main-icons'>
         <div className='icons-div'>
