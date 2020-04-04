@@ -100,7 +100,7 @@ export class AuthProvider extends Component {
 
       setTimeout(() => {
         this.setState({ isLoading: false });
-        this.props.history.push('/');
+        this.props.history.push('/home');
       }, 2000);
     } catch (err) {
       this.displayError(err);
@@ -131,7 +131,7 @@ export class AuthProvider extends Component {
 
       setTimeout(() => {
         this.setState({ isLoading: false });
-        this.props.history.push('/');
+        this.props.history.push('/home');
       }, 2000);
     } catch (err) {
       this.displayError(err);
@@ -156,11 +156,11 @@ export class AuthProvider extends Component {
       await AUTH_SERVICE.logout();
       this.setState({ loggedIn: false, user: null, users: null });
       setTimeout(() => {
+        this.props.history.push('/');
         this.setState({ message: 'Successfully logged out!' });
       }, 1500);
       setTimeout(() => {
         this.setState({ isLoading: false });
-        this.props.history.push('/');
       }, 2500);
     } catch (err) {
       this.displayError(err);

@@ -7,16 +7,16 @@ export default function protectedRoute(props) {
   return (
     <AuthContext.Consumer>
       {context => {
-          const { loggedIn } = context.state
+        const { loggedIn } = context.state;
         return (
           <Route
             exact
             strict
             render={props =>
-                loggedIn ? (
-                <Component {...props} {...rest} />
+              loggedIn ? (
+                <Redirect to="/home" />
               ) : (
-                <Redirect to="/" />
+                <Component {...props} {...rest} />
               )
             }
           />

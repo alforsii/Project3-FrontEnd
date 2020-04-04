@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import socketIOClient from "socket.io-client";
 import moment from 'moment';
 
 import { AUTH_MESSAGES } from '../../services/messagesAuth/MessagesAuth';
-import { AuthContext} from '../../myContext/AuthProvider'
 import BoardNavbar from './components/BoardNavbar';
-import MessagedUser from './components/MessagedUser';
-import Message from './components/Message';
-import Loader from './components/loader/Loader';
+import MessageHistory from './components/MessageHistory'
+import SideNavbar from './components/SideNavbar'
+import BoardBody from './components/BoardBody'
 import './MessageBoard.css';
 
 // const socket = socketIOClient('http://127.0.0.1:3001');
@@ -16,8 +15,8 @@ export class MessageBoard extends Component {
   timer = 0;
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   state = {
-    user: this.context.state.user,
-    users: this.context.state.users,
+    user: this.props.user,
+    users: this.props.users,
     receiver: undefined,
     message: '',
     messages: false,
@@ -148,65 +147,18 @@ export class MessageBoard extends Component {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   render() {
     const {
-      // eslint-disable-next-line
-      messages,
       newMessages,
       users,
       userBoards,
       message,
-      isLoading,
-      status
+      isLoading
     } = this.state;
 
     return (
       <div>
         <div className="main-message-board">
           <div className="nav-sidebar">
-            <div className="sidebar-icons">
-              <Link to="/" className="">
-                <span>
-                  <i className="fas fa-feather-alt"></i>
-                </span>
-              </Link>
-              <Link to="/" className="">
-                <span>
-                  <i className="fas fa-dove"></i>
-                </span>
-              </Link>
-              <Link to="/" className="">
-                <span>
-                  <i className="fas fa-edit"></i>
-                </span>
-              </Link>
-              <Link to="/" className="">
-                <span>
-                  <i className="fas fa-user"></i>
-                </span>
-              </Link>
-              <Link to="/" className="">
-                <span>
-                  <i className="fab fa-dropbox"></i>
-                </span>
-              </Link>
-              <Link to="/message-board" className="">
-                <span className="fas fa-comment-dots"></span>
-              </Link>
-              <Link to="/" className="">
-                <span>
-                  <i className="fas fa-award"></i>
-                </span>
-              </Link>
-              <Link to="/" className="">
-                <span>
-                  <i className="fas fa-crop"></i>
-                </span>
-              </Link>
-              <Link to="/" className="">
-                <span>
-                  <i className="fas fa-cog"></i>
-                </span>
-              </Link>
-            </div>
+            <SideNavbar/>
           </div>
 
           <div className="users-list">
@@ -242,63 +194,16 @@ export class MessageBoard extends Component {
             </div>
             {/* messaging history with user image*/}
             <div className="messages-history">
-              {userBoards
-                ? this.getReceivers(userBoards).map((user, i) => {
-                    const {
-                      _id,
-                      lastMessage,
-                      createdAt,
-                    } = user;
-
-                    const yourId = this.state.user._id;
-                    const theUser =
-                      lastMessage.receiverID._id.toString() !==
-                      yourId.toString()
-                        ? lastMessage.receiverID
-                        : lastMessage.author._id.toString() !==
-                          yourId.toString()
-                        ? lastMessage.author
-                        : '';
-                    return (
-                      <div key={_id + i}>
-                        {_id.toString() === yourId.toString() ? (
-                          <MessagedUser
-                            switchUser={user => this.switchUser(user)}
-                            user={theUser}
-                            lastMessage={lastMessage}
-                            state={this.state}
-                            createdAt={createdAt}
-                            status={status}
-                            currUser={this.state.user}
-                          />
-                        ) : (
-                          <MessagedUser
-                            switchUser={user => this.switchUser(user)}
-                            user={user}
-                            lastMessage={lastMessage}
-                            state={this.state}
-                            createdAt={createdAt}
-                            status={status}
-                            currUser={this.state.user}
-                          />
-                        )}
-                      </div>
-                    );
-                  })
-                : ''}
+              { userBoards 
+              && <MessageHistory state={this.state} 
+              getReceivers={this.getReceivers(userBoards)}
+              switchUser={user => this.switchUser(user)}/>}
             </div>
           </div>
 
           <div id='"message-board' className="message-board">
             <div className="message-board-nav">
-              <Switch>
-                <Route
-                  exact
-                  strict
-                  path="/message-board/:id"
-                  render={props => <BoardNavbar {...props} users={users} />}
-                />
-              </Switch>
+            {this.state.receiver && <BoardNavbar  users={users} user={this.state.receiver}/>}
               <div>
                 <span id="search-icon2">
                   <i className="fas fa-search"></i>
@@ -306,7 +211,7 @@ export class MessageBoard extends Component {
                 <span>
                   <i className="fas fa-user-plus"></i>
                 </span>
-                {/* <span><i class="fas fa-ellipsis-v"></i></span> */}
+                {/* <span><i className="fas fa-ellipsis-v"></i></span> */}
                 <span>
                   <i className="fas fa-ellipsis-h"></i>
                 </span>
@@ -316,41 +221,7 @@ export class MessageBoard extends Component {
             <div id="message-board-body" className="message-board-body">
               <div id="messageBoardUsers">
                 {/* all messages goes here */}
-                <div className="conversation-div">
-                  {newMessages ? (
-                    newMessages.map(msg => {
-                      return msg.author.username !== msg.sender ? (
-                        <Message
-                          key={msg._id}
-                          currUser={this.state.user}
-                          msg={msg}
-                          user={msg.receiverID}
-                          id={msg._id}
-                          message={msg.message}
-                          isNew={msg.new}
-                          path={msg.receiverID.path}
-                          firstName={msg.receiverID.firstName}
-                          lastName={msg.receiverID.lastName}
-                        />
-                      ) : (
-                        <Message
-                          key={msg._id}
-                          currUser={this.state.user}
-                          user={msg.author}
-                          id={msg._id}
-                          message={msg.message}
-                          path={msg.author.path}
-                          firstName={msg.author.firstName}
-                          lastName={msg.author.lastName}
-                        />
-                      );
-                    })
-                  ) : isLoading ? (
-                    <Loader />
-                  ) : (
-                    ''
-                  )}
-                </div>
+                  <BoardBody isLoading={isLoading} newMessages={newMessages} state={this.state}/>
               </div>
             </div>
 
@@ -389,7 +260,5 @@ export class MessageBoard extends Component {
     );
   }
 }
-
-MessageBoard.contextType = AuthContext
 
 export default MessageBoard;
