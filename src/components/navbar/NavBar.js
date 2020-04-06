@@ -9,11 +9,14 @@ export default function NavBar({loggedIn, userLogout}) {
         return (
             <nav className='navbar'>
                 <div className='nav-group'>
+                    {/* <Link to='/' className='nav-items'><i class="fas fa-tint"></i><i> IronSchool</i></Link> */}
+                    {/* <NavLink to='/' className='nav-items' activeStyle={{fontWeight: 'bold', color: 'black'}} activeClassName="selected">My<i className="fas fa-globe-americas"></i><i>World</i></NavLink> */}
+                    <Link to='/' className='nav-items' style={{color: '#333', fontFamily: 'italic'}}><i className="fas fa-book-open"></i><i> IronSchool</i></Link>
                     <Link to='/' className='nav-items'><span className='fas fa-school'></span></Link>
                     
                     <Link to='/' className='nav-items'><span className='fas fa-bell'></span></Link>
                     <Link to='/message-board' className='nav-items'><span className='fas fa-envelope'></span></Link>
-                    <Link to='/' className='nav-items'><span className='fas fa-moon'></span></Link>
+                    <Link to='/settings/update-profile' className='nav-items'><span className='fas fa-moon'></span></Link>
                     <Link to='/' className='nav-items'><span className='fab fa-github'></span></Link>
                 </div>
                 <div className='nav-group'>
@@ -32,8 +35,7 @@ export default function NavBar({loggedIn, userLogout}) {
         return (
             <nav className='navbar'>
                 <div className='nav-group'>
-                    <Link to='/' className='nav-items'><span className='fas fa-school'></span></Link>
-                </div>
+                <span onClick={()=> toggleSideBar()} id='menu-bars-btn' className='nav-items'><span className='fas fa-bars'></span></span>                </div>
                 <div className='nav-group'>
                     {/* <Link to='/signup' className='nav-items'>Signup</Link> */}
                     <Link to='/login' className='nav-items'>Login</Link>

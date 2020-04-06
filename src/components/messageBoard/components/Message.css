@@ -12,12 +12,12 @@
   font-weight: bold;
 }
 .current-user a{
-  color: green;
+  color: #068ce6;
 }
   .msg-div {
     max-width: 40vw;
-    background-color: #eff1f3;
-    color: #222;
+    background-color: #068ce6;
+    color: #fff;
     font-weight: bold;
     border-radius: 10px;
     padding: 10px 10px 5px 10px;
@@ -52,5 +52,5 @@
   color: red;
 }
 .chat-message span.hideBtn:hover {
-  color: green;
+  color: #333;
 }

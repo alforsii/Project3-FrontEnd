@@ -34,8 +34,12 @@ export class AuthProvider extends Component {
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   getUsers = async () => {
-    const res = await AUTH_SERVICE.getUsers();
-    this.setState({ users: res.data });
+    try {
+      const res = await AUTH_SERVICE.getUsers();
+      this.setState({ users: res.data });
+    } catch (err) {
+      this.displayError(err)
+    }
   };
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -82,7 +86,7 @@ export class AuthProvider extends Component {
   handleLoginSubmit = async e => {
     e.preventDefault();
     try {
-      this.setState({ isLoading: true, message: 'Logging in 🤞 ' });
+      this.setState({ isLoading: true, message: 'Logging in...' });
       const res = await AUTH_SERVICE.login(this.state.formLogin);
       // await this.getUsers();
       const {

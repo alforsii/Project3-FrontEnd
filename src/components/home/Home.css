@@ -30,7 +30,7 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
   min-width: 550px;
   max-width: 40vw;
   height: 70vh;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   background-color: var(--primaryColor);
   padding: 30px 200px 50px;
 }
@@ -41,7 +41,7 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background-color: var(--lightBlue);
+    /* background-color: var(--lightBlue); */
 }
 .hide-hint {
     font-family: monospace;

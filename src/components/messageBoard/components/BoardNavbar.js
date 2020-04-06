@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
-export default function UserConversation({user}) {
+export default function UserConversation({user, message}) {
   //  const { match:{params: {id}}, users } = props
   //  const user = users?.filter(user => user._id.toString() === id)[0]
 
@@ -18,7 +18,9 @@ export default function UserConversation({user}) {
             <h5 className="username">
               {user?.firstName} {user?.lastName}
             </h5>
-            <p>Some message will be here...</p>
+          {message? 
+            <p style={{color:'red'}}>{message}</p>
+            :<p>Some message will be here...</p>}
           </div>
         </div>
       </div>
