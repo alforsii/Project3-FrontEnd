@@ -12,11 +12,13 @@ import UserForm from './components/signup-form/UserForm';
 import SideBar from './components/sidebar/SideBar';
 // import MessageBoard from './components/messageBoard/MessageBoard';
 import SocketMessageBoard from './components/messageBoard/SocketMessageBoard';
+import UpdateProfile from './components/upload/UpdateProfile'
 import LoginForm from './components/auth/LoginForm';
 import Loader from './/loader/Loader';
 import Loader2 from './components/messageBoard/components/loader/Loader';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import PublicRoute from './components/protectedRoute/PublicRoutes';
+
 
 import './App.css';
 
@@ -31,7 +33,7 @@ export class App extends Component {
     return (
       <div className="App">
         <NavBar loggedIn={loggedIn} userLogout={handleLogout} />
-        {user && <SideBar user={user} />}
+        <SideBar user={user} userLogout={handleLogout} loggedIn={loggedIn}/>
 
         {isLoading ? (
           <><Loader message={message}/><Loader2 message={message}/></>
@@ -46,6 +48,7 @@ export class App extends Component {
             <ProtectedRoute exact path="/projects/:id" component={ProjectDetails}/>
             <ProtectedRoute exact path="/message-board" component={SocketMessageBoard}/>
             <ProtectedRoute exact path="/message-board/:id" component={SocketMessageBoard}/>
+            <ProtectedRoute exact path="/settings/update-profile" component={UpdateProfile}/>
           </Switch>
         )}
       </div>

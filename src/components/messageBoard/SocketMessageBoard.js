@@ -8,6 +8,7 @@ import BoardNavbar from './components/BoardNavbar';
 import MessageHistory from './components/MessageHistory'
 import SideNavbar from './components/SideNavbar'
 import BoardBody from './components/BoardBody'
+import Emojis from './components/Emojis'
 import './MessageBoard.css';
 
 // const socket = socketIOClient('http://127.0.0.1:3001');
@@ -19,13 +20,16 @@ export class MessageBoard extends Component {
     users: this.props.context.state.users,
     receiver: undefined,
     message: '',
+    errMessage: '',
     messages: false,
     newMessages: false,
     readMessage: false,
     userBoards: undefined,
     receivers: undefined,
     isLoading: true,
-    status: false
+    status: false,
+    file: null,
+    tempImagesURL: []
   };
 
  
@@ -76,16 +80,54 @@ export class MessageBoard extends Component {
   handleMessageSubmit = async e => {
     e.preventDefault();
     this.setState({ message: '' });
-    await AUTH_MESSAGES.addNewMessage({
-      otherUser: {
-        _id: this.state.receiver._id,
-        username: this.state.receiver.username,
-      },
-      message: this.state.message,
-    });
-    this.scrollMessagesDown()
+    try {
+      await AUTH_MESSAGES.addNewMessage({
+        otherUser: {
+          _id: this.state.receiver._id,
+          username: this.state.receiver.username,
+        },
+        message: this.state.message,
+      });
+      this.scrollMessagesDown()
+    } catch (err) {
+      this.displayError(err)
+    }
   };
 
+   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  handleFileChange = e => {
+    const { type, files, result} = e.target;
+  if(type === 'file'){
+      var fReader = new FileReader()
+      fReader.readAsDataURL(files[0])
+      fReader.onloadend = (e) => {
+        this.setState(prevState => ({
+          file: files[0],
+          tempImagesURL: [...prevState.tempImagesURL, `${e.target.result}`]
+        }))
+      }
+    }
+  }
+  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  clearTempUrl = e => {}
+   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  displayError = err => {
+    if (err.response && err.response.data) {
+      this.setState(prevState => ({
+        ...prevState,
+        errMessage: err.response.data.message,
+      }));
+      setTimeout(() => {
+        this.setState({
+          errMessage: ''
+        })
+      },2000)
+    } else {
+      console.log(err);
+    }
+  };
   
    //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //Get User boards to get messages
@@ -135,6 +177,10 @@ export class MessageBoard extends Component {
       .sort((a, b) => (b.createdAt > a.createdAt ? -1 : 1));
   };
 
+   openEmojis = (e) => {
+    document.getElementById('emojis').style.display = 'block'
+}
+
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //Last on component unmount - when page closed clear/stop  this.timer === setInterval
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -151,6 +197,7 @@ export class MessageBoard extends Component {
       users,
       userBoards,
       message,
+      errMessage,
       isLoading
     } = this.state;
 
@@ -201,9 +248,9 @@ export class MessageBoard extends Component {
             </div>
           </div>
 
-          <div id='"message-board' className="message-board">
+          <div id='message-board' className="message-board">
             <div className="message-board-nav">
-            {this.state.receiver && <BoardNavbar  users={users} user={this.state.receiver}/>}
+            {this.state.receiver && <BoardNavbar message={errMessage}  users={users} user={this.state.receiver}/>}
               <div>
                 <span id="search-icon2">
                   <i className="fas fa-search"></i>
@@ -230,19 +277,26 @@ export class MessageBoard extends Component {
               id="message-form"
               className="message-board-footer"
             >
-              <input
+              <textarea
                 id="message-input"
+                autoComplete='off'
                 onChange={this.handleMessage}
                 value={message}
                 name="message"
-                type="text"
-                placeholder="Type your message..."
+                type="textarea"
+                placeholder='Type your message...'
               />
 
-              <span className="icons message-icon">
-                <i className="fas fa-smile"></i>
+              <span  className="icons message-icon">
+                <i onClick={this.openEmojis}><i className="fas fa-smile"></i></i>
+                <div id='emojis-container' className='emojis-container'>
+                  <Emojis />
+                </div>
               </span>
-              <span className="icons message-icon">
+              <input style={{display:'none'}} type='file' 
+              onChange={this.handleFileChange}
+              ref={fileInput=> this.fileInput = fileInput}/>
+              <span className="icons message-icon" onClick={()=> this.fileInput.click()}>
                 <i className="fas fa-paperclip"></i>
               </span>
               <span className="icons message-icon" role="button" type="submit">

@@ -28,6 +28,15 @@ export const AUTH_SERVICE = {
       },
       isLoggedIn() {
         return service.get('/api/auth/isLoggedIn');
+      },
+      updatePhoto(photoData) {
+        return service.post('/api/profile/upload-photo', photoData, {
+          onUploadProgress: ProgressEvent =>  {
+          console.log(Math.round(ProgressEvent.loaded/ProgressEvent.total *100)+'%')}
+        });
+      },
+      updateProfile(userData) {
+        return service.post('/api/profile/upload-profile', userData);
       }
 }
 

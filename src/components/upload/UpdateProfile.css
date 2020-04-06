@@ -1,0 +1,154 @@
+/* :root {
+  --primaryColor: #f09d51;
+  --mainWhite: #fff;
+  --mainBlack: #222;
+  --mainGrey: #ececec;
+  --mainSpacing: 0.1rem;
+  --mainTransition: all 0.3s linear;
+} */
+/* Colors
+navbar color: light blue: #0794f3
+hover color: Light blue: #068ce6
+White: #fff
+const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600', '#eb4f82', '#73cae3', '#027ebc', ]
+*/
+.main-settings {
+    padding-top: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.main-settings h2 {
+    text-align: center;
+}
+.main-settings hr {
+    width: 100%;
+    border: 0.5px solid #addcfc;
+}
+.update-form {
+    /* width: 450px; */
+    padding: 5px;
+    margin: 5px;
+    background-color: #f6f8fa;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    height: 450px;
+}
+.update-form button {
+    /* align-self: center; */
+    /* background-color: #0794f3; */
+    color: #0794f3;
+    background-color: transparent;
+    border: none;
+    /* font-weight: bold; */
+    position: relative;
+    left: 40%;
+    padding: 10px 30px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.update-form button:hover {
+    background-color: #0794f3;
+    color: #f1f2f3;
+}
+.profile-info {
+    flex: 1;
+}
+form.user-update-form div:first-child{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+form.user-update-form div div {
+    display: flex;
+    flex-direction: column;
+}
+.inputWithIcon {
+    position: relative;
+}
+form.user-update-form div div input {
+    width: 20vw;
+    min-width: 200px;
+    padding: 10px 0px 10px 30px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+.inputWithIcon span {
+    position: absolute;
+    top: 43px;
+    left: 5px;
+    padding: 5px;
+}
+/* .inputWithIcon input:focus, */
+.inputWithIcon input + span
+ {
+    color: #0794f3;
+}
+input#image {
+    display: none;
+}
+span#file-name {
+    font-size: 14px;
+    color: #555;
+    font-weight: bold;
+}
+form.user-update-form div div input:focus {
+    outline: 0;
+    border: 2px solid #0794f3;
+}
+form.user-update-form div div label {
+    padding: 5px;
+    text-align: left;
+    padding-top: 15px;
+}
+
+.upload-form {
+    flex: 1;
+}
+#image {
+    /* display: none; */
+    background: transparent;
+}
+#image-label {
+    /* background-color: #0794f3; */
+    color: #0794f3;
+    margin-top: 200px;
+    padding: 10px;
+    cursor: pointer;
+}
+.prev-profile {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.user-profile-details {
+    flex: 1;
+    text-align: center;
+}
+.progress {
+    width: 100%;
+    margin: 10px 0;
+    background-color: rgba(214, 209, 209, 0.822);
+}
+.profile-pic {
+    width: 150px;
+}
+.progress-bar {
+    background-color: #0794f3;
+    width: 40%;
+    font-size: 0.5rem;
+}
+.progress-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.footer-mark {
+    font-size: 14px;
+    font-family: monospace;
+    text-align: center;
+}

@@ -4,7 +4,7 @@ import './LoginForm.css'
 
 export const UserLogin = (props) => {
 const {handleLoginSubmit, handleLoginInput} = props.context
-const {message} = props.context.state
+// const {message} = props.context.state
 
     return (
         <div id='main-login'>
@@ -38,7 +38,6 @@ const {message} = props.context.state
               <Link to='/'>Sign up</Link>
             </p>
           </form>
-          {message ? <div className="error-message">{ message}</div> : ''}
         </div>
     );
 
