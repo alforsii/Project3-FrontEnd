@@ -29,7 +29,7 @@
   }
   .parent-msg-div {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     font-family: monospace;
     padding-top: 5px;

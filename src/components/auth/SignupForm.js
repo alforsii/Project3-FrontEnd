@@ -36,6 +36,15 @@ const UserSignup = ({handleSignupInput, handleSignupSubmit}) => {
             Password
           </label>
           <input onChange={handleSignupInput} type="password" name="password" placeholder="**********" />
+          <label  htmlFor="password">
+            Title
+          </label>
+          <select onChange={handleSignupInput}
+              id='title' name='title'>
+              <option>Teacher</option>
+              <option>Student</option>
+              <option>Parent</option>
+            </select>
 
           <button id='signup-form-btn'  type="submit">
             Signup

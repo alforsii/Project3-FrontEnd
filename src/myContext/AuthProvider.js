@@ -8,6 +8,14 @@ export class AuthProvider extends Component {
     super(props);
     this.state = {
       user: null,
+      messageBoard: {
+        receiver: null,
+        isLoading: true,
+        messages: false,
+        newMessages: false,
+        readMessage: true,
+        scroll: false
+      },
       currentUser: null,
       users: null,
       formSignup: {
@@ -30,6 +38,7 @@ export class AuthProvider extends Component {
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   updateState = data => {
     this.setState(data);
+   
   };
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

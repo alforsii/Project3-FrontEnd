@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 // import socketIOClient from "socket.io-client";
 import moment from 'moment';
 
@@ -18,15 +18,17 @@ export class MessageBoard extends Component {
   state = {
     user: this.props.context.state.user,
     users: this.props.context.state.users,
-    receiver: undefined,
+    // receiver: undefined,
+    receiver: this.props.context.state.messageBoard.receiver,
     message: '',
     errMessage: '',
     messages: false,
-    newMessages: false,
+    newMessages: this.props.context.state.messageBoard.newMessages,
     readMessage: false,
+    scroll: this.props.context.state.messageBoard.scroll,
     userBoards: undefined,
     receivers: undefined,
-    isLoading: true,
+    isLoading: this.props.context.state.messageBoard.isLoading,
     status: false,
     file: null,
     tempImagesURL: []
@@ -39,9 +41,22 @@ export class MessageBoard extends Component {
   componentDidMount = () => {
     //check for new updates
     this.timer = setInterval(() => {
+
       this.getUserBoards();
       this.updateMessageBoard();
+      if(this.state.scroll){
+        this.scrollMessagesDown();
+      // this.setState({scroll: false})
+      this.props.context.updateState(prevState => ({
+        messageBoard: {
+          ...prevState.messageBoard,
+          scroll: false
+        }
+      }))
+      }
+      if(!this.state.receiver) this.setState({newMessages: null})
     }, 2000);
+    console.log("Output for: MessageBoard -> this.timer -> his.state.receiver", this.state.receiver)
   };
 
    //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -55,9 +70,18 @@ export class MessageBoard extends Component {
      messages: false,
      newMessages: false,
      readMessage: true,
+   },() => {
+    this.getUserBoards();
+    this.updateMessageBoard();
    });
-  //  this.updateStatus(receiver)
-  this.scrollMessagesDown();
+   this.props.context.updateState(prevState => ({
+    messageBoard: {
+      ...prevState.messageBoard,
+      scroll: true
+    }
+  }))
+  // //  this.updateStatus(receiver)
+  // this.scrollMessagesDown();
  };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -79,16 +103,24 @@ export class MessageBoard extends Component {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   handleMessageSubmit = async e => {
     e.preventDefault();
-    this.setState({ message: '' });
     try {
-      await AUTH_MESSAGES.addNewMessage({
+     const res =  await AUTH_MESSAGES.addNewMessage({
         otherUser: {
           _id: this.state.receiver._id,
           username: this.state.receiver.username,
         },
         message: this.state.message,
       });
-      this.scrollMessagesDown()
+      this.setState(prevState => ({
+         message: '',
+         newMessages: [...prevState.newMessages, res]
+      }));
+      this.props.context.updateState(prevState => ({
+        messageBoard: {
+          ...prevState.messageBoard,
+          scroll: true
+        }
+      }))
     } catch (err) {
       this.displayError(err)
     }
@@ -198,6 +230,7 @@ export class MessageBoard extends Component {
       userBoards,
       message,
       errMessage,
+      receiver,
       isLoading
     } = this.state;
 
@@ -228,7 +261,12 @@ export class MessageBoard extends Component {
                 return (
                   <div key={_id} className="user-user-list">
                     <Link
-                      to={`/message-board/${_id}`}
+                      to={{
+                        pathname: `/message-board/${_id}`,
+                        state: {
+                           user
+                        }
+                      }}
                       onClick={() => this.switchUser(user)}
                     >
                       <div className="user-image-div">
@@ -244,13 +282,14 @@ export class MessageBoard extends Component {
               { userBoards 
               && <MessageHistory state={this.state} 
               getReceivers={this.getReceivers(userBoards)}
-              switchUser={user => this.switchUser(user)}/>}
+              switchUser={user => this.switchUser(user)}
+              />}
             </div>
           </div>
 
           <div id='message-board' className="message-board">
             <div className="message-board-nav">
-            {this.state.receiver && <BoardNavbar message={errMessage}  users={users} user={this.state.receiver}/>}
+            {this.state.receiver && <BoardNavbar message={errMessage} user={this.state.receiver}/>}
               <div>
                 <span id="search-icon2">
                   <i className="fas fa-search"></i>
@@ -268,7 +307,7 @@ export class MessageBoard extends Component {
             <div id="message-board-body" className="message-board-body">
               <div id="messageBoardUsers">
                 {/* all messages goes here */}
-                  <BoardBody isLoading={isLoading} newMessages={newMessages} state={this.state}/>
+                  { receiver && <BoardBody isLoading={isLoading} newMessages={newMessages} state={this.state}/>}
               </div>
             </div>
 
