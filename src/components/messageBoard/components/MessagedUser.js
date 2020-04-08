@@ -2,14 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function MessagedUser(props) {
-    const { lastMessage, state, createdAt, switchUser,
-      status } = props
-    const { _id, path,firstName, lastName } = props.user
-      const myStyle = status? {backgroundColor: 'green', width: '7px', height: '7px', borderRadius: '50%'} : {}
+  const { lastMessage, state, createdAt, switchUser, status } = props;
+  const { _id, path, firstName, lastName } = props.user;
+  const myStyle = status
+    ? {
+        backgroundColor: 'green',
+        width: '7px',
+        height: '7px',
+        borderRadius: '50%',
+      }
+    : {};
   return (
     <Link
-      to={`/message-board/${_id}`}
-      onClick={ () => switchUser(props.user) }
+      to={{
+        pathname: `/message-board/${_id}`,
+        state: {
+          user: props.user,
+        },
+      }}
+      onClick={() =>switchUser(props.user)}
     >
       <div className="user-div">
         <div className="user user1">
@@ -26,8 +37,10 @@ export default function MessagedUser(props) {
                 <span className="message-you"> {'You: '} </span>
               ) : (
                 <span className="message-other">
-                  {' '}
-                  {lastMessage.author.firstName + ': '}{' '}
+                  <span className="">
+                    <i className="fas fa-microphone"></i>
+                  </span>{' '}
+                  {/* {lastMessage.author.firstName + ': '}{' '} */}
                 </span>
               )}
               {lastMessage.message.length > 25
@@ -35,8 +48,11 @@ export default function MessagedUser(props) {
                 : lastMessage.message}
             </p>
           </div>
-          <span id="msg-created-time"> {createdAt}</span>
-          <span id="user-online" style={myStyle} ></span>
+          <span id="msg-created-time">
+            {' '}
+            <i>{`${createdAt}`}</i>
+          </span>
+          <span id="user-online" style={myStyle}></span>
         </div>
       </div>
     </Link>

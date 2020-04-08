@@ -9,10 +9,10 @@ export default function NavBar({loggedIn, userLogout}) {
         return (
             <nav className='navbar'>
                 <div className='nav-group'>
-                    {/* <Link to='/' className='nav-items'><i class="fas fa-tint"></i><i> IronSchool</i></Link> */}
-                    {/* <NavLink to='/' className='nav-items' activeStyle={{fontWeight: 'bold', color: 'black'}} activeClassName="selected">My<i className="fas fa-globe-americas"></i><i>World</i></NavLink> */}
-                    <Link to='/' className='nav-items' style={{color: '#333', fontFamily: 'italic'}}><i className="fas fa-book-open"></i><i> IronSchool</i></Link>
-                    <Link to='/' className='nav-items'><span className='fas fa-school'></span></Link>
+                    {/* <Link to='/' className='nav-items' style={{color: '#81d4fa', fontFamily: 'italic'}}><i className="fas fa-book-open"></i><i style={{color:'#4a148c'}}> IronSchool</i></Link> */}
+                    <Link to='/' className='nav-items' style={{color: '#3f51b5', fontFamily: 'italic'}}><i style={{color:'#4a148c'}}> IronSchool</i></Link>
+                    <Link to='/teachers-page' className='nav-items'><span className='fas fa-school'></span></Link>
+                    <Link to='/students-page' className='nav-items'><i className="fas fa-book-open"></i></Link>
                     
                     <Link to='/' className='nav-items'><span className='fas fa-bell'></span></Link>
                     <Link to='/message-board' className='nav-items'><span className='fas fa-envelope'></span></Link>

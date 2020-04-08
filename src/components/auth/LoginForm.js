@@ -17,17 +17,31 @@ const {handleLoginSubmit, handleLoginInput} = props.context
             <label htmlFor="email">
               Email
             </label>
-            <input onChange={handleLoginInput} type="email" name="email" className="form-control" />
+            <input onChange={handleLoginInput} 
+            type="email" 
+            id='email'
+            name="email" 
+            className="form-control" />
 
             <label htmlFor="password">
               Password
             </label>
             <input onChange={handleLoginInput}
               type="password"
+              id='password'
               name="password"
               className="form-control"
               placeholder="**********"
             />
+            <label htmlFor="title">
+              Title
+            </label>
+            <select onChange={handleLoginInput}
+              id='title' name='title'>
+              <option>Teacher</option>
+              <option>Student</option>
+              <option>Parent</option>
+            </select>
 
             <button to='/login' type="submit">
               Login

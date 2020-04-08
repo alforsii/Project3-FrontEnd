@@ -1,10 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
-export default function UserConversation({user, message}) {
-  //  const { match:{params: {id}}, users } = props
-  //  const user = users?.filter(user => user._id.toString() === id)[0]
-
+export default function BoardNavbar(props) {
+  const { message,user} = props
   return (
     <div>
       <div className="user-div">
@@ -26,4 +24,5 @@ export default function UserConversation({user, message}) {
       </div>
     </div>
   );
+
 }
