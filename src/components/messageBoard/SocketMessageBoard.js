@@ -113,7 +113,6 @@ export class MessageBoard extends Component {
       });
       this.setState(prevState => ({
          message: '',
-         newMessages: [...prevState.newMessages, res]
       }));
       this.props.context.updateState(prevState => ({
         messageBoard: {

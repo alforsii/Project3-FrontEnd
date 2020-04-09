@@ -1,24 +1,29 @@
 import React, { Component } from 'react'
-import FormUserDetails from './FormUserDetails'
-import FormUserPersonal from './FormUserPersonal'
+import FormUserDetails from './StepOne'
+import FormUserPersonal from './StepTwo'
 import Confirm from './Confirm'
-import Success from './Success'
+import Success from './ClassPage'
 import './UserForm.css'
 
 
 export default class UserForm extends Component {
     state = {
         step: 1,
-        users: [],
-        user: [{id: '', firstName: '', lastName: '', password: '', email: '', occupation: '', city: '', bio:'' }],
+        classes: [],
+        createForm: {
+            name: '',
+            grade: '',
+            image: '',
+            description: ''
+          },
         message: ''
     }
 
     //proceed next step
     nextStep = (e) => {
         
-        const { step, user:{ firstName, lastName} } = this.state
-        if(firstName !== '' && lastName !==''){
+        const { step, createForm:{ name, grade} } = this.state
+        if(name !== '' && grade !==''){
             this.setState({
                 step: step + 1,
                 message: ''
@@ -36,24 +41,25 @@ export default class UserForm extends Component {
         })
     }
 
-    handleChange = input => e => {
-    console.log("Output for: UserForm -> input", input)
-        const { value } = e.target
-        const { user } = this.state
-        const updateUser = [...user][0]
-        updateUser[input] = value
-        this.setState({
-            user: [updateUser]
-        })
+    handleChange = e => {
+        const { name, value} = e.target
+        console.log("Output for: UserForm -> name", name,value)
+        this.setState(prevState => ({
+          createForm: {
+            ...prevState.createForm,
+            [name]: value
+          }
+        }))
     }
     render() {
-       const { step, user, users, message } = this.state
+       const { step, createForm, classes, message } = this.state
+       console.log("this.state", this.state)
        // eslint-disable-next-line 
         switch(step){
             case 1:
                 return (
                     <div className='main-user-form'>
-                        <FormUserDetails user={user[0]} 
+                        <FormUserDetails form={createForm} 
                         handleChange={this.handleChange} 
                         message={message}
                         nextStep={this.nextStep} />
@@ -62,7 +68,7 @@ export default class UserForm extends Component {
             case 2:
                 return (
                     <div className='main-user-form'>
-                        <FormUserPersonal  user={user[0]} 
+                        <FormUserPersonal  form={createForm} 
                         handleChange={this.handleChange}
                         nextStep={this.nextStep} 
                         message={message}
@@ -72,7 +78,7 @@ export default class UserForm extends Component {
             case 3:
                 return (
                     <div className='main-user-form'>
-                        <Confirm  user={user[0]} users={users}
+                        <Confirm  form={createForm} classes={classes}
                         handleChange={this.handleChange}
                          nextStep={this.nextStep} 
                          prevStep={this.prevStep}
@@ -83,7 +89,7 @@ export default class UserForm extends Component {
             case 4:
                 return (
                     <div className='main-user-form'>
-                        <Success  user={user[0]} setState={ prevState => this.setState(prevState)} users={users}/>
+                        <Success  form={createForm} setState={ prevState => this.setState(prevState)} classes={classes}/>
                     </div>
                 )
           

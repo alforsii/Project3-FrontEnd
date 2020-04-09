@@ -1,0 +1,38 @@
+import React, { Component } from 'react'
+
+export default class FormUserPersonal extends Component {
+    
+    render() {
+        const {form: {image, description}, handleChange, nextStep, prevStep} = this.props
+        return (
+                    <div className='user-form'>
+                        <h2>Upload class cover image & description or skip</h2>
+
+                        <label htmlFor=''>Image:
+                            </label>
+                        <input className='form-input'
+                        id='image'
+                        type='file'
+                        name='image'
+                        onChange={handleChange}
+                        />
+
+                        <label htmlFor='description'>Description:
+                            </label>
+                        <input className='form-input'
+                        id='description'
+                        name='description'
+                        placeholder='Enter description'
+                        type='text'
+                        onChange={handleChange}
+                        defaultValue={description}
+                        />
+                        <div>
+                            <button className='form-btn back-btn' onClick = {prevStep}>Go Back</button>
+                            <button className='form-btn' onClick = {nextStep}>Continue</button>
+                        </div>
+                    </div>
+        )
+    }
+       
+}

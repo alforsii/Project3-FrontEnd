@@ -18,6 +18,7 @@ import Loader2 from './components/messageBoard/components/loader/Loader';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import PublicRoute from './components/protectedRoute/PublicRoutes';
 import Teacher from './components/users/teachers/Teacher'
+import TheClass from './components/users/teachers/components/TheClass'
 
 
 import './App.css';
@@ -42,6 +43,7 @@ export class App extends Component {
             <PublicRoute exact path="/" component={LandingPage} />
             <PublicRoute exact path="/login" component={LoginForm} />
             <ProtectedRoute exact path="/teachers-page" component={Teacher} />
+            <ProtectedRoute exact path="/class/:id" component={TheClass} />
             <ProtectedRoute exact path="/home" component={Home} />
             <ProtectedRoute exact path="/about" component={About} />
             <ProtectedRoute exact path="/projects" component={Projects} />
