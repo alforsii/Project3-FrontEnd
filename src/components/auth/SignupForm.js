@@ -41,9 +41,9 @@ const UserSignup = ({handleSignupInput, handleSignupSubmit}) => {
           </label>
           <select onChange={handleSignupInput}
               id='title' name='title'>
-              <option>Teacher</option>
               <option>Student</option>
               <option>Parent</option>
+              <option>TA</option>
             </select>
 
           <button id='signup-form-btn'  type="submit">

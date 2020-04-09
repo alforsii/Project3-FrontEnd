@@ -8,19 +8,24 @@ export default class Success extends Component {
             step: prevState.step - 3
         }))
         setState({
-            user: [{ id:'', firstName: '', lastName: '', email: '', occupation: '', city: '', bio:''}]
+            createForm: {
+                    name: '',
+                    grade: '',
+                    image: '',
+                    description: ''
+             }
         })
     }
 
 
     render() {
-        const {  users } = this.props
+        const {  classes } = this.props
         return (
             <div>
                 <React.Fragment>
-                    <h2>Successfully updated</h2>
-                    <MyTable users={users}/>
-                    <button className='form-btn' onClick = {() => this.toFirstPage()}>Go to first page</button>
+                    <h2>All classes list</h2>
+                    <MyTable classes={classes}/>
+                    {/* <button className='form-btn' onClick = {() => this.toFirstPage()}>Go to first page</button> */}
                 </React.Fragment>
             </div>
         )

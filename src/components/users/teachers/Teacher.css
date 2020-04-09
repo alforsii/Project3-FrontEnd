@@ -34,9 +34,6 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
 .main-teacher div.t-child-div:nth-child(2){
     flex: 4;
 }
-.t-child-div {
-
-}
 
 /* Switch button */
 .main-switch {
@@ -76,4 +73,50 @@ button.delete-btn:focus {
   .t-users {
       margin: 0 auto;
       width: 800px;
+  }
+
+  /* drop down button */
+  .dropdown {
+      position: relative;
+    /* float: left;
+    overflow: hidden; */
+  }
+  
+  .dropdown .dropbtn {
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: fixed;
+
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+    z-index: 10;
   }
