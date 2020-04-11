@@ -3,18 +3,18 @@ import React, { Component } from 'react'
 export default class FormUserPersonal extends Component {
     
     render() {
-        const {form: {image, description}, handleChange, nextStep, prevStep} = this.props
+        const {form: {image, description}, handleChange, handleImageChange, nextStep, prevStep} = this.props
         return (
                     <div className='user-form'>
                         <h2>Upload class cover image & description or skip</h2>
 
-                        <label htmlFor=''>Image:
+                        <label htmlFor='image'>Select cover image
                             </label>
-                        <input className='form-input'
-                        id='image'
+                        <input 
                         type='file'
                         name='image'
-                        onChange={handleChange}
+                        onChange={handleImageChange}
+                        ref={fInput => this.fileInput = fInput}
                         />
 
                         <label htmlFor='description'>Description:

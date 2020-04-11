@@ -1,0 +1,110 @@
+.main-user-list {
+    background-color: #ddd;
+}
+.user-user-list-horizontal {
+    /* background-color: #ddd; */
+    position: relative;
+}
+.select-btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+input.searchInput {
+    width: 92%;
+    padding: 10px;
+    font-size: 14px;
+}
+button#addToClass {
+    padding: 10px ;
+    margin: 2px;
+    font-size: 14px;
+    cursor: pointer;
+    border-color: #068ce6;
+    border-radius: 3px;
+}
+button.addOneToClass {
+    margin: 2px;
+    cursor: pointer;
+    border-color: #068ce6;
+    border-radius: 3px;
+}
+button.addOneToClass:hover,
+button#addToClass:hover
+{
+    background-color:  #068ce6;
+    color: #fff;
+}
+button.addOneToClass:focus,
+button#addToClass:focus {   
+    outline: 0;
+}
+.user-horizontal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.user-horizontal div:nth-child(2) {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 0 5px;
+}
+.user-image-sm {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+}
+.user-horizontal p {
+    padding: 0 10px;
+}
+/* dropdown */
+.dropbtn2 {
+    background-color:  #068ce6;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    top: -30px;
+    left: 250px;
+    border-radius: 50%;
+  }
+  
+  .dropbtn2:hover, .dropbtn2:focus {
+    background-color:  #068ce6;
+    outline: 0;
+  }
+  
+  .dropdown2 {
+    display: inline-block;
+  }
+  
+  .dropdown-content2 {
+    display: none;
+    position: fixed;
+
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    animation: display 0.1s ease-in forwards;
+  }
+  @keyframes display {
+      0%{opacity: 0;}
+      100%{opacity: 1;}
+  }
+  .dropdown-content2 a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown2 a:hover {background-color: #ddd;}
+  
+  .show {display: block;}

@@ -64,9 +64,6 @@ btn:hover : #0576c2;
 }
 
 .form-btn.back-btn {
-    position: absolute;
-    top: 80px;
-    left: 20px;
     background-color: transparent;
     color: #0581d4;
 }

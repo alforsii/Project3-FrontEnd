@@ -1,0 +1,85 @@
+.students-list {
+    height: 300px;
+    width: 300px;
+    overflow: scroll;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .main-class-page {
+      display: flex;
+      margin: 52px 30px 0;
+  }
+.cover-image {
+    width: 700px;
+     height: 300px;
+}
+  .class-navbar.top {
+    position: fixed;
+    width: 700px;
+  }
+  .class-navbar {
+    overflow: hidden;
+    background-color: #666;
+  }
+  .class-navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .class-navbar a:hover,
+  .class-navbar button:hover
+   {
+      background-color: #000;
+  }
+  .dropdown3 {
+    float: left;
+    overflow: hidden;
+  }
+  
+  .dropdown3 .dropbtn3 {
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    cursor: pointer;
+  }
+  
+  .dropdown-content3 {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  .dropdown-content3 p {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    cursor: pointer;
+    margin: 0;
+  }
+  
+  .dropdown-content3 p:hover {
+    background-color: #ddd;
+  }
+  
+  .dropdown3:hover .dropdown-content3.show {
+    display: block;
+  }
+
+  .class-students {
+      
+  }

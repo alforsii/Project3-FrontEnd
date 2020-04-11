@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import FormUserDetails from './StepOne'
 import FormUserPersonal from './StepTwo'
 import Confirm from './Confirm'
-import Success from './ClassPage'
-import './UserForm.css'
+import ClassList from '../ClassList'
+import './ClassForm.css'
 
 
 export default class UserForm extends Component {
     state = {
         step: 1,
-        classes: [],
+        // classes: [],
         createForm: {
             name: '',
             grade: '',
@@ -43,7 +43,6 @@ export default class UserForm extends Component {
 
     handleChange = e => {
         const { name, value} = e.target
-        console.log("Output for: UserForm -> name", name,value)
         this.setState(prevState => ({
           createForm: {
             ...prevState.createForm,
@@ -51,9 +50,17 @@ export default class UserForm extends Component {
           }
         }))
     }
+    handleImageChange = e => {
+        const { files } = e.target;
+        this.setState(prevState => ({
+            createForm: {
+              ...prevState.createForm,
+              image: files[0]
+            }
+          }))
+    }
     render() {
        const { step, createForm, classes, message } = this.state
-       console.log("this.state", this.state)
        // eslint-disable-next-line 
         switch(step){
             case 1:
@@ -70,6 +77,7 @@ export default class UserForm extends Component {
                     <div className='main-user-form'>
                         <FormUserPersonal  form={createForm} 
                         handleChange={this.handleChange}
+                        handleImageChange={this.handleImageChange}
                         nextStep={this.nextStep} 
                         message={message}
                         prevStep={this.prevStep} />
@@ -78,20 +86,21 @@ export default class UserForm extends Component {
             case 3:
                 return (
                     <div className='main-user-form'>
-                        <Confirm  form={createForm} classes={classes}
+                        <Confirm  form={createForm}
                         handleChange={this.handleChange}
                          nextStep={this.nextStep} 
                          prevStep={this.prevStep}
                          message={message}
+                         {...this.props}
                          setState={ prevState => this.setState(prevState)} />
                     </div>
                 )
-            case 4:
-                return (
-                    <div className='main-user-form'>
-                        <Success  form={createForm} setState={ prevState => this.setState(prevState)} classes={classes}/>
-                    </div>
-                )
+            // case 4:
+            //     return (
+            //         <div className='main-user-form'>
+            //             <ClassList  form={createForm} setState={ prevState => this.setState(prevState)} classes={classes}/>
+            //         </div>
+            //     )
           
         }
     }
