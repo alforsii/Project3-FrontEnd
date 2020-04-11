@@ -22,7 +22,8 @@ export class UpdateProfile extends Component {
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
     handleUploadInput = e => {
-        this.setState({[e.target.name]: e.target.files[0] })
+      const {name, files} = e.target
+        this.setState({[name]: files[0] })
     }
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
@@ -39,7 +40,6 @@ export class UpdateProfile extends Component {
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
     handleFormInput = e => {
       const {name, value} = e.target
-      console.log("-> name", name, value)
         this.setState(prevState => ({
           userForm: {
             ...prevState.userForm,
