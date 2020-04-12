@@ -9,18 +9,20 @@ export default class ClassList extends Component {
       <div>
         <React.Fragment>
           <h2>All classes list</h2>
-          <table aria-label="simple table">
+          <table aria-label="classList-table">
             <thead>
               <tr>
-                <td></td>
                 <td>Name</td>
                 <td>Grade</td>
+                <td>#Students</td>
+                <td>Creator</td>
                 <td>Description</td>
+                <td>More</td>
               </tr>
             </thead>
 
             {classes?.map(currClass => {
-              const { _id, name, grade, path, description } = currClass;
+              const { _id, name, grade, path, author, students, description } = currClass;
               return (
                 <tbody key={_id}>
                   <tr>
@@ -43,7 +45,10 @@ export default class ClassList extends Component {
                       </Link>
                     </td>
                     <td>{grade}</td>
+                    <td>{students.length}</td>
+                    <td>{author.firstName} {author.lastName} </td>
                     <td>{description}</td>
+                    <td><span><i className="fas fa-ellipsis-v"></i></span></td>
                   </tr>
                 </tbody>
               );

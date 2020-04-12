@@ -1,5 +1,6 @@
 .main-user-list {
-    background-color: #ddd;
+    background-color: #F5F5F5;
+    box-shadow: 0px 8px 20px 2px rgba(0,0,0,0.2);
 }
 .user-user-list-horizontal {
     /* background-color: #ddd; */
@@ -11,11 +12,19 @@
     align-items: center;
 }
 input.searchInput {
-    width: 92%;
+    width: 93%;
     padding: 10px;
     font-size: 14px;
 }
-button#addToClass {
+.userListScroll {
+    width: 350px;
+    /* height: 300px; */
+    max-height: 50vh;
+    overflow: scroll;
+}
+button#addToClass,
+button#removeFromClass
+ {
     padding: 10px ;
     margin: 2px;
     font-size: 14px;
@@ -23,7 +32,9 @@ button#addToClass {
     border-color: #068ce6;
     border-radius: 3px;
 }
-button.addOneToClass {
+button.addOneToClass,
+button.removeOneFromClass
+ {
     margin: 2px;
     cursor: pointer;
     border-color: #068ce6;
@@ -61,7 +72,7 @@ button#addToClass:focus {
     padding: 0 10px;
 }
 /* dropdown */
-.dropbtn2 {
+/* .dropbtn2 {
     background-color:  #068ce6;
     color: white;
     font-size: 16px;
@@ -107,4 +118,17 @@ button#addToClass:focus {
   
   .dropdown2 a:hover {background-color: #ddd;}
   
-  .show {display: block;}
+  .show {display: block;} */
+
+    /* show and hide user list */
+    #studentsList,
+    #teachersList {
+        display: none;
+    }
+    /* show and hide user list */
+    #studentsList.show,
+    #teachersList.show {
+        display: block;
+        z-index: 1000;
+    }
+    

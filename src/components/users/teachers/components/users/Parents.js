@@ -41,6 +41,7 @@ export default class UserList extends Component {
         </div>
         <hr/>
 
+        <div className='userListScroll'>
         {filterUsers?.map(user => {
           const { _id, path, username, firstName, lastName } = user;
           return (
@@ -60,6 +61,7 @@ export default class UserList extends Component {
             </div>
           );
         })}
+        </div>
       </div>
     );
   }
