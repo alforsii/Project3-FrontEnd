@@ -11,6 +11,7 @@ nav.navbar {
     right: 0;
     z-index: 10;
     background-color: #0794f3;
+    background-color: #F0F0F0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,11 +23,17 @@ nav.navbar {
     margin: 0 5px;
     text-decoration: none;
     color: #fff;
+    color: #0794f3;
     font-weight: bold;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 30px;
+    background-color: #E8E8E8;
 }
 .nav-items:hover {
+    /* color: #fff; */
+    background-color: #E0E0E0;
+}
+.nav-items:focus {
+    background-color: #0794f3;
     color: #fff;
-    background-color: #068ce6;
 }

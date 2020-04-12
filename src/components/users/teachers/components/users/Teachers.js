@@ -31,6 +31,18 @@ export default class UserList extends Component {
     const { filterUsers } = this.state;
     return (
       <div className='main-user-list'>
+         <button
+              style={{
+                backgroundColor: 'red',
+                color: 'white',
+                float: 'right',
+                marginLeft: '5px',
+              }}
+              className="closeUserListBtn"
+              onClick={this.props.closeUserList}
+            >
+              x
+            </button>
         <input type="text" placeholder='Search for co-teachers...' className="searchInput" onKeyUp={this.filterUsers} autoComplete='off'></input>
         <div className='select-btns'>
           <div>
@@ -41,6 +53,7 @@ export default class UserList extends Component {
         </div>
         <hr/>
 
+        <div className='userListScroll'>
         {filterUsers?.map(user => {
           const { _id, path, username, firstName, lastName } = user;
           return (
@@ -60,6 +73,7 @@ export default class UserList extends Component {
             </div>
           );
         })}
+        </div>
       </div>
     );
   }

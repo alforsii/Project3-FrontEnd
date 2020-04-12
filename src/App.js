@@ -17,8 +17,8 @@ import Loader from './/loader/Loader';
 import Loader2 from './components/messageBoard/components/loader/Loader';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import PublicRoute from './components/protectedRoute/PublicRoutes';
-import Teacher from './components/users/teachers/Teacher'
-import TheClass from './components/users/teachers/components/TheClass'
+import TeacherPage from './components/users/teachers/TeacherPage'
+import TheClass from './components/users/teachers/components/class/TheClass'
 import AddNewClass from './components/users/teachers/components/create-class-form/ClassForm'
 
 
@@ -43,7 +43,7 @@ export class App extends Component {
           <Switch>
             <PublicRoute exact path="/" component={LandingPage} />
             <PublicRoute exact path="/login" component={LoginForm} />
-            <ProtectedRoute exact path="/teachers-page" component={Teacher} />
+            <ProtectedRoute exact path="/teachers-page" component={TeacherPage} />
             <ProtectedRoute exact path="/classes/add-new" component={AddNewClass} />
             <ProtectedRoute exact path="/class/:id" component={TheClass} />
             <ProtectedRoute exact path="/home" component={Home} />

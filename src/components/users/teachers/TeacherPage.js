@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
-import ClassList from './components/ClassList';
+import ClassesList from './components/ClassesList';
 
 import { AUTH_CLASSES } from '../../../services/classesAuth/ClassesAuth';
-import './Teacher.css';
+import './TeacherPage.css';
 
 export class Teacher extends Component {
   state = {
@@ -61,6 +61,10 @@ export class Teacher extends Component {
               >
                 Parents
               </button>
+              <Link className="click-btn" to="/classes/add-new"><i className='fas fa-plus-circle'></i> Class</Link>
+              <Link className="click-btn" to="/classes/archives"> Notes</Link>
+              <Link className="click-btn" to="/classes/archives"> Calendar</Link>
+              <Link className="click-btn" to="/classes/archives"><i className='fas fa-trash-alt'></i> Archives</Link>
             </div>
             <div className="users-div t-users">
               {users?.map(user => {
@@ -96,8 +100,9 @@ export class Teacher extends Component {
             </div>
             <h2>Hello {user?.firstName}, Some title here</h2>
             <p>Create new class</p>
-            <Link to="/classes/add-new">New Class</Link>
-            <ClassList classes={this.state.classes} />
+            {/* <Link to="/classes/add-new"><i className='fas fa-plus-circle'></i>New Class</Link>
+            <Link to="/classes/archives"> Archives</Link> */}
+            <ClassesList classes={this.state.classes} />
             <div>Activities</div>
           </div>
         </div>

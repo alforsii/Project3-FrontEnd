@@ -20,9 +20,9 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
 }
 .main-teacher div.t-child-div:first-child{
     flex: 1;
-    background-color: #ddd;
+    background-color: #F5F5F5;
     padding: 0 10px;
-    border-right: 1px solid gray;
+    border-right: 1px solid #F5F5F5;
 }
 .main-teacher div.t-child-div:first-child div ul {
     margin: 0;
@@ -46,11 +46,11 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
 }
 .click-btn {
     padding: 5px 10px;
-    background-color: #333;
+    background-color: #F5F5F5;
     opacity: 0.5;
-    color: #fff;
+    color: #333;
     cursor: pointer;
-    border: 3px solid;
+    border: 3px solid #F5F5F5;
     font-size: 16px;
     border-radius: 30px;
     margin: 5px;
@@ -62,8 +62,8 @@ button.delete-btn:focus {
     border-color: #0794f3;
 }
 .click-btn:hover {
-    background-color: #333;
-    /* color: #0794f3; */
+    background-color: #E0E0E0;
+    color: #0794f3;
     opacity: 1;
 }
 

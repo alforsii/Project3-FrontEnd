@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import FormUserDetails from './StepOne'
 import FormUserPersonal from './StepTwo'
 import Confirm from './Confirm'
-import ClassList from '../ClassList'
 import './ClassForm.css'
 
 
@@ -95,12 +94,6 @@ export default class UserForm extends Component {
                          setState={ prevState => this.setState(prevState)} />
                     </div>
                 )
-            // case 4:
-            //     return (
-            //         <div className='main-user-form'>
-            //             <ClassList  form={createForm} setState={ prevState => this.setState(prevState)} classes={classes}/>
-            //         </div>
-            //     )
           
         }
     }
