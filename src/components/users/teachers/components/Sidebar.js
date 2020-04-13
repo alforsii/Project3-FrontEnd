@@ -44,12 +44,6 @@ export default function Sidebar() {
                 <li>Make Announcement</li>
             </ul>
           </div>
-          <div className="">
-            <h2>Classes</h2>
-            <ul>
-                <li><i className='fas fa-plus-circle'></i> Add New</li>
-            </ul>
-          </div>
         </div>
     )
 }

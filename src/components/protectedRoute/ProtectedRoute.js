@@ -16,7 +16,7 @@ export default function protectedRoute(props) {
                 loggedIn ? (
                 <Component {...props} {...rest} context={context}/>
               ) : (
-                <Redirect to="/" />
+                <Redirect to="/login" />
               )
             }
           />

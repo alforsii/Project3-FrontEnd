@@ -15,6 +15,7 @@ export default function SideNavbar() {
                   <i className="fas fa-dove"></i>
                 </span>
               </Link>
+              <Link to='/' className=''><span className='fas fa-bell'></span></Link>
               <Link to="/" className="">
                 <span>
                   <i className="fas fa-edit"></i>
@@ -43,11 +44,13 @@ export default function SideNavbar() {
                   <i className="fas fa-crop"></i>
                 </span>
               </Link>
+              <Link to='/' className=''><span className='fab fa-github'></span></Link>
               <Link to="/" className="">
                 <span>
                   <i className="fas fa-cog"></i>
                 </span>
               </Link>
+
             </div>
         </>
     )

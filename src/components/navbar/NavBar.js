@@ -1,32 +1,25 @@
 import React from 'react'
-import { Link,  NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 import toggleSideBar from '../sidebar/toggle'
 import './NavBar.css'
 
-export default function NavBar({loggedIn, userLogout}) {
-
+export default function NavBar({loggedIn, userLogout, user}) {
     if(loggedIn) {
         return (
             <nav className='navbar'>
                 <div className='nav-group'>
-                    {/* <Link to='/' className='nav-items' style={{color: '#81d4fa', fontFamily: 'italic'}}><i className="fas fa-book-open"></i><i style={{color:'#4a148c'}}> IronSchool</i></Link> */}
                     <Link to='/' className='nav-items' style={{color: '#3f51b5', fontFamily: 'italic'}}><i style={{color:'#4a148c'}}> IronSchool</i></Link>
-                    <Link to='/teachers-page' className='nav-items'><span className='fas fa-school'></span></Link>
-                    <Link to='/students-page' className='nav-items'><i className="fas fa-book-open"></i></Link>
-                    
-                    <Link to='/' className='nav-items'><span className='fas fa-bell'></span></Link>
-                    <Link to='/message-board' className='nav-items'><span className='fas fa-envelope'></span></Link>
-                    <Link to='/settings/update-profile' className='nav-items'><span className='fas fa-moon'></span></Link>
-                    <Link to='/' className='nav-items'><span className='fab fa-github'></span></Link>
+                    <span onClick={()=> toggleSideBar()} id='menu-bars-btn' className='nav-items'><span className='fas fa-bars'></span></span>
+                    <Link to='/'><img id='navbar-user-img' className='nav-items' src={user?.path} alt={user?.firstName}/></Link>
+                    <i  style={{color: '#0794f3', fontFamily: 'italic'}}>Hi, {user?.firstName}!</i>
                 </div>
                 <div className='nav-group'>
-                    <Link to='/' className='nav-items'>Home</Link>
-                    <Link to='/about' className='nav-items'>About</Link>
-                    <Link to='/projects' className='nav-items'>Projects</Link>
-                    <NavLink exact to="/user-update" className='nav-items' activeStyle={{fontWeight: 'bold', color: '#fff'}} activeClassName="selected">FAQs</NavLink>
-                    <Link to='/contacts' className='nav-items'>Contacts</Link>
-                    <Link to='/' className='nav-items' onClick={userLogout} >Logout</Link>
-                    <span onClick={()=> toggleSideBar()} id='menu-bars-btn' className='nav-items'><span className='fas fa-bars'></span></span>
+                    <Link to='/teachers-page' className='nav-items'><span className='fas fa-school'></span></Link>
+                    <Link to='/students-page' className='nav-items'><i className="fas fa-book-open"></i></Link>
+                    <Link to='/message-board' className='nav-items'><span className='fas fa-envelope'></span></Link>
+                    <Link to='/settings/update-profile' className='nav-items'><span className='fas fa-cog'></span></Link>
+                    <Link to='/' className='nav-items' onClick={userLogout} id='navbar-logout-btn'>Logout <span className='fas fa-sign-out-alt'></span></Link>
                 </div>
             </nav>
         )

@@ -16,6 +16,9 @@ input.searchInput {
     padding: 10px;
     font-size: 14px;
 }
+input.searchInput:focus {
+    outline: 0;
+}
 .userListScroll {
     width: 350px;
     /* height: 300px; */
@@ -40,11 +43,27 @@ button.removeOneFromClass
     border-color: #068ce6;
     border-radius: 3px;
 }
+button#removeFromClass,
+button.removeOneFromClass {
+    border-color: none;
+}
+
 button.addOneToClass:hover,
 button#addToClass:hover
 {
     background-color:  #068ce6;
     color: #fff;
+}
+button.removeOneFromClass:hover,
+button#removeFromClass:hover
+{
+    background-color:  red;
+    color: #fff;
+}
+button.removeOneFromClass:focus,
+button#removeFromClass:focus
+{
+    outline: 0;
 }
 button.addOneToClass:focus,
 button#addToClass:focus {   

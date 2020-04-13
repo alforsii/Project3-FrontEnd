@@ -45,9 +45,13 @@ export default class Confirm extends Component {
     render() {
         const {form: {name,grade,image,description}, prevStep} = this.props
 
-        return <form className='user-form confirm-page' encType="multipart/form-data">
-            {this.state.isLoading?<Loader message={this.state.message}/>
-            :  <>
+        return(
+            <React.Fragment>
+            {this.state.isLoading? <div className='' style={{position: 'fixed', left: '10%', display: 'initial'}}>
+                <Loader message={this.state.message}/>
+            </div>
+             :<>
+            <form className='user-form confirm-page' encType="multipart/form-data">
                <h2>Confirm & Continue</h2>
                 
                 <label><span>Name: </span> <span>{name} </span>
@@ -72,10 +76,12 @@ export default class Confirm extends Component {
                     <p> {this.state.message} </p>
                 </div>
 
+            </form>
                </>
         }
-            </form>
           
+            </React.Fragment>
+        )
         
     }
        

@@ -168,8 +168,8 @@ export class AuthProvider extends Component {
       this.setState({ isLoading: true, message: 'Logging out...' });
       await AUTH_SERVICE.logout();
       this.setState({ loggedIn: false, user: null, users: null });
+      this.props.history.push('/');
       setTimeout(() => {
-        this.props.history.push('/');
         this.setState({ message: 'Successfully logged out!' });
       }, 1500);
       setTimeout(() => {

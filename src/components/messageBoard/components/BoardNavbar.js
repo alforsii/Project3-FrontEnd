@@ -6,7 +6,7 @@ export default function BoardNavbar(props) {
   return (
     <div>
       <div className="user-div">
-        <div className="user">
+        <div className="user2">
           <Link to="/message-board">
             <div className="user-image-div">
               <img className="user-image" src={user?.path} alt="" />

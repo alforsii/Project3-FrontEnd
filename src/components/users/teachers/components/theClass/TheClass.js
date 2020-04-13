@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { AUTH_CLASSES } from '../../../../../services/classesAuth/ClassesAuth';
-import ClassNav from './ClassNav'
-import ClassStudents from './ClassStudents';
+import ClassNav from './components/ClassNav'
+import ClassStudents from './components/ClassStudents';
 import Students from '../users/Students';
 import Teachers from '../users/Teachers';
+import Sidebar from '../Sidebar'
 import './TheClass.css';
 
 export class TheClass extends Component {
@@ -89,18 +90,23 @@ toggle between hiding and showing the dropdown content */
     return (
       <React.Fragment>
         <div className="main-class-page">
-        <div className="navbar-div">
-          <ClassNav currClass={currClass}
-          toggleClassNavDropdown={this.toggleClassNavDropdown}
-          toggleUserList={this.toggleUserList}/>
+          <div className='left-class-page-div'>
+            <div className="students-list class-students">
+                <ClassStudents currClass={currClass}
+                filterStudents={this.state.filterStudents}
+                filterUsers={this.filterUsers}
+                />
+            </div>
           </div>
-      
-        <div className="students-list class-students">
-            <img className="cover-image" src={path} alt="" />
-            <ClassStudents filterStudents={this.state.filterStudents}
-            filterUsers={this.filterUsers}
-             />
-        </div>
+          <div className='right-class-page-div'>
+            <div className="navbar-div">
+            <img className="cover-image" src={path} alt='' />
+              <ClassNav 
+              toggleClassNavDropdown={this.toggleClassNavDropdown}
+              toggleUserList={this.toggleUserList}/>
+            </div>
+          </div>
+        {/* <Sidebar/> */}
       </div>
 
 {/*--------- below hidden user lists - appears on click -------------------*/}

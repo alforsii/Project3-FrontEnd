@@ -6,7 +6,6 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
 */
 #main-login {
     width: 100vw;
-    /* height: 100vh; */
 }
 
 #login-form {
@@ -15,7 +14,7 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
     justify-content: center;
     align-items: center;
     width: 400px;
-    height: 400px;
+    height: 300px;
     padding: 20px;
     margin: 10% auto;
     opacity: 0;
@@ -31,6 +30,11 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
 #login-form input {
     width: 80%;
     padding: 10px;
+    border-radius: 30px;
+    border: 0.5px solid gray;
+}
+#login-form input:focus {
+    outline: 0;
 }
 #login-form label {
     padding: 5px;

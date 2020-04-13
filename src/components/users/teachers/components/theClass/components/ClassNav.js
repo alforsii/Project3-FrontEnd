@@ -1,15 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-export default function ClassNav({toggleClassNavDropdown,toggleUserList, currClass}) {
-    const { name,grade,} = currClass
+export default function ClassNav({toggleClassNavDropdown,toggleUserList}) {
     return (
         <React.Fragment>
             <nav>
             <div className="class-navbar top">
-              <Link to="">{name} </Link>
-              <Link to="">Grade: {grade}</Link>
-
               <Link to="">Home</Link>
               <Link to="">Subjects</Link>
               <Link to="">

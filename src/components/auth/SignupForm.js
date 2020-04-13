@@ -36,8 +36,7 @@ const UserSignup = ({handleSignupInput, handleSignupSubmit}) => {
             Password
           </label>
           <input onChange={handleSignupInput} type="password" name="password" placeholder="**********" />
-          <label  htmlFor="password">
-            Title
+          <label  htmlFor="title">
           </label>
           <select onChange={handleSignupInput}
               id='title' name='title'>

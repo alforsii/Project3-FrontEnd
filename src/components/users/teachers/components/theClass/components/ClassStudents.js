@@ -1,32 +1,25 @@
 import React from 'react'
 
-export default function ClassStudents({filterStudents, filterUsers}) {
+export default function ClassStudents({filterStudents, filterUsers, 
+  currClass: { name, grade } }) {
+
      //Toggle all checkboxes
  const toggleCheckbox = e => {
     const { checked } = e.target;
     const checkboxes = document.querySelectorAll('.remove-user');
-    // this.setState({selectAllStudents: checked})
     for (var i = 0; i < checkboxes.length; i++) {
       checkboxes[i].checked = checked;
     }
   };
 
-   //Search
-  //
-//  const filterUsers = e => {
-//     const searchUser = e.target.value.toUpperCase();
-//     const searchResult = [...this.state.students].filter(user =>
-//       `${user.firstName} ${user.lastName}`
-//         .toUpperCase()
-//         .includes(searchUser.toUpperCase())
-//     );
-//     this.setState({
-//       filterStudents: searchResult,
-//     });
-//   };
-
     return (
         <div>
+
+          <div className="side-header">
+            <h2> {name} </h2>
+            <h2>grade: {grade} </h2>
+          </div>
+
              <input
             type="text"
             placeholder="Search.."

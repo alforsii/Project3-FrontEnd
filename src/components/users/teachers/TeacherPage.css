@@ -21,7 +21,7 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
 .main-teacher div.t-child-div:first-child{
     flex: 1;
     background-color: #F5F5F5;
-    padding: 0 10px;
+    padding: 10px;
     border-right: 1px solid #F5F5F5;
 }
 .main-teacher div.t-child-div:first-child div ul {
@@ -32,8 +32,9 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
     padding: 5px;
 }
 .main-teacher div.t-child-div:nth-child(2){
-    flex: 4;
+    flex: 5;
 }
+
 
 /* Switch button */
 .main-switch {
@@ -43,22 +44,26 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
     margin: 0 auto;
     display: flex;
     justify-content: center;
+    position: relative;
+    top: -50px;
 }
 .click-btn {
     padding: 5px 10px;
     background-color: #F5F5F5;
-    opacity: 0.5;
-    color: #333;
+    opacity: 0.8;
+    color: black;
     cursor: pointer;
     border: 3px solid #F5F5F5;
     font-size: 16px;
     border-radius: 30px;
     margin: 5px;
+    text-decoration: none;
 }
 .click-btn:focus,
 button.delete-btn:focus {
     outline: 0;
     opacity: 1;
+    font-weight: bold;
     border-color: #0794f3;
 }
 .click-btn:hover {

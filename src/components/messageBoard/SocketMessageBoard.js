@@ -41,13 +41,12 @@ export class MessageBoard extends Component {
   componentDidMount = () => {
     //check for new updates
     this.timer = setInterval(() => {
-
       this.getUserBoards();
       this.updateMessageBoard();
+
       if(this.state.scroll){
         this.scrollMessagesDown();
-      // this.setState({scroll: false})
-      this.props.context.updateState(prevState => ({
+        this.props.context.updateState(prevState => ({
         messageBoard: {
           ...prevState.messageBoard,
           scroll: false
@@ -56,7 +55,6 @@ export class MessageBoard extends Component {
       }
       if(!this.state.receiver) this.setState({newMessages: null})
     }, 2000);
-    console.log("Output for: MessageBoard -> this.timer -> his.state.receiver", this.state.receiver)
   };
 
    //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -65,18 +63,16 @@ export class MessageBoard extends Component {
 
   switchUser = receiver => {
     this.setState({
-     receiver,
+      receiver,
      isLoading: true,
      messages: false,
      newMessages: false,
      readMessage: true,
-   },() => {
-    this.getUserBoards();
-    this.updateMessageBoard();
    });
    this.props.context.updateState(prevState => ({
     messageBoard: {
       ...prevState.messageBoard,
+      receiver,
       scroll: true
     }
   }))
