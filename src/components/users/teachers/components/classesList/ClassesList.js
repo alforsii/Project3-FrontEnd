@@ -6,9 +6,8 @@ export default class ClassList extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
-        <React.Fragment>
-          <h2>All classes list</h2>
+        <div className='main-classes-list'>
+          <h2 style={{margin: 0, textAlign: 'center'}}>All classes list</h2>
           <table aria-label="classList-table">
             <thead>
               <tr>
@@ -54,8 +53,7 @@ export default class ClassList extends Component {
               );
             })}
           </table>
-        </React.Fragment>
-      </div>
+        </div>
     );
   }
 }

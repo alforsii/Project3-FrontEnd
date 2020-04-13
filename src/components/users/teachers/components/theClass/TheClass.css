@@ -11,11 +11,13 @@
     /* height: 300px; */
     width: 300px;
     background-color: 	#F5F5F5;
+    padding: 7px;
 }
 .userListScroll2 {
   overflow: scroll;
   /* height: 300px; */
-  max-height: 50vh;
+  max-height: 100vh;
+  min-height: 100vh;
   width: 300px;
   background-color: 	#F5F5F5;
 }
@@ -24,28 +26,41 @@ body {
   }
   .main-class-page {
       display: flex;
-      margin: 52px 0 0;
+      margin-top: 52px;
+      height: 90vh;
+  }
+  .left-class-page-div {
+    flex: 1;
+  }
+  .right-class-page-div {
+    flex: 3;
   }
 .cover-image {
-    width: 300px;
+    width: 100%;
      height: 300px;
 }
-  .class-navbar.top {
-    /* position: fixed; */
-    /* width: 700px; */
-  }
   .class-navbar {
+    /* position: fixed;
+    top: 50px; */
     overflow: hidden;
     background-color: #fff;
   }
-  .class-navbar a {
+  .side-header {
+    /* margin-top: 90px; */
+  }
+  .class-navbar a,
+  .side-header h2
+   {
     float: left;
+    text-transform: capitalize;
     font-size: 16px;
     color: #333;
     text-align: center;
     padding: 10px 16px;
     text-decoration: none;
     cursor: pointer;
+    border: none;
+    margin: 0;
   }
   .class-navbar a:hover,
   .class-navbar button:hover
@@ -54,6 +69,14 @@ body {
       color: #333;
       color: #0794f3;
       border-radius: 30px;
+  }
+  .class-navbar h2:hover {
+    cursor: initial;
+    background-color: initial;
+    color: initial;
+  }
+  .class-navbar button:focus {
+    outline: 0;
   }
   .dropdown3 {
     float: left;

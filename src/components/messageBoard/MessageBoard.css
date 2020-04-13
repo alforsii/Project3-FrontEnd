@@ -44,14 +44,14 @@ div.nav-sidebar a:hover {
     min-width: 35%;
     /* background-color: #4b4c4d; */
     height: 100vh;
-    background-color: #eff1f3;;
+    background-color: #ffffff;;
     box-sizing: border-box;
 }
 input#search-user {
     font-size: 14px;
     width: 420px;
     height: 40px;
-    background-color: #eff1f3;
+    background-color: #ffffff;
     border: 1px solid #999;
     border-radius: 5px;
     padding: 15px 40px 15px 20px;
@@ -102,13 +102,17 @@ input#search-user:focus {
     opacity: 1;
 }
 .user {
+    background-color: #f5f5f5;
+    /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+}
+.user,
+.user2 {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     width: 400px;
     height: 40px;
-    background-color: #fff;
     opacity: 0.9;
     margin: 0px 15px;
     padding: 15px 10px;
@@ -130,13 +134,17 @@ span.message-other {
     color: #111;
     font-weight: bold;
 }
-.user p{
+.user p,
+.user2 p
+{
     margin: 0;
     font-size: 12px;
     padding: 5px;
     font-weight: normal;
 }
-.user h5{
+.user h5,
+.user2 h5
+{
     margin: 0;
     font-size: 12px;
     padding: 5px;
@@ -144,7 +152,7 @@ span.message-other {
 .user-image-div {
     width: 50px;
 }
-.user-image {
+.user-image{
     width: 50px;
     height: 50px;
     border-radius: 50%;

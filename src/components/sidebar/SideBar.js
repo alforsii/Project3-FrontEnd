@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
+
+import SwitchModeButton from './switchModeButton/SwitchButton'
 import './SideBar.css'
 
 export class SideBar extends Component {
@@ -21,7 +23,8 @@ export class SideBar extends Component {
                 <div className='sections'>
                     <ul>
                         { loggedIn?<>
-                            <Link to='/'><li><span className='fas fa-chalkboard-teacher'></span><span>Dashboard</span></li></Link> 
+                        <li>Switch mode<SwitchModeButton/></li>
+                        <Link to='/'><li><span className='fas fa-chalkboard-teacher'></span><span>Dashboard</span></li></Link> 
                         <Link to='/'><li><span className='fas fa-users'></span><span>Teachers</span></li></Link>
                         <Link to='/'><li><span className='fas fa-users'></span><span>Parents</span></li></Link>
                         <Link to='/'><li><span className='fas fa-users'></span><span>Students</span></li></Link>
