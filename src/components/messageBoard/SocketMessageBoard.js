@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import socketIOClient from "socket.io-client";
 import moment from 'moment';
 
@@ -100,7 +100,7 @@ export class MessageBoard extends Component {
   handleMessageSubmit = async e => {
     e.preventDefault();
     try {
-     const res =  await AUTH_MESSAGES.addNewMessage({
+      await AUTH_MESSAGES.addNewMessage({
         otherUser: {
           _id: this.state.receiver._id,
           username: this.state.receiver.username,
@@ -124,7 +124,7 @@ export class MessageBoard extends Component {
    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   handleFileChange = e => {
-    const { type, files, result} = e.target;
+    const { type, files} = e.target;
   if(type === 'file'){
       var fReader = new FileReader()
       fReader.readAsDataURL(files[0])

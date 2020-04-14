@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { AUTH_SERVICE } from '../../services/auth/AuthServices'
-import axios from 'axios'
 // import moment from 'moment'
 import './UpdateProfile.css';
 
@@ -51,7 +50,7 @@ export class UpdateProfile extends Component {
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
     handleFormSubmit = async e => {
         e.preventDefault()
-        const res = await AUTH_SERVICE.updateProfile(this.state.userForm)
+        await AUTH_SERVICE.updateProfile(this.state.userForm)
 
         this.setState(prevState => ({
           ...prevState,

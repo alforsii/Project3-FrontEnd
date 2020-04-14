@@ -4,17 +4,12 @@ import ClassNav from './components/ClassNav'
 import ClassStudents from './components/ClassStudents';
 import Students from '../users/Students';
 import Teachers from '../users/Teachers';
-import Sidebar from '../Sidebar'
 import './TheClass.css';
 
 export class TheClass extends Component {
   state = {
-    students: this.props.location.state.currClass.students.map(
-      data => data.student
-    ),
-    filterStudents: this.props.location.state.currClass.students.map(
-      data => data.student
-    ),
+    students: this.props.location.state.currClass.students,
+    filteredStudents: this.props.location.state.currClass.students,
     teachers: [],
     parents: [],
     selectAllStudents: false,
@@ -60,7 +55,7 @@ toggle between hiding and showing the dropdown content */
         .includes(searchUser.toUpperCase())
     );
     this.setState({
-      filterStudents: searchResult,
+      filteredStudents: searchResult,
     });
   };
   //Add student to class
@@ -71,10 +66,23 @@ toggle between hiding and showing the dropdown content */
     });
 
     this.setState(prevState => ({
-      students: [...prevState.students, res.data.student.student],
-      filterStudents: [...prevState.students, res.data.student.student],
+      students: [...prevState.students, res.data.studentFromDB],
+      filteredStudents: [...prevState.students, res.data.studentFromDB],
     }));
   };
+
+  //Remove a student from the class
+  removeFromClass = async studentData => {
+    const res = await AUTH_CLASSES.removeStudent({
+      studentData,
+      classId: this.props.location.state.currClass._id,
+    });
+
+    this.setState(prevState => ({
+      students: res.data.updatedStudents,
+      filteredStudents: res.data.updatedStudents,
+    }));
+  }
 
   componentDidMount = () => {
     // this.getStudents()
@@ -92,15 +100,16 @@ toggle between hiding and showing the dropdown content */
         <div className="main-class-page">
           <div className='left-class-page-div'>
             <div className="students-list class-students">
+              <img className="cover-image" src={path} alt='' />
                 <ClassStudents currClass={currClass}
-                filterStudents={this.state.filterStudents}
+                filteredStudents={this.state.filteredStudents}
                 filterUsers={this.filterUsers}
+                removeFromClass={this.removeFromClass}
                 />
             </div>
           </div>
           <div className='right-class-page-div'>
             <div className="navbar-div">
-            <img className="cover-image" src={path} alt='' />
               <ClassNav 
               toggleClassNavDropdown={this.toggleClassNavDropdown}
               toggleUserList={this.toggleUserList}/>

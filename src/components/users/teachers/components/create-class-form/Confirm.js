@@ -20,6 +20,8 @@ export default class Confirm extends Component {
         newFile.append('name', form.name)
         newFile.append('grade', form.grade)
         newFile.append('description', form.description)
+        newFile.append('schoolYearStart', form.schoolYearStart)
+        newFile.append('schoolYearEnd', form.schoolYearEnd)
 
         await AUTH_CLASSES.createClass(newFile)
         //set current state
@@ -30,7 +32,9 @@ export default class Confirm extends Component {
                     name: '',
                     grade: '',
                     image: '',
-                    description: ''
+                    description: '',
+                    schoolYearStart: '',
+                    schoolYearEnd: '',
              }
         })
 

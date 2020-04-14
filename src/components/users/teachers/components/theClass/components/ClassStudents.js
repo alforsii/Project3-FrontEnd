@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function ClassStudents({filterStudents, filterUsers, 
-  currClass: { name, grade } }) {
+export default function ClassStudents({filteredStudents, filterUsers, 
+  currClass: { name, grade }, removeFromClass }) {
 
      //Toggle all checkboxes
  const toggleCheckbox = e => {
@@ -36,8 +36,8 @@ export default function ClassStudents({filterStudents, filterUsers,
           </div>
           <hr />
           <div className="userListScroll2">
-             { filterStudents?.map((user,i) => {
-               const { _id, path, username, firstName, lastName } = user;
+             { filteredStudents?.map((studentData,i) => {
+               const { student: {_id, path, username, firstName, lastName }} = studentData;
                return (
                  <div key={_id+i+1} className="user-user-list-horizontal">
                    <div className="user-image-div user-horizontal">
@@ -50,7 +50,7 @@ export default function ClassStudents({filterStudents, filterUsers,
                        </p>
                      </div>
                        <button className='removeOneFromClass'
-                       onClick={() => this.removeFromClass(user)}>Remove from class</button>
+                       onClick={() => removeFromClass(studentData)}>Remove from class</button>
                    </div>
                  </div>
                );

@@ -15,6 +15,9 @@ input.searchInput {
     width: 93%;
     padding: 10px;
     font-size: 14px;
+    border-radius: 30px;
+    border: 0.5px solid #d3e7f5;
+    margin: 5px 0;
 }
 input.searchInput:focus {
     outline: 0;
@@ -32,16 +35,16 @@ button#removeFromClass
     margin: 2px;
     font-size: 14px;
     cursor: pointer;
-    border-color: #068ce6;
-    border-radius: 3px;
+    /* border-color: #068ce6; */
+    border-radius: 30px;
 }
 button.addOneToClass,
 button.removeOneFromClass
  {
     margin: 2px;
     cursor: pointer;
-    border-color: #068ce6;
-    border-radius: 3px;
+    /* border-color: #068ce6; */
+    border-radius: 30px;
 }
 button#removeFromClass,
 button.removeOneFromClass {

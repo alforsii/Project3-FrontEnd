@@ -12,6 +12,8 @@ export default class UserForm extends Component {
         createForm: {
             name: '',
             grade: '',
+            schoolYearStart: '',
+            schoolYearEnd: '',
             image: '',
             description: ''
           },
@@ -59,7 +61,7 @@ export default class UserForm extends Component {
           }))
     }
     render() {
-       const { step, createForm, classes, message } = this.state
+       const { step, createForm, message } = this.state
        // eslint-disable-next-line 
         switch(step){
             case 1:

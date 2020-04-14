@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class FormUserDetails extends Component {
     
     render() {
-        const {form: {name, grade}, message, handleChange, nextStep} = this.props
+        const {form: {name, grade, schoolYearStart, schoolYearEnd}, message, handleChange, nextStep} = this.props
         return (
             <div className='user-form'>
                 <h2>Enter Class name & grade</h2>
@@ -28,6 +28,28 @@ export default class FormUserDetails extends Component {
                 type='text'
                 onChange={handleChange}
                 defaultValue={grade}
+                />
+
+                <label htmlFor='schoolYearStart'>School year start
+                    </label>
+                <input className='form-input'
+                placeholder={message? message : 'Enter school year start'}
+                name='schoolYearStart'
+                id='schoolYearStart'
+                type='date'
+                onChange={handleChange}
+                defaultValue={schoolYearStart}
+                />
+
+                <label htmlFor='schoolYearEnd'>School year end
+                    </label>
+                <input className='form-input'
+                placeholder={message? message : 'Enter school year end'}
+                name='schoolYearEnd'
+                id='schoolYearEnd'
+                type='date'
+                onChange={handleChange}
+                defaultValue={schoolYearEnd}
                 />
                 <div>
                 <button className='form-btn' onClick = {nextStep}>Continue</button>

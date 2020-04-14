@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import toggle from '../../../../sidebar/toggle';
 
-export default function Navbar({getUsers}) {
+export default function Navbar({getUsers, toggleSearchBar}) {
     return (
         <React.Fragment>
             <div className="main-switch">
@@ -27,6 +28,8 @@ export default function Navbar({getUsers}) {
               <Link className="click-btn" to="/classes/archives"> Notes</Link>
               <Link className="click-btn" to="/classes/archives"> Calendar</Link>
               <Link className="click-btn" to="/classes/archives"><i className='fas fa-trash-alt'></i> Archives</Link>
+              <Link className="click-btn" to="/teachers-page"
+              onClick={toggleSearchBar}><i className='fas fa-search'></i> Search</Link>
             </div>
         </React.Fragment>
     )
