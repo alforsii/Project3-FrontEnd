@@ -1,0 +1,101 @@
+.main-classes-list {
+    position: relative;
+    top: -50px;
+    /* box-sizing: border-box; */
+    
+}
+.search-input-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+input#searchClass {
+    width: 500px;
+    padding: 10px;
+    padding-left: 30px;
+    font-size: 16px;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    border: none;
+    border: 0.5px solid gray;
+}
+input#searchClass:focus {
+    outline: 0;
+}
+table.classList-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.classList-table tbody tr {
+    /* border: 0.3px solid gray; */
+}
+.classList-table tbody td {
+    height: 30px;
+    /* border: 0.3px solid gray; */
+}
+.classList-table thead th {
+    background-color: #068ce6;
+    color: white;
+  }
+.classList-table th, td {
+    text-align: center;
+    padding: 10px;
+}
+.classList-table tbody tr td:first-child {
+    text-align: left;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    max-width: 200px;
+}
+td.description {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    max-width: 200px;
+    text-align: left;
+}
+.classList-table tbody tr td:last-child{
+    color: #333;
+    cursor: pointer;
+}
+.classList-table tbody tr td:last-child:hover span{
+    color: #068ce6;
+}
+.classList-table tbody a {
+    text-decoration: none;
+}
+.classList-table tbody tr:nth-child(even){
+    background-color: #f5f5f5
+}
+
+/* read more hidden text style */
+.collapsible {
+    color: #068ce6;
+    cursor: pointer;
+  }
+  .content {
+    display: none;
+    overflow: hidden;
+  }
+  .show{
+      display: block;
+  }
+
+  /* pagination */
+  .pagination-div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 5px;
+  }
+  .pagination-div a {
+      padding: 5px 10px;
+    color: #333;
+    text-decoration: none;
+    background-color: #068ce6;
+    color: #fff;
+    margin: 1px;
+  }
+  .pagination-div a:focus {
+      text-decoration: underline;
+      font-weight: bold;
+  }

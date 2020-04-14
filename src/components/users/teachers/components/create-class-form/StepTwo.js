@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class FormUserPersonal extends Component {
     
     render() {
-        const {form: {image, description}, handleChange, handleImageChange, nextStep, prevStep} = this.props
+        const {form: { description}, handleChange, handleImageChange, nextStep, prevStep} = this.props
         return (
                     <div className='user-form'>
                         <h2>Upload class cover image & description or skip</h2>

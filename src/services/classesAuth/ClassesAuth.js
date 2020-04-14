@@ -8,8 +8,9 @@ const service = axios.create({
 
 export const AUTH_CLASSES = {
   getClasses: () => service.get('/api/classes'),
-  addStudent: data => service.post('/api/classes/add-student', data),
   createClass: data => service.post('/api/classes/create-class', data),
+  addStudent: data => service.post('/api/classes/add-student', data),
+  removeStudent: data => service.post('/api/classes/remove-student', data),
   getStudents: (data) => service.post('/api/classes/students', data),
 }
 

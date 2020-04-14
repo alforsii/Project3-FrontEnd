@@ -12,6 +12,7 @@ export class Teacher extends Component {
   state = {
     users: null,
     classes: null,
+    search: false
   };
   componentDidMount = () => {
     this.getClasses();
@@ -22,19 +23,29 @@ export class Teacher extends Component {
       users: this.props.context.state.users.filter(
         user => user.title === title
       ),
+      search: false
     }));
   };
 
+  //Get all classes
   getClasses = async () => {
     const res = await AUTH_CLASSES.getClasses();
     this.setState({ classes: res.data.classes });
   };
 
+  //update state
+  toggleSearchBar = () => {
+    this.setState(prevState => ({
+      search: !prevState.search,
+      users: null
+    }))
+  }
+
   render() {
-    const { users } = this.state;
+    const { users, search } = this.state;
     const {
       updateState,
-      state: { user: { firstName, path} }
+      // state: { user }
     } = this.props.context;
     return (
       <div className="main-teacher">
@@ -46,10 +57,11 @@ export class Teacher extends Component {
           <img src='/images/man-walking-dog.jpg' alt='' style={{width: '100%', height: '300px'}}/>
           <div className="t-dashboard">
             
-            <Navbar getUsers={this.getUsers.bind(this)}/>
+            <Navbar getUsers={this.getUsers.bind(this)}
+            toggleSearchBar={this.toggleSearchBar}/>
             <UsersList users={users}
               updateState={userData => updateState(userData)}/>
-            <ClassesList classes={this.state.classes} />
+            <ClassesList classes={this.state.classes} search={search} />
           </div>
         </div>
       </div>
