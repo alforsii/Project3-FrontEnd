@@ -180,6 +180,15 @@ export class AuthProvider extends Component {
     }
   };
 
+    /* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+toggleClassNavDropdown = () => {
+  const buttons = document.querySelectorAll('.classNavDropdown');
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].classList.toggle('show');
+  }
+};
+
   render() {
     const {
       state,
@@ -192,6 +201,7 @@ export class AuthProvider extends Component {
       updateState,
       isUserLoggedIn,
       getUsers,
+      toggleClassNavDropdown
     } = this;
     return (
       <AuthContext.Provider
@@ -206,6 +216,7 @@ export class AuthProvider extends Component {
           isUserLoggedIn,
           getUser,
           getUsers,
+          toggleClassNavDropdown
         }}
       >
         {this.props.children}

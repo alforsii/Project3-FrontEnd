@@ -14,26 +14,35 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
 */
 .main-teacher {
     padding-top: 8vh;
-    height: 92vh;
+    /* height: 92vh; */
     width: 100vw;
     display: flex;
 }
+#t-side-menu {
+  height: 100%;
+  display: none;
+}
+@media(min-width:1000px){
+  #t-side-menu {
+    display: block;
+  }
+}
+#t-side-menu ul {
+  margin: 0;
+}
 .main-teacher div.t-child-div:first-child{
-    flex: 1;
+    /* flex: 1; */
     background-color: #F5F5F5;
     padding: 10px;
     border-right: 1px solid #F5F5F5;
 }
-.main-teacher div.t-child-div:first-child div ul {
+/* .main-teacher div.t-child-div:first-child div ul {
     margin: 0;
-}
-.main-teacher div.t-child-div:first-child div h2 {
-    margin: 0;
-    padding: 5px;
-}
-.main-teacher div.t-child-div:nth-child(2){
+} */
+
+/* .main-teacher div.t-child-div:nth-child(2){
     flex: 5;
-}
+} */
 
 
 /* Switch button */

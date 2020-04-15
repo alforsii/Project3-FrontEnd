@@ -7,7 +7,7 @@ import Home from './components/home/Home';
 import LandingPage from './components/home/LandingPage';
 import SideBar from './components/sidebar/SideBar';
 import SocketMessageBoard from './components/messageBoard/SocketMessageBoard';
-import UpdateProfile from './components/upload/UpdateProfile'
+import UpdateProfile from './components/update-upload/UpdateProfile'
 import LoginForm from './components/auth/LoginForm';
 import Loader from './/loader/Loader';
 import Loader2 from './components/messageBoard/components/loader/Loader';
@@ -16,6 +16,7 @@ import PublicRoute from './components/protectedRoute/PublicRoutes';
 import TeacherPage from './components/users/teachers/TeacherPage'
 import TheClass from './components/users/teachers/components/theClass/TheClass'
 import AddNewClass from './components/users/teachers/components/create-class-form/ClassForm'
+
 
 
 import './App.css';
@@ -35,7 +36,10 @@ export class App extends Component {
         ) : (
           <React.Fragment>
             <NavBar loggedIn={loggedIn} userLogout={handleLogout} user={user}/>
-            <SideBar user={user} userLogout={handleLogout} loggedIn={loggedIn}/>
+            <div id='main-sidebar' className='main-sidebar'></div>
+            <div id='side-bar' className='side-bar-app'>
+              <SideBar user={user} userLogout={handleLogout} loggedIn={loggedIn}/>
+            </div>
           <Switch>
             <PublicRoute exact path="/" component={LandingPage} />
             <PublicRoute exact path="/login" component={LoginForm} />

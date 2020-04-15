@@ -79,6 +79,8 @@ body {
   .class-navbar button:focus {
     outline: 0;
   }
+
+/*   
   .dropdown3 {
     float: left;
     overflow: hidden;
@@ -122,7 +124,7 @@ body {
   
   .dropdown3:hover .dropdown-content3.show {
     display: block;
-  }
+  } */
 
   .class-students {
       

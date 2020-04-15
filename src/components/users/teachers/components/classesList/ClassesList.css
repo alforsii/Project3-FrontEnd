@@ -92,10 +92,16 @@ td.description {
     color: #333;
     text-decoration: none;
     background-color: #068ce6;
+    opacity: 0.8;
+    border-radius: 1px;
     color: #fff;
-    margin: 1px;
+    margin: .5px;
+  }
+  .pagination-div a:hover {
+    opacity: 1;
   }
   .pagination-div a:focus {
       text-decoration: underline;
       font-weight: bold;
+      opacity: 1;
   }
