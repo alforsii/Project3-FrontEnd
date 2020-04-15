@@ -9,8 +9,7 @@ import './ClassesList.css'
 export default class ClassList extends Component {
   state = {
     currentPage: 1,
-    postsPerPage: 10,
-    classes: this.props.classes
+    postsPerPage: 5,
   }
 toggleHiddenText = (e) => {
   e.target.previousElementSibling.classList.toggle('show')
@@ -21,22 +20,21 @@ toggleHiddenText = (e) => {
 paginate = pageNumber => this.setState({currentPage: pageNumber})
 
   render() {
-    const { currentPage, postsPerPage } = this.state;
+      const { currentPage, postsPerPage } = this.state;
       // Get current posts
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPageClasses = this.props.classes?.slice(indexOfFirstPost, indexOfLastPost);
+      const indexOfLastPost = currentPage * postsPerPage;
+      const indexOfFirstPost = indexOfLastPost - postsPerPage;
+      const currentPageClasses = this.props.classes?.slice(indexOfFirstPost, indexOfLastPost);
   
     return (
         <div className='main-classes-list'>
           <div className='search-input-div'>
-          { this.props.search ? <input id='searchClass' name='searchClass' placeholder='Search for class...' />
-          :<h2 style={{margin: '10px'}}>All Classes</h2>}
+          { this.props.search && <input id='searchClass' onChange={this.props.searchForClass} name='searchClass' placeholder='Search - Type class name...' />}
           </div>
           <table className="classList-table">
             <thead>
               <tr>
-                <th>Name</th>
+                <th>Classes</th>
                 <th>Grade</th>
                 <th>#Students</th>
                 {/* <th>Creator</th> */}
@@ -72,7 +70,7 @@ paginate = pageNumber => this.setState({currentPage: pageNumber})
                       {description.length < 30? description 
                     : <>
                     {`${description.slice(0,30)}`}
-                    <span  className='content'> {description.slice(31)}</span>
+                    <span  className='content'> {description.slice(30)}</span>
                     <span onClick={this.toggleHiddenText} className='collapsible'> show more</span>
                     </>
                     }
@@ -80,7 +78,26 @@ paginate = pageNumber => this.setState({currentPage: pageNumber})
                     <td>{schoolYearStart? `${moment(schoolYearStart).format('ll').split(' ')[0]} ${moment(schoolYearStart).format('ll').split(' ')[2]}`:''}</td>
                     <td>{schoolYearEnd? `${moment(schoolYearEnd).format('ll').split(' ')[0]} ${moment(schoolYearEnd).format('ll').split(' ')[2]}`:''}</td>
                     {/* <td><span><i className="fas fa-caret-down"></i></span></td> */}
-                    <td><span><i className="fas fa-ellipsis-h"></i></span></td>
+                   
+                    <td>
+                    <div className="dropdown3">
+                      <button
+                        className="dropbtn3"
+                        onClick={this.props.toggleClassNavDropdown}
+                      >
+                       <i className="fas fa-ellipsis-h"></i>
+                      </button>
+                      <div className="dropdown-content3 classNavDropdown">
+                        <p>
+                          Students
+                        </p>
+                        <hr style={{width: '100%', borderWidth: '0.4px', borderRadius: 0}}/>
+                        <p onClick={() => this.props.removeClass(_id)}> 
+                          Remove class
+                        </p>
+                      </div>
+                    </div>
+                    </td>
                   </tr>
               );
             })}

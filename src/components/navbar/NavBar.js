@@ -28,9 +28,9 @@ export default function NavBar({loggedIn, userLogout, user}) {
         return (
             <nav className='navbar'>
                 <div className='nav-group'>
-                <span onClick={()=> toggleSideBar()} id='menu-bars-btn' className='nav-items'><span className='fas fa-bars'></span></span>                </div>
+                <Link to='/' className='nav-items' style={{color: '#3f51b5', fontFamily: 'italic'}}><i style={{color:'#4a148c'}}> IronSchool</i></Link>
+               </div>
                 <div className='nav-group'>
-                    {/* <Link to='/signup' className='nav-items'>Signup</Link> */}
                     <Link to='/login' className='nav-items'>Login</Link>
                 </div>
             </nav>

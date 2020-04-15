@@ -51,6 +51,12 @@ nav.navbar {
     top: 5px;
     margin: 0 10px;
 }
+
+@media(min-width:1000px){
+    #menu-bars-btn {
+        display: none;
+    }
+}
 @media(max-width: 700px){
     #navbar-logout-btn {
         display: none;

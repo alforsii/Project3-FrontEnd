@@ -133,7 +133,9 @@ form.user-update-form div div label {
     background-color: rgba(214, 209, 209, 0.822);
 }
 .profile-pic {
-    width: 150px;
+    width: 120px;
+    height: 120px;
+    border-radius: 5px;
 }
 .progress-bar {
     background-color: #0794f3;

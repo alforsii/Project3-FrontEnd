@@ -18,14 +18,14 @@ export class TheClass extends Component {
   getUsers = title => {
     return this.props.context.state.users.filter(user => user.title === title);
   };
-  /* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-  toggleClassNavDropdown = () => {
-    const buttons = document.querySelectorAll('.classNavDropdown');
-    for (let i = 0; i < buttons.length; i++) {
-      buttons[i].classList.toggle('show');
-    }
-  };
+//   /* When the user clicks on the button, 
+// toggle between hiding and showing the dropdown content */
+//   toggleClassNavDropdown = () => {
+//     const buttons = document.querySelectorAll('.classNavDropdown');
+//     for (let i = 0; i < buttons.length; i++) {
+//       buttons[i].classList.toggle('show');
+//     }
+//   };
   //toggle userList
   toggleUserList = e => {
     const { id } = e.target;
@@ -111,7 +111,7 @@ toggle between hiding and showing the dropdown content */
           <div className='right-class-page-div'>
             <div className="navbar-div">
               <ClassNav 
-              toggleClassNavDropdown={this.toggleClassNavDropdown}
+              toggleClassNavDropdown={this.props.context.toggleClassNavDropdown}
               toggleUserList={this.toggleUserList}/>
             </div>
           </div>
