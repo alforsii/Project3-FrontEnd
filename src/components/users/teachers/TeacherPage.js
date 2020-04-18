@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 
 import Navbar from './components/navbar/Navbar'
 import Sidebar from '../../sidebar/SideBar';
-// import Sidebar from './components/Sidebar';
+
 import ClassesList from './components/classesList/ClassesList';
+import ImageUploadForm from  './components/img-uploadForm/ImageForm'
 import UsersList from './components/usersList/UsersList'
 
 import { AUTH_CLASSES } from '../../../services/classesAuth/ClassesAuth';
+import AUTH_SERVICE from '../../../services/auth/AuthServices';
 import './TeacherPage.css';
 
 export class Teacher extends Component {
@@ -14,7 +16,12 @@ export class Teacher extends Component {
     users: null,
     classes: null,
     filteredClasses: null,
-    search: false
+    archiveClasses: null,
+    filteredArchiveClasses: null,
+    search: false,
+    archive: false,
+    navigate: 'class-list',
+    dashboardImg:''
   };
   componentDidMount = () => {
     this.getClasses();
@@ -29,12 +36,19 @@ export class Teacher extends Component {
     }));
   };
 
+  //update this state
+  updateState = (data) => {
+    this.setState(data)
+  }
+
   //Get all classes
   getClasses = async () => {
     const res = await AUTH_CLASSES.getClasses();
     this.setState({ 
       classes: res.data.classes,
-      filteredClasses: res.data.classes
+      filteredClasses: res.data.classes,
+      archiveClasses: res.data.removedClasses,
+      filteredArchiveClasses: res.data.removedClasses,
      });
   };
 
@@ -51,6 +65,11 @@ export class Teacher extends Component {
     const searchingClass = this.state.classes.filter(theClass => theClass.name.toUpperCase().includes(e.target.value.toUpperCase()))
     this.setState({ filteredClasses: searchingClass})
   }
+  //Search for class in archive
+  searchForClassArchive = e => {
+    const searchingClass = this.state.archiveClasses.filter(theClass => theClass.name.toUpperCase().includes(e.target.value.toUpperCase()))
+    this.setState({ filteredArchiveClasses: searchingClass})
+  }
 
   //Remove the class (move to archive not completely deleting)
   removeClass = async (classId) => {
@@ -61,12 +80,27 @@ export class Teacher extends Component {
     })
   }
 
+  //handle dashboardImg
+  handleDashboardImg = e => {
+    this.setState({ [e.target.name]: e.target.files[0]})
+  }
+  //handle dashboardImg submit
+  handleDashboardImgSubmit = async e => {
+    e.preventDefault()
+    const newFile = new FormData()
+    newFile.append('image', this.state.dashboardImg,this.state.dashboardImg.name)
+    await AUTH_SERVICE.updateDashboardImg(newFile)
+    this.inputForm = ''
+    this.setState({dashboardImg: ''})
+    this.props.context.isUserLoggedIn()
+  }
   render() {
-    const { users, search, filteredClasses } = this.state;
-    console.log("Output for: Teacher -> render -> filteredClasses", filteredClasses)
+    const { users, search, navigate, filteredClasses, filteredArchiveClasses } = this.state;
+
     const {
       updateState,
       toggleClassNavDropdown,
+      displayForm,
       state: { user }
     } = this.props.context;
     return (
@@ -76,20 +110,47 @@ export class Teacher extends Component {
           </div>
 
         <div id='t-main' className="t-child-div">
-          <img src='/images/man-walking-dog.jpg' alt='' style={{width: '100%', height: '300px'}}/>
+          <div className='cover-img-div'>
+            <img id='cover-img' src={user.dashboardImg} alt=''/>
+            <button onClick={displayForm} id='cover-img-upload-btn'>
+                <span><i className="fas fa-camera"></i></span>
+            </button>
+          </div>
           <div className="t-dashboard">
             
             <Navbar getUsers={this.getUsers.bind(this)}
-            toggleSearchBar={this.toggleSearchBar}/>
-            <UsersList users={users}
-              updateState={userData => updateState(userData)}/>
-            <ClassesList classes={filteredClasses} 
+            toggleClassNavDropdown={this.props.context.toggleClassNavDropdown}
+            toggleSearchBar={this.toggleSearchBar}
+            updateState={data => this.updateState(data)}
+            />
+            { navigate === 'users-list' && <UsersList users={users}
+              updateState={userData => updateState(userData)}
+              />}
+            
+           { navigate === 'archive' &&  <ClassesList  archive={true}
+            classes={filteredArchiveClasses} 
             toggleClassNavDropdown={toggleClassNavDropdown}
-            searchForClass={this.searchForClass}
-            removeClass={classId => this.removeClass(classId)}
-            search={search} />
+            searchForClass={this.searchForClassArchive}
+            // removeClass={classId => this.removeClass(classId)}
+           search={search} /> }
+          { navigate === 'class-list' && <ClassesList archive={false}
+          classes={filteredClasses} 
+          toggleClassNavDropdown={toggleClassNavDropdown}
+          searchForClass={this.searchForClass}
+          removeClass={classId => this.removeClass(classId)}
+          search={search} />
+          }
           </div>
         </div>
+        {/* ----------- position fixed or hidden  */}
+
+        <ImageUploadForm src={user.dashboardImg}
+            handleSubmit={this.handleDashboardImgSubmit} 
+            handleChange={this.handleDashboardImg}
+            inputForm={this.inputForm}
+            displayForm={displayForm}
+            />
+
       </div>
     );
   }

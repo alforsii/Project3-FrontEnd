@@ -21,7 +21,8 @@ export default class UserList extends Component {
   //Search user
   filterUsers = e => {
    const searchUser = e.target.value.toUpperCase();
-    const searchResult = [...this.state.users].filter(user => `${user.firstName} ${user.lastName}`.toUpperCase().includes(searchUser.toUpperCase()))
+    const searchResult = [...this.state.users].filter(user => 
+      `${user.firstName} ${user.lastName}`.toUpperCase().includes(searchUser) || `${user.email}`.toUpperCase().includes(searchUser))
     this.setState({
       filterUsers: searchResult
     })
@@ -31,7 +32,7 @@ export default class UserList extends Component {
     const { filterUsers } = this.state;
     return (
       <div className='main-user-list'>
-        <input type="text" placeholder={`Search for parents...`} className="searchInput" onKeyUp={this.filterUsers} autoComplete='off'></input>
+        <input type="text" placeholder={`Search for parents by name or email...`} className="searchInput" onKeyUp={this.filterUsers} autoComplete='off'></input>
         <div className='select-btns'>
           <div>
             <input type="checkbox" onChange={this.toggleCheckbox} />

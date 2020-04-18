@@ -35,6 +35,9 @@ nav.navbar {
     /* color: #fff; */
     background-color: #E0E0E0;
 }
+#nav-logo {
+    background-color: transparent;
+}
 .nav-items:focus {
     background-color: #0794f3;
     color: #fff;
@@ -59,6 +62,11 @@ nav.navbar {
 }
 @media(max-width: 700px){
     #navbar-logout-btn {
+        display: none;
+    }
+}
+@media(max-width: 500px){
+    #nav-logo {
         display: none;
     }
 }

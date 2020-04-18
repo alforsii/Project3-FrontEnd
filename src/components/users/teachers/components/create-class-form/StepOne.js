@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 export default class FormUserDetails extends Component {
     
@@ -7,7 +8,8 @@ export default class FormUserDetails extends Component {
         return (
             <div className='user-form'>
                 <h2>Enter Class name & grade</h2>
-
+                <Link to='/teachers-page'
+                style={{position: 'absolute', top: '70px', left: '20px', textDecoration: 'none', color: '#068ce6'}}>Go back</Link>
                 <label htmlFor='name'> Name
                     </label>
                 <input className='form-input'

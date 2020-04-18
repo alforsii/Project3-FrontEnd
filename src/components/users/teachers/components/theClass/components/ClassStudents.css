@@ -1,0 +1,12 @@
+.each-student-main {
+    display: flex;
+    justify-content: space-between;
+}
+.each-student {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.each-student p {
+    margin-left:10px;
+}
