@@ -4,6 +4,7 @@ import ClassNav from './components/ClassNav'
 import ClassStudents from './components/ClassStudents';
 import Students from '../users/Students';
 import Teachers from '../users/Teachers';
+import ImageUploadForm from '../img-uploadForm/ImageForm'
 import './TheClass.css';
 
 export class TheClass extends Component {
@@ -12,20 +13,13 @@ export class TheClass extends Component {
     filteredStudents: this.props.location.state.currClass.students,
     teachers: [],
     parents: [],
-    selectAllStudents: false,
+    dashboardImg: ''
   };
   //get users by title(TA,Student or Parent)
   getUsers = title => {
     return this.props.context.state.users.filter(user => user.title === title);
   };
-//   /* When the user clicks on the button, 
-// toggle between hiding and showing the dropdown content */
-//   toggleClassNavDropdown = () => {
-//     const buttons = document.querySelectorAll('.classNavDropdown');
-//     for (let i = 0; i < buttons.length; i++) {
-//       buttons[i].classList.toggle('show');
-//     }
-//   };
+
   //toggle userList
   toggleUserList = e => {
     const { id } = e.target;
@@ -49,11 +43,10 @@ export class TheClass extends Component {
   //Search user
   filterUsers = e => {
     const searchUser = e.target.value.toUpperCase();
-    const searchResult = [...this.state.students].filter(user =>
-      `${user.firstName} ${user.lastName}`
-        .toUpperCase()
-        .includes(searchUser.toUpperCase())
-    );
+    const searchResult = [...this.state.students].filter(data =>
+      `${data.student.firstName} ${data.student.lastName}`.toUpperCase().includes(searchUser) 
+      || `${data.student.email}`.toUpperCase().includes(searchUser)
+      );
     this.setState({
       filteredStudents: searchResult,
     });
@@ -84,6 +77,24 @@ export class TheClass extends Component {
     }));
   }
 
+  //handle cover Img
+  handleCoverImg = e => {
+    this.setState({ [e.target.name]: e.target.files[0]})
+  }
+  //handle cover Img submit
+  handleCoverImgSubmit = async e => {
+    e.preventDefault()
+    const classId = this.props.location.state.currClass._id
+    const newFile = new FormData()
+    newFile.append('image', this.state.dashboardImg,this.state.dashboardImg.name)
+    newFile.append('classId', classId)
+    await AUTH_CLASSES.updateClassImg(newFile)
+    this.inputForm = ''
+    this.setState({dashboardImg: ''})
+    this.props.history.push('/teachers-page')
+    // this.props.context.isUserLoggedIn()
+  }
+
   componentDidMount = () => {
     // this.getStudents()
   };
@@ -93,17 +104,25 @@ export class TheClass extends Component {
       currClass: { path },
       currClass
     } = this.props.location.state;
-    const {updateState} = this.props.context;
+    const { updateState, displayForm, toggleClassNavDropdown } = this.props.context;
 
     return (
       <React.Fragment>
         <div className="main-class-page">
           <div className='left-class-page-div'>
             <div className="students-list class-students">
-              <img className="cover-image" src={path} alt='' />
+            <div className='cover-img-div'>
+            <img className="cover-image" src={path} alt='' />
+            <button onClick={displayForm} id='cover-img-upload-btn'>
+                <span><i className="fas fa-camera"></i></span>
+            </button>
+          </div>
+              
                 <ClassStudents currClass={currClass}
+                toggleClassNavDropdown={toggleClassNavDropdown}
                 filteredStudents={this.state.filteredStudents}
                 filterUsers={this.filterUsers}
+                updateState={updateState}
                 removeFromClass={this.removeFromClass}
                 />
             </div>
@@ -111,7 +130,7 @@ export class TheClass extends Component {
           <div className='right-class-page-div'>
             <div className="navbar-div">
               <ClassNav 
-              toggleClassNavDropdown={this.props.context.toggleClassNavDropdown}
+              toggleClassNavDropdown={toggleClassNavDropdown}
               toggleUserList={this.toggleUserList}/>
             </div>
           </div>
@@ -135,6 +154,15 @@ export class TheClass extends Component {
               closeUserList={this.closeUserList}
             />
           </div>
+          <ImageUploadForm src={path}
+            handleSubmit={this.handleCoverImgSubmit} 
+            handleChange={this.handleCoverImg}
+            inputForm={this.inputForm}
+            displayForm={displayForm}
+            />
+            {/* <button onClick={displayForm} id='add-button' className="button is-primary dashboardImg-form">
+            <i className="fas fa-camera"></i>
+                    </button> */}
       </React.Fragment>
     );
   }

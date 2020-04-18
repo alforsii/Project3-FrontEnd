@@ -188,7 +188,10 @@ toggleClassNavDropdown = () => {
     buttons[i].classList.toggle('show');
   }
 };
-
+displayForm = () => {
+  document.querySelector('#main-form').classList.toggle('show')
+  document.querySelector('#main-form').classList.toggle('hide')
+}
   render() {
     const {
       state,
@@ -201,7 +204,8 @@ toggleClassNavDropdown = () => {
       updateState,
       isUserLoggedIn,
       getUsers,
-      toggleClassNavDropdown
+      toggleClassNavDropdown,
+      displayForm
     } = this;
     return (
       <AuthContext.Provider
@@ -216,7 +220,8 @@ toggleClassNavDropdown = () => {
           isUserLoggedIn,
           getUser,
           getUsers,
-          toggleClassNavDropdown
+          toggleClassNavDropdown,
+          displayForm
         }}
       >
         {this.props.children}

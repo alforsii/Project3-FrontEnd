@@ -1,156 +1,104 @@
 .main-user-list {
-    background-color: #F5F5F5;
-    box-shadow: 0px 8px 20px 2px rgba(0,0,0,0.2);
+  background-color: #f5f5f5;
+  box-shadow: 0px 8px 20px 2px rgba(0, 0, 0, 0.2);
 }
 .user-user-list-horizontal {
-    /* background-color: #ddd; */
-    position: relative;
+  position: relative;
 }
 .select-btns {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 input.searchInput {
-    width: 93%;
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 30px;
-    border: 0.5px solid #d3e7f5;
-    margin: 5px 0;
+  width: 93%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 30px;
+  border: 0.5px solid #d3e7f5;
+  margin: 5px 0;
 }
 input.searchInput:focus {
-    outline: 0;
+  outline: 0;
 }
 .userListScroll {
-    width: 350px;
-    /* height: 300px; */
-    max-height: 50vh;
-    overflow: scroll;
+  width: 350px;
+  max-height: 50vh;
+  overflow: scroll;
 }
 button#addToClass,
-button#removeFromClass
- {
-    padding: 10px ;
-    margin: 2px;
-    font-size: 14px;
-    cursor: pointer;
-    /* border-color: #068ce6; */
-    border-radius: 30px;
+button#removeFromClass {
+  padding: 10px;
+  margin: 2px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 30px;
 }
 button.addOneToClass,
-button.removeOneFromClass
- {
-    margin: 2px;
-    cursor: pointer;
-    /* border-color: #068ce6; */
-    border-radius: 30px;
+button.removeOneFromClass {
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 30px;
 }
 button#removeFromClass,
 button.removeOneFromClass {
-    border-color: none;
+  border-color: none;
 }
 
 button.addOneToClass:hover,
-button#addToClass:hover
-{
-    background-color:  #068ce6;
-    color: #fff;
+button#addToClass:hover {
+  background-color: #068ce6;
+  color: #fff;
 }
 button.removeOneFromClass:hover,
-button#removeFromClass:hover
-{
-    background-color:  red;
-    color: #fff;
+button#removeFromClass:hover {
+  background-color: red;
+  color: #fff;
 }
 button.removeOneFromClass:focus,
-button#removeFromClass:focus
-{
-    outline: 0;
+button#removeFromClass:focus {
+  outline: 0;
 }
 button.addOneToClass:focus,
-button#addToClass:focus {   
-    outline: 0;
+button#addToClass:focus {
+  outline: 0;
 }
 .user-horizontal {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 .user-horizontal div:nth-child(2) {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    padding: 0 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 0 5px;
 }
 .user-image-sm {
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
 }
 .user-horizontal p {
-    padding: 0 10px;
+  margin-left: 10px;
 }
-/* dropdown */
-/* .dropbtn2 {
-    background-color:  #068ce6;
-    color: white;
-    font-size: 16px;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    position: relative;
-    top: -30px;
-    left: 250px;
-    border-radius: 50%;
-  }
-  
-  .dropbtn2:hover, .dropbtn2:focus {
-    background-color:  #068ce6;
-    outline: 0;
-  }
-  
-  .dropdown2 {
-    display: inline-block;
-  }
-  
-  .dropdown-content2 {
-    display: none;
-    position: fixed;
+.close-form-btn {
+  background-color: red;
+  color: #fff;
+  float: right;
+  margin-left: 5px;
+}
 
-    background-color: #f1f1f1;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    animation: display 0.1s ease-in forwards;
-  }
-  @keyframes display {
-      0%{opacity: 0;}
-      100%{opacity: 1;}
-  }
-  .dropdown-content2 a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  .dropdown2 a:hover {background-color: #ddd;}
-  
-  .show {display: block;} */
-
-    /* show and hide user list */
-    #studentsList,
-    #teachersList {
-        display: none;
-    }
-    /* show and hide user list */
-    #studentsList.show,
-    #teachersList.show {
-        display: block;
-        z-index: 1000;
-    }
-    
+/* show and hide user list */
+#studentsList,
+#teachersList {
+  display: none;
+}
+/* show and hide user list */
+#studentsList.show,
+#teachersList.show {
+  display: block;
+  z-index: 1000;
+}

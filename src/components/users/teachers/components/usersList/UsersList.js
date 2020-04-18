@@ -8,15 +8,15 @@ export default function UsersList({users, updateState}) {
               {users?.map(user => {
                 const { _id, path, username } = user;
                 return (
-                  <div key={_id} className="dropdown user-user-list">
+                  <div key={_id} className="user-user-list">
                     <div className="user-image-div">
                       <img
-                        className="user-image dropbtn"
+                        className="user-image"
                         src={path}
                         alt={username}
                       />
                     </div>
-                    <div className="dropdown-content">
+                    <div className="">
                       <Link
                         to={`/message-board/${_id}`}
                         onClick={() =>
@@ -30,7 +30,6 @@ export default function UsersList({users, updateState}) {
                       >
                         Send message
                       </Link>
-                      <Link to="/create-class">Add to class</Link>
                     </div>
                   </div>
                 );

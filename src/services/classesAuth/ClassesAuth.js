@@ -13,6 +13,9 @@ export const AUTH_CLASSES = {
   addStudent: data => service.post('/api/classes/add-student', data),
   removeStudent: data => service.post('/api/classes/remove-student', data),
   getStudents: (data) => service.post('/api/classes/students', data),
+  updateClassImg(userData) {
+    return service.post('/api/classes/update/class-image', userData);
+  }
 }
 
 export default AUTH_CLASSES;

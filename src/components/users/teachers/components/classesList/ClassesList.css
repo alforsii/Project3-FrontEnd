@@ -15,9 +15,10 @@ input#searchClass {
     padding-left: 30px;
     font-size: 16px;
     border-radius: 30px;
-    margin-bottom: 10px;
+    margin-top: 7px;
+        margin-bottom: 5px;
     border: none;
-    border: 0.5px solid gray;
+    border: 0.5px solid #068ce6;
 }
 input#searchClass:focus {
     outline: 0;
@@ -25,6 +26,17 @@ input#searchClass:focus {
 table.classList-table {
     border-collapse: collapse;
     width: 100%;
+}
+@media(max-width:600px){
+    table.classList-table {
+        width: 100vw;
+    }
+    input#searchClass {
+        width: 80vw;
+    }
+    .bg-screen-display {
+        display: none;
+    }
 }
 .classList-table tbody tr {
     /* border: 0.3px solid gray; */
@@ -45,7 +57,7 @@ table.classList-table {
     text-align: left;
     overflow-wrap: break-word;
     word-wrap: break-word;
-    max-width: 200px;
+    max-width: 100px;
 }
 td.description {
     overflow-wrap: break-word;
@@ -56,6 +68,9 @@ td.description {
 .classList-table tbody tr td:last-child{
     color: #333;
     cursor: pointer;
+}
+.classList-table thead tr th:last-child{
+    text-align: left;
 }
 .classList-table tbody tr td:last-child:hover span{
     color: #068ce6;

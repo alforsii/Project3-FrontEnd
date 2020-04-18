@@ -37,6 +37,9 @@ export const AUTH_SERVICE = {
       },
       updateProfile(userData) {
         return service.post('/api/profile/upload-profile', userData);
+      },
+      updateDashboardImg(userData) {
+        return service.post('/api/profile/update/dashboard-image', userData);
       }
 }
 

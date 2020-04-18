@@ -1,0 +1,72 @@
+.main-form {
+    justify-content: center;
+}
+.form-control {
+    position: fixed;
+    display: none;
+    z-index: 1000;
+    width: 300px;
+    padding: 30px;
+    background-color: #f5f5f5;
+    left: 40%;
+    border-radius: 10px;
+    
+}
+.form-control.show{
+    top: -500px;
+    display: block;
+    box-shadow: 0px 8px 20px 1000px rgba(0,0,0,0.5);
+    animation-name: form-in;
+    animation-duration: 0.4s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    
+}
+.close-form-btn.align-right {
+    position: relative;
+    top: -25px;
+    right: -15px;
+}
+@keyframes form-in {
+    0%{top: -500px;}
+    100%{top: 10vw;}
+}
+.form-control.hide{
+    top: 10vw;
+    display: none;
+    animation-name: form-out;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    
+}
+.form-control button[type='submit']
+ {
+    padding: 5px 0px;
+    margin: 2px 0;
+    font-size: 16px;
+    background-color: #068ce6;
+    color: #fff;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+}
+.form-control input[type='file'] {
+    background-color: transparent;
+
+}
+.form-control button[type='submit']:focus {
+    outline: 0;
+}
+@keyframes form-out {
+    0%{opacity:1;}
+    100%{opacity: 0;}
+}
+@keyframes blur {
+    0%{opacity: 1;}
+    100%{opacity: 0.5;}
+}
+@keyframes clear-blur {
+    0%{opacity: 0.5;}
+    100%{opacity: 1;}
+}

@@ -21,7 +21,8 @@ export default class UserList extends Component {
   //Search user
   filterUsers = e => {
    const searchUser = e.target.value.toUpperCase();
-    const searchResult = [...this.state.users].filter(user => `${user.firstName} ${user.lastName}`.toUpperCase().includes(searchUser.toUpperCase()))
+    const searchResult = [...this.state.users].filter(user => 
+      `${user.firstName} ${user.lastName}`.toUpperCase().includes(searchUser) || `${user.email}`.toUpperCase().includes(searchUser))
     this.setState({
       filterUsers: searchResult
     })
@@ -31,19 +32,9 @@ export default class UserList extends Component {
     const { filterUsers } = this.state;
     return (
       <div className='main-user-list'>
-         <button
-              style={{
-                backgroundColor: 'red',
-                color: 'white',
-                float: 'right',
-                marginLeft: '5px',
-              }}
-              className="closeUserListBtn"
-              onClick={this.props.closeUserList}
-            >
-              x
-            </button>
-        <input type="text" placeholder='Search for co-teachers...' className="searchInput" onKeyUp={this.filterUsers} autoComplete='off'></input>
+         <button className="close-form-btn"
+              onClick={this.props.closeUserList}>x</button>
+        <input type="text" placeholder='Search for co-teachers by name or email...' className="searchInput" onKeyUp={this.filterUsers} autoComplete='off'></input>
         <div className='select-btns'>
           <div>
             <input type="checkbox" onChange={this.toggleCheckbox} />

@@ -14,7 +14,6 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
 */
 .main-teacher {
     padding-top: 8vh;
-    /* height: 92vh; */
     width: 100vw;
     display: flex;
 }
@@ -22,32 +21,17 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
   height: 100%;
   display: none;
 }
-@media(min-width:1000px){
-  #t-side-menu {
-    display: block;
-  }
-}
+
 #t-side-menu ul {
   margin: 0;
 }
 .main-teacher div.t-child-div:first-child{
-    /* flex: 1; */
     background-color: #F5F5F5;
     padding: 10px;
     border-right: 1px solid #F5F5F5;
 }
-/* .main-teacher div.t-child-div:first-child div ul {
-    margin: 0;
-} */
-
-/* .main-teacher div.t-child-div:nth-child(2){
-    flex: 5;
-} */
-
-
 /* Switch button */
 .main-switch {
-    /* background-color: #ddd; */
     width: 100%;
     border-radius: 30px;
     margin: 0 auto;
@@ -56,26 +40,58 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
     position: relative;
     top: -50px;
 }
-.click-btn {
+#cover-img {
+  width: 80vw; 
+  height: 300px;
+}
+@media(max-width:500px) {
+  .main-switch {
+    width: 100vw;
+    border-radius: 30px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    top: -50px;
+}
+}
+@media(min-width:1000px){
+  #t-side-menu {
+    display: block;
+  }
+}
+@media(max-width:1000px){
+  #cover-img {
+    width: 100vw; 
+    height: 300px;
+  }
+}
+
+#click-btn,
+.click-btn
+ {
     padding: 5px 10px;
     background-color: #F5F5F5;
     opacity: 0.8;
     color: black;
     cursor: pointer;
-    border: 3px solid #F5F5F5;
+    border: 2px solid #F5F5F5;
     font-size: 16px;
     border-radius: 30px;
     margin: 5px;
     text-decoration: none;
 }
+#click-btn:focus,
 .click-btn:focus,
 button.delete-btn:focus {
     outline: 0;
     opacity: 1;
-    font-weight: bold;
     border-color: #0794f3;
 }
-.click-btn:hover {
+#click-btn:hover,
+.click-btn:hover
+ {
     background-color: #E0E0E0;
     color: #0794f3;
     opacity: 1;
@@ -86,51 +102,24 @@ button.delete-btn:focus {
   /* User div */
   .t-users {
       margin: 0 auto;
-      width: 800px;
+      width: 60vw;
   }
-
-  /* drop down button */
-  .dropdown {
-      position: relative;
-    /* float: left;
-    overflow: hidden; */
-  }
-  
-  .dropdown .dropbtn {
-    font-size: 16px;  
-    border: none;
-    outline: none;
-    color: white;
-    padding: 14px 16px;
-    background-color: inherit;
-    font-family: inherit;
-    margin: 0;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: fixed;
-
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  .dropdown-content a {
-    float: none;
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-  }
-  
-  .dropdown-content a:hover {
-    background-color: #ddd;
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-    z-index: 10;
-  }
+.cover-img-div {
+  position: relative;
+}
+#cover-img-upload-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.3;
+  transition: opacity 0.2s linear;
+}
+#cover-img-upload-btn:focus {
+  outline: 0;
+}
+#cover-img-upload-btn:hover {
+  opacity: 0.8;
+}
