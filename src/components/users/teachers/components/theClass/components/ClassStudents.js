@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 
 import Pagination from '../../classesList/Pagination'
@@ -15,14 +15,18 @@ export default function ClassStudents({filteredStudents, filterUsers, updateStat
 //       checkboxes[i].checked = checked;
 //     }
 //   };
-
+const [currentPage, setCurrentPage] = useState(1);
+const [postsPerPage] = useState(10);
 // Get current posts
 const indexOfLastPost = currentPage * postsPerPage;
 const indexOfFirstPost = indexOfLastPost - postsPerPage;
-const currentPageClasses = classes?.slice(
+const currentPageStudents = filteredStudents?.slice(
   indexOfFirstPost,
   indexOfLastPost
 );
+
+ // Change page
+ const paginate = pageNumber => setCurrentPage(pageNumber);
     return (
         <div>
 
@@ -44,15 +48,16 @@ const currentPageClasses = classes?.slice(
               <span> Select all</span>
             </div> */}
             {/* <button id="removeFromClass">Remove all selected users</button> */}
-          </div>
           <Pagination
           postsPerPage={postsPerPage}
-          totalPosts={classes?.length}
-          paginate={this.paginate}
+          totalPosts={filteredStudents?.length}
+          paginate={paginate}
+          currentPage={currentPage}
         />
+          </div>
           <hr />
           <div className="userListScroll2">
-             { filteredStudents?.map((studentData,i) => {
+             { currentPageStudents?.map((studentData,i) => {
                const { student: {_id, path, username, firstName, lastName }, student} = studentData;
                return (
                  <div key={_id+i+1} className="each-student-main">
@@ -73,6 +78,13 @@ const currentPageClasses = classes?.slice(
                             <i className="fas fa-ellipsis-h"></i>
                         </button>
                         <div className="dropdown-content3 classNavDropdown">
+                        <div className="each-student">
+                       <img className="user-image-md" src={path} alt={username} />
+                       <h4>
+                         {' '}
+                         {firstName} {lastName}{' '}
+                       </h4>
+                     </div>
                           <p>
                             <Link
                               to={`/message-board/${_id}`}

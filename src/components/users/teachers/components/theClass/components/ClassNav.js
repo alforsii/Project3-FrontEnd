@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-export default function ClassNav({toggleClassNavDropdown,toggleUserList}) {
+export default function ClassNav({toggleClassNavDropdown,toggleUserList, getStudents}) {
     return (
         <React.Fragment>
             <nav>

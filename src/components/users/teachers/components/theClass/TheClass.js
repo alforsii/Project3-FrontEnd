@@ -11,18 +11,48 @@ export class TheClass extends Component {
   state = {
     students: this.props.location.state.currClass.students,
     filteredStudents: this.props.location.state.currClass.students,
+    restStudents: null,
+    restTeachers: null,
     teachers: [],
     parents: [],
     dashboardImg: ''
   };
-  //get users by title(TA,Student or Parent)
-  getUsers = title => {
-    return this.props.context.state.users.filter(user => user.title === title);
+
+  componentDidMount = async () => {
+   await this.getClassStudents()
+  };
+
+  getClassStudents = async () => {
+    //Get current class students id's to filter out from the main list of students
+    const res = await AUTH_CLASSES.getClassStudents(this.props.location.state.currClass._id)
+
+    this.setState(prevState => ({
+      students: res.data.studentsData.students,
+    filteredStudents: res.data.studentsData.students,
+    }))
+  }
+
+  //get other students that are not in class yet
+  getOtherStudents = async () => {
+    const res = await AUTH_CLASSES.getOtherStudents(this.props.location.state.currClass._id)
+
+    this.setState({
+      restStudents: res.data.students,
+    })
+  };
+  //get teachers
+  getOtherTAs = async () => {
+    const res = await AUTH_CLASSES.getOtherTAs(this.props.location.state.currClass._id)
+    console.log("teachers", res.data.teachers)
+    this.setState({
+      restTeachers: res.data.teachers,
+    })
   };
 
   //toggle userList
   toggleUserList = e => {
     const { id } = e.target;
+    id === 'studentsBtn' ? this.getOtherStudents() : this.getOtherTAs()
     this.closeUserList();
     return id === 'studentsBtn'
       ? document.getElementById('studentsList').classList.toggle('show')
@@ -95,17 +125,14 @@ export class TheClass extends Component {
     // this.props.context.isUserLoggedIn()
   }
 
-  componentDidMount = () => {
-    // this.getStudents()
-  };
-
+  
   render() {
     const {
       currClass: { path },
       currClass
     } = this.props.location.state;
     const { updateState, displayForm, toggleClassNavDropdown } = this.props.context;
-
+    const { filteredStudents, restStudents, restTeachers } = this.state
     return (
       <React.Fragment>
         <div className="main-class-page">
@@ -120,7 +147,7 @@ export class TheClass extends Component {
               
                 <ClassStudents currClass={currClass}
                 toggleClassNavDropdown={toggleClassNavDropdown}
-                filteredStudents={this.state.filteredStudents}
+                filteredStudents={filteredStudents}
                 filterUsers={this.filterUsers}
                 updateState={updateState}
                 removeFromClass={this.removeFromClass}
@@ -131,7 +158,8 @@ export class TheClass extends Component {
             <div className="navbar-div">
               <ClassNav 
               toggleClassNavDropdown={toggleClassNavDropdown}
-              toggleUserList={this.toggleUserList}/>
+              toggleUserList={this.toggleUserList}
+              />
             </div>
           </div>
         {/* <Sidebar/> */}
@@ -139,20 +167,23 @@ export class TheClass extends Component {
 
 {/*--------- below hidden user lists - appears on click -------------------*/}
       <div id="studentsList" className="userListMenu-content">
-            <Students
-              users={this.getUsers('Student')}
+            { restStudents && <Students
+              users={restStudents}
+              // users={this.getUsers('Student')}
               updateState={updateState}
               addToClass={user => this.addToClass(user)}
               closeUserList={this.closeUserList}
-            />
+              toggleClassNavDropdown={toggleClassNavDropdown}
+              // classStudents={students.map(data => data.student._id)}
+            />}
           </div>
           <div id="teachersList" className="userListMenu-content">
-            <Teachers
-              users={this.getUsers('TA')}
+            { restTeachers && <Teachers
+              users={restTeachers}
               updateState={updateState}
               addToClass={user => this.addToClass(user)}
               closeUserList={this.closeUserList}
-            />
+            />}
           </div>
           <ImageUploadForm src={path}
             handleSubmit={this.handleCoverImgSubmit} 
