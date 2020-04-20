@@ -58,9 +58,28 @@ export default class UserList extends Component {
                     {firstName} {lastName}{' '}
                   </p>
                 </div>
-                  <button className='addOneToClass'
-                  onClick={() => this.props.addToClass(user)}>Add to class</button>
               </div>
+              {/*  */}
+              <div className="dropdown3">
+                        <button
+                          className="dropbtn3"
+                          onClick={this.props.toggleClassNavDropdown}
+                        >
+                            <i className="fas fa-ellipsis-h"></i>
+                        </button>
+                        <div className="dropdown-content3 align-right classNavDropdown">
+                        <div className="each-student">
+                       <img className="user-image-md" src={path} alt={username} />
+                       <h4>
+                         {' '}
+                         {firstName} {lastName}{' '}
+                       </h4>
+                     </div>
+                          <p>Mark</p>
+                          <p onClick={() => this.props.addToClass(user)}>Add to class</p>
+                        </div>
+                      </div>
+                  {/*  */}
             </div>
           );
         })}

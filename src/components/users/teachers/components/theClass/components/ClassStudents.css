@@ -10,3 +10,10 @@
 .each-student p {
     margin-left:10px;
 }
+.user-image-md {
+    width: 100px;
+    height: 100px;
+    margin-top: 5px;
+    margin-left: 5px;
+    border-radius: 3px;
+}

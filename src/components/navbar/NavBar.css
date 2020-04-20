@@ -38,7 +38,11 @@ nav.navbar {
 #nav-logo {
     background-color: transparent;
 }
-.nav-items:focus {
+/* .nav-items:focus {
+    background-color: #0794f3;
+    color: #fff;
+} */
+.nav-items.focus-on {
     background-color: #0794f3;
     color: #fff;
 }

@@ -15,7 +15,19 @@ export const AUTH_CLASSES = {
   getStudents: (data) => service.post('/api/classes/students', data),
   updateClassImg(userData) {
     return service.post('/api/classes/update/class-image', userData);
-  }
+  },
+  getClassStudents(classId) {
+    return service.get(`/api/classes/${classId}/class-students`);
+  },
+  getClassTAs(classId) {
+    return service.get(`/api/classes/${classId}/class-teachers`);
+  },
+  getOtherStudents(classId) {
+    return service.get(`/api/classes/${classId}/other-students`);
+  },
+  getOtherTAs(classId) {
+    return service.get(`/api/classes/${classId}/other-teachers`);
+  },
 }
 
 export default AUTH_CLASSES;

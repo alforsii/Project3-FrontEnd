@@ -1,11 +1,16 @@
 
 .userListMenu-content {
-  width: 350px;
+  width: 65vw;
   /* height: 300px; */
   background-color: 	#F5F5F5;
   position: fixed;
   top: 18%;
-  left: 30%;
+  left: 15%;
+}
+@media(max-width: 500px) {
+  .userListMenu-content {
+      width: 75vw;
+    }
 }
 .students-list {
     /* height: 300px; */

@@ -25,8 +25,15 @@ export default class UserList extends Component {
     })
   }
 
+  removeAddedUser = removedUser => {
+    this.setState(prevState => ({
+      users: prevState.users.filter(user => user._id !== removedUser._id),
+      filterUsers: prevState.filterUsers.filter(user => user._id !== removedUser._id)
+    }))
+  }
   render() {
     const { filterUsers } = this.state;
+
     return (
       <div className='main-user-list'>
         <button className='close-form-btn'
@@ -55,9 +62,31 @@ export default class UserList extends Component {
                     {firstName} {lastName}{' '}
                   </p>
                 </div>
-                  <button className='addOneToClass'
-                  onClick={() => this.props.addToClass(user)}>Add to class</button>
               </div>
+                  {/*  */}
+                  <div className="dropdown3">
+                        <button
+                          className="dropbtn3"
+                          onClick={this.props.toggleClassNavDropdown}
+                        >
+                            <i className="fas fa-ellipsis-h"></i>
+                        </button>
+                        <div className="dropdown-content3 align-right classNavDropdown">
+                        <div className="each-student">
+                       <img className="user-image-md" src={path} alt={username} />
+                       <h4>
+                         {' '}
+                         {firstName} {lastName}{' '}
+                       </h4>
+                     </div>
+                          <p>Mark</p>
+                          <p onClick={() => {
+                            this.props.addToClass(user)
+                            return this.removeAddedUser(user)
+                          }}>Add to class</p>
+                        </div>
+                      </div>
+                  {/*  */}
             </div>
           );
         })}
