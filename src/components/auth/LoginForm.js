@@ -20,8 +20,9 @@ const {handleLoginSubmit, handleLoginInput} = props.context
             <input onChange={handleLoginInput} 
             type="email" 
             id='email'
-            name="email" 
-            className="form-control" />
+            name="email"  
+            placeholder='Enter your email...'
+            />
 
             <label htmlFor="password">
               Password
@@ -30,7 +31,6 @@ const {handleLoginSubmit, handleLoginInput} = props.context
               type="password"
               id='password'
               name="password"
-              className="form-control"
               placeholder="**********"
             />
             <label htmlFor="title">

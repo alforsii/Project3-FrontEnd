@@ -58,7 +58,8 @@ const currentPageStudents = filteredStudents?.slice(
           <hr />
           <div className="userListScroll2">
              { currentPageStudents?.map((studentData,i) => {
-               const { student: {_id, path, username, firstName, lastName }, student} = studentData;
+               const { _id, path, username, firstName, lastName } = studentData;
+              //  const { student: {_id, path, username, firstName, lastName }, student} = studentData;
                return (
                  <div key={_id+i+1} className="each-student-main">
                      {/* <input type="checkbox" className='remove-user' /> */}
@@ -92,7 +93,8 @@ const currentPageStudents = filteredStudents?.slice(
                                 updateState(prevState => ({
                                   messageBoard: {
                                     ...prevState.messageBoard,
-                                    receiver: student,
+                                    receiver: studentData,
+                                    // receiver: student,
                                   },
                                 }))
                               }

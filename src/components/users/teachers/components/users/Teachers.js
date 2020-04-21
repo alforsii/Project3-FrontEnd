@@ -28,6 +28,14 @@ export default class UserList extends Component {
     })
   }
 
+  //Remove added teacher from list
+  removeAddedUser = removedUser => {
+    this.setState(prevState => ({
+      users: prevState.users.filter(user => user._id !== removedUser._id),
+      filterUsers: prevState.filterUsers.filter(user => user._id !== removedUser._id)
+    }))
+  }
+
   render() {
     const { filterUsers } = this.state;
     return (
@@ -76,7 +84,10 @@ export default class UserList extends Component {
                        </h4>
                      </div>
                           <p>Mark</p>
-                          <p onClick={() => this.props.addToClass(user)}>Add to class</p>
+                          <p onClick={() => {
+                            this.props.addToClass(user)
+                            return this.removeAddedUser(user)
+                          }}>Add to class</p>
                         </div>
                       </div>
                   {/*  */}

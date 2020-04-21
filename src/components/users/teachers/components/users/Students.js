@@ -25,6 +25,7 @@ export default class UserList extends Component {
     })
   }
 
+  //remove added student from the list
   removeAddedUser = removedUser => {
     this.setState(prevState => ({
       users: prevState.users.filter(user => user._id !== removedUser._id),

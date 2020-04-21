@@ -30,7 +30,7 @@ export default function NavBar({loggedIn, userLogout, user}) {
         return (
             <nav className='navbar'>
                 <div className='nav-group'>
-                <Link to='/' className='nav-items' style={{color: '#3f51b5', fontFamily: 'italic'}}><i style={{color:'#4a148c'}}> IronSchool</i></Link>
+                <Link to='/' id='nav-logo' className='nav-items' style={{color: '#3f51b5', fontFamily: 'italic'}}><i style={{color:'#4a148c'}}> IronSchool</i></Link>
                </div>
                 <div className='nav-group'>
                     <Link to='/login' className='nav-items'>Login</Link>

@@ -12,7 +12,7 @@ export default function ImageForm({
     <div>
       <form
         id="main-form"
-        className="form-control hide"
+        className="img-upload-form hide"
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
