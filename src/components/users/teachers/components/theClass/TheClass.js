@@ -10,25 +10,28 @@ import './TheClass.css';
 export class TheClass extends Component {
   state = {
     students: this.props.location.state.currClass.students,
+    teachers: [],
     filteredStudents: this.props.location.state.currClass.students,
     restStudents: null,
     restTeachers: null,
-    teachers: [],
     parents: [],
     dashboardImg: ''
   };
 
   componentDidMount = async () => {
-   await this.getClassStudents()
+   await this.getClassUsers()
   };
 
-  getClassStudents = async () => {
+  getClassUsers = async () => {
     //Get current class students id's to filter out from the main list of students
-    const res = await AUTH_CLASSES.getClassStudents(this.props.location.state.currClass._id)
+    const resWithStudents = await AUTH_CLASSES.getClassStudents(this.props.location.state.currClass._id)
+    const resWithTAs = await AUTH_CLASSES.getClassTAs(this.props.location.state.currClass._id)
 
     this.setState(prevState => ({
-      students: res.data.studentsData.students,
-    filteredStudents: res.data.studentsData.students,
+      students: resWithStudents.data.currentClass.students,
+      filteredStudents: resWithStudents.data.currentClass.students,
+      teachers: resWithTAs.data.currentClass.teachers,
+      filteredTeachers: resWithTAs.data.currentClass.teachers,
     }))
   }
 
@@ -43,7 +46,7 @@ export class TheClass extends Component {
   //get teachers
   getOtherTAs = async () => {
     const res = await AUTH_CLASSES.getOtherTAs(this.props.location.state.currClass._id)
-    console.log("teachers", res.data.teachers)
+
     this.setState({
       restTeachers: res.data.teachers,
     })
@@ -52,13 +55,15 @@ export class TheClass extends Component {
   //toggle userList
   toggleUserList = e => {
     const { id } = e.target;
-    id === 'studentsBtn' ? this.getOtherStudents() : this.getOtherTAs()
     this.closeUserList();
-    return id === 'studentsBtn'
-      ? document.getElementById('studentsList').classList.toggle('show')
-      : id === 'teachersBtn'
-      ? document.getElementById('teachersList').classList.toggle('show')
-      : '';
+    if(id === 'studentsBtn'){
+      this.getOtherStudents() 
+      document.getElementById('studentsList').classList.toggle('show')
+    }
+    if(id === 'teachersBtn') {
+      this.getOtherTAs()
+      document.getElementById('teachersList').classList.toggle('show')
+    }
   };
   //close user list
   closeUserList = () => {
@@ -83,15 +88,28 @@ export class TheClass extends Component {
   };
   //Add student to class
   addToClass = async user => {
-    const res = await AUTH_CLASSES.addStudent({
-      userId: user._id,
-      classId: this.props.location.state.currClass._id,
-    });
-
-    this.setState(prevState => ({
-      students: [...prevState.students, res.data.studentFromDB],
-      filteredStudents: [...prevState.students, res.data.studentFromDB],
-    }));
+    if(user.title === 'Student'){
+      const res = await AUTH_CLASSES.addStudent({
+        userId: user._id,
+        classId: this.props.location.state.currClass._id,
+      });
+  
+      this.setState(prevState => ({
+        students: [...prevState.students, res.data.studentFromDB],
+        filteredStudents: [...prevState.students, res.data.studentFromDB],
+      }));
+    }
+    if(user.title === 'TA'){
+      const res = await AUTH_CLASSES.addTeacher({
+        userId: user._id,
+        classId: this.props.location.state.currClass._id,
+      });
+  
+      this.setState(prevState => ({
+        teachers: [...prevState.teachers, res.data.teacherFromDB],
+        filteredTeachers: [...prevState.teachers, res.data.teacherFromDB],
+      }));
+    }
   };
 
   //Remove a student from the class
@@ -183,6 +201,7 @@ export class TheClass extends Component {
               updateState={updateState}
               addToClass={user => this.addToClass(user)}
               closeUserList={this.closeUserList}
+              toggleClassNavDropdown={toggleClassNavDropdown}
             />}
           </div>
           <ImageUploadForm src={path}
