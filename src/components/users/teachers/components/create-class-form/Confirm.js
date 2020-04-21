@@ -12,18 +12,22 @@ export default class Confirm extends Component {
     handleSubmit = async (e) => {
         e.preventDefault()
        try {
-        const {form, setState} = this.props
-        this.setState({isLoading: true, message: 'Creating a new class.Please wait, it may take few minutes...'})
-        
-        const newFile = new FormData()
-        newFile.append('image', form.image)
-        newFile.append('name', form.name)
-        newFile.append('grade', form.grade)
-        newFile.append('description', form.description)
-        newFile.append('schoolYearStart', form.schoolYearStart)
-        newFile.append('schoolYearEnd', form.schoolYearEnd)
-
-        await AUTH_CLASSES.createClass(newFile)
+        const {form, setState, currClass} = this.props
+        // const newFile = new FormData()
+        // newFile.append('image', form.image)
+        // newFile.append('name', form.name)
+        // newFile.append('grade', form.grade)
+        // newFile.append('description', form.description)
+        // newFile.append('schoolYearStart', form.schoolYearStart)
+        // newFile.append('schoolYearEnd', form.schoolYearEnd)
+        // await AUTH_CLASSES.createClass(newFile)
+       if(currClass){
+        this.setState({ isLoading: true, message: 'Updating details! Please wait, it may take a moment...' })
+        await AUTH_CLASSES.updateClass( currClass._id, form)
+       }else {
+        this.setState({ isLoading: true, message: 'Creating a new class.Please wait, it may take a moment...' })
+        await AUTH_CLASSES.createClass(form)
+       }
         //set current state
         this.setState({isLoading: false})
         //set parent state
@@ -66,9 +70,9 @@ export default class Confirm extends Component {
 
                 </label>
 
-                <label><span>Image: </span><span>{image.name}</span>
+                {/* <label><span>Image: </span><span>{image.name}</span>
 
-                </label>
+                </label> */}
 
                 <label><span>Description: </span><span>{description} </span>
 

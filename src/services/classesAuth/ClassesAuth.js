@@ -7,19 +7,45 @@ const service = axios.create({
 });
 
 export const AUTH_CLASSES = {
-  getClasses: () => service.get('/api/classes'),
-  createClass: data => service.post('/api/classes/create-class', data),
-  removeClass: data => service.post('/api/classes/remove-class', data),
+  getClasses(){
+    return service.get('/api/classes')
+  },
+  createClass(data) {
+    return service.post('/api/classes/create-class', data)
+  },
+  removeClass(data) {
+    return service.post('/api/classes/remove-class', data)
+  },
+  updateClass(classId, data) {
+    return service.post(`/api/classes/update-class/${classId}`, data)
+  },
 
-  addStudent: data => service.post('/api/classes/add-student', data),
-  removeStudent: data => service.post('/api/classes/remove-student', data),
-  getClassStudents: classId => service.get(`/api/classes/${classId}/class-students`),
-  getOtherStudents: classId => service.get(`/api/classes/${classId}/other-students`),
+
+  addStudent(data) {
+    return service.post('/api/classes/add-student', data)
+  },
+  removeStudent(data) {
+    return service.post('/api/classes/remove-student', data)
+  },
+  getClassStudents(classId) {
+    return service.get(`/api/classes/${classId}/class-students`)
+  },
+  getOtherStudents(classId) {
+    service.get(`/api/classes/${classId}/other-students`)
+  },
   
-  addTeacher: data => service.post('/api/classes/add-teacher', data),
-  removeTeacher: data => service.post('/api/classes/remove-teacher', data),
-  getClassTAs: classId => service.get(`/api/classes/${classId}/class-teachers`),
-  getOtherTAs: classId => service.get(`/api/classes/${classId}/other-teachers`),
+  addTeacher(data) {
+    return service.post('/api/classes/add-teacher', data)
+  },
+  removeTeacher(data) {
+    return service.post('/api/classes/remove-teacher', data)
+  },
+  getClassTAs(classId) {
+    return service.get(`/api/classes/${classId}/class-teachers`)
+  },
+  getOtherTAs(classId) {
+    return service.get(`/api/classes/${classId}/other-teachers`)
+  },
   
   updateClassImg(userData) {
     return service.post('/api/classes/update/class-image', userData);

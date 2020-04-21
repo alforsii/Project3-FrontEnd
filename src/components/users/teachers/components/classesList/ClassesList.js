@@ -88,14 +88,14 @@ export default class ClassList extends Component {
                   <td>{students.length}</td>
                   {/* <td>{author.firstName} {author.lastName} </td> */}
                   <td className="description bg-screen-display">
-                    {description.length < 30 ? (
+                    {description?.length < 30 ? (
                       description
                     ) : (
                       <>
-                        {`${description.slice(0, 30)}`}
+                        {`${description?.slice(0, 30)}`}
                         <span className="content">
                           {' '}
-                          {description.slice(30)}
+                          {description?.slice(30)}
                         </span>
                         <span
                           onClick={this.toggleHiddenText}
@@ -147,7 +147,12 @@ export default class ClassList extends Component {
                         </div>
                       ) : (
                         <div className="dropdown-content3 align-right classNavDropdown">
-                          <p>Students</p>
+                          <Link to={{
+                            pathname: '/classes/add-new',
+                            state: {
+                              currClass
+                            }
+                          }}>Edit</Link>
                           <hr
                             style={{
                               width: '100%',
@@ -156,7 +161,7 @@ export default class ClassList extends Component {
                             }}
                           />
                           <p onClick={() => removeClass(_id)}>
-                            Remove class
+                            Archive
                           </p>
                         </div>
                       )}

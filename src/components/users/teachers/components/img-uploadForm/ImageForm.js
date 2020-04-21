@@ -5,8 +5,8 @@ export default function ImageForm({
     src,
     handleSubmit,
     handleChange,
-  inputForm,
-  displayForm
+    inputForm,
+    displayForm
 }) {
   return (
     <div>

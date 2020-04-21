@@ -1,32 +1,31 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class FormUserPersonal extends Component {
+export const StepTwo = (props) => {
     
-    render() {
-        const {form: { description}, handleChange, handleImageChange, nextStep, prevStep} = this.props
+        const { form: { image, description}, handleChange, nextStep, prevStep} = props
         return (
                     <div className='user-form'>
-                        <h2>Upload class cover image & description or skip</h2>
-
-                        <label htmlFor='image'>Select cover image
-                            </label>
-                        <input 
+                        <h2>Add description or skip</h2>
+                        <img className='cover-image-md' src={image? image:'/images/school-class.jpg'} alt='' />
+                        <i>You can upload or update the cover image in the class section*</i>
+                        {/* <label htmlFor='image'>Select cover image
+                            </label> */}
+                        {/* <input 
                         type='file'
                         name='image'
-                        onChange={handleImageChange}
-                        ref={fInput => this.fileInput = fInput}
-                        />
+                        onChange={props.handleImageChange}
+                        /> */}
 
-                        <label htmlFor='description'>Description:
+                        <label htmlFor='description'>Add description of your class:
                             </label>
-                        <input className='form-input'
+                        <textarea className='form-input'
                         id='description'
                         name='description'
                         placeholder='Enter description'
                         type='text'
                         onChange={handleChange}
                         defaultValue={description}
-                        />
+                        ></textarea>
                         <div>
                             <button className='form-btn back-btn' onClick = {prevStep}>Go Back</button>
                             <button className='form-btn' onClick = {nextStep}>Continue</button>
@@ -34,5 +33,5 @@ export default class FormUserPersonal extends Component {
                     </div>
         )
     }
-       
-}
+
+    export default StepTwo
