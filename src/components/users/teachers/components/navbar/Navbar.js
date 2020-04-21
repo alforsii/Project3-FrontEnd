@@ -8,7 +8,7 @@ export default function Navbar({getUsers, toggleSearchBar, updateState, toggleCl
             <div className="main-switch">
               <Link to="/teachers-page" onClick={toggleSearchBar} className="click-btn"><i className='fas fa-search'></i> Search</Link>
               <Link to="/classes/add-new" className="click-btn"><i className='fas fa-plus-circle'></i> Class</Link>
-              <Link to="/teachers-page" onClick={() => updateState({navigate: 'class-list'})} className="click-btn">Classes</Link>
+              <Link to="/teachers-page" onClick={() => updateState({navigate: 'classrooms'})} className="click-btn">Classes</Link>
               {/* <Link to="/teachers-page" onClick={() => updateState({navigate: 'archive'})} className="click-btn"><i className='fas fa-trash-alt'></i> Archives</Link> */}
 
               <div className="dropdown3">

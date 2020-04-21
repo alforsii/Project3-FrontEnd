@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default class FormUserDetails extends Component {
-    
-    render() {
-        const {form: {name, grade, schoolYearStart, schoolYearEnd}, message, handleChange, nextStep} = this.props
+export const StepOne = (props) => {
+
+const { form: {name, grade, schoolYearStart, schoolYearEnd},
+ message, handleChange, nextStep } = props
         return (
             <div className='user-form'>
                 <h2>Enter Class name & grade</h2>
@@ -40,7 +40,7 @@ export default class FormUserDetails extends Component {
                 id='schoolYearStart'
                 type='date'
                 onChange={handleChange}
-                defaultValue={schoolYearStart}
+                defaultValue={schoolYearStart? schoolYearStart : Date.now() }
                 />
 
                 <label htmlFor='schoolYearEnd'>School year end
@@ -51,7 +51,7 @@ export default class FormUserDetails extends Component {
                 id='schoolYearEnd'
                 type='date'
                 onChange={handleChange}
-                defaultValue={schoolYearEnd}
+                defaultValue={schoolYearEnd? schoolYearEnd :Date.now()}
                 />
                 <div>
                 <button className='form-btn' onClick = {nextStep}>Continue</button>
@@ -59,6 +59,7 @@ export default class FormUserDetails extends Component {
 
             </div>
         )
-    }
        
 }
+
+export default StepOne

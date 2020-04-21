@@ -20,7 +20,7 @@ export class Teacher extends Component {
     filteredArchiveClasses: null,
     search: false,
     archive: false,
-    navigate: 'class-list',
+    navigate: 'classrooms',
     dashboardImg:''
   };
   componentDidMount = () => {
@@ -133,7 +133,7 @@ export class Teacher extends Component {
             searchForClass={this.searchForClassArchive}
             // removeClass={classId => this.removeClass(classId)}
            search={search} /> }
-          { navigate === 'class-list' && <ClassesList archive={false}
+          { navigate === 'classrooms' && <ClassesList archive={false}
           classes={filteredClasses} 
           toggleClassNavDropdown={toggleClassNavDropdown}
           searchForClass={this.searchForClass}

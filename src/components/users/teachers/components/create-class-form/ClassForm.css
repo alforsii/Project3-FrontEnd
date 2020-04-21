@@ -31,6 +31,9 @@ btn:hover : #0576c2;
     font-weight: bold;
     letter-spacing: 0.2;
 }
+.user-form i {
+    font-size: 12px;
+}
 .form-input {
     width: 100%;
     height: 20px;
@@ -86,4 +89,8 @@ form.confirm-page label:hover {
 }
 form.confirm-page label span {
     padding: 5px;
+}
+.cover-image-md {
+    width: 400px;
+    height: 300px;
 }
