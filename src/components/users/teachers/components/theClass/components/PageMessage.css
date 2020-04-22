@@ -1,0 +1,32 @@
+.main-page-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    
+    font-size: 20px;
+}
+.main-page-message p {
+    padding: 5px 10px;
+    color: #666;
+    margin: 5px 0;
+}
+.page-message  {
+    background-color: #f5f5f5;
+    
+}
+.main-page-message h4 {
+   text-align: left;
+   background-color: #068ce6; 
+   color: #fff;
+   padding-left: 40px;
+}
+
+.page-message-body {
+    width: 100%;
+    padding: 0 20px 20px;
+}
+.page-message-body span {
+    padding: 5px 20px;
+    
+}

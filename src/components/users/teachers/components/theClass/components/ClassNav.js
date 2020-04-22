@@ -6,10 +6,21 @@ export default function ClassNav({toggleClassNavDropdown,toggleUserList, getStud
         <React.Fragment>
             <nav>
             <div className="class-navbar top">
-              <Link to="">
-                <i className="fas fa-plus-circle"></i> New Subject
-              </Link>
-
+              <div className="dropdown3">
+                <button
+                  className="dropbtn3"
+                  onClick={toggleClassNavDropdown}
+                >
+                <i className="fas fa-plus-circle"></i> Create
+                </button>
+                <div className="dropdown-content3 classNavDropdown">
+                  <p><i class="fas fa-question-circle"></i> Question</p>
+                  <p><i class="fas fa-book"></i> Resource</p>
+                  <p><i class="fas fa-tasks"></i> Assignment</p>
+                  <hr/>
+                  <p><i className="fas fa-file-alt"></i> Topic</p>
+                </div>
+              </div>
               <div className="dropdown3">
                 <button
                   className="dropbtn3"

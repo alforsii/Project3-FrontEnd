@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 
 import Pagination from '../../classesList/Pagination'
-import './ClassStudents.css'
+import './ClassUsers.css'
 
-export default function ClassStudents({filteredStudents, filterUsers, updateState, 
+export default function ClassUsers({users, filterUsers, updateState, 
   currClass: { name, grade }, removeFromClass, toggleClassNavDropdown }) {
 
      //Toggle all checkboxes
@@ -20,7 +20,7 @@ const [postsPerPage] = useState(10);
 // Get current posts
 const indexOfLastPost = currentPage * postsPerPage;
 const indexOfFirstPost = indexOfLastPost - postsPerPage;
-const currentPageStudents = filteredStudents?.slice(
+const currentPageUsers = users?.slice(
   indexOfFirstPost,
   indexOfLastPost
 );
@@ -37,7 +37,7 @@ const currentPageStudents = filteredStudents?.slice(
 
              <input
             type="text"
-            placeholder="Search by students name or email..."
+            placeholder="Search by name or email..."
             className="searchInput"
             onKeyUp={filterUsers}
             autoComplete="off"
@@ -50,14 +50,14 @@ const currentPageStudents = filteredStudents?.slice(
             {/* <button id="removeFromClass">Remove all selected users</button> */}
           <Pagination
           postsPerPage={postsPerPage}
-          totalPosts={filteredStudents?.length}
+          totalPosts={users?.length}
           paginate={paginate}
           currentPage={currentPage}
         />
           </div>
           <hr />
           <div className="userListScroll2">
-             { currentPageStudents?.map((studentData,i) => {
+             { currentPageUsers?.map((studentData,i) => {
                const { _id, path, username, firstName, lastName } = studentData;
               //  const { student: {_id, path, username, firstName, lastName }, student} = studentData;
                return (

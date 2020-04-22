@@ -51,7 +51,7 @@ export default class Confirm extends Component {
     }
 
     render() {
-        const {form: {name,grade,image,description}, prevStep} = this.props
+        const {form: {name,grade,description}, prevStep} = this.props
 
         return(
             <React.Fragment>
@@ -70,7 +70,7 @@ export default class Confirm extends Component {
 
                 </label>
 
-                {/* <label><span>Image: </span><span>{image.name}</span>
+                {/* <label><span>Image: </span><span>{this.props.image.name}</span>
 
                 </label> */}
 

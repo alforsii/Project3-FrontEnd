@@ -31,7 +31,7 @@ export const AUTH_CLASSES = {
     return service.get(`/api/classes/${classId}/class-students`)
   },
   getOtherStudents(classId) {
-    service.get(`/api/classes/${classId}/other-students`)
+    return service.get(`/api/classes/${classId}/other-students`)
   },
   
   addTeacher(data) {

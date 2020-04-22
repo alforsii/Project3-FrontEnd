@@ -6,6 +6,7 @@ import Sidebar from '../../sidebar/SideBar';
 import ClassesList from './components/classesList/ClassesList';
 import ImageUploadForm from  './components/img-uploadForm/ImageForm'
 import UsersList from './components/usersList/UsersList'
+import Loader from '../../messageBoard/components/loader/Loader'
 
 import { AUTH_CLASSES } from '../../../services/classesAuth/ClassesAuth';
 import AUTH_SERVICE from '../../../services/auth/AuthServices';
@@ -13,6 +14,7 @@ import './TeacherPage.css';
 
 export class Teacher extends Component {
   state = {
+    user: this.props.context.state.user,
     users: null,
     classes: null,
     filteredClasses: null,
@@ -21,7 +23,9 @@ export class Teacher extends Component {
     search: false,
     archive: false,
     navigate: 'classrooms',
-    dashboardImg:''
+    dashboardImg:'',
+    isLoading: false,
+    message: ''
   };
   componentDidMount = () => {
     this.getClasses();
@@ -87,21 +91,22 @@ export class Teacher extends Component {
   //handle dashboardImg submit
   handleDashboardImgSubmit = async e => {
     e.preventDefault()
+    this.setState({ isLoading: true, message: 'Updating cover image...'})
     const newFile = new FormData()
     newFile.append('image', this.state.dashboardImg,this.state.dashboardImg.name)
-    await AUTH_SERVICE.updateDashboardImg(newFile)
-    this.inputForm = ''
-    this.setState({dashboardImg: ''})
-    this.props.context.isUserLoggedIn()
+    const {data: {user}} = await AUTH_SERVICE.updateDashboardImg(newFile)
+    this.props.context.updateState({ user })
+    this.setState({ isLoading: false, message: '' })
   }
   render() {
-    const { users, search, navigate, filteredClasses, filteredArchiveClasses } = this.state;
+    const { users, search, navigate, filteredClasses, 
+      filteredArchiveClasses, isLoading, dashboardImg, message } = this.state;
 
     const {
       updateState,
       toggleClassNavDropdown,
       displayForm,
-      state: { user }
+      state:{ user}
     } = this.props.context;
     return (
       <div className="main-teacher">
@@ -111,7 +116,8 @@ export class Teacher extends Component {
 
         <div id='t-main' className="t-child-div">
           <div className='cover-img-div'>
-            <img id='cover-img' src={user.dashboardImg} alt=''/>
+            {isLoading && <Loader message={message}/> }
+            <img id='cover-img' src={user?.dashboardImg} alt=''/>
             <button onClick={displayForm} id='cover-img-upload-btn'>
                 <span><i className="fas fa-camera"></i></span>
             </button>
@@ -144,10 +150,10 @@ export class Teacher extends Component {
         </div>
         {/* ----------- position fixed or hidden  */}
 
-        <ImageUploadForm src={user.dashboardImg}
+        <ImageUploadForm src={user?.dashboardImg}
             handleSubmit={this.handleDashboardImgSubmit} 
             handleChange={this.handleDashboardImg}
-            inputForm={this.inputForm}
+            inputForm={dashboardImg}
             displayForm={displayForm}
             />
 

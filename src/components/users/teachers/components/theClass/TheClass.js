@@ -1,21 +1,28 @@
 import React, { Component } from 'react';
 import { AUTH_CLASSES } from '../../../../../services/classesAuth/ClassesAuth';
 import ClassNav from './components/ClassNav'
-import ClassStudents from './components/ClassStudents';
+import ClassStudents from './components/ClassUsers';
+import ClassTeachers from './components/ClassUsers';
 import Students from '../users/Students';
 import Teachers from '../users/Teachers';
 import ImageUploadForm from '../img-uploadForm/ImageForm'
+import SwitchButton from './components/switchModeButton/SwitchButton'
+import PageMessage from './components/PageMessage'
 import './TheClass.css';
 
 export class TheClass extends Component {
   state = {
+    currClass: this.props.location.state.currClass,
+    coverImage: this.props.location.state.currClass.path,
     students: this.props.location.state.currClass.students,
-    teachers: [],
     filteredStudents: this.props.location.state.currClass.students,
+    teachers: this.props.location.state.currClass.teachers,
+    filteredTeachers: this.props.location.state.currClass.teachers,
     restStudents: null,
     restTeachers: null,
     parents: [],
-    dashboardImg: ''
+    dashboardImg: '',
+    displayUsers: true,
   };
 
   componentDidMount = async () => {
@@ -24,31 +31,33 @@ export class TheClass extends Component {
 
   getClassUsers = async () => {
     //Get current class students id's to filter out from the main list of students
-    const resWithStudents = await AUTH_CLASSES.getClassStudents(this.props.location.state.currClass._id)
-    const resWithTAs = await AUTH_CLASSES.getClassTAs(this.props.location.state.currClass._id)
+    const {data: {currentClass: {students}}} = await AUTH_CLASSES.getClassStudents(this.state.currClass._id)
+    const {data: {currentClass: {teachers}, currentClass}} = await AUTH_CLASSES.getClassTAs(this.state.currClass._id)
 
     this.setState(prevState => ({
-      students: resWithStudents.data.currentClass.students,
-      filteredStudents: resWithStudents.data.currentClass.students,
-      teachers: resWithTAs.data.currentClass.teachers,
-      filteredTeachers: resWithTAs.data.currentClass.teachers,
+      currClass: currentClass,
+      coverImage: currentClass.path,
+      students,
+      filteredStudents: students,
+      teachers,
+      filteredTeachers: teachers,
     }))
   }
 
   //get other students that are not in class yet
   getOtherStudents = async () => {
-    const res = await AUTH_CLASSES.getOtherStudents(this.props.location.state.currClass._id)
+    const {data: {students}} = await AUTH_CLASSES.getOtherStudents(this.state.currClass._id)
 
     this.setState({
-      restStudents: res.data.students,
+      restStudents: students,
     })
   };
   //get teachers
   getOtherTAs = async () => {
-    const res = await AUTH_CLASSES.getOtherTAs(this.props.location.state.currClass._id)
+    const {data: {teachers}} = await AUTH_CLASSES.getOtherTAs(this.state.currClass._id)
 
     this.setState({
-      restTeachers: res.data.teachers,
+      restTeachers: teachers,
     })
   };
 
@@ -77,52 +86,77 @@ export class TheClass extends Component {
   };
   //Search user
   filterUsers = e => {
+    let searchResult;
     const searchUser = e.target.value.toUpperCase();
-    const searchResult = [...this.state.students].filter(data =>
-      `${data.student.firstName} ${data.student.lastName}`.toUpperCase().includes(searchUser) 
-      || `${data.student.email}`.toUpperCase().includes(searchUser)
-      );
-    this.setState({
-      filteredStudents: searchResult,
-    });
+    if(this.state.displayUsers){
+      searchResult = [...this.state.students].filter(student =>
+        `${student.firstName} ${student.lastName}`.toUpperCase().includes(searchUser) 
+        || `${student.email}`.toUpperCase().includes(searchUser)
+        );
+        this.setState({
+          filteredStudents: searchResult,
+        });
+    }else {
+      searchResult = [...this.state.teachers].filter(teacher =>
+        `${teacher.firstName} ${teacher.lastName}`.toUpperCase().includes(searchUser) 
+        || `${teacher.email}`.toUpperCase().includes(searchUser)
+        );
+        this.setState({
+          filteredTeachers: searchResult,
+        });
+    }
+    
   };
   //Add student to class
   addToClass = async user => {
     if(user.title === 'Student'){
-      const res = await AUTH_CLASSES.addStudent({
+      const {data: {studentFromDB}} = await AUTH_CLASSES.addStudent({
         userId: user._id,
-        classId: this.props.location.state.currClass._id,
+        classId: this.state.currClass._id,
       });
   
       this.setState(prevState => ({
-        students: [...prevState.students, res.data.studentFromDB],
-        filteredStudents: [...prevState.students, res.data.studentFromDB],
+        students: [...prevState.students, studentFromDB],
+        filteredStudents: [...prevState.students, studentFromDB],
       }));
     }
     if(user.title === 'TA'){
-      const res = await AUTH_CLASSES.addTeacher({
+      const {data: {teacherFromDB}} = await AUTH_CLASSES.addTeacher({
         userId: user._id,
-        classId: this.props.location.state.currClass._id,
+        classId: this.state.currClass._id,
       });
   
       this.setState(prevState => ({
-        teachers: [...prevState.teachers, res.data.teacherFromDB],
-        filteredTeachers: [...prevState.teachers, res.data.teacherFromDB],
+        teachers: [...prevState.teachers, teacherFromDB],
+        filteredTeachers: [...prevState.teachers, teacherFromDB],
       }));
     }
   };
 
   //Remove a student from the class
-  removeFromClass = async studentData => {
-    const res = await AUTH_CLASSES.removeStudent({
-      studentData,
-      classId: this.props.location.state.currClass._id,
-    });
-
-    this.setState(prevState => ({
-      students: res.data.updatedStudents,
-      filteredStudents: res.data.updatedStudents,
-    }));
+  removeFromClass = async user => {
+    if(user.title === 'Student') {
+      const res = await AUTH_CLASSES.removeStudent({
+        studentData: user,
+        classId: this.state.currClass._id,
+      });
+  
+      this.setState(prevState => ({
+        students: res.data.updatedStudents,
+        filteredStudents: res.data.updatedStudents,
+      }));
+    }
+    if(user.title === 'TA') {
+      const res = await AUTH_CLASSES.removeTeacher({
+        teacherData: user,
+        classId: this.state.currClass._id,
+      });
+  
+      this.setState(prevState => ({
+        teachers: res.data.updatedTeachers,
+        filteredTeachers: res.data.updatedTeachers,
+      }));
+    }
   }
 
   //handle cover Img
@@ -132,44 +166,60 @@ export class TheClass extends Component {
   //handle cover Img submit
   handleCoverImgSubmit = async e => {
     e.preventDefault()
-    const classId = this.props.location.state.currClass._id
+    this.setState({ isLoading: true, coverImage: false})
     const newFile = new FormData()
     newFile.append('image', this.state.dashboardImg,this.state.dashboardImg.name)
-    newFile.append('classId', classId)
-    await AUTH_CLASSES.updateClassImg(newFile)
+    newFile.append('classId', this.state.currClass._id)
+    const {data: {class: {path}}} = await AUTH_CLASSES.updateClassImg(newFile)
     this.inputForm = ''
-    this.setState({dashboardImg: ''})
-    this.props.history.push('/teachers-page')
-    // this.props.context.isUserLoggedIn()
-  }
 
+    this.setState(prevState => ({
+      coverImage: path,
+      dashboardImg: ''
+    }))
+  }
+  //
+  switchUsersList = () => {
+    this.setState(prevState => ({
+      displayUsers: !prevState.displayUsers,
+      filteredStudents: prevState.students,
+      filteredTeachers: prevState.teachers,
+    }))
+  }
   
   render() {
-    const {
-      currClass: { path },
-      currClass
-    } = this.props.location.state;
     const { updateState, displayForm, toggleClassNavDropdown } = this.props.context;
-    const { filteredStudents, restStudents, restTeachers } = this.state
+    const { currClass,filteredStudents, filteredTeachers, restStudents, 
+      restTeachers, coverImage, displayUsers } = this.state
     return (
       <React.Fragment>
         <div className="main-class-page">
           <div className='left-class-page-div'>
             <div className="students-list class-students">
             <div className='cover-img-div'>
-            <img className="cover-image" src={path} alt='' />
+            {/* {(isLoading) && <h4>loading...</h4>} */}
+            {coverImage ? <img className="cover-image" src={coverImage} alt='' />
+            : <h4>loading...</h4>}
             <button onClick={displayForm} id='cover-img-upload-btn'>
                 <span><i className="fas fa-camera"></i></span>
             </button>
           </div>
-              
-                <ClassStudents currClass={currClass}
+              <p>{<SwitchButton switchUsersList={this.switchUsersList}/>}</p>
+
+                { displayUsers? <ClassStudents currClass={currClass}
                 toggleClassNavDropdown={toggleClassNavDropdown}
-                filteredStudents={filteredStudents}
+                users={filteredStudents}
                 filterUsers={this.filterUsers}
                 updateState={updateState}
                 removeFromClass={this.removeFromClass}
                 />
+                : <ClassTeachers currClass={currClass}
+                toggleClassNavDropdown={toggleClassNavDropdown}
+                users={filteredTeachers}
+                filterUsers={this.filterUsers}
+                updateState={updateState}
+                removeFromClass={this.removeFromClass}
+                />}
             </div>
           </div>
           <div className='right-class-page-div'>
@@ -179,20 +229,18 @@ export class TheClass extends Component {
               toggleUserList={this.toggleUserList}
               />
             </div>
+            <PageMessage/>
           </div>
-        {/* <Sidebar/> */}
       </div>
 
 {/*--------- below hidden user lists - appears on click -------------------*/}
       <div id="studentsList" className="userListMenu-content">
             { restStudents && <Students
               users={restStudents}
-              // users={this.getUsers('Student')}
               updateState={updateState}
               addToClass={user => this.addToClass(user)}
               closeUserList={this.closeUserList}
               toggleClassNavDropdown={toggleClassNavDropdown}
-              // classStudents={students.map(data => data.student._id)}
             />}
           </div>
           <div id="teachersList" className="userListMenu-content">
@@ -204,18 +252,16 @@ export class TheClass extends Component {
               toggleClassNavDropdown={toggleClassNavDropdown}
             />}
           </div>
-          <ImageUploadForm src={path}
+          <ImageUploadForm src={coverImage?coverImage: ''}
             handleSubmit={this.handleCoverImgSubmit} 
             handleChange={this.handleCoverImg}
             inputForm={this.inputForm}
             displayForm={displayForm}
             />
-            {/* <button onClick={displayForm} id='add-button' className="button is-primary dashboardImg-form">
-            <i className="fas fa-camera"></i>
-                    </button> */}
       </React.Fragment>
     );
   }
 }
+
 
 export default TheClass;
