@@ -1,12 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Message.css'
+import './Message.css';
 
 // eslint-disable-next-line
-export default function Message({  message, path, firstName, lastName, currUser, user }) {
-    const isCurrentUser = currUser?._id.toString() === user?._id.toString()
-    // const myStyle = !isCurrentUser? {display: 'flex', flexDirection: 'row-reverse', justifyContent: 'flex-end', alignItems: 'flex-end'} : {}
-    // const myStyle2 = !isCurrentUser? {display: 'flex', flexDirection: 'row-reverse', justifyContent: 'flex-start', alignItems: 'center'} : {}
+export default function Message({
+  message,
+  path,
+  firstName,
+  lastName,
+  currUser,
+  user,
+}) {
+  const isCurrentUser = currUser?._id.toString() === user?._id.toString();
+  // const myStyle = !isCurrentUser? {display: 'flex', flexDirection: 'row-reverse', justifyContent: 'flex-end', alignItems: 'flex-end'} : {}
+  // const myStyle2 = !isCurrentUser? {display: 'flex', flexDirection: 'row-reverse', justifyContent: 'flex-start', alignItems: 'center'} : {}
   return (
     <div
       className={`${isCurrentUser ? 'current-user' : 'receiver'} each-user-msg-div`}
@@ -14,7 +21,7 @@ export default function Message({  message, path, firstName, lastName, currUser,
       <div className="chat-message"  >
         <div className="user-in-chat">
             <Link to="/profile/user-details">
-              {isCurrentUser? 'You' : firstName} 
+              {isCurrentUser? 'You' : firstName}
               {/* <img className="user-image" src={path} alt={firstName} />  */}
             </Link>
         </div>

@@ -50,7 +50,6 @@ export default class ClassList extends Component {
               <th>Classrooms</th>
               <th>Grade</th>
               <th>Students</th>
-              {/* <th>Creator</th> */}
               <th className='bg-screen-display'>Description</th>
               <th >From</th>
               <th >To</th>
@@ -64,7 +63,6 @@ export default class ClassList extends Component {
                 _id,
                 name,
                 grade,
-                author,
                 students,
                 description,
                 schoolYearStart,
@@ -86,7 +84,6 @@ export default class ClassList extends Component {
                   </td>
                   <td>{grade}</td>
                   <td>{students.length}</td>
-                  {/* <td>{author.firstName} {author.lastName} </td> */}
                   <td className="description bg-screen-display">
                     {description?.length < 30 ? (
                       description
@@ -121,7 +118,6 @@ export default class ClassList extends Component {
                         }`
                       : ''}
                   </td>
-                  {/* <td><span><i className="fas fa-caret-down"></i></span></td> */}
 
                   <td>
                     <div className="dropdown3">
@@ -147,12 +143,16 @@ export default class ClassList extends Component {
                         </div>
                       ) : (
                         <div className="dropdown-content3 align-right classNavDropdown">
+                          <h4>{name}</h4>
+                          <p>About</p>
+                          <p>
                           <Link to={{
                             pathname: '/classes/add-new',
                             state: {
                               currClass
                             }
                           }}>Edit</Link>
+                          </p>
                           <hr
                             style={{
                               width: '100%',

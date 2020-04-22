@@ -21,7 +21,7 @@ export const StepTwo = (props) => {
                         <textarea className='form-input'
                         id='description'
                         name='description'
-                        placeholder='Enter description'
+                        placeholder='Enter description(optional)'
                         type='text'
                         onChange={handleChange}
                         defaultValue={description}

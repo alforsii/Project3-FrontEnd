@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
   const pageNumbers = [];
@@ -10,7 +9,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
 
   return (
     <div className='pagination-div'>
-        {pageNumbers.map(pageNumber => (
+        {pageNumbers.length > 1 && pageNumbers.map(pageNumber => (
             <button key={pageNumber} onClick={() => paginate(pageNumber)} className={currentPage === pageNumber ? 'focus-on' : ''}>
               {pageNumber}
             </button>
