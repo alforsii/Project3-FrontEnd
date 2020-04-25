@@ -1,0 +1,24 @@
+.userDisplayBtns {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #444;
+    padding: 5px;
+}
+.userDisplayBtns:focus {
+    outline: 0;
+}
+.switch-btns {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+}
+.users-connections{
+    /* width: 60vw; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

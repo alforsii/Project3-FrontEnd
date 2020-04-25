@@ -15,24 +15,24 @@ export default class UserForm extends Component {
             schoolYearStart: this.props.location.state?.currClass.schoolYearStart,
             schoolYearEnd: this.props.location.state?.currClass.schoolYearEnd,
             image: this.props.location.state?.currClass.path,
-            description: this.props.location.state?.currClass.description
+            description: this.props.location.state?.currClass.description,
           },
         message: ''
     }
 
     //proceed next step
-    nextStep = (e) => {
+    nextStep = () => {
         
-        const { step, createForm:{ name, grade} } = this.state
-        if(name !== '' && grade !==''){
-            this.setState({
-                step: step + 1,
-                message: ''
-            })
-        } else {
+        const { step, createForm:{ name, grade, schoolYearStart, schoolYearEnd} } = this.state
+        if(!name || !grade || !schoolYearStart || !schoolYearEnd){
             this.setState({
                 message: 'Please fill all inputs'
             })
+        } else {
+                this.setState({
+                    step: step + 1,
+                    message: ''
+                })
         }
     }
     prevStep = () => {

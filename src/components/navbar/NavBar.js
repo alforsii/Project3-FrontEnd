@@ -17,7 +17,7 @@ export default function NavBar({loggedIn, userLogout, user}) {
                     <i  style={{color: '#0794f3', fontFamily: 'italic'}}>Hi, {user?.firstName}!</i>
                 </div>
                 <div className='nav-group'>
-                    <Link to='/teachers-page' className={`nav-items ${currentPage === 1 && 'focus-on'}`} onClick={() => setCurrentPage(1)}><span className='fas fa-school'></span></Link>
+                    <Link to='/class' className={`nav-items ${currentPage === 1 && 'focus-on'}`} onClick={() => setCurrentPage(1)}><span className='fas fa-school'></span></Link>
                     <Link to='/students-page' className={`nav-items ${currentPage === 2 && 'focus-on'}`} onClick={() => setCurrentPage(2)}><i className="fas fa-book-open"></i></Link>
                     <Link to='/message-board' className={`nav-items ${currentPage === 3 && 'focus-on'}`} onClick={() => setCurrentPage(3)}><span className='fas fa-envelope'></span></Link>
                     <Link to='/settings/update-profile' className={`nav-items ${currentPage === 4 && 'focus-on'}`} onClick={() => setCurrentPage(4)}><span className='fas fa-cog'></span></Link>

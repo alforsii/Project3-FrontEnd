@@ -12,23 +12,26 @@
       width: 75vw;
     }
 }
-.students-list {
-    /* height: 300px; */
-    width: 300px;
-    background-color: 	#F5F5F5;
-    padding: 7px;
-}
-.userListScroll2 {
-  overflow: scroll;
+.class-aside {
   /* height: 300px; */
-  max-height: 100vh;
-  min-height: 100vh;
   width: 300px;
-  background-color: 	#F5F5F5;
+  padding: 7px;
+  margin: 7px;
+  margin-top: 0;
+  /* box-shadow: 0px 8px 8px 2px rgba(0, 0, 0, 0.2); */
+  border-radius: 10px;
 }
-body {
-    font-family: Arial, Helvetica, sans-serif;
-  }
+.work-notifications-div {
+  padding: 7px;
+  height: 200px;
+  width: 300px;
+  margin: 7px;
+  border: 1px solid #d3e7f5;;
+  /* background-color: 	#F5F5F5; */
+  /* box-shadow: 0px 8px 8px 2px rgba(0, 0, 0, 0.2); */
+  border-radius: 10px;
+  overflow: hidden;
+}
   .main-class-page {
       display: flex;
       margin-top: 52px;
@@ -36,6 +39,11 @@ body {
   }
   .left-class-page-div {
     flex: 1;
+  }
+  @media(max-width:900px) {
+    .left-class-page-div {
+      display: none;
+    }
   }
   .right-class-page-div {
     flex: 3;
@@ -45,42 +53,3 @@ body {
      height: 200px;
      border-radius: 10px;
 }
-  .class-navbar {
-    /* position: fixed;
-    top: 50px; */
-    overflow: hidden;
-    background-color: #fff;
-  }
-  .side-header {
-    /* margin-top: 90px; */
-  }
-  .class-navbar a,
-  .side-header h2
-   {
-    float: left;
-    text-transform: capitalize;
-    font-size: 16px;
-    color: #333;
-    text-align: center;
-    padding: 10px 16px;
-    text-decoration: none;
-    cursor: pointer;
-    border: none;
-    margin: 0;
-  }
-  .class-navbar a:hover,
-  .class-navbar button:hover
-   {
-      background-color: #F5F5F5;
-      color: #333;
-      color: #0794f3;
-      border-radius: 30px;
-  }
-  .class-navbar h2:hover {
-    cursor: initial;
-    background-color: initial;
-    color: initial;
-  }
-  .class-navbar button:focus {
-    outline: 0;
-  }

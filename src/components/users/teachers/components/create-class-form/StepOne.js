@@ -40,7 +40,7 @@ const { form: {name, grade, schoolYearStart, schoolYearEnd},
                 id='schoolYearStart'
                 type='date'
                 onChange={handleChange}
-                defaultValue={schoolYearStart? schoolYearStart : Date.now() }
+                defaultValue={schoolYearStart}
                 />
 
                 <label htmlFor='schoolYearEnd'>School year end
@@ -51,7 +51,7 @@ const { form: {name, grade, schoolYearStart, schoolYearEnd},
                 id='schoolYearEnd'
                 type='date'
                 onChange={handleChange}
-                defaultValue={schoolYearEnd? schoolYearEnd :Date.now()}
+                defaultValue={schoolYearEnd}
                 />
                 <div>
                 <button className='form-btn' onClick = {nextStep}>Continue</button>

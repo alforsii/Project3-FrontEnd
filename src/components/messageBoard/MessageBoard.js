@@ -1,30 +1,37 @@
 import React, { Component } from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// import socketIOClient from "socket.io-client";
 import moment from 'moment';
-// import axios from 'axios'
 
-import BoardNavbar from './components/BoardNavbar';
-import MessagedUser from './components/MessagedUser';
-import Message from './components/Message';
-import Loader from './components/loader/Loader';
-import './MessageBoard.css';
 import { AUTH_MESSAGES } from '../../services/messagesAuth/MessagesAuth';
+import BoardNavbar from './components/BoardNavbar';
+import MessageHistory from './components/MessageHistory'
+import SideNavbar from './components/SideNavbar'
+import BoardBody from './components/BoardBody'
+import Emojis from './components/Emojis'
+import './MessageBoard.css';
 
-
+// const socket = socketIOClient('http://127.0.0.1:3001');
 export class MessageBoard extends Component {
   timer = 0;
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   state = {
-    user: this.props.user,
-    users: this.props.users,
-    receiver: undefined,
+    user: this.props.context.state.user,
+    users: this.props.context.state.users,
+    // receiver: undefined,
+    receiver: this.props.context.state.messageBoard.receiver,
     message: '',
+    errMessage: '',
     messages: false,
-    newMessages: false,
+    newMessages: this.props.context.state.messageBoard.newMessages,
     readMessage: false,
+    scroll: this.props.context.state.messageBoard.scroll,
     userBoards: undefined,
     receivers: undefined,
-    isLoading: false,
+    isLoading: this.props.context.state.messageBoard.isLoading,
+    status: false,
+    file: null,
+    tempImagesURL: []
   };
 
  
@@ -32,49 +39,53 @@ export class MessageBoard extends Component {
     //1. Component did mount - then getUserBoards and updateMessageBoard
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   componentDidMount = () => {
-    this.setState({ isLoading: true });
+    //check for new updates
     this.timer = setInterval(() => {
       this.getUserBoards();
       this.updateMessageBoard();
+
+      if(this.state.scroll){
+        this.scrollMessagesDown();
+        this.props.context.updateState(prevState => ({
+        messageBoard: {
+          ...prevState.messageBoard,
+          scroll: false
+        }
+      }))
+      }
+      if(!this.state.receiver) this.setState({newMessages: null})
     }, 2000);
   };
 
    //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //2.Switch Chat board user - get user Chat board  if clicked
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  timeOut = 0
+
   switchUser = receiver => {
     this.setState({
-     receiver,
+      receiver,
      isLoading: true,
      messages: false,
      newMessages: false,
-     readMessage: true
+     readMessage: true,
    });
-   
-    this.state.timeOut = setTimeout(() => {
-    this.scrollMessagesDown();
-     //here will call to update new msg unread/read status
-   }, 2000);
+   this.props.context.updateState(prevState => ({
+    messageBoard: {
+      ...prevState.messageBoard,
+      receiver,
+      scroll: true
+    }
+  }))
+  // //  this.updateStatus(receiver)
+  // this.scrollMessagesDown();
  };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  //Updates message status
+  //Updates user status (online? true:false) and  messages status/read
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
-//   updateMessageStatus = async () => {
-//     const res = await AUTH_MESSAGES.updateStatus({
-//       otherUserId: user._id,
-//     })
-
-//     if(this.state.newMessages){
-//       console.log("updateMessageStatus -> data", this.state.newMessages)
-//      const msgIds = this.state.newMessages.map(msg => msg._id )
-//       const res = await AUTH_MESSAGES.updateStatus({
-//         otherUserId: this.state.receiver._id,
-//         newMessages: msgIds
-//       })
-//     }
-// }
+  updateStatus = async (theUser) => {
+    await AUTH_MESSAGES.updateStatus({otherUser: {_id: theUser._id}})
+}
 
  //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //3.Handle input change - if typing
@@ -88,31 +99,68 @@ export class MessageBoard extends Component {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   handleMessageSubmit = async e => {
     e.preventDefault();
-    //  await axios.post(`/api/messages/add-new-message`, {
-    //   otherUser: this.state.receiver,
-    //   message: this.state.message
-    // })
-    this.setState({ message: '' });
-    console.log('this.state.receiver', this.state.receiver);
-    await AUTH_MESSAGES.addNewMessage({
-      otherUser: {
-        _id: this.state.receiver._id,
-        username: this.state.receiver.username,
-      },
-      message: this.state.message,
-    });
-    await this.getUserBoards(); // to update message history list
-    await this.updateMessageBoard();
-     this.scrollMessagesDown()
+    try {
+      await AUTH_MESSAGES.addNewMessage({
+        otherUser: {
+          _id: this.state.receiver._id,
+          username: this.state.receiver.username,
+        },
+        message: this.state.message,
+      });
+      this.setState(prevState => ({
+         message: '',
+      }));
+      this.props.context.updateState(prevState => ({
+        messageBoard: {
+          ...prevState.messageBoard,
+          scroll: true
+        }
+      }))
+    } catch (err) {
+      this.displayError(err)
+    }
   };
 
+   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  handleFileChange = e => {
+    const { type, files} = e.target;
+  if(type === 'file'){
+      var fReader = new FileReader()
+      fReader.readAsDataURL(files[0])
+      fReader.onloadend = (e) => {
+        this.setState(prevState => ({
+          file: files[0],
+          tempImagesURL: [...prevState.tempImagesURL, `${e.target.result}`]
+        }))
+      }
+    }
+  }
+  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  clearTempUrl = e => {}
+   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  displayError = err => {
+    if (err.response && err.response.data) {
+      this.setState(prevState => ({
+        ...prevState,
+        errMessage: err.response.data.message,
+      }));
+      setTimeout(() => {
+        this.setState({
+          errMessage: ''
+        })
+      },2000)
+    } else {
+      console.log(err);
+    }
+  };
   
    //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //Get User boards to get messages
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   getUserBoards = async () => {
     const res = await AUTH_MESSAGES.getUserBoards();
-    // const res = await axios.get(`/api/messages/boards`)
     this.setState({ userBoards: res.data, isLoading: false });
   };
 
@@ -121,14 +169,11 @@ export class MessageBoard extends Component {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   updateMessageBoard = async () => {
     if (this.state.receiver) {
-      // const res = await axios.post('/api/messages/board', {id: this.state.receiver})
       const res = await AUTH_MESSAGES.updateUserBoard({
         id: this.state.receiver._id,
       });
       const { messages, newMessages } = res.data;
       this.setState({ messages, newMessages });
-      // setTimeout(() => {
-      // }, 300);
     }
   };
 
@@ -136,13 +181,10 @@ export class MessageBoard extends Component {
   //Scrolls down messages on load or when new message
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   scrollMessagesDown = () => {
-    setTimeout(() => {
-      const chatMessages = document.querySelector('.message-board-body');
-      if (chatMessages) {
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }
-      
-    }, 300);
+    const chatMessages = document.querySelector('.message-board-body');
+    if (chatMessages) {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
   };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -162,6 +204,10 @@ export class MessageBoard extends Component {
       .sort((a, b) => (b.createdAt > a.createdAt ? -1 : 1));
   };
 
+   openEmojis = (e) => {
+    document.getElementById('emojis').style.display = 'block'
+}
+
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //Last on component unmount - when page closed clear/stop  this.timer === setInterval
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -174,63 +220,20 @@ export class MessageBoard extends Component {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   render() {
     const {
-      messages,
       newMessages,
       users,
       userBoards,
       message,
-      isLoading,
+      errMessage,
+      receiver,
+      isLoading
     } = this.state;
 
     return (
       <div>
         <div className="main-message-board">
           <div className="nav-sidebar">
-            <div className="sidebar-icons">
-              <Link to="/" className="">
-                <span>
-                  <i className="fas fa-feather-alt"></i>
-                </span>
-              </Link>
-              <Link to="/" className="">
-                <span>
-                  <i className="fas fa-dove"></i>
-                </span>
-              </Link>
-              <Link to="/" className="">
-                <span>
-                  <i className="fas fa-edit"></i>
-                </span>
-              </Link>
-              <Link to="/" className="">
-                <span>
-                  <i className="fas fa-user"></i>
-                </span>
-              </Link>
-              <Link to="/" className="">
-                <span>
-                  <i className="fab fa-dropbox"></i>
-                </span>
-              </Link>
-              <Link to="/message-board" className="">
-                <span className="fas fa-comment-dots"></span>
-              </Link>
-              <Link to="/" className="">
-                <span>
-                  <i className="fas fa-award"></i>
-                </span>
-              </Link>
-              <Link to="/" className="">
-                <span>
-                  <i className="fas fa-crop"></i>
-                </span>
-              </Link>
-              <Link to="/" className="">
-                <span>
-                  <i className="fas fa-cog"></i>
-                </span>
-              </Link>
-            </div>
+            <SideNavbar/>
           </div>
 
           <div className="users-list">
@@ -253,7 +256,12 @@ export class MessageBoard extends Component {
                 return (
                   <div key={_id} className="user-user-list">
                     <Link
-                      to={`/message-board/${_id}`}
+                      to={{
+                        pathname: `/message-board/${_id}`,
+                        state: {
+                           user
+                        }
+                      }}
                       onClick={() => this.switchUser(user)}
                     >
                       <div className="user-image-div">
@@ -266,77 +274,17 @@ export class MessageBoard extends Component {
             </div>
             {/* messaging history with user image*/}
             <div className="messages-history">
-              {userBoards
-                ? this.getReceivers(userBoards).map(user => {
-                    // console.log("receiver-> user", user)
-                    const {
-                      _id,
-                      path,
-                      firstName,
-                      lastName,
-                      lastMessage,
-                      createdAt,
-                    } = user;
-                    const yourId = this.state.user._id;
-                    // const users = [lastMessage.receiverID._id, lastMessage.author._id]
-                    const theUser =
-                      lastMessage.receiverID._id.toString() !==
-                      yourId.toString()
-                        ? lastMessage.receiverID
-                        : lastMessage.author._id.toString() !==
-                          yourId.toString()
-                        ? lastMessage.author
-                        : '';
-                    const theUserId = theUser._id;
-                    const theUserPath = theUser.path;
-                    const theUserName = theUser.firstName;
-                    const theUserLastName = theUser.lastName;
-
-                    // const lastMessage = messages[messages.length -1]
-                    return (
-                      <div key={_id}>
-                        {_id.toString() === yourId.toString() ? (
-                          <MessagedUser
-                            switchUser={user => this.switchUser(user)}
-                            userId={theUserId}
-                            user={theUser}
-                            path={theUserPath}
-                            firstName={theUserName}
-                            lastName={theUserLastName}
-                            lastMessage={lastMessage}
-                            state={this.state}
-                            createdAt={createdAt}
-                          />
-                        ) : (
-                          <MessagedUser
-                            switchUser={user => this.switchUser(user)}
-                            userId={_id}
-                            user={user}
-                            path={path}
-                            firstName={firstName}
-                            lastName={lastName}
-                            lastMessage={lastMessage}
-                            state={this.state}
-                            createdAt={createdAt}
-                          />
-                        )}
-                      </div>
-                    );
-                  })
-                : ''}
+              { userBoards 
+              && <MessageHistory state={this.state} 
+              getReceivers={this.getReceivers(userBoards)}
+              switchUser={user => this.switchUser(user)}
+              />}
             </div>
           </div>
 
-          <div id='"message-board' className="message-board">
+          <div id='message-board' className="message-board">
             <div className="message-board-nav">
-              <Switch>
-                <Route
-                  exact
-                  strict
-                  path="/message-board/:id"
-                  render={props => <BoardNavbar {...props} users={users} />}
-                />
-              </Switch>
+            {this.state.receiver && <BoardNavbar message={errMessage} user={this.state.receiver}/>}
               <div>
                 <span id="search-icon2">
                   <i className="fas fa-search"></i>
@@ -344,7 +292,7 @@ export class MessageBoard extends Component {
                 <span>
                   <i className="fas fa-user-plus"></i>
                 </span>
-                {/* <span><i class="fas fa-ellipsis-v"></i></span> */}
+                {/* <span><i className="fas fa-ellipsis-v"></i></span> */}
                 <span>
                   <i className="fas fa-ellipsis-h"></i>
                 </span>
@@ -354,39 +302,7 @@ export class MessageBoard extends Component {
             <div id="message-board-body" className="message-board-body">
               <div id="messageBoardUsers">
                 {/* all messages goes here */}
-                <div className="conversation-div">
-                  {newMessages ? (
-                    newMessages.map(msg => {
-                      return msg.author.username !== msg.sender ? (
-                        <Message
-                          key={msg._id}
-                          currUser={this.state.user}
-                          user={msg.author}
-                          id={msg._id}
-                          message={msg.message}
-                          path={msg.receiverID.path}
-                          firstName={msg.receiverID.firstName}
-                          lastName={msg.receiverID.lastName}
-                        />
-                      ) : (
-                        <Message
-                          key={msg._id}
-                          currUser={this.state.user}
-                          user={msg.author}
-                          id={msg._id}
-                          message={msg.message}
-                          path={msg.author.path}
-                          firstName={msg.author.firstName}
-                          lastName={msg.author.lastName}
-                        />
-                      );
-                    })
-                  ) : isLoading ? (
-                    <Loader />
-                  ) : (
-                    ''
-                  )}
-                </div>
+                  { receiver && <BoardBody isLoading={isLoading} newMessages={newMessages} state={this.state}/>}
               </div>
             </div>
 
@@ -395,19 +311,26 @@ export class MessageBoard extends Component {
               id="message-form"
               className="message-board-footer"
             >
-              <input
+              <textarea
                 id="message-input"
+                autoComplete='off'
                 onChange={this.handleMessage}
                 value={message}
                 name="message"
-                type="text"
-                placeholder="Type your message..."
+                type="textarea"
+                placeholder='Type your message...'
               />
 
-              <span className="icons message-icon">
-                <i className="fas fa-smile"></i>
+              <span  className="icons message-icon">
+                <i onClick={this.openEmojis}><i className="fas fa-smile"></i></i>
+                <div id='emojis-container' className='emojis-container'>
+                  <Emojis />
+                </div>
               </span>
-              <span className="icons message-icon">
+              <input style={{display:'none'}} type='file' 
+              onChange={this.handleFileChange}
+              ref={fileInput=> this.fileInput = fileInput}/>
+              <span className="icons message-icon" onClick={()=> this.fileInput.click()}>
                 <i className="fas fa-paperclip"></i>
               </span>
               <span className="icons message-icon" role="button" type="submit">
