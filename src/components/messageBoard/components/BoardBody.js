@@ -37,7 +37,7 @@ export default function BoardBody({newMessages, isLoading, state}) {
                   ) : isLoading ? (
                     <Loader />
                   ) : (
-                    ''
+                    `You have no message history with ${state.receiver.firstName}. Text your first dialog message with ${state.receiver.firstName} ${state.receiver.lastName}`
                   )}
                 </div>
         </div>

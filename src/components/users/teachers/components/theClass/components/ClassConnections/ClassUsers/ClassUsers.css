@@ -1,0 +1,67 @@
+.class-users{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60vw;
+    padding: 10px;
+    margin: 0 auto;
+    /* background-color: 	#f8f8f8; */
+    /* box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2); */
+    border: 1px solid #d3e7f5;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+@media(max-width:900px) {
+  .class-users {
+    width: 80vw;
+  }
+}
+.each-student-main {
+    display: flex;
+    justify-content: space-between;
+}
+.each-student {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.each-student p {
+    margin-left:10px;
+}
+.user-image-md {
+    width: 100px;
+    height: 100px;
+    margin-top: 5px;
+    margin-left: 5px;
+    border-radius: 3px;
+}
+  .side-header h4
+   {
+    text-transform: capitalize;
+    color: #333;
+    margin: 0;
+  }
+.userListScroll2 {
+  /* overflow: scroll; */
+  /* height: 300px; */
+  /* max-height: 100vh;
+  min-height: 100vh; */
+  /* width: 60vw;
+  margin: 0 auto;
+  background-color: 	#F5F5F5; */
+  width: 90%;
+}
+.searchInClassInput {
+    width: 87%;
+  padding: 10px 20px;
+  /* padding-left: 3vw; */
+  font-size: 14px;
+  border-radius: 30px;
+  border: 0.5px solid #d3e7f5;
+  margin: 5px 0;
+  align-self: center;
+}
+.searchInClassInput:focus {
+  outline: 0;
+}

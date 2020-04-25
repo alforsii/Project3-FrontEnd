@@ -43,7 +43,7 @@ export default class Confirm extends Component {
         })
 
         //redirect to the origin page
-          this.props.history.push('/teachers-page')
+          this.props.history.push('/class')
 
        } catch (error) {
         this.setState({isLoading: false, message:'Sorry something went wrong. Try again later!'})

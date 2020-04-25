@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 
-import Pagination from '../../classesList/Pagination'
+import Pagination from '../../../../classesList/Pagination'
 import './ClassUsers.css'
 
 export default function ClassUsers({users, filterUsers, updateState, 
@@ -28,17 +28,17 @@ const currentPageUsers = users?.slice(
  // Change page
  const paginate = pageNumber => setCurrentPage(pageNumber);
     return (
-        <div>
+        <div className='class-users'>
 
-          <div className="side-header">
-            <h2> {name} </h2>
-            <h2>grade: {grade} </h2>
-          </div>
+          {/* <div className="side-header">
+            <h4> {name} </h4>
+            <h4>grade: {grade} </h4>
+          </div> */}
 
              <input
             type="text"
             placeholder="Search by name or email..."
-            className="searchInput"
+            className="searchInClassInput"
             onKeyUp={filterUsers}
             autoComplete="off"
           ></input>
@@ -55,11 +55,10 @@ const currentPageUsers = users?.slice(
           currentPage={currentPage}
         />
           </div>
-          <hr />
           <div className="userListScroll2">
-             { currentPageUsers?.map((studentData,i) => {
-               const { _id, path, username, firstName, lastName } = studentData;
-              //  const { student: {_id, path, username, firstName, lastName }, student} = studentData;
+             { currentPageUsers?.map((currUser,i) => {
+               const { _id, path, username, firstName, lastName } = currUser;
+
                return (
                  <div key={_id+i+1} className="each-student-main">
                      {/* <input type="checkbox" className='remove-user' /> */}
@@ -93,8 +92,7 @@ const currentPageUsers = users?.slice(
                                 updateState(prevState => ({
                                   messageBoard: {
                                     ...prevState.messageBoard,
-                                    receiver: studentData,
-                                    // receiver: student,
+                                    receiver: currUser,
                                   },
                                 }))
                               }
@@ -103,7 +101,7 @@ const currentPageUsers = users?.slice(
                             </Link>
                           </p>
                           <p>Mark</p>
-                          <p onClick={() => removeFromClass(studentData)}>Remove from class</p>
+                          <p onClick={() => removeFromClass(currUser)}>Remove from class</p>
                         </div>
                       </div>
                  </div>

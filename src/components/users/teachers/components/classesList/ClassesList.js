@@ -73,7 +73,7 @@ export default class ClassList extends Component {
                   <td>
                     <Link
                       to={{
-                        pathname: `/teachers-page/class/${_id}`,
+                        pathname: `/class/${_id}`,
                         state: {
                           currClass,
                         },
@@ -147,7 +147,7 @@ export default class ClassList extends Component {
                           <p>About</p>
                           <p>
                           <Link to={{
-                            pathname: '/classes/add-new',
+                            pathname: '/class/new',
                             state: {
                               currClass
                             }

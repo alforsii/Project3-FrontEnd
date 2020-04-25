@@ -6,7 +6,7 @@ import NavBar from './components/navbar/NavBar';
 import Home from './components/home/Home';
 import LandingPage from './components/home/LandingPage';
 import SideBar from './components/sidebar/SideBar';
-import SocketMessageBoard from './components/messageBoard/SocketMessageBoard';
+import MessageBoard from './components/messageBoard/MessageBoard';
 import UpdateProfile from './components/update-upload/UpdateProfile'
 import LoginForm from './components/auth/LoginForm';
 import Loader from './/loader/Loader';
@@ -42,13 +42,13 @@ export class App extends Component {
             </div>
           <Switch>
             <PublicRoute exact path="/" component={LandingPage} />
-            <PublicRoute exact path="/login" component={LoginForm} />
-            <ProtectedRoute exact path="/teachers-page" component={TeacherPage} />
-            <ProtectedRoute exact path="/classes/add-new" component={AddNewClass} />
-            <ProtectedRoute exact path="/teachers-page/class/:id" component={TheClass} />
             <ProtectedRoute exact path="/home" component={Home} />
-            <ProtectedRoute exact path="/message-board" component={SocketMessageBoard}/>
-            <ProtectedRoute exact path="/message-board/:id" component={SocketMessageBoard}/>
+            <PublicRoute exact path="/login" component={LoginForm} />
+            <ProtectedRoute exact path="/class" component={TeacherPage} />
+            <ProtectedRoute exact path="/class/new" component={AddNewClass} />
+            <ProtectedRoute exact path="/class/:id" component={TheClass} />
+            <ProtectedRoute exact path="/message-board" component={MessageBoard}/>
+            <ProtectedRoute exact path="/message-board/:id" component={MessageBoard}/>
             <ProtectedRoute exact path="/settings/update-profile" component={UpdateProfile}/>
           </Switch>
           </React.Fragment>
