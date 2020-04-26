@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import Avatar from '../../auth/avatar/Avatar';
 
 export default function BoardNavbar(props) {
   const { message,user} = props
@@ -8,8 +9,9 @@ export default function BoardNavbar(props) {
       <div className="user-div">
         <div className="user2">
           <Link to="/message-board">
-            <div className="user-image-div">
-              <img className="user-image" src={user?.path} alt="" />
+            <div className="user-image-div large">
+              {/* <img className="user-image" src={user?.path} alt="" /> */}
+              <Avatar src={user?.path} alt={user?.firstName} size={'large'}/>
             </div>
           </Link>
           <div>

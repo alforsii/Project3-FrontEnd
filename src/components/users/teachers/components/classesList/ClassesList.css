@@ -100,10 +100,10 @@ td.description {
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
-      margin-top: 5px;
+      /* flex-wrap: wrap;
+      margin-top: 5px; */
   }
-  .pagination-div button {
+  /* .pagination-div button {
     padding: 4px 8px;
     font-size: 14px;
     color: #333;
@@ -125,4 +125,4 @@ td.description {
     text-decoration: underline;
     font-weight: bold;
     opacity: 1;
-  }
+  } */

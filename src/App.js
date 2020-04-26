@@ -16,6 +16,7 @@ import PublicRoute from './components/protectedRoute/PublicRoutes';
 import TeacherPage from './components/users/teachers/TeacherPage'
 import TheClass from './components/users/teachers/components/theClass/TheClass'
 import AddNewClass from './components/users/teachers/components/create-class-form/ClassForm'
+// import Dashboard from './components/home/Dashboard'
 
 
 
@@ -43,6 +44,7 @@ export class App extends Component {
           <Switch>
             <PublicRoute exact path="/" component={LandingPage} />
             <ProtectedRoute exact path="/home" component={Home} />
+            {/* <ProtectedRoute exact path="/dashboard" component={Dashboard} /> */}
             <PublicRoute exact path="/login" component={LoginForm} />
             <ProtectedRoute exact path="/class" component={TeacherPage} />
             <ProtectedRoute exact path="/class/new" component={AddNewClass} />

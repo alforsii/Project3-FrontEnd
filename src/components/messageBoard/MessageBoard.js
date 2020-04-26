@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import SendIcon from '@material-ui/icons/Send';
+import {Button} from '@material-ui/core'
+import Avatar from '../auth/avatar/Avatar'
 // import socketIOClient from "socket.io-client";
 import moment from 'moment';
 
@@ -265,7 +271,8 @@ export class MessageBoard extends Component {
                       onClick={() => this.switchUser(user)}
                     >
                       <div className="user-image-div">
-                        <img className="user-image" src={path} alt={username} />
+                        {/* <img className="user-image" src={path} alt={username} /> */}
+                        <Avatar src={path} alt={username} size='medium'/>
                       </div>
                     </Link>
                   </div>
@@ -333,14 +340,9 @@ export class MessageBoard extends Component {
               <span className="icons message-icon" onClick={()=> this.fileInput.click()}>
                 <i className="fas fa-paperclip"></i>
               </span>
-              <span className="icons message-icon" role="button" type="submit">
-                <i className="fab fa-telegram"></i>
-              </span>
-              {/* <span className="icons telegram"><i className="fas fa-microphone"></i></span>
-                <span className="icons telegram"><i className="fas fa-microphone-slash"></i></span> */}
-              <button className="icons">
-                <i className="fab fa-telegram"></i>Send
-              </button>
+              <Button style={{color: '#0794f3'}} type='submit' >
+                <SendIcon />
+              </Button>
             </form>
           </div>
         </div>

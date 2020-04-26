@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
+import Avatar from '@material-ui/core/Avatar'
+import MenuDropdown from './MenuDropdown'
 
 import Pagination from '../../../../classesList/Pagination'
 import './ClassUsers.css'
@@ -63,14 +65,20 @@ const currentPageUsers = users?.slice(
                  <div key={_id+i+1} className="each-student-main">
                      {/* <input type="checkbox" className='remove-user' /> */}
                      <div className="each-student">
-                       <img className="user-image-sm " src={path} alt={username} />
+                       {/* <img className="user-image-sm " src={path} alt={username} /> */}
+                       <Avatar alt={username} src={path}/>
                        <p>
                          {' '}
                          {firstName} {lastName}{' '}
                        </p>
                      </div>
                      {/* dropdown btn */}
-                   <div className="dropdown3">
+                     <MenuDropdown 
+                      currUser={currUser}
+                      updateState={updateState}
+                      removeFromClass={removeFromClass}
+                     />
+                   {/* <div className="dropdown3">
                         <button
                           className="dropbtn3"
                           onClick={toggleClassNavDropdown}
@@ -103,7 +111,7 @@ const currentPageUsers = users?.slice(
                           <p>Mark</p>
                           <p onClick={() => removeFromClass(currUser)}>Remove from class</p>
                         </div>
-                      </div>
+                      </div> */}
                  </div>
                );
           })}

@@ -29,6 +29,9 @@
 .each-student p {
     margin-left:10px;
 }
+.each-student-link {
+  text-decoration: none;
+}
 .user-image-md {
     width: 100px;
     height: 100px;
@@ -64,4 +67,16 @@
 }
 .searchInClassInput:focus {
   outline: 0;
+}
+
+/* show and hide user list */
+#studentsList,
+#teachersList {
+  display: none;
+}
+/* show and hide user list */
+#studentsList.show,
+#teachersList.show {
+  display: block;
+  z-index: 1000;
 }

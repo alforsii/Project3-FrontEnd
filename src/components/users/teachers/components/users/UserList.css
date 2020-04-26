@@ -105,14 +105,4 @@ button#addToClass:focus {
   margin-left: 5px;
 }
 
-/* show and hide user list */
-#studentsList,
-#teachersList {
-  display: none;
-}
-/* show and hide user list */
-#studentsList.show,
-#teachersList.show {
-  display: block;
-  z-index: 1000;
-}
+
