@@ -11,6 +11,7 @@ export default function BoardBody({newMessages, isLoading, state}) {
                       return msg.author.username !== msg.sender ? (
                         <Message
                           key={msg._id}
+                          receiver={msg.author}
                           currUser={state.user}
                           msg={msg}
                           user={msg.receiverID}
@@ -24,7 +25,9 @@ export default function BoardBody({newMessages, isLoading, state}) {
                       ) : (
                         <Message
                           key={msg._id}
+                          receiver={msg.receiverID}
                           currUser={state.user}
+                          msg={msg}
                           user={msg.author}
                           id={msg._id}
                           message={msg.message}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Avatar from '@material-ui/core/Avatar'
 import './UserList.css';
 
 export default class UserList extends Component {
@@ -50,7 +51,8 @@ export default class UserList extends Component {
               <div className="user-image-div user-horizontal">
                 <input type="checkbox" className={`add-user parents`} />
                 <div>
-                  <img className="user-image-sm " src={path} alt={username} />
+                  {/* <img className="user-image-sm " src={path} alt={username} /> */}
+                  <Avatar alt={username} src={path}/>
                   <p>
                     {' '}
                     {firstName} {lastName}{' '}

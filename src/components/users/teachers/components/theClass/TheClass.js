@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import { AUTH_CLASSES } from '../../../../../services/classesAuth/ClassesAuth';
-import ClassNavbar from './components/ClassNavbar';
-import ClassPosts from './components/ClassPosts'
+import ClassNavbar from './components/classNavbar/ClassNavbar';
+import ClassPosts from './components/classPosts/ClassPosts'
 import ClassWork from './components/classWork/ClassWork'
 import ClassConnections from './components/ClassConnections/ClassConnections'
 import ImageUploadForm from '../img-uploadForm/ImageForm';
@@ -21,7 +21,7 @@ export class TheClass extends Component {
     parents: [],
     dashboardImg: '',
     displayUsers: true,
-    defaultPage: 'posts'
+    defaultPage: 'works'
   };
 
   componentDidMount = async () => {
@@ -76,7 +76,7 @@ export class TheClass extends Component {
   //toggle userList
   toggleUserList = e => {
 
-    const { id } = e.target.parentElement;
+    const { id } = e.target.closest('button');
     this.closeUserList();
     if (id === 'studentsBtn') {
       this.getOtherStudents();
@@ -269,8 +269,10 @@ export class TheClass extends Component {
             </div>
             {defaultPage === 'posts' && <ClassPosts/>}
             {defaultPage === 'works' && <ClassWork
+            displayForm={displayForm}
             toggleClassNavDropdown={toggleClassNavDropdown}/>}
-              {defaultPage === 'users' && <ClassConnections
+              {defaultPage === 'users' 
+              && <ClassConnections
               displayUsers={displayUsers}
               switchUsersList={this.switchUsersList}
               toggleClassNavDropdown={toggleClassNavDropdown}

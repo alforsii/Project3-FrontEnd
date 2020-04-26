@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import MenuDropdown from './MenuDropdown'
 import moment from 'moment';
 
 import Pagination from './Pagination';
@@ -23,7 +24,7 @@ export default class ClassList extends Component {
   render() {
     const { currentPage, postsPerPage } = this.state;
     const { classes, search, archive, searchForClass, 
-      toggleClassNavDropdown, removeClass, removeArchiveClass  } = this.props
+       removeClass, removeArchiveClass  } = this.props
     // Get current posts
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -120,52 +121,17 @@ export default class ClassList extends Component {
                   </td>
 
                   <td>
-                    <div className="dropdown3">
-                      <button
-                        className="dropbtn3"
-                        onClick={toggleClassNavDropdown}
-                      >
-                        <i className="fas fa-ellipsis-h"></i>
-                      </button>
                       {archive ? (
-                        <div className="dropdown-content3 align-right classNavDropdown">
-                          <p>Archive</p>
-                          <hr
-                            style={{
-                              width: '100%',
-                              borderWidth: '0.4px',
-                              borderRadius: 0,
-                            }}
-                          />
-                          <p onClick={() => removeArchiveClass(_id)}>
-                            Remove completely
-                          </p>
-                        </div>
+                         <MenuDropdown
+                         currClass={currClass}
+                         removeClass={removeArchiveClass}
+                         />
                       ) : (
-                        <div className="dropdown-content3 align-right classNavDropdown">
-                          <h4>{name}</h4>
-                          <p>About</p>
-                          <p>
-                          <Link to={{
-                            pathname: '/class/new',
-                            state: {
-                              currClass
-                            }
-                          }}>Edit</Link>
-                          </p>
-                          <hr
-                            style={{
-                              width: '100%',
-                              borderWidth: '0.4px',
-                              borderRadius: 0,
-                            }}
-                          />
-                          <p onClick={() => removeClass(_id)}>
-                            Archive
-                          </p>
-                        </div>
+                      <MenuDropdown
+                      currClass={currClass}
+                      removeClass={removeClass}
+                      />
                       )}
-                    </div>
                   </td>
                 </tr>
               );

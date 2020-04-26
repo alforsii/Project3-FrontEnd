@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Avatar from '../../auth/avatar/Avatar'
 
 export default function MessagedUser(props) {
   const { lastMessage, state, createdAt, switchUser, status } = props;
@@ -25,7 +26,8 @@ export default function MessagedUser(props) {
       <div className="user-div">
         <div className="user user1">
           <div className="user-image-div">
-            <img className="user-image" src={path} alt={firstName} />
+            {/* <img className="user-image" src={path} alt={firstName} /> */}
+            <Avatar src={path} alt={firstName} />
           </div>
           <div>
             <h5 className="username">

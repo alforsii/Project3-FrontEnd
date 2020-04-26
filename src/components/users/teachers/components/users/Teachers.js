@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Avatar from '@material-ui/core/Avatar'
+import MenuDropdown from './MenuDropdown'
 import './UserList.css';
 
 export default class UserList extends Component {
@@ -60,37 +62,19 @@ export default class UserList extends Component {
               <div className="user-image-div user-horizontal">
                 <input type="checkbox" className='add-user teachers' />
                 <div>
-                  <img className="user-image-sm " src={path} alt={username} />
+                  {/* <img className="user-image-sm " src={path} alt={username} /> */}
+                  <Avatar alt={username} src={path}/>
                   <p>
                     {' '}
                     {firstName} {lastName}{' '}
                   </p>
                 </div>
               </div>
-              {/*  */}
-              <div className="dropdown3">
-                        <button
-                          className="dropbtn3"
-                          onClick={this.props.toggleClassNavDropdown}
-                        >
-                            <i className="fas fa-ellipsis-h"></i>
-                        </button>
-                        <div className="dropdown-content3 align-right classNavDropdown">
-                        <div className="each-student">
-                       <img className="user-image-md" src={path} alt={username} />
-                       <h4>
-                         {' '}
-                         {firstName} {lastName}{' '}
-                       </h4>
-                     </div>
-                          <p>Mark</p>
-                          <p onClick={() => {
-                            this.props.addToClass(user)
-                            return this.removeAddedUser(user)
-                          }}>Add to class</p>
-                        </div>
-                      </div>
-                  {/*  */}
+              <MenuDropdown
+                  currUser={user}
+                  addToClass={this.props.addToClass}
+                  removeAddedUser={this.removeAddedUser}
+                  />
             </div>
           );
         })}

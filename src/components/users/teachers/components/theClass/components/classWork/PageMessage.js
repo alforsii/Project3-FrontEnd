@@ -19,7 +19,7 @@ export default function PageMessage() {
           <i className="fas fa-file-alt"></i> <span> Use topics for your students classwork</span>
           </p>
           <p>
-          <i class="fas fa-sort-alpha-down"></i> <span> Sort your posts the way you want your students to see it</span>
+          <i className="fas fa-sort-alpha-down"></i> <span> Sort your posts the way you want your students to see it</span>
           </p>
         </div>
       </article>

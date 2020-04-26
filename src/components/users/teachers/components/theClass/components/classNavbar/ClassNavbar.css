@@ -1,0 +1,25 @@
+.class-nav {
+    overflow: hidden;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .click-btn2 {
+    padding: 20px;
+    /* margin: 0 5px; */
+    font-size: 16px;
+    border: 3px solid transparent;
+  }
+  .click-btn2:focus {
+    outline: 0;
+  }
+.click-btn2.focus-on {
+  color: #0794f3;
+    background-color: #f5f5f5;
+    border-top: 3px solid #0794f3;
+    /* border-bottom: 3px solid #0794f3; */
+}
+.click-btn2:hover {
+  color: #0794f3;
+}
