@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
 import { AUTH_CLASSES } from '../../../../../services/classesAuth/ClassesAuth';
 import ClassNavbar from './components/classNavbar/ClassNavbar';
@@ -6,8 +7,11 @@ import ClassPosts from './components/classPosts/ClassPosts'
 import ClassWork from './components/classWork/ClassWork'
 import ClassConnections from './components/ClassConnections/ClassConnections'
 import ImageUploadForm from '../img-uploadForm/ImageForm';
+import Snackbar from '../../../../auth/snackbar/Snackbar'
+import Notification from '../../../../auth/snackbar/Notification'
 
 import './TheClass.css';
+
 export class TheClass extends Component {
   state = {
     currClass: this.props.location.state.currClass,
@@ -21,7 +25,8 @@ export class TheClass extends Component {
     parents: [],
     dashboardImg: '',
     displayUsers: true,
-    defaultPage: 'works'
+    defaultPage: 'works',
+    message: '',
   };
 
   componentDidMount = async () => {
@@ -45,10 +50,10 @@ export class TheClass extends Component {
     this.setState(prevState => ({
       currClass: currentClass,
       coverImage: currentClass.path,
-      students,
-      filteredStudents: students,
-      teachers,
-      filteredTeachers: teachers,
+      students: students.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
+      filteredStudents: students.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
+      teachers: teachers.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
+      filteredTeachers: teachers.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
     }));
   };
 
@@ -59,7 +64,7 @@ export class TheClass extends Component {
     } = await AUTH_CLASSES.getOtherStudents(this.state.currClass._id);
 
     this.setState({
-      restStudents: students,
+      restStudents: students.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
     });
   };
   //get teachers
@@ -69,7 +74,7 @@ export class TheClass extends Component {
     } = await AUTH_CLASSES.getOtherTAs(this.state.currClass._id);
 
     this.setState({
-      restTeachers: teachers,
+      restTeachers: teachers.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
     });
   };
 
@@ -125,6 +130,7 @@ export class TheClass extends Component {
       });
     }
   };
+
   //Add student to class
   addToClass = async user => {
     if (user.title === 'Student') {
@@ -134,10 +140,9 @@ export class TheClass extends Component {
         userId: user._id,
         classId: this.state.currClass._id,
       });
-
       this.setState(prevState => ({
-        students: [...prevState.students, studentFromDB],
-        filteredStudents: [...prevState.students, studentFromDB],
+        students: [...prevState.students, studentFromDB].sort((a,b) => a.firstName > b.firstName ? 1 : -1),
+        filteredStudents: [...prevState.students, studentFromDB].sort((a,b) => a.firstName > b.firstName ? 1 : -1),
       }));
     }
     if (user.title === 'TA') {
@@ -147,10 +152,9 @@ export class TheClass extends Component {
         userId: user._id,
         classId: this.state.currClass._id,
       });
-
       this.setState(prevState => ({
-        teachers: [...prevState.teachers, teacherFromDB],
-        filteredTeachers: [...prevState.teachers, teacherFromDB],
+        teachers: [...prevState.teachers, teacherFromDB].sort((a,b) => a.firstName > b.firstName ? 1 : -1),
+        filteredTeachers: [...prevState.teachers, teacherFromDB].sort((a,b) => a.firstName > b.firstName ? 1 : -1),
       }));
     }
   };
@@ -164,9 +168,10 @@ export class TheClass extends Component {
       });
 
       this.setState(prevState => ({
-        students: res.data.updatedStudents,
-        filteredStudents: res.data.updatedStudents,
+        students: res.data.updatedStudents.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
+        filteredStudents: res.data.updatedStudents.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
       }));
+      
     }
     if (user.title === 'TA') {
       const res = await AUTH_CLASSES.removeTeacher({
@@ -175,8 +180,8 @@ export class TheClass extends Component {
       });
 
       this.setState(prevState => ({
-        teachers: res.data.updatedTeachers,
-        filteredTeachers: res.data.updatedTeachers,
+        teachers: res.data.updatedTeachers.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
+        filteredTeachers: res.data.updatedTeachers.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
       }));
     }
   };
@@ -267,6 +272,7 @@ export class TheClass extends Component {
               switchDefaultPage={this.switchDefaultPage}
               />
             </div>
+            <Snackbar/>
             {defaultPage === 'posts' && <ClassPosts/>}
             {defaultPage === 'works' && <ClassWork
             displayForm={displayForm}
@@ -282,10 +288,10 @@ export class TheClass extends Component {
               filteredTeachers={filteredTeachers}
               filterUsers={this.filterUsers}
               updateState={updateState}
-              removeFromClass={this.removeFromClass}
+              removeFromClass={user => this.removeFromClass(user)}
               restStudents={restStudents}
               restTeachers={restTeachers}
-              addToClass={this.addToClass}
+              addToClass={user => this.addToClass(user)}
               closeUserList={this.closeUserList}
               />}
           </div>

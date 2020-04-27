@@ -5,8 +5,8 @@ import ClassTeachers from './ClassUsers/ClassUsers';
 import Students from '../../../users/Students';
 import Teachers from '../../../users/Teachers';
 import SwitchButton from './switchModeButton/SwitchButton';
-
 import './ClassConnections.css'
+
 export default function ClassConnections({
   switchUsersList,
   toggleClassNavDropdown,
@@ -69,7 +69,7 @@ export default function ClassConnections({
           <Students
             users={restStudents}
             updateState={updateState}
-            addToClass={user => addToClass(user)}
+            addToClass={addToClass}
             closeUserList={closeUserList}
             toggleClassNavDropdown={toggleClassNavDropdown}
           />
@@ -80,7 +80,7 @@ export default function ClassConnections({
           <Teachers
             users={restTeachers}
             updateState={updateState}
-            addToClass={user => addToClass(user)}
+            addToClass={addToClass}
             closeUserList={closeUserList}
             toggleClassNavDropdown={toggleClassNavDropdown}
           />

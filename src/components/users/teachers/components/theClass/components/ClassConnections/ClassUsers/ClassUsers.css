@@ -31,6 +31,7 @@
 }
 .each-student-link {
   text-decoration: none;
+  width: 100%;
 }
 .user-image-md {
     width: 100px;

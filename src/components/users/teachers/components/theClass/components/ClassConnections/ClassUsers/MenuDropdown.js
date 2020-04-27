@@ -42,7 +42,7 @@ export default function LongMenu({ currUser, updateState, removeFromClass }) {
           },
         }}
       >
-        <MenuItem selected={`${firstName} ${lastName}`} onClick={handleClose}>
+        <MenuItem selected={firstName === firstName} onClick={handleClose}>
           <div className="each-student">
             <img className="user-image-md" src={path} alt={firstName} />
             <h4>
@@ -68,7 +68,7 @@ export default function LongMenu({ currUser, updateState, removeFromClass }) {
         <MenuItem
           onClick={() => {
             removeFromClass(currUser);
-            return handleClose;
+            handleClose();
           }}
         >
           Remove from class
