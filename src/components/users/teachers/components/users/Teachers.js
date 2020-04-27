@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import Avatar from '@material-ui/core/Avatar'
-import MenuDropdown from './MenuDropdown'
+import {MenuDropdown} from './MenuDropdown'
+import Alert from './Alert'
 import './UserList.css';
 
 export default class UserList extends Component {
   state = {
     users: this.props.users,
     filterUsers: this.props.users,
-    selectAll: false,
-    title: this.props.title
+    alert: false,
+    message: ''
   }
 
   toggleCheckbox = (e) => {
@@ -37,6 +38,19 @@ export default class UserList extends Component {
       filterUsers: prevState.filterUsers.filter(user => user._id !== removedUser._id)
     }))
   }
+
+    //Alert
+    handleAlert = (user) => {
+      this.setState(prevState => ({
+        alert: !prevState.alert,
+        message: `${user?.firstName} ${user?.lastName} successfully added to the class!`
+      }))
+      if(user !== null) {
+        setTimeout(() => {
+          this.handleAlert(null)
+        },5000)
+      }
+    }
 
   render() {
     const { filterUsers } = this.state;
@@ -72,13 +86,16 @@ export default class UserList extends Component {
               </div>
               <MenuDropdown
                   currUser={user}
+                  updateState={this.props.updateState}
                   addToClass={this.props.addToClass}
                   removeAddedUser={this.removeAddedUser}
+                  handleAlert={user => this.handleAlert(user)}
                   />
             </div>
           );
         })}
         </div>
+        { this.state.alert && <Alert message={this.state.message}/>}
       </div>
     );
   }

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 
-import MenuDropdown from './MenuDropdown'
+import {MenuDropdown} from './MenuDropdown'
 import Avatar from '@material-ui/core/Avatar'
+import Alert from './Alert'
 import './UserList.css';
 
 export default class UserList extends Component {
   state = {
     users: this.props.users,
     filterUsers: this.props.users,
+    alert: false,
+    messages: []
   }
 
   toggleCheckbox = (e) => {
@@ -34,6 +37,19 @@ export default class UserList extends Component {
       users: prevState.users.filter(user => user._id !== removedUser._id),
       filterUsers: prevState.filterUsers.filter(user => user._id !== removedUser._id)
     }))
+  }
+  //Alert
+  handleAlert = (user) => {
+    this.setState(prevState => ({
+      alert: true,
+      messages: [ {msg: `${user?.firstName} ${user?.lastName} successfully added to the class!`, time: 5000}, ...prevState.messages]
+      // messages: [...prevState.messages, {msg: `${user?.firstName} ${user?.lastName} successfully added to the class!`, time: new Date().getTime()}]
+    }))
+           
+  }
+
+  updateState = (data) => {
+    this.setState(data)
   }
   render() {
     const { filterUsers } = this.state;
@@ -67,15 +83,25 @@ export default class UserList extends Component {
                   </p>
                 </div>
               </div>
-                  <MenuDropdown
+
+              <MenuDropdown
                   currUser={user}
+                  updateState={this.props.updateState}
                   addToClass={this.props.addToClass}
                   removeAddedUser={this.removeAddedUser}
+                  handleAlert={user => this.handleAlert(user)}
+                  
                   />
+                  
             </div>
           );
         })}
         </div>
+        { this.state.alert
+         && this.state.messages?.map((data, i) => <Alert key={data.msg + i} 
+         messages={this.state.messages}
+         updateState={this.updateState}
+        message={data.msg} time={data.time}/>)}
       </div>
     );
   }

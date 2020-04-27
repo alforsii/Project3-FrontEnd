@@ -4,10 +4,17 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+// import Snackbar from '../../../../auth/snackbar/Snackbar'
 
 const ITEM_HEIGHT = 48;
 
-export default function LongMenu({ currUser, updateState, addToClass, removeAddedUser }) {
+export function MenuDropdown({
+  currUser,
+  updateState,
+  addToClass,
+  removeAddedUser,
+  handleAlert,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -42,16 +49,16 @@ export default function LongMenu({ currUser, updateState, addToClass, removeAdde
           },
         }}
       >
-        <MenuItem selected={`${firstName} ${lastName}`} onClick={handleClose}>
+        <MenuItem selected={firstName === firstName} onClick={handleClose}>
           <div className="each-student">
             <img className="user-image-md" src={path} alt={firstName} />
-            <h4>
-              {firstName}
-            </h4>
+            <h4>{firstName}</h4>
           </div>
         </MenuItem>
+
         <MenuItem onClick={handleClose}>
-          <Link className='each-student-link'
+          <Link
+            className="each-student-link"
             to={`/message-board/${_id}`}
             onClick={() =>
               updateState(prevState => ({
@@ -67,9 +74,10 @@ export default function LongMenu({ currUser, updateState, addToClass, removeAdde
         </MenuItem>
         <MenuItem
           onClick={() => {
-            addToClass(currUser)
+            addToClass(currUser);
             removeAddedUser(currUser);
-            return handleClose;
+            handleAlert(currUser);
+             handleClose();
           }}
         >
           Add to class

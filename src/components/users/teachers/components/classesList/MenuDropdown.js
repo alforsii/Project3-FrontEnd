@@ -42,7 +42,7 @@ export default function LongMenu({ currClass, removeClass }) {
           },
         }}
       >
-        <MenuItem selected={`${name}`} onClick={handleClose}>
+        <MenuItem selected={name === name} onClick={handleClose}>
           <div className="each-student">
             <img className="user-image-md" src={path} alt={name} />
             <h4>{name}</h4>
