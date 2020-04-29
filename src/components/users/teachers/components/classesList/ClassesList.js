@@ -77,6 +77,7 @@ export default class ClassList extends Component {
                         pathname: `/class/${_id}`,
                         state: {
                           currClass,
+                          classes
                         },
                       }}
                     >
