@@ -15,6 +15,7 @@ import './TheClass.css';
 export class TheClass extends Component {
   state = {
     currClass: this.props.location.state.currClass,
+    classes: this.props.location.state.classes,
     coverImage: this.props.location.state.currClass.path,
     students: this.props.location.state.currClass.students,
     filteredStudents: this.props.location.state.currClass.students,
@@ -234,6 +235,7 @@ export class TheClass extends Component {
     } = this.props.context;
     const {
       currClass,
+      classes,
       filteredStudents,
       filteredTeachers,
       restStudents,
@@ -276,7 +278,9 @@ export class TheClass extends Component {
             {defaultPage === 'posts' && <ClassPosts/>}
             {defaultPage === 'works' && <ClassWork
             displayForm={displayForm}
-            toggleClassNavDropdown={toggleClassNavDropdown}/>}
+            currClass={currClass}
+            classes={classes}
+            filteredStudents={filteredStudents}/>}
               {defaultPage === 'users' 
               && <ClassConnections
               displayUsers={displayUsers}
