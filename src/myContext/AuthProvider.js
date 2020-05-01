@@ -188,9 +188,10 @@ toggleClassNavDropdown = () => {
     buttons[i].classList.toggle('show');
   }
 };
-displayForm = () => {
-  document.querySelector('#main-form').classList.toggle('show')
-  document.querySelector('#main-form').classList.toggle('hide')
+displayForm = (id) => {
+  console.log("Output for: AuthProvider -> displayForm -> id", id)
+  document.querySelector(id).classList.toggle('show')
+  document.querySelector(id).classList.toggle('hide')
 }
   render() {
     const {

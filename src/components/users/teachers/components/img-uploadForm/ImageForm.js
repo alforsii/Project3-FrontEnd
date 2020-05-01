@@ -16,7 +16,7 @@ export default function ImageForm({
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-          <button type='button' className="close-form-btn align-right" onClick={displayForm}>X</button>
+          <button type='button' className="close-form-btn align-right" onClick={() => displayForm('#main-form')}>X</button>
           <img className='cover-image' src={src} alt=''/>
           <label>Update your cover image</label>
 
@@ -28,7 +28,7 @@ export default function ImageForm({
               name="dashboardImg"
               ref={ref => inputForm = ref}
             />
-        <button type='submit' onClick={displayForm}>Update</button>
+        <button type='submit' onClick={() => displayForm('#main-form')}>Update</button>
       </form>
     </div>
   );

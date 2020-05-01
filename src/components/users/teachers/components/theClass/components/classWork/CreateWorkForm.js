@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
+import Alert from '@material-ui/lab/Alert';
 import {
-  FormControl,
   MenuItem,
   Menu,
   Button,
   TextField,
   Divider,
+  IconButton,
+  FormControl,
+  InputLabel,
+  Input,
+  InputAdornment
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-// import { withStyles } from '@material-ui/core/styles'
+import './CreateWorkForm.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,27 +30,9 @@ export default function CreateWorkForm({
   currClass,
   classrooms,
   filteredStudents,
+  displayForm,
 }) {
   const classes = useStyles();
-  const [newWork, setNewWork] = useState({ name:'', description:'',topic:'', students: [], class: currClass });
-  console.log("Output for: newWork", newWork)
-  const [students, setStudents] = useState([]);
-  const [defaultStudents] = useState({
-    _id: 'secret-id-students',
-    firstName: 'For all students',
-    lastName: '',
-  });
-  useEffect(() => {
-    setNewWork({ ...newWork, students: filteredStudents })
-  }, [])
-  const [defaultTopic] = useState({
-    _id: 'secret-id-topic',
-    name: 'no topic',
-    grade: '',
-  });
-  const [topic, setTopic] = useState(defaultTopic);
-  const [newTopic, setNewTopic] = useState({});
-
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -57,17 +44,34 @@ export default function CreateWorkForm({
   const handleClose = () => {
     setAnchorEl(null);
   };
-  console.log('Output for: students', students);
 
-  //Handle topic
+  const defaultTopic = {
+    _id: 'secret-id-topic',
+    name: 'no topic',
+    grade: '',
+  };
+  const defaultStudents = {
+    _id: 'secret-id-students',
+    firstName: 'For all students',
+    lastName: '',
+  };
+  //Set message for notification
+  const [message, setMessage] = useState('');
+  //Set topic button
+  const [topic, setTopic] = useState(defaultTopic);
+  //Classwork
+  const [classwork, setClasswork] = useState({
+    currClass,
+    title: '',
+    description: '',
+    topic: defaultTopic,
+    students: [],
+  });
+
+  //Handle existing topic list
   const handleTopic = newValue => {
     setTopic(newValue);
-    setNewWork({ ...newWork, topic: newValue});
-  };
-  // //Handle Create new topic
-  const handleCreateTopic = event => {
-    setNewTopic({ name: event.target.value });
-    setNewWork({ ...newWork, topic: event.target.value });
+    setClasswork({ ...classwork, topic: newValue.name });
   };
   //Handle students
   const handleStudents = (event, newValue) => {
@@ -76,29 +80,59 @@ export default function CreateWorkForm({
         val.firstName !== defaultStudents.firstName &&
         val._id !== defaultStudents._id
     );
-    if(students.length === 0) {
-      setNewWork({ ...newWork, students: filteredStudents});
-    }
-    else setStudents([...newValue]);
-    setNewWork({ ...newWork, students: [ ...students, ...newValue]});
-    console.log("students", newWork)
+    setClasswork({ ...classwork, students: [...newValue] });
   };
-  //Handle other inputs
-  const  handleChange =   (event) => {
-    setNewWork({
-      ...newWork,
-      [event.target.name]: event.target.value
+  //Handle other inputs ( handles - title, desc and create new topic)
+  const handleWorkInput = event => {
+    if (message) setMessage('');
+    setClasswork({
+      ...classwork,
+      [event.target.name]: event.target.value,
     });
-    console.log("Output for: handleChange -> event.target.name", event.target.name)
   };
-const handleWorkSubmit = event => {
-event.preventDefault()
-console.log(newWork)
-setNewWork({ name:'', description:'', topic:'' })
-}
+  //Handle final Submit
+  const handleWorkSubmit = event => {
+    event.preventDefault();
+    if (!classwork.title) {
+      return setMessage('Please enter you classwork title*');
+    }
+    if (classwork.students.length === 0) {
+      console.log({ ...classwork, students: filteredStudents });
+    } else {
+      console.log(classwork);
+    }
+    displayForm('#classwork-form');
+    setClasswork({
+      ...classwork,
+      title: '',
+      description: '',
+      topic: defaultTopic,
+      students: [],
+    });
+    setTopic(defaultTopic);
+  };
   return (
-    <div>
-      <form onSubmit={handleWorkSubmit} className={classes.root} noValidate autoComplete="off">
+    <div id="classwork-form" className="classwork-form hide">
+      <form
+        onSubmit={handleWorkSubmit}
+        className={classes.root}
+        noValidate
+        autoComplete="off"
+      >
+        <p style={{color: 'red', margin: 0, textAlign: 'center'}}>{message}</p>
+        <div>
+          <IconButton
+            aria-label="more"
+            aria-controls="long-menu"
+            aria-haspopup="true"
+            onClick={() => {
+              displayForm('#classwork-form');
+              setMessage('')
+            }}
+          >
+            <CloseIcon className="close-classwork-form-btn" color="inherit" />
+          </IconButton>
+        </div>
         <TextField
           disabled
           id="standard-disabled"
@@ -110,7 +144,11 @@ setNewWork({ name:'', description:'', topic:'' })
           id="fixed-tags-demo"
           size="small"
           limitTags={2}
-          value={students.length > 0 ? students : [defaultStudents]}
+          value={
+            classwork.students.length > 0
+              ? classwork.students
+              : [defaultStudents]
+          }
           onChange={handleStudents}
           options={filteredStudents}
           getOptionLabel={student => `${student.firstName} ${student.lastName}`}
@@ -124,20 +162,21 @@ setNewWork({ name:'', description:'', topic:'' })
           )}
         />
         <TextField
-          name="name"
-          label="Title"
-          placeholder="Title"
-          // value={newWork.name}
-          onChange={handleChange}
+          name="title"
+          label={message? message:'Title'}
+          required={true}
+          placeholder={message? message:'Title(required)'}
+          value={classwork.title}
+          onChange={handleWorkInput}
         />
         <TextField
           name="description"
           label="Description"
-          placeholder="Description"
+          placeholder="Description(optional)"
           multiline
           rowsMax={4}
-          // value={newWork.description}
-          onChange={handleChange}
+          value={classwork.description}
+          onChange={handleWorkInput}
         />
 
         {topic !== 'create topic' ? (
@@ -146,18 +185,28 @@ setNewWork({ name:'', description:'', topic:'' })
           </Button>
         ) : (
           <React.Fragment>
-            <div>
-              <TextField
-                label="Create Topic"
-                placeholder="Type new topic"
-                multiline
-                rowsMax={2}
-                value={newTopic.name}
-                style={{ width: '100%' }} 
-                onChange={handleCreateTopic}
-              />
-              <CloseIcon onClick={() => handleTopic(defaultTopic)} />
-            </div>
+        <FormControl >
+          <InputLabel htmlFor="standard-adornment-password">Create Topic</InputLabel>
+          <Input
+            id="standard-adornment-password"
+            name="topic"
+              label="Create Topic"
+            value={classwork.topic?.name}
+            onChange={handleWorkInput}
+            endAdornment={
+              <InputAdornment position="end">
+                 <IconButton
+              // aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => handleTopic(defaultTopic)}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
           </React.Fragment>
         )}
 
@@ -171,7 +220,6 @@ setNewWork({ name:'', description:'', topic:'' })
             style: {
               maxHeight: ITEM_HEIGHT * 4.5,
               width: '45ch',
-              // padding: '20px'
             },
           }}
         >
@@ -187,10 +235,8 @@ setNewWork({ name:'', description:'', topic:'' })
           <MenuItem
             selected={topic.name === topic.name}
             onClick={() => {
-              // handleClose()
-              handleTopic('create topic');
               handleClose();
-              // handleTopic(topic)
+              handleTopic('create topic');
             }}
           >
             Create topic
@@ -209,9 +255,7 @@ setNewWork({ name:'', description:'', topic:'' })
           ))}
         </Menu>
 
-        <Button  type="submit">
-          Post
-        </Button>
+        <Button type="submit">Post</Button>
       </form>
     </div>
   );

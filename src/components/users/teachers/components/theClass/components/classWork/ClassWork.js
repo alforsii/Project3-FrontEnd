@@ -8,10 +8,11 @@ import './ClassWork.css';
 export default function ClassWork({ classes, currClass, filteredStudents, displayForm }) {
   return (
     <div className="main-classwork">
-      <CreateDropdown/>
+      <CreateDropdown displayForm={displayForm}/>
       <PageMessage />
 
         <CreateWorkForm 
+        displayForm={displayForm}
         classrooms={classes} 
         currClass={currClass} 
         filteredStudents={filteredStudents}/>

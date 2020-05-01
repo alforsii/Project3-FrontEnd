@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { SnackbarProvider, useSnackbar } from 'notistack';
 
 import { AUTH_CLASSES } from '../../../../../services/classesAuth/ClassesAuth';
 import ClassNavbar from './components/classNavbar/ClassNavbar';
@@ -8,7 +7,6 @@ import ClassWork from './components/classWork/ClassWork'
 import ClassConnections from './components/ClassConnections/ClassConnections'
 import ImageUploadForm from '../img-uploadForm/ImageForm';
 import Snackbar from '../../../../auth/snackbar/Snackbar'
-import Notification from '../../../../auth/snackbar/Notification'
 
 import './TheClass.css';
 
@@ -255,7 +253,7 @@ export class TheClass extends Component {
                 ) : (
                   <h4>loading...</h4>
                 )}
-                <button onClick={displayForm} id="cover-img-upload-btn">
+                <button onClick={() => displayForm('#main-form')} id="cover-img-upload-btn">
                   <span>
                     <i className="fas fa-camera"></i>
                   </span>
