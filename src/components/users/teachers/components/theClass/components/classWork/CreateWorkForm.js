@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
-import Alert from '@material-ui/lab/Alert';
+
 import {
   MenuItem,
   Menu,
@@ -12,18 +12,34 @@ import {
   FormControl,
   InputLabel,
   Input,
-  InputAdornment
+  InputAdornment,
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import DatePickers from './DatePickers'
 import './CreateWorkForm.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
-      margin: theme.spacing(1),
-      width: '45ch',
+      // margin: theme.spacing(1),
+      width: '400px',
+      color: '#068ce6',
     },
   },
+  textField: {
+    width: '100%',
+    margin: '2px'
+  },
+  buttonGroup: {
+    display:'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+        '& > *': {
+          margin: theme.spacing(1),
+          width: '300px',
+          borderRadius: '30px'
+        },
+      }
 }));
 
 export default function CreateWorkForm({
@@ -33,16 +49,24 @@ export default function CreateWorkForm({
   displayForm,
 }) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [anchorElTopic, setAnchorElTopic] = useState(null);
+  const [anchorElSchedule, setAnchorElSchedule] = useState(null);
+  const openTopic = Boolean(anchorElTopic);
+  const openSchedule = Boolean(anchorElSchedule);
 
   const ITEM_HEIGHT = 48;
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
+  const handleClickTopic = event => {
+    setAnchorElTopic(event.currentTarget);
+  };
+  const handleClickSchedule = event => {
+    setAnchorElSchedule(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleCloseTopic = () => {
+    setAnchorElTopic(null);
+  };
+  const handleCloseSchedule = () => {
+    setAnchorElSchedule(null);
   };
 
   const defaultTopic = {
@@ -113,27 +137,29 @@ export default function CreateWorkForm({
   };
   return (
     <div id="classwork-form" className="classwork-form hide">
-      <form
+      <form 
         onSubmit={handleWorkSubmit}
         className={classes.root}
         noValidate
         autoComplete="off"
       >
-        <p style={{color: 'red', margin: 0, textAlign: 'center'}}>{message}</p>
-        <div>
+
+       <p style={{color: 'red', margin: 0, textAlign: 'center'}}>{message}</p>
+        <div id='x-close-icon'>
+          <h2>Classwork</h2>
           <IconButton
-            aria-label="more"
-            aria-controls="long-menu"
-            aria-haspopup="true"
+            aria-label="close"
+            color="inherit"
             onClick={() => {
               displayForm('#classwork-form');
               setMessage('')
             }}
           >
-            <CloseIcon className="close-classwork-form-btn" color="inherit" />
+            <CloseIcon  className="close-classwork-form-btn" color="inherit" />
           </IconButton>
         </div>
-        <TextField
+
+          <TextField
           disabled
           id="standard-disabled"
           label="Classroom"
@@ -161,33 +187,37 @@ export default function CreateWorkForm({
             />
           )}
         />
-        <TextField
+       <TextField
           name="title"
-          label={message? message:'Title'}
+          label='Title'
           required={true}
-          placeholder={message? message:'Title(required)'}
+          className={classes.textField}
+          placeholder='Title(required)'
+          variant="standard"
           value={classwork.title}
           onChange={handleWorkInput}
         />
         <TextField
           name="description"
           label="Description"
+          className={classes.textField}
           placeholder="Description(optional)"
           multiline
-          rowsMax={4}
+          rows={4}
+          variant="filled"
           value={classwork.description}
           onChange={handleWorkInput}
         />
-
+       
         {topic !== 'create topic' ? (
-          <Button onClick={handleClick}>
+          <Button onClick={handleClickTopic} className={classes.textField} variant="outlined">
             {`${topic.name} ${topic.grade}`}
           </Button>
         ) : (
           <React.Fragment>
         <FormControl >
           <InputLabel htmlFor="standard-adornment-password">Create Topic</InputLabel>
-          <Input
+          <Input className={classes.textField}
             id="standard-adornment-password"
             name="topic"
               label="Create Topic"
@@ -196,7 +226,7 @@ export default function CreateWorkForm({
             endAdornment={
               <InputAdornment position="end">
                  <IconButton
-              // aria-label="close"
+              aria-label="close"
               color="inherit"
               size="small"
               onClick={() => handleTopic(defaultTopic)}
@@ -209,13 +239,32 @@ export default function CreateWorkForm({
         </FormControl>
           </React.Fragment>
         )}
+        <Button className={classes.textField} onClick={handleClickSchedule} variant="outlined">
+            Schedule
+          </Button>
+
+      <Menu
+          onClose={handleCloseSchedule}
+          id="long-menu"
+          anchorEl={anchorElSchedule}
+          keepMounted
+          open={openSchedule}
+          PaperProps={{
+            style: {
+              maxHeight: ITEM_HEIGHT * 4.5,
+              width: '45ch',
+            },
+          }}
+        >
+           <DatePickers/>
+          </Menu>
 
         <Menu
-          onClose={handleClose}
+          onClose={handleCloseTopic}
           id="long-menu"
-          anchorEl={anchorEl}
+          anchorEl={anchorElTopic}
           keepMounted
-          open={open}
+          open={openTopic}
           PaperProps={{
             style: {
               maxHeight: ITEM_HEIGHT * 4.5,
@@ -226,7 +275,7 @@ export default function CreateWorkForm({
           <MenuItem
             selected={topic.name === topic.name}
             onClick={() => {
-              handleClose();
+              handleCloseTopic();
               handleTopic(defaultTopic);
             }}
           >
@@ -235,7 +284,7 @@ export default function CreateWorkForm({
           <MenuItem
             selected={topic.name === topic.name}
             onClick={() => {
-              handleClose();
+              handleCloseTopic();
               handleTopic('create topic');
             }}
           >
@@ -246,7 +295,7 @@ export default function CreateWorkForm({
             <MenuItem
               key={topic._id}
               onClick={() => {
-                handleClose();
+                handleCloseTopic();
                 handleTopic(topic);
               }}
             >
@@ -255,7 +304,12 @@ export default function CreateWorkForm({
           ))}
         </Menu>
 
-        <Button type="submit">Post</Button>
+              <div  className={classes.buttonGroup} >
+                <Button type="submit">Create</Button>
+                <Button variant='outlined' type="submit">Post</Button>
+              </div>
+
+       
       </form>
     </div>
   );
