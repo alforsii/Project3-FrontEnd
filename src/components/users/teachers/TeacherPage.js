@@ -118,7 +118,7 @@ export class Teacher extends Component {
           <div className='cover-img-div'>
             {isLoading && <Loader message={message}/> }
             <img id='cover-img' src={user?.dashboardImg} alt=''/>
-            <button onClick={displayForm} id='cover-img-upload-btn'>
+            <button onClick={() => displayForm('#main-form')} id='cover-img-upload-btn'>
                 <span><i className="fas fa-camera"></i></span>
             </button>
           </div>

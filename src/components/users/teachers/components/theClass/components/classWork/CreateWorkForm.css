@@ -1,4 +1,18 @@
-.create-form {
+
+.main-form {
+    justify-content: center;
+}
+.classwork-form {
+    position: fixed;
+    z-index: 1000;
+    width: 400px;
+    padding: 30px;
+    background-color: #f5f5f5;
+    left: 30%;
+    border-radius: 10px;
+}
+
+.classwork-form.show{
     top: -500px;
     display: block;
     box-shadow: 0px 8px 20px 1000px rgba(0,0,0,0.5);
@@ -6,9 +20,31 @@
     animation-duration: 0.4s;
     animation-fill-mode: forwards;
     animation-timing-function: linear;
+    
 }
-
 @keyframes form-in {
     0%{top: -500px;}
-    100%{top: 10vw;}
+    100%{top: 5vw;}
+}
+.classwork-form.hide{
+    top: 10vw;
+    display: none;
+    animation-name: form-out;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    
+}
+
+@keyframes form-out {
+    0%{opacity:1;}
+    100%{opacity: 0;}
+}
+@keyframes blur {
+    0%{opacity: 1;}
+    100%{opacity: 0.5;}
+}
+@keyframes clear-blur {
+    0%{opacity: 0.5;}
+    100%{opacity: 1;}
 }

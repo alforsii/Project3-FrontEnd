@@ -7,7 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 const ITEM_HEIGHT = 48;
 
-export default function MenuDropdown() {
+export default function MenuDropdown({ displayForm }) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -42,8 +42,11 @@ export default function MenuDropdown() {
         <i className="fas fa-question-circle"></i> Question
         </MenuItem>
 
-        <MenuItem onClick={handleClose}>
-        <i className="fas fa-book"></i> Resource
+        <MenuItem onClick={() => {
+          handleClose()
+          displayForm('#classwork-form')
+          }}>
+        <i className="fas fa-book"></i> Classwork
         </MenuItem>
         <MenuItem>
         <i className="fas fa-tasks"></i> Assignment
