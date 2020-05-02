@@ -201,7 +201,6 @@ displayForm = (id) => {
       handleSignupInput,
       handleSignupSubmit,
       handleLogout,
-      getUser,
       updateState,
       isUserLoggedIn,
       getUsers,
@@ -219,7 +218,6 @@ displayForm = (id) => {
           handleLogout,
           updateState,
           isUserLoggedIn,
-          getUser,
           getUsers,
           toggleClassNavDropdown,
           displayForm

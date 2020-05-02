@@ -11,7 +11,7 @@ export default function protectedRoute(props) {
         return (
           <Route
             exact
-            strict
+            path={props.path ===  '/class/:classId'?'/class/:classId': ''}
             render={props =>
                 loggedIn ? (
                 <Component {...props} {...rest} context={context}/>

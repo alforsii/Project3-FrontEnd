@@ -9,7 +9,7 @@ export default class UserList extends Component {
     users: this.props.users,
     filterUsers: this.props.users,
     alert: false,
-    message: ''
+    messages: []
   }
 
   toggleCheckbox = (e) => {
@@ -40,18 +40,18 @@ export default class UserList extends Component {
   }
 
     //Alert
-    handleAlert = (user) => {
-      this.setState(prevState => ({
-        alert: !prevState.alert,
-        message: `${user?.firstName} ${user?.lastName} successfully added to the class!`
-      }))
-      if(user !== null) {
-        setTimeout(() => {
-          this.handleAlert(null)
-        },5000)
-      }
-    }
+  handleAlert = (user) => {
+    this.setState(prevState => ({
+      alert: true,
+      messages: [ {msg: `${user?.firstName} ${user?.lastName} successfully added to the class!`, time: 5000}, ...prevState.messages]
+      // messages: [...prevState.messages, {msg: `${user?.firstName} ${user?.lastName} successfully added to the class!`, time: new Date().getTime()}]
+    }))
+           
+  }
 
+  updateState = (data) => {
+    this.setState(data)
+  }
   render() {
     const { filterUsers } = this.state;
     return (
@@ -85,17 +85,21 @@ export default class UserList extends Component {
                 </div>
               </div>
               <MenuDropdown
-                  currUser={user}
-                  updateState={this.props.updateState}
-                  addToClass={this.props.addToClass}
-                  removeAddedUser={this.removeAddedUser}
-                  handleAlert={user => this.handleAlert(user)}
+               currUser={user}
+               updateState={this.props.updateState}
+               addToClass={this.props.addToClass}
+               removeAddedUser={this.removeAddedUser}
+               handleAlert={user => this.handleAlert(user)}
                   />
             </div>
           );
         })}
         </div>
-        { this.state.alert && <Alert message={this.state.message}/>}
+        { this.state.alert
+         && this.state.messages?.map((data, i) => <Alert key={data.msg + i} 
+         messages={this.state.messages}
+         updateState={this.updateState}
+        message={data.msg} time={data.time}/>)}
       </div>
     );
   }

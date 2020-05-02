@@ -38,7 +38,8 @@
       height: 90vh;
   }
   .left-class-page-div {
-    flex: 1;
+    /* flex: 1; */
+    overflow: hidden;
   }
   @media(max-width:900px) {
     .left-class-page-div {
@@ -47,6 +48,7 @@
   }
   .right-class-page-div {
     flex: 3;
+    overflow: hidden; 
   }
 .cover-image {
     width: 300px;
