@@ -72,12 +72,12 @@ export default class ClassList extends Component {
               return (
                 <tr key={_id}>
                   <td>
-                    <Link
+                    <Link 
                       to={{
                         pathname: `/class/${_id}`,
                         state: {
                           currClass,
-                          classes
+                          classrooms: classes
                         },
                       }}
                     >

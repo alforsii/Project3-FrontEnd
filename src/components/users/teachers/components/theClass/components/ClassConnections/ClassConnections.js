@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 import ClassStudents from './ClassUsers/ClassUsers';
 import ClassTeachers from './ClassUsers/ClassUsers';
@@ -8,14 +8,16 @@ import SwitchButton from './switchModeButton/SwitchButton';
 import './ClassConnections.css'
 
 export default function ClassConnections({
-  switchUsersList,
-  toggleClassNavDropdown,
+  // switchUsersList,
+  // toggleClassNavDropdown,
   toggleUserList,
-  displayUsers,
+  // displayUsers,
   currClass,
-  filteredStudents,
-  filteredTeachers,
-  filterUsers,
+  // filteredStudents,
+  // filteredTeachers,
+  students,
+  teachers,
+  // filterUsers,
   updateState,
   removeFromClass,
   restStudents,
@@ -23,10 +25,57 @@ export default function ClassConnections({
   addToClass,
   closeUserList,
 }) {
+  console.log("ClassConnections: restStudents", restStudents)
+
+  const [displayUsers,setDisplayUsers] = useState(true)
+  const [currentStudents, setCurrentStudents] = useState([])
+  const [currentTeachers, setCurrentTeachers] = useState([])
+
+  // useEffect(() => {
+  //   setCurrentStudents(students)
+  //   setCurrentTeachers(teachers)
+  // },[])
+  useEffect(() => {
+    if(students || teachers){
+      setCurrentStudents(students)
+      setCurrentTeachers(teachers)
+    }
+}) // This will only run when one of those variables change
+
+  const switchUsersList = () => {
+    setDisplayUsers(!displayUsers)
+  };
+
+   //Search user
+ const filterUsers = e => {
+  const searchUser = e.target.value.toUpperCase();
+
+   if(displayUsers){
+    const searchResult = [...students].filter(
+      student =>
+        `${student.firstName} ${student.lastName}`
+          .toUpperCase()
+          .includes(searchUser) ||
+        `${student.email}`.toUpperCase().includes(searchUser)
+    );
+    setCurrentStudents(searchResult)
+      return
+   }
+   const searchResult = [...teachers].filter(
+    teacher =>
+      `${teacher.firstName} ${teacher.lastName}`
+        .toUpperCase()
+        .includes(searchUser) ||
+      `${teacher.email}`.toUpperCase().includes(searchUser)
+  );
+  setCurrentTeachers(searchResult)
+};
+
+  
   return (
     <div className='users-connections'>
       <div className='switch-btns'>
-        <SwitchButton switchUsersList={switchUsersList} />
+        <SwitchButton switchUsersList={switchUsersList}/>
         {displayUsers?  <button
               id="studentsBtn"
               className="userDisplayBtns"
@@ -46,8 +95,8 @@ export default function ClassConnections({
       {displayUsers ? (
         <ClassStudents
           currClass={currClass}
-          toggleClassNavDropdown={toggleClassNavDropdown}
-          users={filteredStudents}
+          // toggleClassNavDropdown={toggleClassNavDropdown}
+          users={currentStudents}
           filterUsers={filterUsers}
           updateState={updateState}
           removeFromClass={removeFromClass}
@@ -55,8 +104,8 @@ export default function ClassConnections({
       ) : (
         <ClassTeachers
           currClass={currClass}
-          toggleClassNavDropdown={toggleClassNavDropdown}
-          users={filteredTeachers}
+          // toggleClassNavDropdown={toggleClassNavDropdown}
+          users={currentTeachers}
           filterUsers={filterUsers}
           updateState={updateState}
           removeFromClass={removeFromClass}
@@ -64,6 +113,7 @@ export default function ClassConnections({
       )}
 
       {/*--------- below hidden user lists - appears on click -------------------*/}
+      {displayUsers? 
       <div id="studentsList" className="userListMenu-content">
         {restStudents && (
           <Students
@@ -71,21 +121,23 @@ export default function ClassConnections({
             updateState={updateState}
             addToClass={addToClass}
             closeUserList={closeUserList}
-            toggleClassNavDropdown={toggleClassNavDropdown}
+            // toggleClassNavDropdown={toggleClassNavDropdown}
           />
         )}
       </div>
-      <div id="teachersList" className="userListMenu-content">
+
+      :<div id="teachersList" className="userListMenu-content">
         {restTeachers && (
           <Teachers
             users={restTeachers}
             updateState={updateState}
             addToClass={addToClass}
             closeUserList={closeUserList}
-            toggleClassNavDropdown={toggleClassNavDropdown}
+            // toggleClassNavDropdown={toggleClassNavDropdown}
           />
         )}
       </div>
+      }
     </div>
   );
 }

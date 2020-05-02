@@ -48,7 +48,7 @@ export class App extends Component {
             <PublicRoute exact path="/login" component={LoginForm} />
             <ProtectedRoute exact path="/class" component={TeacherPage} />
             <ProtectedRoute exact path="/class/new" component={AddNewClass} />
-            <ProtectedRoute exact path="/class/:id" component={TheClass} />
+            <ProtectedRoute exact path="/class/:classId" component={TheClass} />
             <ProtectedRoute exact path="/message-board" component={MessageBoard}/>
             <ProtectedRoute exact path="/message-board/:id" component={MessageBoard}/>
             <ProtectedRoute exact path="/settings/update-profile" component={UpdateProfile}/>

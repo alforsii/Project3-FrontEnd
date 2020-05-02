@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import DatePickers from './DatePickers'
+import { AUTH_CLASSES } from '../../../../../../../services/classesAuth/ClassesAuth'
 import './CreateWorkForm.css';
 
 const useStyles = makeStyles(theme => ({
@@ -45,8 +46,9 @@ const useStyles = makeStyles(theme => ({
 export default function CreateWorkForm({
   currClass,
   classrooms,
-  filteredStudents,
+  students,
   displayForm,
+
 }) {
   const classes = useStyles();
   const [anchorElTopic, setAnchorElTopic] = useState(null);
@@ -81,14 +83,17 @@ export default function CreateWorkForm({
   };
   //Set message for notification
   const [message, setMessage] = useState('');
+  //Set schedule for notification
+  const [schedule, setSchedule] = useState('');
+  console.log("Output for: schedule", schedule)
   //Set topic button
   const [topic, setTopic] = useState(defaultTopic);
   //Classwork
   const [classwork, setClasswork] = useState({
-    currClass,
+    currClass: currClass._id ,
     title: '',
     description: '',
-    topic: defaultTopic,
+    topic: '',
     students: [],
   });
 
@@ -115,22 +120,27 @@ export default function CreateWorkForm({
     });
   };
   //Handle final Submit
-  const handleWorkSubmit = event => {
+  const handleWorkSubmit = async event => {
     event.preventDefault();
     if (!classwork.title) {
       return setMessage('Please enter you classwork title*');
     }
     if (classwork.students.length === 0) {
-      console.log({ ...classwork, students: filteredStudents });
+      const studentsIds = students.map(student => student._id)
+      // console.log({ ...classwork, students: students });
+      const { data: { classworkFromDB}} = await AUTH_CLASSES.createClasswork({ ...classwork, schedule, students: studentsIds }, currClass._id)
+      console.log("Output for: classworks", classworkFromDB)
     } else {
-      console.log(classwork);
+      const studentsIds = classwork.students.map(student => student._id)
+      const { data: { classworkFromDB}} = await AUTH_CLASSES.createClasswork({...classwork, schedule, students: studentsIds}, currClass._id)
+      console.log("Output for: classworks", classworkFromDB)
     }
     displayForm('#classwork-form');
     setClasswork({
       ...classwork,
       title: '',
       description: '',
-      topic: defaultTopic,
+      topic: '',
       students: [],
     });
     setTopic(defaultTopic);
@@ -176,7 +186,7 @@ export default function CreateWorkForm({
               : [defaultStudents]
           }
           onChange={handleStudents}
-          options={filteredStudents}
+          options={students}
           getOptionLabel={student => `${student.firstName} ${student.lastName}`}
           renderInput={student => (
             <TextField
@@ -239,9 +249,15 @@ export default function CreateWorkForm({
         </FormControl>
           </React.Fragment>
         )}
-        <Button className={classes.textField} onClick={handleClickSchedule} variant="outlined">
-            Schedule
-          </Button>
+        
+        {schedule? <DatePickers 
+        schedule={true}
+        setSchedule={setSchedule}/>
+        :<Button className={classes.textField}
+       
+         onClick={handleClickSchedule} variant="outlined">
+        { 'Schedule'}
+      </Button>}
 
       <Menu
           onClose={handleCloseSchedule}
@@ -256,7 +272,10 @@ export default function CreateWorkForm({
             },
           }}
         >
-           <DatePickers/>
+          <div>
+        <DatePickers setSchedule={setSchedule} handleCloseSchedule={handleCloseSchedule}/>
+        </div>
+
           </Menu>
 
         <Menu
@@ -291,7 +310,7 @@ export default function CreateWorkForm({
             Create topic
           </MenuItem>
           <Divider style={{ width: '100%' }} />
-          {classrooms.map(topic => (
+          {classrooms?.map(topic => (
             <MenuItem
               key={topic._id}
               onClick={() => {
@@ -306,7 +325,7 @@ export default function CreateWorkForm({
 
               <div  className={classes.buttonGroup} >
                 <Button type="submit">Create</Button>
-                <Button variant='outlined' type="submit">Post</Button>
+                <Button variant='outlined' disabled={ classwork.title ? false:true} type="submit">Create & Post</Button>
               </div>
 
        
