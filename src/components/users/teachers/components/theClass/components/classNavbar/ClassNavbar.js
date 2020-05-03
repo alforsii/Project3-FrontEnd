@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center'
     },
     tab: {
-        width: '33%',
+        width: '25%',
     }
   }));
 
@@ -41,6 +41,7 @@ export default function DisabledTabs({switchDefaultPage}) {
         <Tab className={classes.tab} onClick={() => switchDefaultPage('posts')} label="Posts" />
         <Tab className={classes.tab} onClick={() => switchDefaultPage('works')}  label="Classworks" />
         <Tab className={classes.tab} onClick={() => switchDefaultPage('users')}  label="Connections" />
+        <Tab className={classes.tab} onClick={() => switchDefaultPage('albums')}  label="Albums" />
       </Tabs>
     </Paper>
    </div>

@@ -17,11 +17,10 @@ import TeacherPage from './components/users/teachers/TeacherPage'
 import TheClass from './components/users/teachers/components/theClass/TheClass'
 import AddNewClass from './components/users/teachers/components/create-class-form/ClassForm'
 // import Dashboard from './components/home/Dashboard'
-
+import MainTemplate from './components/mainTemplate/MainTemplate'
 
 
 import './App.css';
-
 export class App extends Component {
   componentDidMount() {
     this.context.updateState({ message: 'Checking authentication...' });
@@ -41,10 +40,10 @@ export class App extends Component {
             <div id='side-bar' className='side-bar-app'>
               <SideBar user={user} userLogout={handleLogout} loggedIn={loggedIn}/>
             </div>
-          <Switch>
+            <MainTemplate />
+          {/* <Switch>
             <PublicRoute exact path="/" component={LandingPage} />
             <ProtectedRoute exact path="/home" component={Home} />
-            {/* <ProtectedRoute exact path="/dashboard" component={Dashboard} /> */}
             <PublicRoute exact path="/login" component={LoginForm} />
             <ProtectedRoute exact path="/class" component={TeacherPage} />
             <ProtectedRoute exact path="/class/new" component={AddNewClass} />
@@ -52,7 +51,7 @@ export class App extends Component {
             <ProtectedRoute exact path="/message-board" component={MessageBoard}/>
             <ProtectedRoute exact path="/message-board/:id" component={MessageBoard}/>
             <ProtectedRoute exact path="/settings/update-profile" component={UpdateProfile}/>
-          </Switch>
+          </Switch> */}
           </React.Fragment>
         )}
       </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Navbar from './components/navbar/Navbar'
-import Sidebar from '../../sidebar/SideBar';
+import SidebarBigScreen from '../../sidebar/MainSidebar';
 
 import ClassesList from './components/classesList/ClassesList';
 import ImageUploadForm from  './components/img-uploadForm/ImageForm'
@@ -111,7 +111,7 @@ export class Teacher extends Component {
     return (
       <div className="main-teacher">
           <div id='t-side-menu' className="t-child-div">
-            <Sidebar loggedIn={this.props.context.state.loggedIn} user={user}/>
+            <SidebarBigScreen loggedIn={this.props.context.state.loggedIn} user={user}/>
           </div>
 
         <div id='t-main' className="t-child-div">

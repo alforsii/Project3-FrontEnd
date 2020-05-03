@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
 import toggleSideBar from '../sidebar/toggle'
+import Sidebar from '../sidebar/SideBar'
 import './NavBar.css'
 
 export default function NavBar({loggedIn, userLogout, user}) {
@@ -12,9 +13,12 @@ export default function NavBar({loggedIn, userLogout, user}) {
             <nav className='navbar'>
                 <div className='nav-group'>
                     <Link to='/' id='nav-logo' className='nav-items' onClick={() => setCurrentPage('')} style={{color: '#3f51b5', fontFamily: 'italic'}}><i style={{color:'#4a148c'}}> IronSchool</i></Link>
-                    <span onClick={()=> toggleSideBar()} id='menu-bars-btn' className='nav-items'><span className='fas fa-bars'></span></span>
+                    {/* <span onClick={()=> toggleSideBar()} id='menu-bars-btn' className='nav-items'><span className='fas fa-bars'></span></span> */}
+                    <Sidebar user={user} userLogout={userLogout}/>
+                <div className='nav-group'>
                     <Link to='/'><img id='navbar-user-img' className='nav-items' onClick={() => setCurrentPage('')} src={user?.path} alt={user?.firstName}/></Link>
                     <i  style={{color: '#0794f3', fontFamily: 'italic'}}>Hi, {user?.firstName}!</i>
+                </div>
                 </div>
                 <div className='nav-group'>
                     <Link to='/class' className={`nav-items ${currentPage === 1 && 'focus-on'}`} onClick={() => setCurrentPage(1)}><span className='fas fa-school'></span></Link>
