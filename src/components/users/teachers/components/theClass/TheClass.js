@@ -5,6 +5,7 @@ import ClassNavbar from './components/classNavbar/ClassNavbar';
 import ClassPosts from './components/classPosts/ClassPosts'
 import ClassWork from './components/classWork/ClassWork'
 import ClassConnections from './components/ClassConnections/ClassConnections'
+import ClassAlbums from './components/classAlbums/ClassAlbums'
 import ImageUploadForm from '../img-uploadForm/ImageForm';
 import BottomNav from './components/classNavbar/BottomNav'
 
@@ -242,6 +243,7 @@ export class TheClass extends Component {
     const {
       updateState,
       displayForm,
+      state:{ users}
       // toggleClassNavDropdown,
     } = this.props.context;
 
@@ -316,6 +318,7 @@ export class TheClass extends Component {
               addToClass={user => this.addToClass(user)}
               closeUserList={this.closeUserList}
               />}
+              { defaultPage === 'albums' && <ClassAlbums users={users}/>}
           </div>
         </div>
 

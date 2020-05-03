@@ -8,7 +8,7 @@ const { form: {name, grade, schoolYearStart, schoolYearEnd},
         return (
             <div className='user-form'>
                 <h2>Enter Class name & grade</h2>
-                <Link to='/teachers-page'
+                <Link to='/class'
                 style={{position: 'absolute', top: '70px', left: '20px', textDecoration: 'none', color: '#068ce6'}}>Go back</Link>
                 <label htmlFor='name'> Name
                     </label>

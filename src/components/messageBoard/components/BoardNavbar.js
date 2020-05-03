@@ -11,7 +11,7 @@ export default function BoardNavbar(props) {
           <Link to="/message-board">
             <div className="user-image-div large">
               {/* <img className="user-image" src={user?.path} alt="" /> */}
-              <Avatar src={user?.path} alt={user?.firstName} size={'large'}/>
+              <Avatar src={user?.path} alt={user?.firstName} size={'medium'}/>
             </div>
           </Link>
           <div>
