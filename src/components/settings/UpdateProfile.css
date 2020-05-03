@@ -13,7 +13,7 @@ White: #fff
 const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600', '#eb4f82', '#73cae3', '#027ebc', ]
 */
 .main-settings {
-    padding-top: 60px;
+    padding-top: 70px;
     display: flex;
     justify-content: space-around;
     align-items: flex-start;

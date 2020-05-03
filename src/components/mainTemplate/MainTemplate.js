@@ -7,7 +7,7 @@ import TeacherPage from '../users/teachers/TeacherPage'
 import TheClass from '../users/teachers/components/theClass/TheClass'
 import AddNewClass from '../users/teachers/components/create-class-form/ClassForm'
 import MessageBoard from '../messageBoard/MessageBoard';
-import UpdateProfile from '../update-upload/UpdateProfile'
+import UpdateProfile from '../settings/UpdateProfile'
 import LoginForm from '../auth/LoginForm';
 import Home from '../home/Home';
 import LandingPage from '../home/LandingPage';
@@ -63,8 +63,8 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
   },
   content: {
-    flexGrow: 1,
-    padding: theme.spacing(2),
+    flexGrow: 12,
+    padding: theme.spacing(0),
   },
 }));
 
@@ -84,7 +84,6 @@ export default function MiniDrawer() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      
       <MainNavbar handleDrawerOpen={handleDrawerOpen}
        open={open}
        />
@@ -118,8 +117,9 @@ export default function MiniDrawer() {
             <PublicRoute exact path="/" component={LandingPage} />
             <ProtectedRoute exact path="/home" component={Home} />
             <PublicRoute exact path="/login" component={LoginForm} />
-            <ProtectedRoute exact path="/class" component={TeacherPage} />
-            <ProtectedRoute exact path="/class/new" component={AddNewClass} />
+            <ProtectedRoute exact path="/dashboard" component={TeacherPage} />
+            <ProtectedRoute exact path="/new-class/add" component={AddNewClass} />
+            <ProtectedRoute exact path="/update-class/edit" component={AddNewClass} />
             <ProtectedRoute exact path="/class/:classId" component={TheClass} />
             <ProtectedRoute exact path="/message-board" component={MessageBoard}/>
             <ProtectedRoute exact path="/message-board/:id" component={MessageBoard}/>

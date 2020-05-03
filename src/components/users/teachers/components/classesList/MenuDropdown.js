@@ -51,7 +51,7 @@ export default function LongMenu({ currClass, removeClass }) {
         <MenuItem onClick={handleClose}>
           <Link
             to={{
-              pathname: '/class/new',
+              pathname: '/update-class/edit',
               state: {
                 currClass,
               },

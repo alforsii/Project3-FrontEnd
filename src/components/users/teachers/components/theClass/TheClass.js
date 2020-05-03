@@ -214,24 +214,24 @@ export class TheClass extends Component {
       defaultPage,
       classworks
     } = this.state;
-    console.log("Output for: TheClass -> render -> restStudents", restStudents)
     return (
       <React.Fragment>
         <div className="main-class-page">
-          <div className="right-class-page-div">
-            <div className="navbar-div">
+            {/* <div className="navbar-div"> */}
               <ClassNavbar 
               switchDefaultPage={this.switchDefaultPage}
               />
-            </div>
+            {/* </div> */}
 
             {defaultPage === 'posts' && <ClassPosts/>}
+
             {defaultPage === 'works' && <ClassWork
             displayForm={displayForm}
             currClass={currClass}
             classworks={classworks}
             classrooms={classrooms}
             students={students}/>}
+
               {defaultPage === 'users' 
               && <ClassConnections
               toggleUserList={this.toggleUserList}
@@ -245,8 +245,8 @@ export class TheClass extends Component {
               addToClass={user => this.addToClass(user)}
               closeUserList={this.closeUserList}
               />}
+
               { defaultPage === 'albums' && <ClassAlbums users={users}/>}
-          </div>
         </div>
 
         {/*--------- below hidden user lists - appears on click -------------------*/}

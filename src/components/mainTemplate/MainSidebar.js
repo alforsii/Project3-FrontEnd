@@ -100,21 +100,21 @@ export default function TemporaryDrawer({ user, userLogout }) {
             <ExitToAppIcon />
           </ListItemIcon>
         </ListItem>
-        <Link className={classes.link} to="https://github.com/alforsii">
+        <a className={classes.link} href="https://github.com/alforsii">
           <ListItem button>
             <ListItemIcon>
               <GitHubIcon />
             </ListItemIcon>
           </ListItem>
-        </Link>
+        </a>
       </List>
       <Divider orientation="vertical" flexItem />
       <div className="dynamic-sidebars">
+        { comp === 'message-board' && <MessageSidebar/>}
         <Switch>
-          <Route exact path='/class/:classId' component={ClassSideNavbar}/>
+          <Route exact strict path='/class/:classId' component={ClassSideNavbar}/>
         </Switch>
 
-        { comp === 'message-board' && <MessageSidebar/>}
       </div>
     </div>
   );

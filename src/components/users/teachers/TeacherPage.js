@@ -118,7 +118,7 @@ export class Teacher extends Component {
           <div className="t-dashboard">
             
             <Navbar getUsers={this.getUsers.bind(this)}
-            toggleClassNavDropdown={this.props.context.toggleClassNavDropdown}
+            toggleClassNavDropdown={toggleClassNavDropdown}
             toggleSearchBar={this.toggleSearchBar}
             updateState={data => this.updateState(data)}
             />

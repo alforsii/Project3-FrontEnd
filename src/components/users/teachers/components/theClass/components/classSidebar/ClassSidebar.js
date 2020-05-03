@@ -1,9 +1,9 @@
 import React from 'react';
 import BottomNav from '../classNavbar/BottomNav';
 import { AuthContext } from '../../../../../../../myContext/AuthProvider';
-
+import './ClassSidebar.css'
 export default function ClassSidebar(props) {
-  const { currClass } = props.location.state;
+  const currClass  = props.location.state?.currClass;
   return (
     <AuthContext.Consumer>
       {(context) => {
@@ -12,7 +12,7 @@ export default function ClassSidebar(props) {
           <div>
             <div className="class-aside">
               <div className="cover-img-div">
-                {currClass.path ? (
+                {currClass?.path ? (
                   <img className="cover-image" src={currClass?.path} alt="" />
                 ) : (
                   <h4>loading...</h4>

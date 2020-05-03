@@ -21,9 +21,6 @@ const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
-//   menuButton: {
-//     marginRight: theme.spacing(2),
-//   },
 appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
