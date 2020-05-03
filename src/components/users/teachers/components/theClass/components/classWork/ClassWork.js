@@ -8,8 +8,6 @@ import './ClassWork.css';
 
 export default function ClassWork({ classrooms, currClass, students, displayForm, classworks }) {
 
-console.log("Output for: ClassWork -> classworks", classworks)
-
   return (
     <div className="main-classwork">
       <CreateDropdown displayForm={displayForm}/>

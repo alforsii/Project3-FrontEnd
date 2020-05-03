@@ -7,12 +7,15 @@ import * as serviceWorker from './serviceWorker';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 import AuthProvider from './myContext/AuthProvider'
+import MessageProvider from './myContext/MessageProvider'
 
 
 ReactDOM.render((
     <Router>
         <AuthProvider>
+            <MessageProvider>
             <App />
+            </MessageProvider>
         </AuthProvider>
     </Router>
 ), document.getElementById('root'));

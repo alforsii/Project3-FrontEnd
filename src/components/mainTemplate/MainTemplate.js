@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route} from 'react-router-dom'
+import { Switch} from 'react-router-dom'
 
 import PublicRoute from '../protectedRoute/PublicRoutes'
 import ProtectedRoute from '../protectedRoute/ProtectedRoute'
@@ -11,54 +11,25 @@ import UpdateProfile from '../update-upload/UpdateProfile'
 import LoginForm from '../auth/LoginForm';
 import Home from '../home/Home';
 import LandingPage from '../home/LandingPage';
-import MainSidebar from '../sidebar/MainSidebar'
+import MainSidebar from './MainSidebar'
 import MainNavbar from './MainNavbar'
 
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import Container from '@material-ui/core/Container';
 
-const drawerWidth = 340;
 
+
+const drawerWidth = 400;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: 36,
-  },
-  hide: {
-    display: 'none',
   },
   drawer: {
     width: drawerWidth,
@@ -93,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
   },
 }));
 
@@ -113,29 +84,10 @@ export default function MiniDrawer() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      {/* <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Mini variant drawer
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
+      
+      <MainNavbar handleDrawerOpen={handleDrawerOpen}
+       open={open}
+       />
       <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {
@@ -155,10 +107,13 @@ export default function MiniDrawer() {
           </IconButton>
         </div>
         <Divider />
-        <MainSidebar/>
+        <MainSidebar />
       </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+        {/* <div className={classes.toolbar} /> */}
+        {/* ["xs","sm","md","lg","xl",false]. */}
+        <Container maxWidth="xl">
+        {/* <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }} /> */}
         <Switch>
             <PublicRoute exact path="/" component={LandingPage} />
             <ProtectedRoute exact path="/home" component={Home} />
@@ -168,8 +123,9 @@ export default function MiniDrawer() {
             <ProtectedRoute exact path="/class/:classId" component={TheClass} />
             <ProtectedRoute exact path="/message-board" component={MessageBoard}/>
             <ProtectedRoute exact path="/message-board/:id" component={MessageBoard}/>
-            <ProtectedRoute exact path="/settings/update-profile" component={UpdateProfile}/>
+            <ProtectedRoute exact path="/settings" component={UpdateProfile}/>
           </Switch>
+      </Container>
       </main>
     </div>
   );
