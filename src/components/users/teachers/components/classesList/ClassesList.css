@@ -27,17 +27,17 @@ table.classList-table {
     border-collapse: collapse;
     width: 100%;
 }
-@media(max-width:600px){
+/* @media(max-width:600px){
     table.classList-table {
-        width: 100vw;
+        width: 50vw;
     }
     input#searchClass {
-        width: 80vw;
+        width: 60vw;
     }
     .bg-screen-display {
         display: none;
     }
-}
+} */
 .classList-table tbody tr {
     /* border: 0.3px solid gray; */
 }

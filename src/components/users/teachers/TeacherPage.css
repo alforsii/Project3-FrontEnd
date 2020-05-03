@@ -14,7 +14,7 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
 */
 .main-teacher {
     padding-top: 8vh;
-    width: 100vw;
+    /* width: 100vw; */
     display: flex;
 }
 #t-side-menu {
@@ -44,7 +44,7 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
   width: 80vw; 
   height: 300px;
 }
-@media(max-width:500px) {
+/* @media(max-width:500px) {
   .main-switch {
     width: 100vw;
     border-radius: 30px;
@@ -55,18 +55,18 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
     position: relative;
     top: -50px;
 }
-}
-@media(min-width:1000px){
+} */
+/* @media(min-width:1000px){
   #t-side-menu {
     display: block;
   }
-}
-@media(max-width:1000px){
+} */
+/* @media(max-width:1000px){
   #cover-img {
     width: 100vw; 
     height: 300px;
   }
-}
+} */
 
 #click-btn,
 .click-btn

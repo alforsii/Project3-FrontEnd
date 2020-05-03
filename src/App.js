@@ -1,22 +1,10 @@
 import React, { Component } from 'react';
-import { Switch } from 'react-router-dom';
 
 import { AuthContext } from './myContext/AuthProvider';
 import NavBar from './components/navbar/NavBar';
-import Home from './components/home/Home';
-import LandingPage from './components/home/LandingPage';
 import SideBar from './components/sidebar/SideBar';
-import MessageBoard from './components/messageBoard/MessageBoard';
-import UpdateProfile from './components/update-upload/UpdateProfile'
-import LoginForm from './components/auth/LoginForm';
 import Loader from './/loader/Loader';
 import Loader2 from './components/messageBoard/components/loader/Loader';
-import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
-import PublicRoute from './components/protectedRoute/PublicRoutes';
-import TeacherPage from './components/users/teachers/TeacherPage'
-import TheClass from './components/users/teachers/components/theClass/TheClass'
-import AddNewClass from './components/users/teachers/components/create-class-form/ClassForm'
-// import Dashboard from './components/home/Dashboard'
 import MainTemplate from './components/mainTemplate/MainTemplate'
 
 
@@ -41,17 +29,6 @@ export class App extends Component {
               <SideBar user={user} userLogout={handleLogout} loggedIn={loggedIn}/>
             </div>
             <MainTemplate />
-          {/* <Switch>
-            <PublicRoute exact path="/" component={LandingPage} />
-            <ProtectedRoute exact path="/home" component={Home} />
-            <PublicRoute exact path="/login" component={LoginForm} />
-            <ProtectedRoute exact path="/class" component={TeacherPage} />
-            <ProtectedRoute exact path="/class/new" component={AddNewClass} />
-            <ProtectedRoute exact path="/class/:classId" component={TheClass} />
-            <ProtectedRoute exact path="/message-board" component={MessageBoard}/>
-            <ProtectedRoute exact path="/message-board/:id" component={MessageBoard}/>
-            <ProtectedRoute exact path="/settings/update-profile" component={UpdateProfile}/>
-          </Switch> */}
           </React.Fragment>
         )}
       </div>

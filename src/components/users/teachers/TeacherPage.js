@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 
 import Navbar from './components/navbar/Navbar'
-import SidebarBigScreen from '../../sidebar/MainSidebar';
-
 import ClassesList from './components/classesList/ClassesList';
 import ImageUploadForm from  './components/img-uploadForm/ImageForm'
 import UsersList from './components/usersList/UsersList'
 import Loader from '../../messageBoard/components/loader/Loader'
-
 import { AUTH_CLASSES } from '../../../services/classesAuth/ClassesAuth';
 import AUTH_SERVICE from '../../../services/auth/AuthServices';
 import './TeacherPage.css';
@@ -110,10 +107,6 @@ export class Teacher extends Component {
     } = this.props.context;
     return (
       <div className="main-teacher">
-          <div id='t-side-menu' className="t-child-div">
-            <SidebarBigScreen loggedIn={this.props.context.state.loggedIn} user={user}/>
-          </div>
-
         <div id='t-main' className="t-child-div">
           <div className='cover-img-div'>
             {isLoading && <Loader message={message}/> }

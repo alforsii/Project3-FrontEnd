@@ -1,0 +1,17 @@
+.mu-sidebar a:hover {
+    color: #068ce6;
+   
+
+}
+.mu-sidebar {
+    display: flex;
+    overflow: hidden;
+}
+.dynamic-sidebars {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 350px;
+    overflow: scroll;
+}

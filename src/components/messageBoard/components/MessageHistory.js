@@ -11,9 +11,9 @@ export default function MessageHistory({state, getReceivers, switchUser}) {
                       createdAt,
                     } = user;
 
-                    const yourId = state.user._id;
+                    const yourId = state.user?._id;
                     const theUser =
-                      lastMessage.receiverID._id.toString() !==
+                      lastMessage?.receiverID._id.toString() !==
                       yourId.toString()
                         ? lastMessage.receiverID
                         : lastMessage.author._id.toString() !==

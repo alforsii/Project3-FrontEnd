@@ -7,7 +7,6 @@ import ClassWork from './components/classWork/ClassWork'
 import ClassConnections from './components/ClassConnections/ClassConnections'
 import ClassAlbums from './components/classAlbums/ClassAlbums'
 import ImageUploadForm from '../img-uploadForm/ImageForm';
-import BottomNav from './components/classNavbar/BottomNav'
 
 import './TheClass.css';
 
@@ -18,9 +17,7 @@ export class TheClass extends Component {
     classworks: this.props.location.state.currClass.classworks,
     coverImage: this.props.location.state.currClass.path,
     students: this.props.location.state.currClass.students,
-    // filteredStudents: this.props.location.state.currClass.students,
     teachers: this.props.location.state.currClass.teachers,
-    // filteredTeachers: this.props.location.state.currClass.teachers,
     restStudents: null,
     restTeachers: null,
     parents: [],
@@ -78,7 +75,6 @@ export class TheClass extends Component {
     this.setState({
       restStudents: students.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
     });
-    console.log("Output for: TheClass -> getOtherStudents -> students", students)
   };
   //get teachers
   getOtherTAs = async () => {
@@ -115,34 +111,6 @@ export class TheClass extends Component {
       }
     }
   };
-  // //Search user
-  // filterUsers = e => {
-  //   let searchResult;
-  //   const searchUser = e.target.value.toUpperCase();
-  //   if (this.state.displayUsers) {
-  //     searchResult = [...this.state.students].filter(
-  //       student =>
-  //         `${student.firstName} ${student.lastName}`
-  //           .toUpperCase()
-  //           .includes(searchUser) ||
-  //         `${student.email}`.toUpperCase().includes(searchUser)
-  //     );
-  //     this.setState({
-  //       filteredStudents: searchResult,
-  //     });
-  //   } else {
-  //     searchResult = [...this.state.teachers].filter(
-  //       teacher =>
-  //         `${teacher.firstName} ${teacher.lastName}`
-  //           .toUpperCase()
-  //           .includes(searchUser) ||
-  //         `${teacher.email}`.toUpperCase().includes(searchUser)
-  //     );
-  //     this.setState({
-  //       filteredTeachers: searchResult,
-  //     });
-  //   }
-  // };
 
   //Add student to class
   addToClass = async user => {
@@ -155,7 +123,6 @@ export class TheClass extends Component {
       });
       this.setState(prevState => ({
         students: [...prevState.students, studentFromDB].sort((a,b) => a.firstName > b.firstName ? 1 : -1),
-        // filteredStudents: [...prevState.students, studentFromDB].sort((a,b) => a.firstName > b.firstName ? 1 : -1),
       }));
     }
     if (user.title === 'TA') {
@@ -167,7 +134,6 @@ export class TheClass extends Component {
       });
       this.setState(prevState => ({
         teachers: [...prevState.teachers, teacherFromDB].sort((a,b) => a.firstName > b.firstName ? 1 : -1),
-        // filteredTeachers: [...prevState.teachers, teacherFromDB].sort((a,b) => a.firstName > b.firstName ? 1 : -1),
       }));
     }
   };
@@ -226,15 +192,6 @@ export class TheClass extends Component {
       dashboardImg: '',
     }));
   };
-  //when switched reset filtered list to default 0
-  // switchUsersList = () => {
-  //   this.setState(prevState => ({
-  //     displayUsers: !prevState.displayUsers,
-  //     // filteredStudents: prevState.students,
-  //     // filteredTeachers: prevState.teachers,
-  //   }));
-  // };
-
   //switch default page
   switchDefaultPage = (page) => {
     this.setState({ defaultPage: page })
@@ -244,20 +201,16 @@ export class TheClass extends Component {
       updateState,
       displayForm,
       state:{ users}
-      // toggleClassNavDropdown,
     } = this.props.context;
 
     const {
       currClass,
       classrooms,
-      // filteredStudents,
-      // filteredTeachers,
       students,
       teachers,
       restStudents,
       restTeachers,
       coverImage,
-      // displayUsers,
       defaultPage,
       classworks
     } = this.state;
@@ -265,28 +218,6 @@ export class TheClass extends Component {
     return (
       <React.Fragment>
         <div className="main-class-page">
-          <aside className="left-class-page-div">
-            <div className="class-aside">
-              <div className="cover-img-div">
-                {coverImage ? (
-                  <img className="cover-image" src={coverImage} alt="" />
-                ) : (
-                  <h4>loading...</h4>
-                  )}
-                <button onClick={() => displayForm('#main-form')} id="cover-img-upload-btn">
-                  <span>
-                    <i className="fas fa-camera"></i>
-                  </span>
-                </button>
-              </div>
-            </div>
-                  <BottomNav/>
-            <div className="work-notifications-div">
-              <h4> {currClass.name} </h4>
-              <h4>grade: {currClass.grade} </h4>
-              <p>No upcoming work due...</p>
-            </div>
-          </aside>
           <div className="right-class-page-div">
             <div className="navbar-div">
               <ClassNavbar 
@@ -303,14 +234,10 @@ export class TheClass extends Component {
             students={students}/>}
               {defaultPage === 'users' 
               && <ClassConnections
-              // displayUsers={displayUsers}
-              // switchUsersList={this.switchUsersList}
-              // toggleClassNavDropdown={toggleClassNavDropdown}
               toggleUserList={this.toggleUserList}
               currClass={currClass}
               students={students}
               teachers={teachers}
-              // filterUsers={this.filterUsers}
               updateState={updateState}
               removeFromClass={user => this.removeFromClass(user)}
               restStudents={restStudents}

@@ -49,7 +49,7 @@ div.nav-sidebar a:hover {
 }
 input#search-user {
     font-size: 14px;
-    width: 420px;
+    width: 350px;
     height: 40px;
     background-color: #ffffff;
     border: 1px solid #999;
@@ -76,24 +76,18 @@ input#search-user:focus {
 }
 .users-div {
     display: flex;
-    padding: 10px 10px 0 0;
-    margin: 0 20px;
-    width: 400px;
+    /* padding: 10px 10px 0 0; */
+    margin: 0;
+    width: 300px;
     overflow-x: scroll;
 }
 .user-user-list {
     margin: 2px;
 }
-.messages-history {
-    overflow: scroll;
-    height: 445px;
-    
-}
 
 .user-div {
-    width: 450px;
+    width: 300px;
     position: relative;
-    padding: 3px 0;
 }
 .user1:hover {
     background-color: #0794f3;
@@ -111,11 +105,8 @@ input#search-user:focus {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    width: 400px;
-    height: 40px;
+    width: 300px;
     opacity: 0.9;
-    margin: 0px 15px;
-    padding: 15px 10px;
 }
 span.message-you {
     color: #0794f3;
