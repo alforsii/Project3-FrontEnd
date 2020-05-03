@@ -22,3 +22,15 @@
     justify-content: center;
     align-items: center;
 }
+.userListMenu-content {
+    width: 65vw;
+    background-color: 	#F5F5F5;
+    position: fixed;
+    top: 18%;
+    left: 15%;
+  }
+  @media(max-width: 500px) {
+    .userListMenu-content {
+        width: 80vw;
+      }
+  }

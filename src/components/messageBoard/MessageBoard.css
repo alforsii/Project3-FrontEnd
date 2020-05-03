@@ -5,49 +5,49 @@ White: #fff
 */
 .main-message-board {
     display: flex;
-    width: 100vw;
-    height: 100vh;
-    min-width: 1200px;
+    margin-top: 70px;
+    /* width: 100vw; */
+    /* height: 100vh; */
+    /* min-width: 1200px; */
     box-sizing: border-box;
 }
-.nav-sidebar {
+/* .nav-sidebar {
     width: 5%;
     background-color: #fff;
     height: 100vh;
-}
-.sidebar-icons {
+} */
+/* .sidebar-icons {
     padding-top: 70px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-div.nav-sidebar a{
+} */
+/* div.nav-sidebar a{
     font-size: 20px;
     padding: 10px;
     border-radius: 7px;
     color: #000;
     opacity: 0.7;
     transition: opacity 0.2s linear;
-}
-div.nav-sidebar a:hover {
+} */
+/* div.nav-sidebar a:hover {
     cursor: pointer;
     opacity: 1;
     color: #fff;
     background-color: #0794f3;
-}
+} */
 
 /*  users list */
 
-.users-list {
+/* .users-list {
     padding-top: 60px;
     min-width: 35%;
-    /* background-color: #4b4c4d; */
     height: 100vh;
     background-color: #ffffff;;
     box-sizing: border-box;
-}
-input#search-user {
+} */
+/* input#search-user {
     font-size: 14px;
     width: 350px;
     height: 40px;
@@ -55,8 +55,8 @@ input#search-user {
     border: 1px solid #999;
     border-radius: 5px;
     padding: 15px 40px 15px 20px;
-}
-input#search-user:focus {
+} */
+/* input#search-user:focus {
     outline: 0;
 }
 #search-div {
@@ -73,41 +73,9 @@ input#search-user:focus {
     font-size: 20px;
     color: #555;
     cursor: pointer;
-}
-.users-div {
-    display: flex;
-    /* padding: 10px 10px 0 0; */
-    margin: 0;
-    width: 300px;
-    overflow-x: scroll;
-}
-.user-user-list {
-    margin: 2px;
-}
+} */
 
-.user-div {
-    width: 300px;
-    position: relative;
-}
-.user1:hover {
-    background-color: #0794f3;
-    color: #fff;
-    cursor: pointer;
-    opacity: 1;
-}
-.user {
-    background-color: #f5f5f5;
-    /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
-}
-.user,
-.user2 {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    width: 300px;
-    opacity: 0.9;
-}
+
 span.message-you {
     color: #0794f3;
     font-weight: bold;
@@ -162,17 +130,17 @@ span.message-other {
 
 /* message-board */
 .message-board {
-    min-width: 55%;
-    height: 100vh;
+    min-width: 100%;
+    /* height: 100vh; */
     box-sizing: border-box;
     margin: 0 auto;
     background-color: #fff;
+    padding: 10px;
 }
 .message-board-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 50px;
     height: 70px;
     width: 100%;
     border-bottom: 1px solid rgb(235, 233, 233);
@@ -189,49 +157,7 @@ span.message-other {
 .message-board-body {
     height: 400px;
     width: 100%;
-
     overflow: scroll;
 }
 
 
-
-.message-board-footer {
-    display: flex;
-    padding: 10px;
-    border-top: 1px solid rgb(235, 233, 233);
-    position: relative;
-}
-.message-board-footer textarea#message-input {
-    font-size: 14px;
-    width: 70%;
-    max-width: 70%;
-    border-radius: 10px;
-    padding: 10px;
-    border: 2px solid #ddd;
-    word-wrap: break-word;
-    word-break: break-all;
-    resize: none;
-    height: 20px;
-}
-.message-board-footer textarea:focus {
-    outline: 0;
-    border: 2px solid #0794f3;
-}
-.message-board-footer span.icons.message-icon {
-    padding: 5px;
-    color: #0794f3;
-}
-.message-board-footer span .emojis-container {
-    position: absolute;
-    top: -320px;
-    left: -300px;
-}
-.message-board-footer span.icons.message-icon:hover {
-    transform: scale(1);
-}
-.message-board-footer span.icons.message-icon:nth-child(2) {
-    color: gold;
-}
-.message-board-footer span.icons.message-icon:nth-child(3) {
-    color: #666;
-}

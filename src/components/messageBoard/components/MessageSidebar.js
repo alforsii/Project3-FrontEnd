@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Avatar from '../../auth/avatar/Avatar';
 import MessageHistory from './MessageHistory';
 import { MessageContext } from '../../../myContext/MessageProvider';
+import './MessageSidebar.css'
 
 export default function MessageSidebar() {
   return (

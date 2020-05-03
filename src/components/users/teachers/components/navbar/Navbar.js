@@ -5,9 +5,9 @@ export default function Navbar({getUsers, toggleSearchBar, updateState, toggleCl
     return (
         <React.Fragment>
             <div className="main-switch">
-              <Link to="/class" onClick={toggleSearchBar} className="click-btn"><i className='fas fa-search'></i> Search</Link>
-              <Link to="/class/new" className="click-btn"><i className='fas fa-plus-circle'></i> Class</Link>
-              <Link to="/class" onClick={() => updateState({navigate: 'classrooms'})} className="click-btn">Classes</Link>
+              <Link to="/dashboard" onClick={toggleSearchBar} className="click-btn"><i className='fas fa-search'></i> Search</Link>
+              <Link to="/new-class/add" className="click-btn"><i className='fas fa-plus-circle'></i> Class</Link>
+              <Link to="/dashboard" onClick={() => updateState({navigate: 'classrooms'})} className="click-btn">Classes</Link>
 
               <div className="dropdown3">
                 <button id='click-btn'
@@ -42,7 +42,7 @@ export default function Navbar({getUsers, toggleSearchBar, updateState, toggleCl
                     Parents
                   </p>
                   <p>
-                  <Link to="/class" onClick={() => updateState({navigate: 'archive'})}><i className='fas fa-trash-alt'></i> Archives</Link>
+                  <Link to="/dashboard" onClick={() => updateState({navigate: 'archive'})}><i className='fas fa-trash-alt'></i> Archives</Link>
                   </p>
                 </div>
               </div>

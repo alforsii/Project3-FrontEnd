@@ -31,17 +31,11 @@ export default function ClassConnections({
   const [currentStudents, setCurrentStudents] = useState([])
   const [currentTeachers, setCurrentTeachers] = useState([])
 
-  // useEffect(() => {
-  //   setCurrentStudents(students)
-  //   setCurrentTeachers(teachers)
-  // },[])
   useEffect(() => {
-    if(students || teachers){
-      setCurrentStudents(students)
-      setCurrentTeachers(teachers)
-    }
-}) // This will only run when one of those variables change
-
+    setCurrentStudents(students)
+    setCurrentTeachers(teachers)
+  },[students, teachers])
+  
   const switchUsersList = () => {
     setDisplayUsers(!displayUsers)
   };
@@ -95,7 +89,6 @@ export default function ClassConnections({
       {displayUsers ? (
         <ClassStudents
           currClass={currClass}
-          // toggleClassNavDropdown={toggleClassNavDropdown}
           users={currentStudents}
           filterUsers={filterUsers}
           updateState={updateState}
@@ -104,7 +97,6 @@ export default function ClassConnections({
       ) : (
         <ClassTeachers
           currClass={currClass}
-          // toggleClassNavDropdown={toggleClassNavDropdown}
           users={currentTeachers}
           filterUsers={filterUsers}
           updateState={updateState}
@@ -121,7 +113,6 @@ export default function ClassConnections({
             updateState={updateState}
             addToClass={addToClass}
             closeUserList={closeUserList}
-            // toggleClassNavDropdown={toggleClassNavDropdown}
           />
         )}
       </div>
@@ -133,7 +124,6 @@ export default function ClassConnections({
             updateState={updateState}
             addToClass={addToClass}
             closeUserList={closeUserList}
-            // toggleClassNavDropdown={toggleClassNavDropdown}
           />
         )}
       </div>

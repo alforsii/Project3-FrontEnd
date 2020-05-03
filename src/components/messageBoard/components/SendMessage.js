@@ -1,42 +1,60 @@
 import React from 'react'
 import {Button} from '@material-ui/core'
 import SendIcon from '@material-ui/icons/Send';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Divider from '@material-ui/core/Divider';
 
-import Emojis from './Emojis'
+import './SendMessage.css'
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiTextField-root': {
+    //   margin: theme.spacing(1),
+      width: '100%',
+},
+},
+textField: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  button: {
+    backgroundColor: '#0794f3'
+  },
+}));
+
+// import Emojis from './Emojis'
 
 export default function SendMessage({ handleMessageSubmit, message,
-    handleMessage, openEmojis,handleFileChange }) {
-    return (
-        <form
-        onSubmit={handleMessageSubmit}
-        id="message-form"
-        className="message-board-footer"
-      >
-        <textarea
-          id="message-input"
-          autoComplete='off'
-          onChange={handleMessage}
-          value={message}
-          name="message"
-          type="textarea"
-          placeholder='Type your message...'
-        />
+    handleMessage }) {
+        const classes = useStyles();
 
-        {/* <span  className="icons message-icon">
-          <i onClick={openEmojis}><i className="fas fa-smile"></i></i>
-          <div id='emojis-container' className='emojis-container'>
-            <Emojis />
-          </div>
-        </span>
-        <input style={{display:'none'}} type='file' 
-        onChange={handleFileChange}
-        ref={fileInput=> this.fileInput = fileInput}/>
-        <span className="icons message-icon" onClick={()=> this.fileInput.click()}>
-          <i className="fas fa-paperclip"></i>
-        </span> */}
-        <Button style={{color: '#0794f3'}} type='submit' >
-          <SendIcon />
-        </Button>
+    return (
+        <form className={classes.root} noValidate autoComplete="off"
+        onSubmit={handleMessageSubmit}
+      >
+            <Divider />
+      <div className={classes.textField}>
+      <TextField
+          id="standard-multiline-flexible"
+          label="Send message"
+          multiline
+          rowsMax={4}
+        //   variant="outlined"
+          name='message'
+          value={message}
+          onChange={handleMessage}
+        />
+        <Button
+        variant="contained"
+        color="primary"
+        type='submit'
+        className={classes.button}
+        endIcon={<SendIcon>send</SendIcon>}
+      >
+        Send
+      </Button>
+      </div>
       </form>
     )
 }
