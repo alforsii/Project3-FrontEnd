@@ -14,8 +14,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-
-import MessageDropdown from './MessageDropdown'
+import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,15 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Message({
-  path,
-  firstName,
-  lastName,
-  // currUser,
-  // user,
-  msg:{title, header, message, createdAt},
-  // receiver
-}) {
+export default function Message() {
   const classes = useStyles();
 
   //check for link in text
@@ -73,15 +64,14 @@ export default function Message({
 
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt={firstName} src={path} />
+        <RecordVoiceOverIcon/>
         </ListItemAvatar>
         <ListItemText
           primary={
             <>
-              <span style={{width:'100%',display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}> 
-              <span>{`${firstName} ${firstName}`}</span>
-              <i style={{fontSize: '12px'}}>{moment(createdAt).calendar()}</i>
-              <MessageDropdown/>
+              <span style={{width:'100%',display: 'flex', justifyContent: 'space-between', alignItems: 'flexStart'}}> 
+              <span>{`${'Admin'} ${'MessageBot'}`}</span>
+              <i style={{fontSize: '12px'}}>{moment(new Date()).calendar()}</i>
               </span>
               <Divider/>
             </>
@@ -98,21 +88,30 @@ export default function Message({
               <Card className={classes.cardRoot}>
                 <CardContent>
                   <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    <>{title.split(' ').map((text, i) =>
-                  validURL(text)? <a href={text} key={`${Math.random()*999 +99+'kk'+ i}`}> {text} </a>
-                  : <span key={`${Math.random()*999 +99+'kk'+ i}`}> {text} </span>)}</>
+                   Hello there! Welcome to My IronSchool app.
                   </Typography>
                   
                   <Typography variant="body2" component="p">
-                    <b>{header.split(' ').map((text, i) =>
-                  validURL(text)? <a href={text} key={`${Math.random()*999 +99+'kk'+ i}`}> {text} </a>
-                  : <span key={`${Math.random()*999 +99+'kk'+ i}`}> {text} </span>)}</b>
+                    Here is message bot example by 
+                    <br />
+                    <b>"Admin"</b>
                   </Typography>
-                  <Divider/>
                 <TelegramIcon/>{' '}
-                 <>{message.split(' ').map((text, i) =>
-                  validURL(text)? <a href={text} key={`${Math.random()*999 +99+'kk'+ i}`}> {text} </a>
-                  : <span key={`${Math.random()*999 +99+'kk'+ i}`}> {text} </span>)}</>
+                Follow me on GitHub: <a href='https://github.com/alforsii'>https://github.com/alforsii</a>
+                <Divider/>
+                <ul>
+                  <li>You can use this app for FREE</li>
+                  <li>For Teachers,Students and Parents!</li>
+                  <li> Teachers can:
+                    <li>Create, Update and Remove classes,students and even parent</li>
+                    <li>Invite parents and add students to the class</li>
+                    <li>Check students activities</li>
+                    <li>Share students activities with parents</li>
+                    <li>Keep in touch with you students,co-teachers and even with parents</li>
+                   </li>
+                  <li>Do your classwork here and enjoy my cool School app</li>
+                </ul>
+
                 </CardContent>
                 <CardActions>
                   <Button size="small">Learn More</Button>

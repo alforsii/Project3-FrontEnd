@@ -8,14 +8,6 @@ export class AuthProvider extends Component {
     super(props);
     this.state = {
       user: null,
-      // messageBoard: {
-      //   receiver: null,
-      //   isLoading: true,
-      //   messages: false,
-      //   newMessages: false,
-      //   readMessage: true,
-      //   scroll: false
-      // },
       currentUser: null,
       users: null,
       formSignup: {
@@ -66,17 +58,13 @@ export class AuthProvider extends Component {
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   isUserLoggedIn = async () => {
     try {
-      const res = await AUTH_SERVICE.isLoggedIn();
-       this.setState({ user: res.data.user,loggedIn: true  }, this.getUsers )
- 
-      setTimeout(() => {
-        this.setState({ isLoading: false });
-      }, 1500);
+      const {data: {user}} = await AUTH_SERVICE.isLoggedIn();
+       this.setState({ 
+         user, loggedIn: true,isLoading: false 
+         }, this.getUsers )
     } catch (err) {
       this.displayError(err);
       this.setState({ isLoading: false });
-      // setTimeout(() => {
-      // }, 2000);
     }
   };
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -95,12 +83,10 @@ export class AuthProvider extends Component {
   handleLoginSubmit = async e => {
     e.preventDefault();
     try {
-      this.setState({ isLoading: true, message: 'Logging in...' });
-      const res = await AUTH_SERVICE.login(this.state.formLogin);
-      // await this.getUsers();
-      const {
-        data: { user },
-      } = res;
+      this.setState({  message: 'Logging in...' });
+      const {data: {user}} = await AUTH_SERVICE.login(this.state.formLogin);
+
+      this.props.history.push('/dashboard');
       this.setState(prevState => ({
         ...prevState,
         formLogin: {
@@ -109,14 +95,16 @@ export class AuthProvider extends Component {
         },
         user,
         loggedIn: true,
+        isLoading: false 
       }),this.getUsers);
 
-      setTimeout(() => {
-        this.setState({ isLoading: false });
-        this.props.history.push('/home');
-      }, 2000);
+      // setTimeout(() => {
+      //   this.setState({ });
+        
+      // }, 2000);
     } catch (err) {
       this.displayError(err);
+      this.setState({ isLoading: false})
     }
   };
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -124,11 +112,10 @@ export class AuthProvider extends Component {
   handleSignupSubmit = async e => {
     e.preventDefault();
     try {
-      this.setState({isLoading: true, message: 'Signing up...' });
-      const res = await AUTH_SERVICE.signup(this.state.formSignup);
-      const {
-        data: { user },
-      } = res;
+      this.setState({ message: 'Signing up...' });
+      const {data: {user}} = await AUTH_SERVICE.signup(this.state.formSignup);
+
+      this.props.history.push('/dashboard');
       this.setState(prevState => ({
         ...prevState,
         formSignup: {
@@ -140,14 +127,13 @@ export class AuthProvider extends Component {
         },
         user,
         loggedIn: true,
+        isLoading: false 
       }),this.getUsers);
 
-      setTimeout(() => {
-        this.setState({ isLoading: false });
-        this.props.history.push('/home');
-      }, 2000);
+      
     } catch (err) {
       this.displayError(err);
+      this.setState({ isLoading: false })
     }
   };
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -167,16 +153,16 @@ export class AuthProvider extends Component {
     try {
       this.setState({ isLoading: true, message: 'Logging out...' });
       await AUTH_SERVICE.logout();
-      this.setState({ loggedIn: false, user: null, users: null });
       this.props.history.push('/');
-      setTimeout(() => {
-        this.setState({ message: 'Successfully logged out!' });
-      }, 1500);
-      setTimeout(() => {
-        this.setState({ isLoading: false });
-      }, 2500);
+
+      this.setState({ 
+        loggedIn: false, user: null, users: null,
+        message: 'Successfully logged out!', isLoading: false  
+      });
+
     } catch (err) {
       this.displayError(err);
+      this.setState({ isLoading: false})
     }
   };
 

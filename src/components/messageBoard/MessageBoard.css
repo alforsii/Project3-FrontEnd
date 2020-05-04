@@ -87,12 +87,7 @@ span.message-other {
     color: black;
     font-weight: bold;
 }
-.messages-history a {
-    font-size: 14px;
-    text-decoration: none;
-    color: #111;
-    font-weight: bold;
-}
+
 .user p,
 .user2 p
 {
@@ -135,7 +130,7 @@ span.message-other {
     box-sizing: border-box;
     margin: 0 auto;
     background-color: #fff;
-    padding: 10px;
+    /* padding: 10px; */
 }
 .message-board-nav {
     display: flex;
@@ -143,6 +138,8 @@ span.message-other {
     align-items: center;
     height: 70px;
     width: 100%;
+    background-color: #f5f5f5;
+    padding: 10px;
     border-bottom: 1px solid rgb(235, 233, 233);
 }
 .message-board-nav div:last-child span{

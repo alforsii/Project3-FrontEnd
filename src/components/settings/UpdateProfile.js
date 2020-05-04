@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 import { AUTH_SERVICE } from '../../services/auth/AuthServices'
+import ProgressBar from '../auth/progressBar/ProgressBar'
 // import moment from 'moment'
 import './UpdateProfile.css';
 
 export class UpdateProfile extends Component {
     state = {
-        image: '',
-        progress: '',
+        successMessage: '',
+        errorMessage: '',
+        isLoading: false,
         userForm: {
             username: '',
             firstName: '',
@@ -18,23 +24,16 @@ export class UpdateProfile extends Component {
             country: '',
         }
     }
-//=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
-//=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
-    handleUploadInput = e => {
-      const {name, files} = e.target
-        this.setState({[name]: files[0] })
+    componentDidMount = () => {
+      const user = this.props.context.state.user
+      this.setState(prevState => ({
+        userForm: {
+          ...prevState.userForm,
+          ...user
+        }
+      }))
     }
-//=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
-//=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
-    handleUploadSubmit = async e => {
-        e.preventDefault()
-        const newFile = new FormData()
-        newFile.append('image', this.state.image,this.state.image.name)
 
-        await AUTH_SERVICE.updatePhoto(newFile)
-        this.setState({image: ''})
-        this.props.context.isUserLoggedIn()
-    }
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
     handleFormInput = e => {
@@ -49,11 +48,14 @@ export class UpdateProfile extends Component {
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
     handleFormSubmit = async e => {
-        e.preventDefault()
+        try {
+          e.preventDefault()
+          this.setState({ isLoading: true })
         await AUTH_SERVICE.updateProfile(this.state.userForm)
-
+      
         this.setState(prevState => ({
           ...prevState,
+          successMessage: 'Thanks! Successfully updated',
           userForm: {
             username: '',
             firstName: '',
@@ -67,163 +69,29 @@ export class UpdateProfile extends Component {
         }));
 
         this.props.context.isUserLoggedIn()
+        this.setState({ isLoading: false })
+        } catch (err) {
+          this.setState({ errorMessage: 'Sorry 😌, something went wrong. Please, try later!'})
+          this.setState({ isLoading: false })
+        }
     }
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
   render() {
-    const { user } = this.props.context.state;
-    const { username,firstName, lastName,email,phone,city,state,country } = this.props.context.state.user;
+    const { successMessage, errorMessage, userForm, isLoading} = this.state
+    const styleColor = successMessage? 'green': errorMessage? 'red':''
     return (
       <>
       <div className="main-settings">
-      <div className="upload-form update-form">
-          <div className="">
-            <div className="prev-profile">
-              <div className="user-profile-details">
-                <h2>
-                  {' '}
-                  {user.firstName} {user.lastName}{' '}
-                </h2>
-                <hr/>
-                <p>Location: {city} {state}, {country}</p>
-                <p>Since {user.createdAt.split('T')[0]} </p>
-              </div>
-              <div>
-                <img
-                  className="profile-pic"
-                  src={user.path}
-                  alt={user.username}
-                />
-              </div>
-            </div>
-            <form onSubmit={this.handleUploadSubmit} encType="multipart/form-data">
-              <div className="progress">
-                <div className="progress-bar progress-bar-success">
-                  <span>40%</span>
-                </div>
-              </div>
-              <hr/>
-              <label id='image-label' htmlFor="image">Upload photo</label>
-              <span id='file-name'> <i>{this.state.image.name}</i> </span>
-              <input id='image' type="file" name="image" onChange={this.handleUploadInput}/>
-              <hr/>
-              <button>Update</button>
-            </form>
-          </div>
-        </div>
-
-        <div className="profile-info update-form">
-            <h2><i>Profile info</i></h2>
-            <hr/>
-          <form onSubmit={this.handleFormSubmit} className="user-update-form" autoComplete="off">
-              
-           <div>
-           <div>
-              <div className='inputWithIcon'>
-                <label htmlFor="firstName">First name*</label>
-                <input
-                  onChange={this.handleFormInput}
-                  id="firstName"
-                  type='text'
-                  name="firstName"
-                  defaultValue={firstName}
-                  placeholder="First name*"
-                />
-                <span className='form-input-icon'><i className='fas fa-user'></i></span>
-              </div>
-              <div className='inputWithIcon'>
-                <label htmlFor="email">Email address*</label>
-                <input
-                  onChange={this.handleFormInput}
-                  id="email"
-                  type='email'
-                  name="email"
-                  defaultValue={email}
-                  placeholder="Email Address*"
-                />
-                <span className='form-input-icon'><i className='fas fa-envelope'></i></span>
-              </div>
-              <div className='inputWithIcon'>
-                <label htmlFor="username">Username</label>
-                <input
-                  onChange={this.handleFormInput}
-                  id="username"
-                  type='text'
-                  name="username"
-                  defaultValue={username}
-                  placeholder="Enter username*"
-                />
-                <span className='form-input-icon'><i className='fas fa-user'></i></span>
-              </div>
-              <div className='inputWithIcon'>
-                <label htmlFor="state">State</label>
-                <input
-                  onChange={this.handleFormInput}
-                  id="state"
-                  type='text'
-                  name="state"
-                  defaultValue={state}
-                  placeholder="Enter state"
-                />
-                <span className='form-input-icon'><i className='fas fa-map-marker-alt'></i></span>
-              </div>
-            </div>
-            <div>
-              <div className='inputWithIcon'>
-                <label htmlFor="lastName">Last name*</label>
-                <input
-                  onChange={this.handleFormInput}
-                  id="lastName"
-                  type='text'
-                  name="lastName"
-                  defaultValue={lastName}
-                  placeholder="Last name*"
-                />
-                <span className='form-input-icon'><i className='fas fa-user'></i></span>
-              </div>
-              <div className='inputWithIcon'>
-                <label htmlFor="phoneNumber">Phone number</label>
-                <input
-                  onChange={this.handleFormInput}
-                  id="phone"
-                  type='text'
-                  name="phone"
-                  defaultValue={phone}
-                  placeholder="Phone number"
-                />
-                <span className='form-input-icon'><i className='fas fa-phone'></i></span>
-              </div>
-              <div className='inputWithIcon'>
-                <label htmlFor="city">City</label>
-                <input
-                  onChange={this.handleFormInput}
-                  id="city"
-                  type='text'
-                  name="city"
-                  defaultValue={city}
-                  placeholder="Enter city"
-                />
-                <span className='form-input-icon'><i className='fas fa-city'></i></span>
-              </div>
-              <div className='inputWithIcon'>
-                <label htmlFor="country">Country</label>
-                <input
-                  onChange={this.handleFormInput}
-                  id="country"
-                  type='text'
-                  name="country"
-                  defaultValue={country}
-                  placeholder="Enter country"
-                />
-                <span className='form-input-icon'><i className='fas fa-flag'></i></span>
-              </div>
-            </div>
-           </div>
-           <hr/>
-            <button>Save</button>
-          </form>
-        </div>
-
+      <h2><i style={{color: `${styleColor}`}}> { successMessage? 
+      successMessage
+      : errorMessage? errorMessage : 'Update your account details here'} </i></h2>
+      <ProgressBar isLoading={isLoading} strengthValue={100}/>
+      <UpdateUserDetails 
+      userForm={userForm}
+      handleFormSubmit={this.handleFormSubmit}
+      handleFormInput={this.handleFormInput}
+      />
       </div>
         <p className='footer-mark'>&copy; IronSchool App 2020 - final project at Ironhack by A.Kurbonaliev [web-dev oct 2019]!</p>
       </>
@@ -231,3 +99,61 @@ export class UpdateProfile extends Component {
   }
 }
 export default UpdateProfile;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    '& > *': {
+      margin: theme.spacing(1),
+      // width: '25ch',
+    },
+  },
+  textField: {
+    minWidth: '400px',
+    padding: 5
+  },
+  rows: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    width: '100%',
+  },
+  button: {
+    backgroundColor: '#0794f3',
+    width: '300px',
+  }
+}));
+
+ function UpdateUserDetails({  handleFormSubmit, handleFormInput, userForm }) {
+  const classes = useStyles();
+  const { username,firstName, lastName,email,phone,city,state,country } = userForm;
+
+  return (
+    <form onSubmit={handleFormSubmit} className={classes.root} noValidate autoComplete="off">
+      <div className={classes.rows}>
+        <TextField className={classes.textField} onChange={handleFormInput} variant="filled" id="firstName" name='firstName'  value={firstName} label="First Name" />
+        <TextField className={classes.textField} onChange={handleFormInput} variant="filled" id="lastName" name='lastName' value={lastName} label="Last Name" />
+      </div>
+      <div className={classes.rows}>
+        <TextField className={classes.textField} onChange={handleFormInput} variant="filled" id="email" name='email' value={email} label="Email address" />
+        <TextField className={classes.textField} onChange={handleFormInput} variant="filled" id="phone" name='phone' value={phone} label="Phone number" />
+      </div>
+      <div className={classes.rows}>
+        <TextField className={classes.textField} onChange={handleFormInput} variant="filled" id="username" name='username' value={username} label="Username" />
+        <TextField className={classes.textField} onChange={handleFormInput} variant="filled" id="city" name='city' value={city} label="City" />
+      </div>
+      <div className={classes.rows}>
+        <TextField className={classes.textField} onChange={handleFormInput} variant="filled" id="state" name='state' value={state} label="State" />
+        <TextField className={classes.textField} onChange={handleFormInput} variant="filled" id="country" name='country' value={country} label="Country" />
+      </div>
+      <Button className={classes.button} variant="contained" type='submit' color="primary">
+        Save changes
+      </Button>
+    </form>
+  );
+}

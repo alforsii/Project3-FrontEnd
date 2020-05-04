@@ -14,12 +14,12 @@ export default function BoardNavbar(props) {
             </div>
           </Link>
           <div>
-            <h5 className="username">
+            <h3 className="username">
               {user?.firstName} {user?.lastName}
-            </h5>
-          {message? 
-            <p style={{color:'red'}}>{message}</p>
-            :<p>Some message will be here...</p>}
+            </h3>
+          {message &&
+            <p style={{color:'red'}}>{message}</p>}
+          {/* :<p>Some message will be here...</p> */}
           </div>
         </div>
       </div>

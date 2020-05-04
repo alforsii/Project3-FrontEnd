@@ -1,12 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import CreateForm from '../create-class-form/CreateForm'
 
 export default function Navbar({getUsers, toggleSearchBar, updateState, toggleClassNavDropdown}) {
     return (
         <React.Fragment>
             <div className="main-switch">
-              <Link to="/dashboard" onClick={toggleSearchBar} className="click-btn"><i className='fas fa-search'></i> Search</Link>
-              <Link to="/new-class/add" className="click-btn"><i className='fas fa-plus-circle'></i> Class</Link>
+              <Link to="/dashboard" className="click-btn" onClick={toggleSearchBar}><i className='fas fa-search'></i> Search</Link>
+              {/* <Link to="/new-class/add" className="click-btn"><i className='fas fa-plus-circle'></i> </Link> */}
+              <CreateForm classList={'className="click-btn"'} />
+              {/* <Link to="/new-class/add" className="click-btn">
+              <i className='fas fa-plus-circle'></i> Class</Link> */}
               <Link to="/dashboard" onClick={() => updateState({navigate: 'classrooms'})} className="click-btn">Classes</Link>
 
               <div className="dropdown3">

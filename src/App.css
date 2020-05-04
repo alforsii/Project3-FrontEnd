@@ -13,14 +13,25 @@ White: #fff
 const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600', '#eb4f82', '#73cae3', '#027ebc', ]
 */
 
+*{
+  font-size: 16px;
+}
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
 }
-.App {
-  /* min-width: 900px; */
-  box-sizing: border-box;
+a {
+  color: #0794f3;
+  /* font-weight: 600; */
+  text-decoration: none;
 }
+a:hover {
+  color: #0579c7;
+}
+button:hover {
+  background-color: #068ce6;
+}
+
 .side-bar-app {
   display: flex;
   flex-direction: column;
@@ -55,7 +66,6 @@ body {
 .dropdown3 {
   float: left;
   overflow: hidden;
-  /* margin-right: 10px; */
 }
 
 .dropdown3 .dropbtn3 {
@@ -110,7 +120,3 @@ body {
 .dropdown3:hover .dropdown-content3.show {
   display: block;
 }
-/* .dropbtn3.create-btn {
-  background-color: #0794f3;
-  color: #fff;
-} */
