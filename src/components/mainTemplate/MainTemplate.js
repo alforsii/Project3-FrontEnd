@@ -1,18 +1,15 @@
 import React from 'react';
 import { Switch} from 'react-router-dom'
 
-import PublicRoute from '../protectedRoute/PublicRoutes'
 import ProtectedRoute from '../protectedRoute/ProtectedRoute'
 import TeacherPage from '../users/teachers/TeacherPage'
 import TheClass from '../users/teachers/components/theClass/TheClass'
 import AddNewClass from '../users/teachers/components/create-class-form/ClassForm'
 import MessageBoard from '../messageBoard/MessageBoard';
 import UpdateProfile from '../settings/UpdateProfile'
-import LoginForm from '../auth/LoginForm';
-import Home from '../home/Home';
-import LandingPage from '../home/LandingPage';
 import MainSidebar from './MainSidebar'
 import MainNavbar from './MainNavbar'
+import CreateForm from '../users/teachers/components/create-class-form/CreateForm'
 
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -68,10 +65,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MiniDrawer() {
+export default function MiniDrawer({ user, isUserLoggedIn, handleLogout }) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -84,8 +81,11 @@ export default function MiniDrawer() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <MainNavbar handleDrawerOpen={handleDrawerOpen}
+      <MainNavbar 
        open={open}
+       user={user}
+       handleLogout={handleLogout}
+      handleDrawerOpen={handleDrawerOpen}
        />
       <Drawer
         variant="permanent"
@@ -106,19 +106,18 @@ export default function MiniDrawer() {
           </IconButton>
         </div>
         <Divider />
-        <MainSidebar />
+        <MainSidebar 
+        handleLogout={handleLogout}
+        isUserLoggedIn={isUserLoggedIn} 
+        user={user}/>
       </Drawer>
       <main className={classes.content}>
-        {/* <div className={classes.toolbar} /> */}
         {/* ["xs","sm","md","lg","xl",false]. */}
         <Container maxWidth="xl">
-        {/* <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }} /> */}
         <Switch>
-            <PublicRoute exact path="/" component={LandingPage} />
-            <ProtectedRoute exact path="/home" component={Home} />
-            <PublicRoute exact path="/login" component={LoginForm} />
             <ProtectedRoute exact path="/dashboard" component={TeacherPage} />
-            <ProtectedRoute exact path="/new-class/add" component={AddNewClass} />
+            <ProtectedRoute exact path="/new-class/add" component={CreateForm} />
+            {/* <ProtectedRoute exact path="/new-class/add" component={AddNewClass} /> */}
             <ProtectedRoute exact path="/update-class/edit" component={AddNewClass} />
             <ProtectedRoute exact path="/class/:classId" component={TheClass} />
             <ProtectedRoute exact path="/message-board" component={MessageBoard}/>

@@ -1,5 +1,6 @@
 import React from 'react'
 import Message from './Message'
+import MessageTemp from './MessageTemp'
 import Loader from './loader/Loader'
 
 export default function BoardBody({newMessages, isLoading, state}) {
@@ -15,9 +16,9 @@ export default function BoardBody({newMessages, isLoading, state}) {
                           currUser={state.user}
                           msg={msg}
                           user={msg.receiverID}
-                          id={msg._id}
-                          message={msg.message}
-                          isNew={msg.new}
+                          // id={msg._id}
+                          // message={msg.message}
+                          // isNew={msg.new}
                           path={msg.receiverID.path}
                           firstName={msg.receiverID.firstName}
                           lastName={msg.receiverID.lastName}
@@ -29,8 +30,8 @@ export default function BoardBody({newMessages, isLoading, state}) {
                           currUser={state.user}
                           msg={msg}
                           user={msg.author}
-                          id={msg._id}
-                          message={msg.message}
+                          // id={msg._id}
+                          // message={msg.message}
                           path={msg.author.path}
                           firstName={msg.author.firstName}
                           lastName={msg.author.lastName}
@@ -40,8 +41,9 @@ export default function BoardBody({newMessages, isLoading, state}) {
                   ) : isLoading ? (
                     <Loader />
                   ) : (
-                    `You have no message history with ${state.receiver.firstName}. Text your first dialog message with ${state.receiver.firstName} ${state.receiver.lastName}`
-                  )}
+                     <MessageTemp/>
+                  )
+                  }
                 </div>
         </div>
     )

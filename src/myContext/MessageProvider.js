@@ -10,9 +10,13 @@ export const MessageContext = createContext();
 export class MessageProvider extends Component {
     state = {
         receiver: null,
-        message: '',
+        messageInputs: {
+            title: '',
+            header: '',
+            message: '',
+        },
         errMessage: '',
-        messages: false,
+        // messages: false,
         newMessages: null,
         readMessage: false,
         scroll: null,
@@ -61,7 +65,14 @@ export class MessageProvider extends Component {
   //3.Handle input change - if typing
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   handleMessage = e => {
-    this.setState({ [e.target.name]: e.target.value });
+      const { name, value} = e.target
+      console.log("Output for: MessageProvider -> name, value", name, value)
+    this.setState(prevState => ({
+        messageInputs: {
+            ...prevState.messageInputs,
+            [name]: value
+        }
+    }));
   };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -75,10 +86,14 @@ export class MessageProvider extends Component {
           _id: this.state.receiver._id,
           username: this.state.receiver.username,
         },
-        message: this.state.message,
+        messageInputs: this.state.messageInputs,
       });
       this.setState(prevState => ({
-         message: '',
+         messageInputs: {
+             title:'',
+             header:'',
+             message:'',
+         },
       }));
       this.setState(prevState => ({
           scroll: true

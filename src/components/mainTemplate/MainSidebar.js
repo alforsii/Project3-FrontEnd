@@ -14,7 +14,8 @@ import MessageIcon from '@material-ui/icons/Message';
 import GitHubIcon from '@material-ui/icons/GitHub';
 
 import ClassSideNavbar from '../users/teachers/components/theClass/components/classSidebar/ClassSidebar';
-import MessageSidebar from '../messageBoard/components/MessageSidebar'  
+import MessageSidebar from '../messageBoard/components/messageSidebar/MessageSidebar'  
+import SettingsSidebar from '../settings/SettingsSidebar'
 import Avatar from '../auth/avatar/Avatar';
 import './MainSidebar.css';
 const useStyles = makeStyles({
@@ -30,6 +31,14 @@ const useStyles = makeStyles({
   link: {
     textDecoration: 'none',
     color: '#333',
+    padding: 5,
+    margin: 0
+  },
+  hover: {
+    // color: "#0794f3  !important",
+    "&:hover": {
+      color: "initial  !important"
+      }
   },
   columnDiv: {
     display: 'flex',
@@ -45,7 +54,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TemporaryDrawer({ user, userLogout }) {
+export default function TemporaryDrawer({ user, isUserLoggedIn }) {
   const classes = useStyles();
   const [comp, setComp] = React.useState('')
 
@@ -53,56 +62,45 @@ export default function TemporaryDrawer({ user, userLogout }) {
     <div className={(classes.list, 'mu-sidebar')}>
       <List className={classes.iconsDiv}>
         <Link onClick={() => setComp('dashboard') } className={classes.link} to="/dashboard">
-          <ListItem button>
-            <ListItemIcon>
+          <ListItem button >
+            <ListItemIcon className={classes.hover}>
               <DashboardIcon />
             </ListItemIcon>
           </ListItem>
         </Link>
         <Link onClick={() => setComp('message-board') } className={classes.link} to="/message-board">
-          <ListItem button>
-            <ListItemIcon>
+          <ListItem button >
+            <ListItemIcon className={classes.hover}>
               <MessageIcon />
             </ListItemIcon>
           </ListItem>
         </Link>
         <Link onClick={() => setComp('class') } className={classes.link} to="/class">
-          <ListItem button>
-            <ListItemIcon>
+          <ListItem button >
+            <ListItemIcon className={classes.hover}>
               <SchoolIcon />
             </ListItemIcon>
           </ListItem>
         </Link>
         <Link onClick={() => setComp('settings') } className={classes.link} to="/settings">
-          <ListItem button>
-            <ListItemIcon>
+          <ListItem button >
+            <ListItemIcon className={classes.hover}>
               <LockIcon />
             </ListItemIcon>
           </ListItem>
         </Link>
         <Link onClick={() => setComp('settings') } className={classes.link} to="/settings">
-          <ListItem button>
-            <ListItemIcon>
+          <ListItem button >
+            <ListItemIcon className={classes.hover}>
               <SettingsIcon />
             </ListItemIcon>
           </ListItem>
         </Link>
 
         <Divider />
-        <ListItem
-          button
-          className={classes.link}
-          onClick={() => {
-            userLogout();
-          }}
-        >
-          <ListItemIcon>
-            <ExitToAppIcon />
-          </ListItemIcon>
-        </ListItem>
         <a className={classes.link} href="https://github.com/alforsii">
-          <ListItem button>
-            <ListItemIcon>
+          <ListItem button >
+            <ListItemIcon className={classes.hover}>
               <GitHubIcon />
             </ListItemIcon>
           </ListItem>
@@ -113,6 +111,7 @@ export default function TemporaryDrawer({ user, userLogout }) {
         { comp === 'message-board' && <MessageSidebar/>}
         <Switch>
           <Route exact strict path='/class/:classId' component={ClassSideNavbar}/>
+          <Route exact strict path='/dashboard' render={props => <SettingsSidebar {...props} user={user} isUserLoggedIn={isUserLoggedIn} />}/>
         </Switch>
 
       </div>

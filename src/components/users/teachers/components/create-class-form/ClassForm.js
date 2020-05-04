@@ -5,6 +5,7 @@ import Confirm from './Confirm'
 import './ClassForm.css'
 
 
+
 export default class UserForm extends Component {
     state = {
         step: 1,

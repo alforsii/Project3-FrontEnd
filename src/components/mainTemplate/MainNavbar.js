@@ -11,22 +11,27 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import SettingsIcon from '@material-ui/icons/Settings';
+import Divider from '@material-ui/core/Divider';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
+import Avatar from '../auth/avatar/Avatar';
+import './MainNavbar.css';
 const drawerWidth = 400;
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
-appBar: {
+  appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    backgroundColor: '#068ce6',
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -99,7 +104,12 @@ appBar: {
   },
 }));
 
-export default function PrimarySearchAppBar({ handleDrawerOpen, open }) {
+export default function PrimarySearchAppBar({
+  user,
+  handleDrawerOpen,
+  open,
+  handleLogout,
+}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -135,8 +145,49 @@ export default function PrimarySearchAppBar({ handleDrawerOpen, open }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <IconButton aria-label="profile" color="inherit">
+          <Avatar src={user?.path} alt={user?.firstName} />
+        </IconButton>
+        Profile
+      </MenuItem>
+
+      <MenuItem onClick={handleMenuClose}>
+        <IconButton aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={4} color="secondary">
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        Messages
+      </MenuItem>
+
+      <MenuItem onClick={handleMenuClose}>
+        <IconButton aria-label="show 17 new notifications" color="inherit">
+          <Badge badgeContent={17} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        Notifications
+      </MenuItem>
+
+      <MenuItem onClick={handleMenuClose}>
+        <IconButton aria-label="settings" color="inherit">
+          <SettingsIcon />
+        </IconButton>
+        Settings
+      </MenuItem>
+      <Divider />
+      <MenuItem
+        onClick={() => {
+          handleMenuClose();
+          handleLogout();
+        }}
+      >
+        <IconButton aria-label="settings" color="inherit">
+          <ExitToAppIcon />
+        </IconButton>
+        Logout
+      </MenuItem>
     </Menu>
   );
 
@@ -151,7 +202,19 @@ export default function PrimarySearchAppBar({ handleDrawerOpen, open }) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem onClick={handleMobileMenuClose}>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <Avatar src={user?.path} alt={user?.firstName} />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+
+      <MenuItem onClick={handleMobileMenuClose}>
         <IconButton aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="secondary">
             <MailIcon />
@@ -159,7 +222,8 @@ export default function PrimarySearchAppBar({ handleDrawerOpen, open }) {
         </IconButton>
         <p>Messages</p>
       </MenuItem>
-      <MenuItem>
+
+      <MenuItem onClick={handleMobileMenuClose}>
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge badgeContent={11} color="secondary">
             <NotificationsIcon />
@@ -167,28 +231,38 @@ export default function PrimarySearchAppBar({ handleDrawerOpen, open }) {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
+
+      <MenuItem onClick={handleMobileMenuClose}>
+        <IconButton aria-label="settings" color="inherit">
+          <SettingsIcon />
         </IconButton>
-        <p>Profile</p>
+        Settings
+      </MenuItem>
+      <Divider />
+      <MenuItem
+        onClick={() => {
+          handleMobileMenuClose();
+          handleLogout();
+        }}
+      >
+        <IconButton aria-label="settings" color="inherit">
+          <ExitToAppIcon />
+        </IconButton>
+        Logout
       </MenuItem>
     </Menu>
   );
 
   return (
     <div className={classes.grow}>
-      <AppBar position="fixed"
+      <AppBar
+        position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
-        })}>
+        })}
+      >
         <Toolbar>
-           <IconButton
+          <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
@@ -217,17 +291,8 @@ export default function PrimarySearchAppBar({ handleDrawerOpen, open }) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
             <IconButton
+              className="avatar"
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
@@ -235,7 +300,9 @@ export default function PrimarySearchAppBar({ handleDrawerOpen, open }) {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Badge badgeContent={17} color="secondary">
+                <Avatar src={user?.path} alt={user?.firstName} />
+              </Badge>
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>

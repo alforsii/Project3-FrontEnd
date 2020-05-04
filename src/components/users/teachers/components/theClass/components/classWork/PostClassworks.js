@@ -1,12 +1,14 @@
 import React from 'react';
+import moment from 'moment'
+
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import Badge from '@material-ui/core/Badge';
 // import CardMedia from '@material-ui/core/CardMedia';
 import {
   CardContent,
-  CardActions,
+  // CardActions,
   Collapse,
   Avatar,
   Typography,
@@ -14,9 +16,7 @@ import {
   Menu,
   MenuItem,
 } from '@material-ui/core';
-
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
-
 import { red } from '@material-ui/core/colors';
 // import {FavoriteIcon, ShareIcon} from '@material-ui/icons';
 import CommentIcon from '@material-ui/icons/Comment';
@@ -24,10 +24,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MessageTextField from './MessageTextField';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+// import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-
-import moment from 'moment';
 
 const ITEM_HEIGHT = 48;
 const useStyles = makeStyles(theme => ({
@@ -68,9 +66,9 @@ export default function RecipeReviewCard({ classworks }) {
     setAnchorEl(null);
   };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  // const handleExpandClick = () => {
+  //   setExpanded(!expanded);
+  // };
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
@@ -85,9 +83,10 @@ export default function RecipeReviewCard({ classworks }) {
       schedule,
       createdAt,
     } = classwork;
+
     const posted = moment(createdAt).calendar();
     return (
-      <Card className={classes.root}>
+      <Card key={_id} className={classes.root}>
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
@@ -96,7 +95,9 @@ export default function RecipeReviewCard({ classworks }) {
           }
           action={
             <div>
-              Posted {posted}
+             
+              {author?.firstName}
+          {' '}Posted {posted}
               <IconButton
                 aria-label="more"
                 aria-controls="long-menu"
@@ -134,6 +135,7 @@ export default function RecipeReviewCard({ classworks }) {
           expanded={expanded === `panel${i + 1}`}
           onChange={handleChange(`panel${i + 1}`)}
         >
+
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls={`panel${i + 1}bh-content`}
@@ -149,18 +151,37 @@ export default function RecipeReviewCard({ classworks }) {
               ))}
             </AvatarGroup>
           </ExpansionPanelSummary>
+          <ExpansionPanelSummary
+            // expandIcon={<ExpandMoreIcon />}
+            aria-controls={`panel${i + 1}bh-desc`}
+            id={`panel${i + 1}bh-desc`}
+          >
+            {schedule && `Due: ${moment(schedule).calendar()} `}<br/>
+            {description && `Description: ${description}`}
+          </ExpansionPanelSummary>
         </ExpansionPanel>
 
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>{topic ? topic : 'No Topic'} </Typography>
+            <Avatar src={author?.path} alt={author?.firstName}/>
+              <Typography paragraph>Author:{' '}{author?.firstName} {author?.lastName} </Typography>
+
             <Typography paragraph>
+              <h2 style={{margin:0, padding:0}}> {topic ? topic : 'No Topic'} </h2>
               <MessageTextField />
             </Typography>
             <Typography paragraph>
-              <IconButton aria-label="share">
-                <CommentIcon />
-              </IconButton>
+            <IconButton
+              edge="end"
+              aria-label="share"
+              // aria-controls={menuId}
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <Badge badgeContent={3} color="secondary">
+                 <CommentIcon />
+              </Badge>
+            </IconButton>
             </Typography>
           </CardContent>
         </Collapse>

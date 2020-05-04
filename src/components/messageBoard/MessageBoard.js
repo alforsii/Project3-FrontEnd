@@ -34,7 +34,7 @@ export class MessageBoard extends Component {
   render() {
     const {
       newMessages,
-      message,
+      messageInput,
       receiver,
       isLoading
     } = this.context.messageState;
@@ -48,9 +48,6 @@ export class MessageBoard extends Component {
                 <Route exact path="/message-board/:id" component={BoardNavbar} />
               </Switch>
               <div>
-                <span id="search-icon2">
-                  <i className="fas fa-search"></i>
-                </span>
                 <span>
                   <i className="fas fa-user-plus"></i>
                 </span>
@@ -66,9 +63,9 @@ export class MessageBoard extends Component {
               </div>
             </div>
             <SendMessage
+            messageInput={messageInput}
             handleMessageSubmit={handleMessageSubmit}
             handleMessage={handleMessage}
-            message={message}
             openEmojis={openEmojis}
             handleFileChange={handleFileChange}
             />

@@ -1,9 +1,8 @@
 import React from 'react';
-// import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 
-function MyApp() {
+export function MySnackbar({ message }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const handleClickVariant = (variant) => () => {
@@ -13,8 +12,8 @@ function MyApp() {
 
   return (
     <React.Fragment>
-      <MenuItem onClick={handleClickVariant('success')}>Add to class</MenuItem>
-      {/* <Button onClick={handleClickVariant('success')}>Add to class</Button> */}
+      { handleClickVariant(message) }
+      <Button onClick={handleClickVariant('success')}>Add to class</Button>
     </React.Fragment>
   );
 }
@@ -22,7 +21,7 @@ function MyApp() {
 export default function IntegrationNotistack() {
   return (
     <SnackbarProvider maxSnack={3}>
-      <MyApp />
+      <MySnackbar />
     </SnackbarProvider>
   );
 }
