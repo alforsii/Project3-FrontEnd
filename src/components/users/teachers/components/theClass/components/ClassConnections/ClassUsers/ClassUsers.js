@@ -5,7 +5,7 @@ import MenuDropdown from './MenuDropdown'
 import Pagination from '../../../../classesList/Pagination'
 import './ClassUsers.css'
 
-export default function ClassUsers({users, filterUsers , updateState, 
+export default function ClassUsers({users, filterUsers ,
  removeFromClass }) {
 
 const [currentPage, setCurrentPage] = useState(1);
@@ -53,7 +53,7 @@ const currentPageUsers = users?.slice(
                      </div>
                      <MenuDropdown 
                       currUser={currUser}
-                      updateState={updateState}
+                      // updateState={updateState}
                       removeFromClass={removeFromClass}
                      />
                  </div>

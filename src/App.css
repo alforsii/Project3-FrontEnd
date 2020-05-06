@@ -28,9 +28,10 @@ a {
 a:hover {
   color: #0579c7;
 }
-button:hover {
+/* button:hover {
   background-color: #068ce6;
-}
+  color: #fff;
+} */
 
 .side-bar-app {
   display: flex;

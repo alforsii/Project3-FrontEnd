@@ -26,7 +26,8 @@ export class MessageProvider extends Component {
         status: false,
         file: null,
         tempImagesURL: []
-      };
+    };
+    
 
        //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -46,12 +47,6 @@ export class MessageProvider extends Component {
      newMessages: false,
      readMessage: true,
    });
-   this.setState(prevState => ({
-      receiver,
-      scroll: true
-  }))
-  // //  this.updateStatus(receiver)
-  // this.scrollMessagesDown();
  };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -66,7 +61,7 @@ export class MessageProvider extends Component {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   handleMessage = e => {
       const { name, value} = e.target
-      console.log("Output for: MessageProvider -> name, value", name, value)
+
     this.setState(prevState => ({
         messageInputs: {
             ...prevState.messageInputs,
@@ -95,15 +90,14 @@ export class MessageProvider extends Component {
              message:'',
          },
       }));
-      this.setState(prevState => ({
-          scroll: true
-      }))
+      console.log(this.state.messageInputs)
     } catch (err) {
       this.displayError(err)
     }
   };
 
    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+   //Not in use yet
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   handleFileChange = e => {
     const { type, files} = e.target;
@@ -120,6 +114,7 @@ export class MessageProvider extends Component {
   }
  
    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+   //for all errors
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   displayError = err => {
     if (err.response && err.response.data) {
@@ -161,12 +156,12 @@ export class MessageProvider extends Component {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //Scrolls down messages on load or when new message
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  scrollMessagesDown = () => {
-    const chatMessages = document.querySelector('.message-board-body');
-    if (chatMessages) {
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-  };
+//   scrollMessagesDown = () => {
+//     const chatMessages = document.querySelector('.message-board-body');
+//     if (chatMessages) {
+//       chatMessages.scrollTop = chatMessages.scrollHeight;
+//     }
+//   };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //Get Users, that who had messaging history with current user, for display
@@ -200,9 +195,10 @@ export class MessageProvider extends Component {
             displayError,
             getUserBoards,
             updateMessageBoard,
-            scrollMessagesDown,
+            // scrollMessagesDown,
             getReceivers,
             openEmojis,
+            updateState
 
           } = this;
           const messageState = this.state
@@ -212,6 +208,7 @@ export class MessageProvider extends Component {
             value={{
                 state,
                 messageState,
+                updateState,
                 switchUser,
                 updateStatus,
                 handleMessage,
@@ -220,7 +217,7 @@ export class MessageProvider extends Component {
                 displayError,
                 getUserBoards,
                 updateMessageBoard,
-                scrollMessagesDown,
+                // scrollMessagesDown,
                 getReceivers,
                 openEmojis,
             }}

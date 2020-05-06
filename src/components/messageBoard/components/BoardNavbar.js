@@ -1,29 +1,35 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import Avatar from '../../auth/avatar/Avatar';
+import {MessageContext} from '../../../myContext/MessageProvider'
 
 export default function BoardNavbar(props) {
-  const { message,user} = props.location.state
-  return (
-    <div>
-      <div className="user-div">
-        <div className="user2">
-          <Link to="/message-board">
-            <div className="user-image-div large">
-              <Avatar src={user?.path} alt={user?.firstName} size={'medium'}/>
-            </div>
-          </Link>
-          <div>
-            <h3 className="username">
-              {user?.firstName} {user?.lastName}
-            </h3>
-          {message &&
-            <p style={{color:'red'}}>{message}</p>}
-          {/* :<p>Some message will be here...</p> */}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+console.log("Output for: BoardNavbar -> props", props)
 
+  return (
+    <MessageContext.Consumer>
+      {msgContext => {
+         const { message, receiver} = msgContext.messageState
+         if(!receiver) props.history.push('/message-board')
+         return (
+          <div>
+            <div className="user-div">
+              <div className="user2">
+                  <div className="user-image-div large">
+                    <Avatar src={receiver?.path} alt={receiver?.firstName} size={'medium'}/>
+                  </div>
+                <div>
+                  <h3 className="username">
+                    {receiver?.firstName} {receiver?.lastName}
+                  </h3>
+                {message &&
+                  <p style={{color:'red'}}>{message}</p>}
+                {/* :<p>Some message will be here...</p> */}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }}
+    </MessageContext.Consumer>
+  )
 }

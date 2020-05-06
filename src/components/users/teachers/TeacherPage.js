@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Navbar from './components/navbar/Navbar'
+import MainClassNavbar from './components/navbar/mainClassNavbar/ClassNavbar'
 import ClassesList from './components/classesList/ClassesList';
 import ImageUploadForm from  './components/img-uploadForm/ImageForm'
 import UsersList from './components/usersList/UsersList'
@@ -110,28 +111,35 @@ export class Teacher extends Component {
         <div id='t-main' className="t-child-div">
           <div className='cover-img-div'>
             {isLoading && <Loader message={message}/> }
-            <img id='cover-img' src={user?.dashboardImg} alt=''/>
+            <img id='cover-img' src={user?.dashboardImg} alt='dashboard image'/>
             <button onClick={() => displayForm('#main-form')} id='cover-img-upload-btn'>
                 <span><i className="fas fa-camera"></i></span>
             </button>
           </div>
           <div className="t-dashboard">
             
-            <Navbar getUsers={this.getUsers.bind(this)}
+            {/* <Navbar getUsers={this.getUsers.bind(this)}
+            toggleClassNavDropdown={toggleClassNavDropdown}
+            toggleSearchBar={this.toggleSearchBar}
+            updateState={data => this.updateState(data)}
+            /> */}
+            <MainClassNavbar
+            getUsers={this.getUsers.bind(this)}
             toggleClassNavDropdown={toggleClassNavDropdown}
             toggleSearchBar={this.toggleSearchBar}
             updateState={data => this.updateState(data)}
             />
-            { navigate === 'users-list' && <UsersList users={users}
+            {/* { navigate === 'users-list' && <UsersList users={users}
               updateState={userData => updateState(userData)}
-              />}
-            
+              />} */}
+
            { navigate === 'archive' &&  <ClassesList  archive={true}
             classes={filteredArchiveClasses} 
             toggleClassNavDropdown={toggleClassNavDropdown}
             searchForClass={this.searchForClassArchive}
             // removeClass={classId => this.removeClass(classId)}
            search={search} /> }
+
           { navigate === 'classrooms' && <ClassesList archive={false}
           classes={filteredClasses} 
           toggleClassNavDropdown={toggleClassNavDropdown}

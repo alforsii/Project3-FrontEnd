@@ -4,12 +4,13 @@ hover color: Light blue: #068ce6
 White: #fff
 */
 .main-message-board {
-    display: flex;
+    /* display: flex; */
     margin-top: 70px;
+    /* padding: 10px; */
     /* width: 100vw; */
     /* height: 100vh; */
     /* min-width: 1200px; */
-    box-sizing: border-box;
+
 }
 /* .nav-sidebar {
     width: 5%;
@@ -76,61 +77,32 @@ White: #fff
 } */
 
 
-span.message-you {
-    color: #0794f3;
-    font-weight: bold;
-}
-.user1:hover span.message-you {
-    color: #000;
-}
-span.message-other {
-    color: black;
-    font-weight: bold;
-}
 
-.user p,
+/* .user p,
 .user2 p
 {
     margin: 0;
     font-size: 12px;
     padding: 5px;
     font-weight: normal;
-}
-.user h5,
-.user2 h5
-{
-    margin: 0;
-    font-size: 12px;
-    padding: 5px;
-}
-.user-image-div {
-    width: 50px;
-}
+} */
+
+
 .user-image-div.large {
     width: 70px;
 }
-.user-image{
+/* .user-image{
     width: 50px;
     height: 50px;
     border-radius: 50%;
-}
-#msg-created-time {
-    position: absolute;
-    z-index: 1;
-    right: 30px;
-    top: 10px;
-    padding: 10px;
-    font-size: 12px;
-}
+} */
 
 /* message-board */
 .message-board {
     min-width: 100%;
-    /* height: 100vh; */
-    box-sizing: border-box;
-    margin: 0 auto;
     background-color: #fff;
     /* padding: 10px; */
+   
 }
 .message-board-nav {
     display: flex;
@@ -140,7 +112,7 @@ span.message-other {
     width: 100%;
     background-color: #f5f5f5;
     padding: 10px;
-    border-bottom: 1px solid rgb(235, 233, 233);
+    /* border-bottom: 1px solid rgb(235, 233, 233); */
 }
 .message-board-nav div:last-child span{
     padding: 7px;
@@ -152,7 +124,10 @@ span.message-other {
     color: #fff;
 }
 .message-board-body {
-    height: 400px;
+    /* height: 330px; */
+    height: fit-content;
+    height: 60vh;
+    flex-grow: 1;
     width: 100%;
     overflow: scroll;
 }

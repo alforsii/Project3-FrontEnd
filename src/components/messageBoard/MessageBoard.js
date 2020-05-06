@@ -5,6 +5,7 @@ import { MessageContext } from '../../myContext/MessageProvider'
 import BoardNavbar from './components/BoardNavbar';
 import BoardBody from './components/BoardBody'
 import SendMessage from './components/SendMessage';
+import Avatar from '@material-ui/core/Avatar';
 import './MessageBoard.css';
 
 export class MessageBoard extends Component {
@@ -34,7 +35,7 @@ export class MessageBoard extends Component {
   render() {
     const {
       newMessages,
-      messageInput,
+      messageInputs,
       receiver,
       isLoading
     } = this.context.messageState;
@@ -44,6 +45,7 @@ export class MessageBoard extends Component {
         <div className="main-message-board">
           <div id='message-board' className="message-board">
             <div className="message-board-nav">
+              {!receiver && <Avatar/>}
               <Switch>
                 <Route exact path="/message-board/:id" component={BoardNavbar} />
               </Switch>
@@ -59,11 +61,11 @@ export class MessageBoard extends Component {
 
             <div id="message-board-body" className="message-board-body">
               <div id="messageBoardUsers">
-                  { receiver && <BoardBody isLoading={isLoading} newMessages={newMessages} state={this.context.messageState}/>}
+                  <BoardBody isLoading={isLoading} newMessages={newMessages} state={this.context.messageState}/>
               </div>
             </div>
             <SendMessage
-            messageInput={messageInput}
+            messageInputs={messageInputs}
             handleMessageSubmit={handleMessageSubmit}
             handleMessage={handleMessage}
             openEmojis={openEmojis}

@@ -90,7 +90,7 @@ export default function CreateWorkForm({
   const [topic, setTopic] = useState(defaultTopic);
   //Classwork
   const [classwork, setClasswork] = useState({
-    currClass: currClass._id ,
+    currClass: currClass?._id ,
     title: '',
     description: '',
     topic: '',
@@ -129,11 +129,11 @@ export default function CreateWorkForm({
       const studentsIds = students.map(student => student._id)
       // console.log({ ...classwork, students: students });
       const { data: { classworkFromDB}} = await AUTH_CLASSES.createClasswork({ ...classwork, schedule, students: studentsIds }, currClass._id)
-      console.log("Output for: classworks", classworkFromDB)
+      // console.log("Output for: classworks", classworkFromDB)
     } else {
       const studentsIds = classwork.students.map(student => student._id)
       const { data: { classworkFromDB}} = await AUTH_CLASSES.createClasswork({...classwork, schedule, students: studentsIds}, currClass._id)
-      console.log("Output for: classworks", classworkFromDB)
+      // console.log("Output for: classworks", classworkFromDB)
     }
     displayForm('#classwork-form');
     setClasswork({
@@ -144,6 +144,7 @@ export default function CreateWorkForm({
       students: [],
     });
     setTopic(defaultTopic);
+
   };
   return (
     <div id="classwork-form" className="classwork-form hide">
@@ -173,7 +174,7 @@ export default function CreateWorkForm({
           disabled
           id="standard-disabled"
           label="Classroom"
-          defaultValue={`${currClass.name}, grade ${currClass.grade}`}
+          defaultValue={`${currClass?.name}, grade ${currClass?.grade}`}
         />
         <Autocomplete
           multiple
@@ -181,7 +182,7 @@ export default function CreateWorkForm({
           size="small"
           limitTags={2}
           value={
-            classwork.students.length > 0
+            classwork?.students.length > 0
               ? classwork.students
               : [defaultStudents]
           }
@@ -226,12 +227,12 @@ export default function CreateWorkForm({
         ) : (
           <React.Fragment>
         <FormControl >
-          <InputLabel htmlFor="standard-adornment-password">Create Topic</InputLabel>
+          <InputLabel htmlFor="create-topic">Create Topic</InputLabel>
           <Input className={classes.textField}
-            id="standard-adornment-password"
+            id="create-topic"
             name="topic"
               label="Create Topic"
-            value={classwork.topic?.name}
+            value={classwork?.topic?.name}
             onChange={handleWorkInput}
             endAdornment={
               <InputAdornment position="end">

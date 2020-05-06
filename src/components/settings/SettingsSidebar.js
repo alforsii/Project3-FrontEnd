@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
 
 import { AUTH_SERVICE } from '../../services/auth/AuthServices'
 import  ProgressBar from '../auth/progressBar/ProgressBar'
@@ -11,7 +12,8 @@ import './SettingsSidebar.css'
 
 const useStyles = makeStyles((theme) => ({
     button: {
-      margin: theme.spacing(1),
+    //   margin: theme.spacing(1),
+    //   color: '#068ce6'
     },
   }));
   
@@ -86,10 +88,9 @@ const handleUploadInput = e => {
                 Profile Strength {profileStrength}% 
                     <ProgressBar isLoading={isLoading} strengthValue={profileStrength}/>
             </div>
-            <hr/>
             <div className='form-submit-container'>
-                    <label id='image-label' htmlFor="image">Upload here
-                        <CloudUploadIcon />
+                    <label id='image-label' htmlFor="image">
+                        <CloudUploadIcon style={{fontSize: '40px'}} />
                         <input id='image' type="file" name="image" onChange={handleUploadInput}/>
                     </label>
                     <span id='file-name'> <i>{imageInput.name}</i> </span>
@@ -101,7 +102,7 @@ const handleUploadInput = e => {
                         type='submit'
                         className={classes.button}
                     >
-                        Update image
+                        Update avatar image
                     </Button>
             </div>
           </form>

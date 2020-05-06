@@ -1,9 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import InfoIcon from '@material-ui/icons/Info';
+import IconButton from '@material-ui/core/IconButton';
+
+// import CreateClassForm from '../create-class-form/CreateClassForm';
 
 const ITEM_HEIGHT = 48;
 
@@ -42,24 +49,41 @@ export default function LongMenu({ currClass, removeClass }) {
           },
         }}
       >
-        <MenuItem selected={name === name} onClick={handleClose}>
-          <div className="each-student">
+        {/* <MenuItem selected={name === name} onClick={handleClose}> */}
+          {/* <div className="each-student">
             <img className="user-image-md" src={path} alt={name} />
             <h4>{name}</h4>
-          </div>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
+          </div> */}
+           <GridList style={{ width: '100%'}}>
+
+          <GridListTile  style={{width: '100%', padding: '10px', paddingTop: '0'}}>
+            <img style={{ width: '100%'}} src={path} alt={name} />
+            <GridListTileBar
+              title={name}
+              subtitle={<span>by: Ashraf</span>}
+              actionIcon={
+                <IconButton aria-label={`info about ${name}`} >
+                  <InfoIcon />
+                </IconButton>
+              }
+            />
+          </GridListTile>
+      </GridList>
+        {/* </MenuItem> */}
           <Link
             to={{
               pathname: '/update-class/edit',
               state: {
                 currClass,
+                openForm: true,
+                type: `Update Classroom: ${currClass.name}`
               },
             }}
           >
+        <MenuItem onClick={handleClose}>
             Edit
-          </Link>
         </MenuItem>
+          </Link>
         <MenuItem
           onClick={() => {
             removeClass(_id);

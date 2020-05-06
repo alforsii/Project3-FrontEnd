@@ -5,7 +5,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+// import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LockIcon from '@material-ui/icons/Lock';
 import SettingsIcon from '@material-ui/icons/Settings';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -16,14 +16,14 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import ClassSideNavbar from '../users/teachers/components/theClass/components/classSidebar/ClassSidebar';
 import MessageSidebar from '../messageBoard/components/messageSidebar/MessageSidebar'  
 import SettingsSidebar from '../settings/SettingsSidebar'
-import Avatar from '../auth/avatar/Avatar';
+// import Avatar from '../auth/avatar/Avatar';
 import './MainSidebar.css';
 const useStyles = makeStyles({
   list: {
     width: 400,
     height: '100vh',
-    display: 'flex',
-    flexDirection: 'row',
+    // display: 'flex',
+    // flexDirection: 'row',
   },
   fullList: {
     width: 'auto',
@@ -31,13 +31,15 @@ const useStyles = makeStyles({
   link: {
     textDecoration: 'none',
     color: '#333',
-    padding: 5,
+    padding: 1,
     margin: 0
   },
   hover: {
     // color: "#0794f3  !important",
+    transition: 'all 1s linier',
+    fontSize: '30px',
     "&:hover": {
-      color: "initial  !important"
+      color: "#0794f3  !important",
       }
   },
   columnDiv: {
@@ -45,7 +47,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    width: '350px',
+    // width: '350px',
     overflow: 'hidden',
   },
   iconsDiv: {
@@ -63,36 +65,36 @@ export default function TemporaryDrawer({ user, isUserLoggedIn }) {
       <List className={classes.iconsDiv}>
         <Link onClick={() => setComp('dashboard') } className={classes.link} to="/dashboard">
           <ListItem button >
-            <ListItemIcon className={classes.hover}>
-              <DashboardIcon />
+            <ListItemIcon >
+              <DashboardIcon className={classes.hover} />
             </ListItemIcon>
           </ListItem>
         </Link>
         <Link onClick={() => setComp('message-board') } className={classes.link} to="/message-board">
           <ListItem button >
-            <ListItemIcon className={classes.hover}>
-              <MessageIcon />
+            <ListItemIcon >
+              <MessageIcon className={classes.hover} />
             </ListItemIcon>
           </ListItem>
         </Link>
         <Link onClick={() => setComp('class') } className={classes.link} to="/class">
           <ListItem button >
-            <ListItemIcon className={classes.hover}>
-              <SchoolIcon />
+            <ListItemIcon >
+              <SchoolIcon className={classes.hover}/>
             </ListItemIcon>
           </ListItem>
         </Link>
         <Link onClick={() => setComp('settings') } className={classes.link} to="/settings">
           <ListItem button >
-            <ListItemIcon className={classes.hover}>
-              <LockIcon />
+            <ListItemIcon >
+              <LockIcon className={classes.hover} />
             </ListItemIcon>
           </ListItem>
         </Link>
         <Link onClick={() => setComp('settings') } className={classes.link} to="/settings">
           <ListItem button >
-            <ListItemIcon className={classes.hover}>
-              <SettingsIcon />
+            <ListItemIcon >
+              <SettingsIcon className={classes.hover} />
             </ListItemIcon>
           </ListItem>
         </Link>

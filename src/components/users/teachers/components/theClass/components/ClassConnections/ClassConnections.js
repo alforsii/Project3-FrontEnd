@@ -25,7 +25,6 @@ export default function ClassConnections({
   addToClass,
   closeUserList,
 }) {
-  console.log("ClassConnections: restStudents", restStudents)
 
   const [displayUsers,setDisplayUsers] = useState(true)
   const [currentStudents, setCurrentStudents] = useState([])
@@ -35,7 +34,7 @@ export default function ClassConnections({
     setCurrentStudents(students)
     setCurrentTeachers(teachers)
   },[students, teachers])
-  
+
   const switchUsersList = () => {
     setDisplayUsers(!displayUsers)
   };
@@ -91,7 +90,7 @@ export default function ClassConnections({
           currClass={currClass}
           users={currentStudents}
           filterUsers={filterUsers}
-          updateState={updateState}
+          // updateState={updateState}
           removeFromClass={removeFromClass}
         />
       ) : (
@@ -99,7 +98,7 @@ export default function ClassConnections({
           currClass={currClass}
           users={currentTeachers}
           filterUsers={filterUsers}
-          updateState={updateState}
+          // updateState={updateState}
           removeFromClass={removeFromClass}
         />
       )}
@@ -110,7 +109,7 @@ export default function ClassConnections({
         {restStudents && (
           <Students
             users={restStudents}
-            updateState={updateState}
+            // updateState={updateState}
             addToClass={addToClass}
             closeUserList={closeUserList}
           />
@@ -121,7 +120,7 @@ export default function ClassConnections({
         {restTeachers && (
           <Teachers
             users={restTeachers}
-            updateState={updateState}
+            // updateState={updateState}
             addToClass={addToClass}
             closeUserList={closeUserList}
           />

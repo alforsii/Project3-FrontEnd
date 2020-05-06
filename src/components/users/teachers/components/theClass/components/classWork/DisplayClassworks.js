@@ -30,7 +30,6 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 const ITEM_HEIGHT = 48;
 const useStyles = makeStyles(theme => ({
   root: {
-    // maxWidth: 345,
     margin: '20px',
   },
   expand: {
@@ -52,7 +51,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const dropMenu = ['Post', 'Copy', 'Edit', 'Delete'];
-export default function RecipeReviewCard({ classworks }) {
+export default function DisplayClassworks({ classworks }) {
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -86,7 +86,7 @@ export default function RecipeReviewCard({ classworks }) {
 
     const posted = moment(createdAt).calendar();
     return (
-      <Card key={_id} className={classes.root}>
+        <Card key={_id} className={classes.root}>
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
