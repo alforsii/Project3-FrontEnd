@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import MenuDropdown from './MenuDropdown'
+
 import moment from 'moment';
 
 import Pagination from './Pagination';
@@ -41,7 +42,7 @@ export default class ClassList extends Component {
               id="searchClass"
               onChange={searchForClass}
               name="searchClass"
-              placeholder="Search - Type class name..."
+              placeholder="Search - Type classroom name..."
             />
           )}
         </div>

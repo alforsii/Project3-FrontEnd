@@ -4,45 +4,45 @@ import SendIcon from '@material-ui/icons/Send';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
+import Snackbar from './Snackbar'
 
 import './SendMessage.css'
 const useStyles = makeStyles((theme) => ({
   root: {
-    //   padding: '10px',
+      padding: '10px',
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
       width: '100%',
+      maxWidth: '200px'
 },
 },
 textField: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    flexWrap: 'wrap'
   },
   button: {
     backgroundColor: '#0794f3',
-
   },
 }));
 
 // import Emojis from './Emojis'
 
-export default function SendMessage({ handleMessageSubmit, 
-    messageInput,
-    handleMessage }) {
+export default function SendMessage({ messageInputs, handleMessageSubmit, handleMessage }) {
         const classes = useStyles();
+        const [messageFromContext, setMessageFromContext] = useState({})
 
-        const [messageFromContext, setMessageFromContext] = useState([])
         useEffect(() => {
-            setMessageFromContext(messageInput)
-        },[messageInput])
+            setMessageFromContext(messageInputs)
+        },[messageInputs])
 
     return (
         <form className={classes.root} noValidate autoComplete="off"
-        onSubmit={handleMessageSubmit}
-      >
+        onSubmit={handleMessageSubmit}>
             <Divider />
       <div className={classes.textField}>
+      {/* <div> */}
       <TextField
           id="standard-multiline-flexible"
           label="Title"
@@ -73,17 +73,11 @@ export default function SendMessage({ handleMessageSubmit,
           value={messageFromContext?.message}
           onChange={handleMessage}
         />
-       <div>
-       <Button
-        variant="contained"
-        color="primary"
-        type='submit'
-        className={classes.button}
-        endIcon={<SendIcon>send</SendIcon>}
-      >
-        Send
-      </Button>
-       </div>
+
+      {/* </div> */}
+           <div>
+            <Snackbar/>
+           </div>
       </div>
       </form>
     )

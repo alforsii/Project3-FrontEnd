@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 
 import { AUTH_SERVICE } from '../../services/auth/AuthServices'
 import ProgressBar from '../auth/progressBar/ProgressBar'
@@ -93,6 +94,7 @@ export class UpdateProfile extends Component {
       handleFormInput={this.handleFormInput}
       />
       </div>
+      <Divider/>
         <p className='footer-mark'>&copy; IronSchool App 2020 - final project at Ironhack by A.Kurbonaliev [web-dev oct 2019]!</p>
       </>
     );
@@ -124,8 +126,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   button: {
-    backgroundColor: '#0794f3',
+    // backgroundColor: '#0794f3',
     width: '300px',
+    color: '#068ce6'
   }
 }));
 
@@ -151,7 +154,7 @@ const useStyles = makeStyles((theme) => ({
         <TextField className={classes.textField} onChange={handleFormInput} variant="filled" id="state" name='state' value={state} label="State" />
         <TextField className={classes.textField} onChange={handleFormInput} variant="filled" id="country" name='country' value={country} label="Country" />
       </div>
-      <Button className={classes.button} variant="contained" type='submit' color="primary">
+      <Button className={classes.button}  type='submit'>
         Save changes
       </Button>
     </form>

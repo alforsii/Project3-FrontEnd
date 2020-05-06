@@ -4,12 +4,12 @@ import { Switch} from 'react-router-dom'
 import ProtectedRoute from '../protectedRoute/ProtectedRoute'
 import TeacherPage from '../users/teachers/TeacherPage'
 import TheClass from '../users/teachers/components/theClass/TheClass'
-import AddNewClass from '../users/teachers/components/create-class-form/ClassForm'
+// import AddNewClass from '../users/teachers/components/create-class-form/ClassForm'
 import MessageBoard from '../messageBoard/MessageBoard';
 import UpdateProfile from '../settings/UpdateProfile'
 import MainSidebar from './MainSidebar'
 import MainNavbar from './MainNavbar'
-import CreateForm from '../users/teachers/components/create-class-form/CreateForm'
+import CreateFormTemplate from '../users/teachers/components/create-class-form/CreateFormTemplate'
 
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -60,7 +60,10 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
   },
   content: {
-    flexGrow: 12,
+    flexGrow: 100,
+    maxWidth: '1200px',
+    display: 'flex',
+    justifyContent: 'center',
     padding: theme.spacing(0),
   },
 }));
@@ -68,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MiniDrawer({ user, isUserLoggedIn, handleLogout }) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -113,15 +116,17 @@ export default function MiniDrawer({ user, isUserLoggedIn, handleLogout }) {
       </Drawer>
       <main className={classes.content}>
         {/* ["xs","sm","md","lg","xl",false]. */}
-        <Container maxWidth="xl">
+        <Container style={{maxWidth: '1100px'}}>
         <Switch>
             <ProtectedRoute exact path="/dashboard" component={TeacherPage} />
-            <ProtectedRoute exact path="/new-class/add" component={CreateForm} />
-            {/* <ProtectedRoute exact path="/new-class/add" component={AddNewClass} /> */}
-            <ProtectedRoute exact path="/update-class/edit" component={AddNewClass} />
+
+            <ProtectedRoute exact path="/new-class/add" component={CreateFormTemplate} />
+            <ProtectedRoute exact path="/update-class/edit" component={CreateFormTemplate} />
             <ProtectedRoute exact path="/class/:classId" component={TheClass} />
+
             <ProtectedRoute exact path="/message-board" component={MessageBoard}/>
             <ProtectedRoute exact path="/message-board/:id" component={MessageBoard}/>
+
             <ProtectedRoute exact path="/settings" component={UpdateProfile}/>
           </Switch>
       </Container>

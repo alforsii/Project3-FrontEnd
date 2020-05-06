@@ -3,7 +3,7 @@ navbar color: light blue: #0794f3
 hover color: Light blue: #068ce6
 White: #fff
 */
-
+/* 
 .main-sidebar {
     position: absolute;
     top: 0;
@@ -32,13 +32,6 @@ White: #fff
     0%{opacity: 1;display: flex;}
     100%{opacity: 0;display: none;}
 }
-/* #side-bar {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    display: none;
-    
-} */
 
 .side-bar {
     top: 0;
@@ -50,29 +43,7 @@ White: #fff
     z-index: 12;
     font-size: 18px;
     overflow: hidden;
-    
-    /* animation-name: sidebar;
-    animation-duration: 0.8s;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in-out; */
-}
-/* @keyframes sidebar {
-    0%{left: -250px;}
-    100%{left: 0px;}
-}
-.show-sidebar {
-    display: flex;
-}
-.hide-sidebar {
-    animation-name: hide-sidebar;
-    animation-duration: 0.6s;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in-out;
-}
-@keyframes hide-sidebar {
-    0%{left: 0px;display: flex;}
-    100%{left: -250px;display: none;}
-} */
+}  
 
 h4 {
     margin: 0;
@@ -83,8 +54,6 @@ hr {
     border-radius: 50%;
 }
 .user-sidebar {
-    /* position: fixed; */
-    /* height: 300px; */
     width: 250px;
     z-index: 6;
     background-color: #fff;
@@ -118,10 +87,10 @@ hr {
     padding: 20px;
 }
 .sections a li span:last-child {
-    /* font-size: 20px; */
+
 }
 .sections a:hover {
     background-color: #0794f3;
     color: #fff;
     width: 100%;
-}
+} */

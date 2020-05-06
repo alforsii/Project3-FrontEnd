@@ -13,9 +13,10 @@ White: #fff
 const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600', '#eb4f82', '#73cae3', '#027ebc', ]
 */
 .main-teacher {
-    padding-top: 70px;
-    /* width: 100vw; */
-    display: flex;
+    margin-top: 70px;
+    max-width: 1000px;
+    background-color: #f5f5f5;
+    padding: 10px;
 }
 /* #t-side-menu {
   height: 100%;
@@ -26,12 +27,10 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
   margin: 0;
 } */
 .main-teacher div.t-child-div:first-child{
-    background-color: #F5F5F5;
-    padding: 10px;
-    border: 1px solid #F5F5F5;
+    /* border: 1px solid  #d0e9fa; */
 }
 /* Switch button */
-.main-switch {
+/* .main-switch {
     width: 100%;
     border-radius: 30px;
     margin: 0 auto;
@@ -39,7 +38,7 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
     justify-content: center;
     position: relative;
     top: -50px;
-}
+} */
 #cover-img {
   width: 100%; 
   height: 300px;
@@ -68,7 +67,7 @@ const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600'
   }
 } */
 
-#click-btn,
+/* #click-btn,
 .click-btn
  {
     padding: 5px 10px;
@@ -95,7 +94,7 @@ button.delete-btn:focus {
     background-color: #E0E0E0;
     color: #0794f3;
     opacity: 1;
-}
+} */
 
   /* end Switch button */
 

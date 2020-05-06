@@ -70,7 +70,7 @@ export default function Message() {
           primary={
             <>
               <span style={{width:'100%',display: 'flex', justifyContent: 'space-between', alignItems: 'flexStart'}}> 
-              <span>{`${'Admin'} ${'MessageBot'}`}</span>
+              <span>{`${'MessageBot'}`}</span>
               <i style={{fontSize: '12px'}}>{moment(new Date()).calendar()}</i>
               </span>
               <Divider/>
@@ -88,7 +88,7 @@ export default function Message() {
               <Card className={classes.cardRoot}>
                 <CardContent>
                   <Typography className={classes.title} color="textSecondary" gutterBottom>
-                   Hello there! Welcome to My IronSchool app.
+                   Hello there! Welcome to IronSchool app.
                   </Typography>
                   
                   <Typography variant="body2" component="p">
@@ -107,7 +107,7 @@ export default function Message() {
                     <li>Invite parents and add students to the class</li>
                     <li>Check students activities</li>
                     <li>Share students activities with parents</li>
-                    <li>Keep in touch with you students,co-teachers and even with parents</li>
+                    <li>Keep in touch with your students,co-teachers and even with parents</li>
                    </li>
                   <li>Do your classwork here and enjoy my cool School app</li>
                 </ul>

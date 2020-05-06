@@ -8,13 +8,16 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AuthProvider from './myContext/AuthProvider'
 import MessageProvider from './myContext/MessageProvider'
+import ClassworkProvider from './myContext/ClassworkProvider'
 
 
 ReactDOM.render((
     <Router>
         <AuthProvider>
             <MessageProvider>
-            <App />
+                <ClassworkProvider>
+                    <App />
+                </ClassworkProvider>
             </MessageProvider>
         </AuthProvider>
     </Router>

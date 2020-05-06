@@ -3,7 +3,7 @@ navbar color: light blue: #0794f3
 hover color: Light blue: #068ce6
 White: #fff
 */
-
+/* 
 nav.navbar {
     position: fixed;
     top: 0;
@@ -12,12 +12,10 @@ nav.navbar {
     z-index: 10;
     background-color: #0794f3;
     background-color: #F0F0F0;
-    /* box-shadow: 0px 8px 20px 0px rgba(0,0,0,0.2); */
     border-bottom: .1px solid rgb(235, 234, 234);;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* height: 30px; */
     padding: 5px;
     margin-bottom: 5px;
 }
@@ -38,16 +36,12 @@ nav.navbar {
     background-color: #E8E8E8;
 }
 .nav-items:hover {
-    /* color: #fff; */
     background-color: #E0E0E0;
 }
 #nav-logo {
     background-color: transparent;
 }
-/* .nav-items:focus {
-    background-color: #0794f3;
-    color: #fff;
-} */
+
 .nav-items.focus-on {
     background-color: #0794f3;
     color: #fff;
@@ -79,4 +73,4 @@ nav.navbar {
     #nav-logo {
         display: none;
     }
-}
+} */

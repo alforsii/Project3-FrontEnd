@@ -79,7 +79,7 @@ export default function Message({
           primary={
             <>
               <span style={{width:'100%',display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}> 
-              <span>{`${firstName} ${firstName}`}</span>
+              <span>{`${firstName} ${lastName}`}</span>
               <i style={{fontSize: '12px'}}>{moment(createdAt).calendar()}</i>
               <MessageDropdown/>
               </span>

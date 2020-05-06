@@ -26,7 +26,7 @@ export default function MessagedUser(props) {
       <div className="user-div">
         <div className="user user1">
           <div className="user-image-div">
-            <Avatar src={path} alt={firstName} />
+            <Avatar src={path} alt={firstName} size='medium'/>
           </div>
           <div>
             <h5 className="username">
@@ -40,8 +40,8 @@ export default function MessagedUser(props) {
                 <span className="message-other">
                   <span className="">
                     <i className="fas fa-microphone"></i>
-                  </span>{' '}
-                  {lastMessage.author.firstName + ': '}{' '}
+                  </span>{': '}
+                  {/* {lastMessage.author.firstName + ': '}{' '} */}
                 </span>
               )}
               {lastMessage.message.length > 25

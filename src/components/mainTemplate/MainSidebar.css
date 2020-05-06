@@ -1,8 +1,4 @@
-.mu-sidebar a:hover {
-    color: #068ce6;
-   
 
-}
 .mu-sidebar {
     display: flex;
     overflow: hidden;
@@ -12,6 +8,5 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 350px;
-    overflow: scroll;
+    width: 420px;
 }

@@ -3,7 +3,11 @@ import {Button} from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AddIcon from '@material-ui/icons/Add';
-// import Snackbar from '../../../../auth/snackbar/Snackbar'
+import HelpIcon from '@material-ui/icons/Help';
+import WorkIcon from '@material-ui/icons/Work';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import TitleIcon from '@material-ui/icons/Title';
+
 
 const ITEM_HEIGHT = 48;
 
@@ -39,20 +43,20 @@ export default function MenuDropdown({ displayForm }) {
         }}
       >
         <MenuItem onClick={handleClose}>
-        <i className="fas fa-question-circle"></i> Question
+          <HelpIcon/> Question
         </MenuItem>
 
         <MenuItem onClick={() => {
           handleClose()
           displayForm('#classwork-form')
           }}>
-        <i className="fas fa-book"></i> Classwork
+        <WorkIcon/> Classwork
         </MenuItem>
         <MenuItem>
-        <i className="fas fa-tasks"></i> Assignment
+        <AssignmentIcon/> Assignment
         </MenuItem>
         <MenuItem>
-        <i className="fas fa-file-alt"></i> Topic
+        <TitleIcon/> Topic
         </MenuItem>
       </Menu>
     </div>
