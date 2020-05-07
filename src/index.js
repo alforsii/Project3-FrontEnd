@@ -9,17 +9,20 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import AuthProvider from './myContext/AuthProvider'
 import MessageProvider from './myContext/MessageProvider'
 import ClassworkProvider from './myContext/ClassworkProvider'
+import { SnackbarProvider} from 'notistack';
 
 
 ReactDOM.render((
     <Router>
-        <AuthProvider>
-            <MessageProvider>
-                <ClassworkProvider>
-                    <App />
-                </ClassworkProvider>
-            </MessageProvider>
-        </AuthProvider>
+        <SnackbarProvider>
+            <AuthProvider>
+                <MessageProvider>
+                    <ClassworkProvider>
+                        <App />
+                    </ClassworkProvider>
+                </MessageProvider>
+            </AuthProvider>
+        </SnackbarProvider>
     </Router>
 ), document.getElementById('root'));
 
