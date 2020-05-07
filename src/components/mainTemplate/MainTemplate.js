@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Switch} from 'react-router-dom'
 
 import ProtectedRoute from '../protectedRoute/ProtectedRoute'
@@ -72,6 +72,7 @@ export default function MiniDrawer({ user, isUserLoggedIn, handleLogout }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [webPage, setWebPage] = useState('Dashboard')
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -85,6 +86,7 @@ export default function MiniDrawer({ user, isUserLoggedIn, handleLogout }) {
     <div className={classes.root}>
       <CssBaseline />
       <MainNavbar 
+      webPage={webPage}
        open={open}
        user={user}
        handleLogout={handleLogout}
@@ -110,6 +112,9 @@ export default function MiniDrawer({ user, isUserLoggedIn, handleLogout }) {
         </div>
         <Divider />
         <MainSidebar 
+        setWebPage={setWebPage}
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
         handleLogout={handleLogout}
         isUserLoggedIn={isUserLoggedIn} 
         user={user}/>

@@ -1,4 +1,11 @@
 import React from 'react';
+
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import InfoIcon from '@material-ui/icons/Info';
+import IconButton from '@material-ui/core/IconButton';
+
 import './ImageForm.css'
 
 export default function ImageForm({
@@ -17,7 +24,22 @@ export default function ImageForm({
         encType="multipart/form-data"
       >
           <button type='button' className="close-form-btn align-right" onClick={() => displayForm('#main-form')}>X</button>
-          <img className='cover-image' src={src} alt=''/>
+          {/* <img className='cover-image' src={src} alt=''/> */}
+          <GridList cellHeight={300} >
+
+              <GridListTile   style={{width: '100%'}}>
+                <img style={{ width: '100%'}} src={src} alt={src} />
+                <GridListTileBar
+                  title={'upload image'}
+                  subtitle={<span>by: Ashraf</span>}
+                  actionIcon={
+                    <IconButton aria-label={`info about`} >
+                      <InfoIcon />
+                    </IconButton>
+                  }
+                />
+              </GridListTile>
+              </GridList> 
           <label>Update your cover image</label>
 
             <input

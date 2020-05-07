@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import clsx from 'clsx';
@@ -19,6 +19,7 @@ import Divider from '@material-ui/core/Divider';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 
 import Avatar from '../auth/avatar/Avatar';
 import './MainNavbar.css';
@@ -92,12 +93,21 @@ const useStyles = makeStyles((theme) => ({
       width: '20ch',
     },
   },
+  mainLink: {
+    color: 'purple',
+    textDecoration: 'none',
+    fontWeight: 'bold'
+  },
+  links: {
+    color: 'inherit',
+    textDecoration: 'none'
+  },
   sectionDesktop: {
     display: 'none',
     [theme.breakpoints.up('xs')]: {
       display: 'flex',
-      justifyContent:'center',
-      alignItems: 'center'
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   },
   sectionMobile: {
@@ -115,30 +125,31 @@ export default function PrimarySearchAppBar({
   handleDrawerOpen,
   open,
   handleLogout,
+  webPage,
 }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-//   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  //   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
-//   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  //   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-//   const handleMobileMenuClose = () => {
-//     setMobileMoreAnchorEl(null);
-//   };
+  //   const handleMobileMenuClose = () => {
+  //     setMobileMoreAnchorEl(null);
+  //   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
     // handleMobileMenuClose();
   };
 
-//   const handleMobileMenuOpen = (event) => {
-//     setMobileMoreAnchorEl(event.currentTarget);
-//   };
+  //   const handleMobileMenuOpen = (event) => {
+  //     setMobileMoreAnchorEl(event.currentTarget);
+  //   };
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -151,36 +162,44 @@ export default function PrimarySearchAppBar({
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
-        <IconButton aria-label="profile" color="inherit">
-          <Avatar src={user?.path} alt={user?.firstName} />
-        </IconButton>
-        Profile
+      <MenuItem  onClick={handleMenuClose}>
+        <Link className={classes.mainLink} to="/dashboard">
+          <IconButton aria-label="profile" color="inherit">
+            <Avatar src={user?.path} alt={user?.firstName} />
+          </IconButton>
+          Profile
+        </Link>
+      </MenuItem>
+
+      <MenuItem  onClick={handleMenuClose}>
+        <Link className={classes.links} to="/message-board">
+          <IconButton aria-label="show 4 new mails" color="inherit">
+            <Badge badgeContent={4} color="secondary">
+              <MailIcon />
+            </Badge>
+          </IconButton>
+          Messages
+        </Link>
       </MenuItem>
 
       <MenuItem onClick={handleMenuClose}>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        Messages
+        <Link  className={classes.links}  to="/notifications">
+          <IconButton aria-label="show 17 new notifications" color="inherit">
+            <Badge badgeContent={17} color="secondary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+          Notifications
+        </Link>
       </MenuItem>
 
-      <MenuItem onClick={handleMenuClose}>
-        <IconButton aria-label="show 17 new notifications" color="inherit">
-          <Badge badgeContent={17} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        Notifications
-      </MenuItem>
-
-      <MenuItem onClick={handleMenuClose}>
-        <IconButton aria-label="settings" color="inherit">
-          <SettingsIcon />
-        </IconButton>
-        Settings
+      <MenuItem  onClick={handleMenuClose}>
+        <Link className={classes.links} to="/settings">
+          <IconButton aria-label="settings" color="inherit">
+            <SettingsIcon />
+          </IconButton>
+          Settings
+        </Link>
       </MenuItem>
       <Divider />
       <MenuItem
@@ -197,67 +216,67 @@ export default function PrimarySearchAppBar({
     </Menu>
   );
 
-//   const mobileMenuId = 'primary-search-account-menu-mobile';
-//   const renderMobileMenu = (
-//     <Menu
-//       anchorEl={mobileMoreAnchorEl}
-//       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-//       id={mobileMenuId}
-//       keepMounted
-//       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-//       open={isMobileMenuOpen}
-//       onClose={handleMobileMenuClose}
-//     >
-//       <MenuItem onClick={handleMobileMenuClose}>
-//         <IconButton
-//           aria-label="account of current user"
-//           aria-controls="primary-search-account-menu"
-//           aria-haspopup="true"
-//           color="inherit"
-//         >
-//           <Avatar src={user?.path} alt={user?.firstName} />
-//         </IconButton>
-//         <p>Profile</p>
-//       </MenuItem>
+  //   const mobileMenuId = 'primary-search-account-menu-mobile';
+  //   const renderMobileMenu = (
+  //     <Menu
+  //       anchorEl={mobileMoreAnchorEl}
+  //       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+  //       id={mobileMenuId}
+  //       keepMounted
+  //       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+  //       open={isMobileMenuOpen}
+  //       onClose={handleMobileMenuClose}
+  //     >
+  //       <MenuItem onClick={handleMobileMenuClose}>
+  //         <IconButton
+  //           aria-label="account of current user"
+  //           aria-controls="primary-search-account-menu"
+  //           aria-haspopup="true"
+  //           color="inherit"
+  //         >
+  //           <Avatar src={user?.path} alt={user?.firstName} />
+  //         </IconButton>
+  //         <p>Profile</p>
+  //       </MenuItem>
 
-//       <MenuItem onClick={handleMobileMenuClose}>
-//         <IconButton aria-label="show 4 new mails" color="inherit">
-//           <Badge badgeContent={4} color="secondary">
-//             <MailIcon />
-//           </Badge>
-//         </IconButton>
-//         <p>Messages</p>
-//       </MenuItem>
+  //       <MenuItem onClick={handleMobileMenuClose}>
+  //         <IconButton aria-label="show 4 new mails" color="inherit">
+  //           <Badge badgeContent={4} color="secondary">
+  //             <MailIcon />
+  //           </Badge>
+  //         </IconButton>
+  //         <p>Messages</p>
+  //       </MenuItem>
 
-//       <MenuItem onClick={handleMobileMenuClose}>
-//         <IconButton aria-label="show 11 new notifications" color="inherit">
-//           <Badge badgeContent={11} color="secondary">
-//             <NotificationsIcon />
-//           </Badge>
-//         </IconButton>
-//         <p>Notifications</p>
-//       </MenuItem>
+  //       <MenuItem onClick={handleMobileMenuClose}>
+  //         <IconButton aria-label="show 11 new notifications" color="inherit">
+  //           <Badge badgeContent={11} color="secondary">
+  //             <NotificationsIcon />
+  //           </Badge>
+  //         </IconButton>
+  //         <p>Notifications</p>
+  //       </MenuItem>
 
-//       <MenuItem onClick={handleMobileMenuClose}>
-//         <IconButton aria-label="settings" color="inherit">
-//           <SettingsIcon />
-//         </IconButton>
-//         Settings
-//       </MenuItem>
-//       <Divider />
-//       <MenuItem
-//         onClick={() => {
-//           handleMobileMenuClose();
-//           handleLogout();
-//         }}
-//       >
-//         <IconButton aria-label="settings" color="inherit">
-//           <ExitToAppIcon />
-//         </IconButton>
-//         Logout
-//       </MenuItem>
-//     </Menu>
-//   );
+  //       <MenuItem onClick={handleMobileMenuClose}>
+  //         <IconButton aria-label="settings" color="inherit">
+  //           <SettingsIcon />
+  //         </IconButton>
+  //         Settings
+  //       </MenuItem>
+  //       <Divider />
+  //       <MenuItem
+  //         onClick={() => {
+  //           handleMobileMenuClose();
+  //           handleLogout();
+  //         }}
+  //       >
+  //         <IconButton aria-label="settings" color="inherit">
+  //           <ExitToAppIcon />
+  //         </IconButton>
+  //         Logout
+  //       </MenuItem>
+  //     </Menu>
+  //   );
 
   return (
     <div className={classes.grow}>
@@ -268,6 +287,17 @@ export default function PrimarySearchAppBar({
         })}
       >
         <Toolbar>
+          <Button
+            style={{  color: '#333' }}
+            color="inherit"
+            aria-label="web-page"
+            onClick={handleDrawerOpen}
+            className={clsx(classes.menuButton, {
+              [classes.hide]: !open,
+            },'web-page')}
+          >
+            {webPage}
+          </Button>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -297,17 +327,20 @@ export default function PrimarySearchAppBar({
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Link style={{color: '#fff'}}  to={{
-                        pathname: '/update-class/edit',
-                        state: {
-                            openForm: true,
-                            currClass: null,
-                            type: 'Create new class'
-                        },
-                        }}>
-                <IconButton aria-label="addClass" color="inherit">
-                        <AddIcon />
-                </IconButton>
+            <Link
+              style={{ color: '#fff' }}
+              to={{
+                pathname: '/update-class/edit',
+                state: {
+                  openForm: true,
+                  currClass: null,
+                  type: 'Create classroom',
+                },
+              }}
+            >
+              <IconButton aria-label="addClass" color="inherit">
+                <AddIcon />
+              </IconButton>
             </Link>
             <IconButton
               className="avatar"
@@ -335,7 +368,7 @@ export default function PrimarySearchAppBar({
                         <AddIcon />
                 </IconButton>
             </Link> */}
-            {/* <IconButton
+          {/* <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}
               aria-haspopup="true"

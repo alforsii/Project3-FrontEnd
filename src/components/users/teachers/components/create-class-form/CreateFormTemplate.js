@@ -21,7 +21,6 @@ import AddIcon from '@material-ui/icons/Add';
 import UpdateIcon from '@material-ui/icons/Update';
 
 import { AUTH_CLASSES } from '../../../../../services/classesAuth/ClassesAuth';
-import Loader from '../../../../messageBoard/components/loader/Loader';
 import CreateClassForm from './CreateClassForm';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +44,8 @@ export function FullScreenForm(props) {
   const currClass = linkState?.currClass;
   const openForm = linkState?.openForm;
   const [open, setOpen] = React.useState(openForm || false);
-  const [message, setMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [createForm, setCreateForm] = useState({
     name: linkState?.currClass?.name,
@@ -64,23 +64,29 @@ export function FullScreenForm(props) {
       try {
         setLoading(true);
         if (currClass) {
-          setMessage('Updating details! Please wait, it may take a moment...');
+          if(!createForm.name){
+            setErrorMessage('Name of the classroom is required!')
+            setLoading(false);
+            return
+          }
+          setSuccessMessage('Updating details! Please wait, it may take a moment...');
           await AUTH_CLASSES.updateClass(currClass._id, createForm);
         } else {
           if (!createForm.name) {
-            setMessage('Please type at least name of your class.');
+            setErrorMessage('Name of the classroom is required!')
             setLoading(false);
             return;
           }
 
-          setMessage(
+          setSuccessMessage(
             'Creating a new class.Please wait, it may take a moment...'
           );
           await AUTH_CLASSES.createClass(createForm);
         }
         //set current state
         setLoading(false);
-        setMessage('');
+        setSuccessMessage('');
+        setErrorMessage('')
         //set parent state
         setCreateForm({
           name: '',
@@ -90,10 +96,8 @@ export function FullScreenForm(props) {
           schoolYearEnd: '',
         });
         handleClose();
-        //redirect to the origin page
-        // props.history.push('/dashboard');
       } catch (error) {
-        setMessage('Sorry something went wrong. Try again later!');
+        setErrorMessage('Sorry something went wrong. Try again later!');
         setLoading(false);
       }
     };
@@ -174,8 +178,9 @@ export function FullScreenForm(props) {
           {linkState?.type}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText style={{ textAlign: 'center', color: 'red' }}>
-            {message}
+          <DialogContentText style={{ textAlign: 'center' }}>
+          {successMessage? <p style={{color: '#00c853'}}>{successMessage}</p>
+          :errorMessage? <p style={{color: '#d50000'}}> {errorMessage} </p>: ''}
           </DialogContentText>
 
           <CreateClassForm

@@ -5,7 +5,6 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LockIcon from '@material-ui/icons/Lock';
 import SettingsIcon from '@material-ui/icons/Settings';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -16,14 +15,13 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import ClassSideNavbar from '../users/teachers/components/theClass/components/classSidebar/ClassSidebar';
 import MessageSidebar from '../messageBoard/components/messageSidebar/MessageSidebar'  
 import SettingsSidebar from '../settings/SettingsSidebar'
-// import Avatar from '../auth/avatar/Avatar';
+import UpdateAccount from '../account/UpdateAccount'
 import './MainSidebar.css';
+
 const useStyles = makeStyles({
   list: {
     width: 400,
     height: '100vh',
-    // display: 'flex',
-    // flexDirection: 'row',
   },
   fullList: {
     width: 'auto',
@@ -35,11 +33,10 @@ const useStyles = makeStyles({
     margin: 0
   },
   hover: {
-    // color: "#0794f3  !important",
     transition: 'all 1s linier',
     fontSize: '30px',
     "&:hover": {
-      color: "#0794f3  !important",
+      color: "purple  !important",
       }
   },
   columnDiv: {
@@ -47,7 +44,6 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    // width: '350px',
     overflow: 'hidden',
   },
   iconsDiv: {
@@ -56,42 +52,44 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TemporaryDrawer({ user, isUserLoggedIn }) {
+export default function TemporaryDrawer({ user, isUserLoggedIn, handleDrawerOpen, setWebPage }) {
   const classes = useStyles();
-  const [comp, setComp] = React.useState('')
 
   return (
     <div className={(classes.list, 'mu-sidebar')}>
       <List className={classes.iconsDiv}>
-        <Link onClick={() => setComp('dashboard') } className={classes.link} to="/dashboard">
+        <Link onClick={() => setWebPage('Dashboard')} className={classes.link} to="/dashboard">
           <ListItem button >
             <ListItemIcon >
               <DashboardIcon className={classes.hover} />
             </ListItemIcon>
           </ListItem>
         </Link>
-        <Link onClick={() => setComp('message-board') } className={classes.link} to="/message-board">
+        <Link onClick={() => {
+          handleDrawerOpen()
+          setWebPage('Message board')
+        }} className={classes.link} to="/message-board">
           <ListItem button >
             <ListItemIcon >
               <MessageIcon className={classes.hover} />
             </ListItemIcon>
           </ListItem>
         </Link>
-        <Link onClick={() => setComp('class') } className={classes.link} to="/class">
+        <Link onClick={() => setWebPage('Classrooms')} className={classes.link} to="/class">
           <ListItem button >
             <ListItemIcon >
               <SchoolIcon className={classes.hover}/>
             </ListItemIcon>
           </ListItem>
         </Link>
-        <Link onClick={() => setComp('settings') } className={classes.link} to="/settings">
+        <Link onClick={() => setWebPage('Account')} className={classes.link} to="/account">
           <ListItem button >
             <ListItemIcon >
               <LockIcon className={classes.hover} />
             </ListItemIcon>
           </ListItem>
         </Link>
-        <Link onClick={() => setComp('settings') } className={classes.link} to="/settings">
+        <Link onClick={() => setWebPage('Settings')} className={classes.link} to="/settings">
           <ListItem button >
             <ListItemIcon >
               <SettingsIcon className={classes.hover} />
@@ -110,9 +108,11 @@ export default function TemporaryDrawer({ user, isUserLoggedIn }) {
       </List>
       <Divider orientation="vertical" flexItem />
       <div className="dynamic-sidebars">
-        { comp === 'message-board' && <MessageSidebar/>}
         <Switch>
+          <Route exact strict path='/message-board' component={MessageSidebar}/>
+          <Route exact strict path='/message-board/:id' component={MessageSidebar}/>
           <Route exact strict path='/class/:classId' component={ClassSideNavbar}/>
+          <Route exact strict path='/account' render={props => <UpdateAccount {...props} user={user}/>}/>
           <Route exact strict path='/dashboard' render={props => <SettingsSidebar {...props} user={user} isUserLoggedIn={isUserLoggedIn} />}/>
         </Switch>
 

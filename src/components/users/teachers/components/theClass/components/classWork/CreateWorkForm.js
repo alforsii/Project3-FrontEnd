@@ -85,7 +85,7 @@ export default function CreateWorkForm({
   const [message, setMessage] = useState('');
   //Set schedule for notification
   const [schedule, setSchedule] = useState('');
-  console.log("Output for: schedule", schedule)
+
   //Set topic button
   const [topic, setTopic] = useState(defaultTopic);
   //Classwork

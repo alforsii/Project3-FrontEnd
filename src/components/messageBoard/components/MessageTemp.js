@@ -7,7 +7,6 @@ import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '../../auth/avatar/Avatar';
 import Typography from '@material-ui/core/Typography';
 import TelegramIcon from '@material-ui/icons/Telegram';
 import Card from '@material-ui/core/Card';
@@ -20,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     justifyContent: 'flex-start',
-
     width: '100%',
     // maxWidth: '70ch',
     backgroundColor: theme.palette.background.paper,
@@ -47,18 +45,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Message() {
   const classes = useStyles();
-
-  //check for link in text
-  function validURL(str) {
-    var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-    return !!pattern.test(str);
-  }
-
   return (
     <List className={classes.root}>
 

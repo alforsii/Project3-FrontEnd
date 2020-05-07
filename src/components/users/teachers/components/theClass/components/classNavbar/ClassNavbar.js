@@ -36,7 +36,7 @@ export default function DisabledTabs({switchDefaultPage}) {
         indicatorColor="primary"
         textColor="primary"
         onChange={handleChange}
-        aria-label="tabs example"
+        aria-label="tabs"
       >
         <Tab className={classes.tab} onClick={() => switchDefaultPage('posts')} label="Posts" />
         <Tab className={classes.tab} onClick={() => switchDefaultPage('works')}  label="Classworks" />

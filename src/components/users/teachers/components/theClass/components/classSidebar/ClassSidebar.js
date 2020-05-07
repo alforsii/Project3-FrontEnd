@@ -11,6 +11,7 @@ import BottomNav from '../classNavbar/BottomNav';
 import { AuthContext } from '../../../../../../../myContext/AuthProvider';
 import './ClassSidebar.css'
 export default function ClassSidebar(props) {
+  console.log("Output for: ClassSidebar -> props", props)
   const currClass  = props.location.state?.currClass;
   return (
     <AuthContext.Consumer>
@@ -27,7 +28,7 @@ export default function ClassSidebar(props) {
                 <img style={{ width: '100%'}} src={currClass?.path} alt={currClass?.name} />
                 <GridListTileBar
                   title={currClass?.name}
-                  subtitle={<span>by: Ashraf</span>}
+            subtitle={<span>by: {`${currClass?.author.firstName} ${currClass?.author.lastName}`}</span>}
                   actionIcon={
                     <IconButton aria-label={`info about ${currClass?.name}`} >
                       <InfoIcon />

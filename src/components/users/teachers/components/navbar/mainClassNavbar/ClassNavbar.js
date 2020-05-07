@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center'
     },
     tab: {
-        width: '33%',
+        width: '25%',
     }
   }));
 
@@ -40,6 +40,7 @@ export default function DisabledTabs({getUsers, toggleSearchBar, updateState, to
       >
         <Tab className={classes.tab} onClick={toggleSearchBar} label="Search" />
         <Tab className={classes.tab} onClick={() => updateState({navigate: 'classrooms'})}  label="Classrooms" />
+        <Tab className={classes.tab} onClick={() => updateState({navigate: 'library'})}  label="Library" />
         <Tab className={classes.tab} onClick={() => updateState({navigate: 'archive'})}  label="Archives" />
       </Tabs>
     </Paper>

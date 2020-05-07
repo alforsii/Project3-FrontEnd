@@ -1,0 +1,11 @@
+.web-page {
+    /* opacity: 0; */
+    position: fixed;
+    /* left: -250px; */
+    animation: webpage 1.2s linear  forwards;
+}
+
+@keyframes webpage {
+    0%{opacity: 0; left: -250px;}
+    100%{opacity: 3;left: -250px;}
+}
