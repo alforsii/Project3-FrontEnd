@@ -1,0 +1,16 @@
+
+.main-settings {
+    margin-top: 70px;
+}
+.main-settings h2 {
+    text-align: center;
+}
+.main-settings hr {
+    width: 100%;
+    border: 0.5px solid #addcfc;
+}
+.footer-mark {
+    font-size: 14px;
+    font-family: monospace;
+    text-align: center;
+}

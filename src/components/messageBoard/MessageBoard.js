@@ -6,6 +6,7 @@ import BoardNavbar from './components/BoardNavbar';
 import BoardBody from './components/BoardBody'
 import SendMessage from './components/SendMessage';
 import Avatar from '@material-ui/core/Avatar';
+import BubbleChartIcon from '@material-ui/icons/BubbleChart';
 import './MessageBoard.css';
 
 export class MessageBoard extends Component {
@@ -45,11 +46,14 @@ export class MessageBoard extends Component {
         <div className="main-message-board">
           <div id='message-board' className="message-board">
             <div className="message-board-nav">
-              {!receiver && <Avatar/>}
-              <Switch>
+              {/* <Switch>
                 <Route exact path="/message-board/:id" component={BoardNavbar} />
-              </Switch>
+              </Switch> */}
+              <BoardNavbar/>
+              {/* {!receiver && <><Avatar/> <BubbleChartIcon/></>} */}
+             
               <div>
+                
                 <span>
                   <i className="fas fa-user-plus"></i>
                 </span>
@@ -61,16 +65,23 @@ export class MessageBoard extends Component {
 
             <div id="message-board-body" className="message-board-body">
               <div id="messageBoardUsers">
+                {/* <Switch>
+                <Route exact path="/message-board/:id" render={props => 
+                <BoardBody {...props} isLoading={isLoading}
+                state={this.context.messageState}
+                 newMessages={newMessages}/>} />
+                </Switch> */}
                   <BoardBody isLoading={isLoading} newMessages={newMessages} state={this.context.messageState}/>
               </div>
             </div>
+            {receiver && 
             <SendMessage
             messageInputs={messageInputs}
             handleMessageSubmit={handleMessageSubmit}
             handleMessage={handleMessage}
             openEmojis={openEmojis}
             handleFileChange={handleFileChange}
-            />
+            />}
           </div>
         </div>
       </div>

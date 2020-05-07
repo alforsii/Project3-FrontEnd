@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 
 import { AUTH_SERVICE } from '../../services/auth/AuthServices'
 import  ProgressBar from '../auth/progressBar/ProgressBar'
@@ -80,12 +81,17 @@ const handleUploadInput = e => {
                 {user?.firstName} {user?.lastName}{' '}
               </h2>
               <p>{user.city? `${user.city},`: ''} {user.state} {user?.country}</p>
-              <p><i>Since {user?.createdAt.split('T')[0]}</i> </p>
+              <Typography gutterBottom variant="body2">
+                {user?.title}
+              </Typography>
+              {/* <p><i>Since {user?.createdAt.split('T')[0]}</i> </p> */}
             </div>
 
           <form onSubmit={handleUploadSubmit} encType="multipart/form-data">
             <div className="progress">
+            <Typography display="block" variant="caption" color="textSecondary">
                 Profile Strength {profileStrength}% 
+            </Typography>
                     <ProgressBar isLoading={isLoading} strengthValue={profileStrength}/>
             </div>
             <div className='form-submit-container'>
@@ -106,6 +112,9 @@ const handleUploadInput = e => {
                     </Button>
             </div>
           </form>
+          <Typography gutterBottom variant="body2">
+              Since {user?.createdAt.split('T')[0]}
+              </Typography>
       </div>
 
     )

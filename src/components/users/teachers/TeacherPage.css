@@ -108,7 +108,7 @@ button.delete-btn:focus {
 }
 #cover-img-upload-btn {
   position: absolute;
-  top: 10px;
+  bottom: 60px;
   right: 10px;
   font-size: 20px;
   border-radius: 5px;

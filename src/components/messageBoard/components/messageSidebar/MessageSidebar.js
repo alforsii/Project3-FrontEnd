@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Divider from '@material-ui/core/Divider';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import ListItem from '@material-ui/core/ListItem';
 
 import Avatar from '../../../auth/avatar/Avatar';
 import MessageHistory from './MessageHistory';
@@ -44,6 +47,11 @@ export default function MessageSidebar() {
               </div>
 
               <div className="messages-history">
+              <h2 style={{textAlign: 'center'}}>
+                <ListItem>
+                  <MailOutlineIcon/>
+                </ListItem>Messages </h2>
+              <Divider/>
                 {userBoards && (
                   <MessageHistory
                     state={msgContext.state}

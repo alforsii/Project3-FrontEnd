@@ -149,7 +149,7 @@ export class MessageProvider extends Component {
         id: this.state.receiver._id,
       });
       const { messages, newMessages } = res.data;
-      this.setState({ messages, newMessages });
+      this.setState({ messages, newMessages: newMessages });
     }
   };
 

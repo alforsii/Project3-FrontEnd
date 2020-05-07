@@ -3,15 +3,14 @@ import Avatar from '../../auth/avatar/Avatar';
 import {MessageContext} from '../../../myContext/MessageProvider'
 
 export default function BoardNavbar(props) {
-console.log("Output for: BoardNavbar -> props", props)
 
   return (
     <MessageContext.Consumer>
       {msgContext => {
          const { message, receiver} = msgContext.messageState
-         if(!receiver) props.history.push('/message-board')
+        //  if(!receiver) props.history.push('/message-board')
          return (
-          <div>
+          <>
             <div className="user-div">
               <div className="user2">
                   <div className="user-image-div large">
@@ -27,7 +26,8 @@ console.log("Output for: BoardNavbar -> props", props)
                 </div>
               </div>
             </div>
-          </div>
+           
+          </>
         );
       }}
     </MessageContext.Consumer>

@@ -4,10 +4,12 @@ import Navbar from './components/navbar/Navbar'
 import MainClassNavbar from './components/navbar/mainClassNavbar/ClassNavbar'
 import ClassesList from './components/classesList/ClassesList';
 import ImageUploadForm from  './components/img-uploadForm/ImageForm'
+import DashboardSkeleton from './components/dashboardSkeleton/DashboardSkeleton'
 import UsersList from './components/usersList/UsersList'
 import Loader from '../../messageBoard/components/loader/Loader'
 import { AUTH_CLASSES } from '../../../services/classesAuth/ClassesAuth';
 import AUTH_SERVICE from '../../../services/auth/AuthServices';
+
 import './TeacherPage.css';
 
 export class Teacher extends Component {
@@ -110,8 +112,9 @@ export class Teacher extends Component {
       <div className="main-teacher">
         <div id='t-main' className="t-child-div">
           <div className='cover-img-div'>
-            {isLoading && <Loader message={message}/> }
-            <img id='cover-img' src={user?.dashboardImg} alt='dashboard image'/>
+            <DashboardSkeleton user={user}/>
+            {/* {isLoading && <Loader message={message}/> }
+            <img id='cover-img' src={user?.dashboardImg} alt='dashboard image'/> */}
             <button onClick={() => displayForm('#main-form')} id='cover-img-upload-btn'>
                 <span><i className="fas fa-camera"></i></span>
             </button>
@@ -147,6 +150,7 @@ export class Teacher extends Component {
           removeClass={classId => this.removeClass(classId)}
           search={search} />
           }
+
           </div>
         </div>
         {/* ----------- position fixed or hidden  */}

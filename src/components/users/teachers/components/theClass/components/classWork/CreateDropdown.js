@@ -7,6 +7,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import WorkIcon from '@material-ui/icons/Work';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import TitleIcon from '@material-ui/icons/Title';
+import IconButton from '@material-ui/core/IconButton';
 
 
 const ITEM_HEIGHT = 48;
@@ -23,6 +24,21 @@ export default function MenuDropdown({ displayForm }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const myStyle = {
+    padding: '10px',
+    marginLeft: '10px',
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    hover: {
+      transition: 'all 1s linier',
+      fontSize: '30px',
+      "&:hover": {
+        backgroundColor: "0  !important",
+        }
+    },
+  }
 
   return (
     <div>
@@ -39,24 +55,36 @@ export default function MenuDropdown({ displayForm }) {
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
             width: '30ch',
+            padding: '5px'
           },
         }}
       >
-        <MenuItem onClick={handleClose}>
-          <HelpIcon/> Question
+      
+        <MenuItem>
+        <IconButton >
+           <TitleIcon/> <h4>Topic</h4>
+        </IconButton>
         </MenuItem>
 
         <MenuItem onClick={() => {
           handleClose()
           displayForm('#classwork-form')
           }}>
-        <WorkIcon/> Classwork
+            <IconButton >
+        <WorkIcon /> <h4>Classwork</h4>
+            </IconButton>
         </MenuItem>
+
         <MenuItem>
-        <AssignmentIcon/> Assignment
+          <IconButton >
+        <AssignmentIcon/> <h4>Assignment</h4>
+          </IconButton>
         </MenuItem>
-        <MenuItem>
-        <TitleIcon/> Topic
+     
+        <MenuItem onClick={handleClose}>
+          <IconButton >
+          <HelpIcon/> <h4>Question</h4>
+          </IconButton>
         </MenuItem>
       </Menu>
     </div>

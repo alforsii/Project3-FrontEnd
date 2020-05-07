@@ -76,7 +76,7 @@ export default function LongMenu({ currClass, removeClass }) {
               state: {
                 currClass,
                 openForm: true,
-                type: `Update Classroom: ${currClass.name}`
+                type: `Update classroom: ${currClass.name}`
               },
             }}
           >

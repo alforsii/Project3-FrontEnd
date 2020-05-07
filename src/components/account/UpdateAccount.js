@@ -7,27 +7,20 @@ import Divider from '@material-ui/core/Divider';
 import { AUTH_SERVICE } from '../../services/auth/AuthServices'
 import ProgressBar from '../auth/progressBar/ProgressBar'
 // import moment from 'moment'
-import './UpdateProfile.css';
+import './UpdateAccount.css';
 
-export class UpdateProfile extends Component {
+export class UpdateAccount extends Component {
     state = {
         successMessage: '',
         errorMessage: '',
         isLoading: false,
         userForm: {
-            username: '',
-            firstName: '',
-            lastName: '',
             email: '',
             password: '',
-            phone: '',
-            city: '',
-            state: '',
-            country: '',
         }
     }
     componentDidMount = () => {
-      const user = this.props.context.state.user
+      const user = this.props?.user
       this.setState(prevState => ({
         userForm: {
           ...prevState.userForm,
@@ -53,26 +46,14 @@ export class UpdateProfile extends Component {
         try {
           e.preventDefault()
           this.setState({ isLoading: true })
-          const {firstName, lastName, email,password} = this.state.userForm
-          if(!firstName || !lastName || !email || !password){
-            this.setState({ errorMessage: 'First name, last name, email and password are require!'})
-            return
-          }
-        await AUTH_SERVICE.updateProfile(this.state.userForm)
+        await AUTH_SERVICE.updateAccount(this.state.userForm)
       
         this.setState(prevState => ({
           ...prevState,
           successMessage: 'Thanks! Successfully updated',
           userForm: {
-            username: '',
-            firstName: '',
-            lastName: '',
             email: '',
-            password: '',
-            phone: '',
-            city: '',
-            state: '',
-            country: '',
+            password: ''
           }
         }));
 
@@ -93,8 +74,8 @@ export class UpdateProfile extends Component {
       <div className="main-settings">
       <h2><i style={{color: `${styleColor}`}}> { successMessage? 
       successMessage
-      : errorMessage? errorMessage : 'Update your account details here'} </i></h2>
-      <ProgressBar isLoading={isLoading} strengthValue={100}/>
+      : errorMessage? errorMessage : 'Update account password here'} </i></h2>
+      <ProgressBar isLoading={isLoading} strengthValue={0}/>
       <UpdateUserDetails 
       userForm={userForm}
       handleFormSubmit={this.handleFormSubmit}
@@ -102,12 +83,11 @@ export class UpdateProfile extends Component {
       />
       </div>
       <Divider/>
-        <p className='footer-mark'>&copy; IronSchool App 2020 - final project at Ironhack by A.Kurbonaliev [web-dev oct 2019]!</p>
       </>
     );
   }
 }
-export default UpdateProfile;
+export default UpdateAccount;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -122,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   textField: {
-    minWidth: '400px',
+    minWidth: '300px',
     padding: 5
   },
   rows: {
@@ -134,33 +114,20 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     // backgroundColor: '#0794f3',
-    width: '300px',
+    width: '200px',
     color: '#068ce6'
   }
 }));
 
  function UpdateUserDetails({  handleFormSubmit, handleFormInput, userForm }) {
   const classes = useStyles();
-  const { username,firstName, lastName,email,password,phone,city,state,country } = userForm;
+  const { email,password} = userForm;
 
   return (
     <form onSubmit={handleFormSubmit} className={classes.root} noValidate autoComplete="off">
       <div className={classes.rows}>
-        <TextField className={classes.textField} onChange={handleFormInput} require={true} type='text' variant="filled" id="firstName" name='firstName'  value={firstName} label="First Name" />
-        <TextField className={classes.textField} onChange={handleFormInput} require={true} type='text' variant="filled" id="lastName" name='lastName' value={lastName} label="Last Name" />
-      </div>
-      <div className={classes.rows}>
-        <TextField className={classes.textField} onChange={handleFormInput} require={true} type='email' variant="filled" id="email" name='email' value={email} label="Email address" />
-        <TextField className={classes.textField} onChange={handleFormInput} type='number' variant="filled" id="phone" name='phone' value={phone} label="Phone number" />
-        <TextField className={classes.textField} onChange={handleFormInput} require={true} type='password' variant="filled" id="password" name='password' value={password} label="Password" />
-      </div>
-      <div className={classes.rows}>
-        <TextField className={classes.textField} onChange={handleFormInput} type='text' variant="filled" id="username" name='username' value={username} label="Username" />
-        <TextField className={classes.textField} onChange={handleFormInput} type='text' variant="filled" id="city" name='city' value={city} label="City" />
-      </div>
-      <div className={classes.rows}>
-        <TextField className={classes.textField} onChange={handleFormInput} type='text' variant="filled" id="state" name='state' value={state} label="State" />
-        <TextField className={classes.textField} onChange={handleFormInput} type='text' variant="filled" id="country" name='country' value={country} label="Country" />
+        <TextField className={classes.textField} onChange={handleFormInput} type='email' variant="filled" id="email" name='email'  value={email} label="Email address" />
+        <TextField className={classes.textField} onChange={handleFormInput} type='password' variant="filled" id="password" name='password' value={password} label="Password" />
       </div>
       <Button className={classes.button}  type='submit'>
         Save changes

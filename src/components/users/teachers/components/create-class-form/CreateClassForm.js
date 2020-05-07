@@ -59,11 +59,11 @@ const useStyles = makeStyles((theme) => ({
         {/* <img className='cover-image-md' src={image? image:'/images/school-class.jpg'} alt='School cover image' /> */}
 
         <div className={classes.columns}>
-          <TextField className={classes.textField} onChange={handleChange} variant="filled" id="name" name='name'  value={name} label="Class Name" />
-          <TextField className={classes.textField} onChange={handleChange} variant="filled" id="grade" name='grade' value={grade} label="Class Grade" />
-          <TextField className={classes.textField} onChange={handleChange} variant="filled" id="description" name='description' value={description} label="Class Description" />
-          <TextField className={classes.textField} onChange={handleChange} variant="filled" id="schoolYearStart" name='schoolYearStart' value={schoolYearStart} label="School Starts" />
-          <TextField className={classes.textField} onChange={handleChange} variant="filled" id="schoolYearEnd" name='schoolYearEnd' value={schoolYearEnd} label="School Ends" />
+          <TextField className={classes.textField} onChange={handleChange} type='text' variant="filled" id="name" name='name'  value={name} label="Class Name" />
+          <TextField className={classes.textField} onChange={handleChange} type='text' variant="filled" id="grade" name='grade' value={grade} label="Class Grade" />
+          <TextField className={classes.textField} onChange={handleChange} type='text' variant="filled" id="description" name='description' value={description} label="Class Description" />
+          <TextField className={classes.textField} onChange={handleChange} type='date' variant="filled" id="schoolYearStart" name='schoolYearStart' value={schoolYearStart} label="School Starts" />
+          <TextField className={classes.textField} onChange={handleChange} type='date' variant="filled" id="schoolYearEnd" name='schoolYearEnd' value={schoolYearEnd} label="School Ends" />
         </div>
         </Container>
       </form>

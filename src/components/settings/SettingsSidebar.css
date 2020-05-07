@@ -4,7 +4,9 @@
     display: flex;
     flex-direction: column;
     height: 79vh;
-    justify-content: space-evenly;
+    padding: 20px;
+    margin-top: 40px;
+    justify-content: space-between;
     align-items: center;
 }
 .form-submit-container{

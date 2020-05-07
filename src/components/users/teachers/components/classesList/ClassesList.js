@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Divider from '@material-ui/core/Divider';
+
 import MenuDropdown from './MenuDropdown'
+import MessageTemp from '../../../../messageBoard/components/MessageTemp'
 
 import moment from 'moment';
 
@@ -60,6 +63,7 @@ export default class ClassList extends Component {
           </thead>
 
           <tbody>
+            {classes?.length === 0 && <tr><MessageTemp/> </tr>}
             {currentPageClasses?.map(currClass => {
               const {
                 _id,
@@ -137,10 +141,12 @@ export default class ClassList extends Component {
                   </td>
                 </tr>
               );
+              
             })}
           </tbody>
         </table>
-
+            <Divider/>
+           
         <Pagination
           postsPerPage={postsPerPage}
           totalPosts={classes?.length}
