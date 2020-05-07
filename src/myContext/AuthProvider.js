@@ -21,6 +21,7 @@ export class AuthProvider extends Component {
       loggedIn: false,
       isLoading: true,
       message: false,
+      errMessage: false
     };
   }
   componentDidMount() {
@@ -48,10 +49,16 @@ export class AuthProvider extends Component {
     if (err.response && err.response.data) {
       this.setState(prevState => ({
         ...prevState,
-        message: err.response.data.message,
+        errMessage: err.response.data.message,
       }));
+      return err.response.data.message
     } else {
       console.log(err);
+      this.setState(prevState => ({
+        ...prevState,
+        errMessage: 'Sorry, something went wrong!',
+      }));
+      return err
     }
   };
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -84,9 +91,9 @@ export class AuthProvider extends Component {
     e.preventDefault();
     try {
       this.setState({  message: 'Logging in...' });
-      const {data: {user}} = await AUTH_SERVICE.login(this.state.formLogin);
+      const {data: {user, message}} = await AUTH_SERVICE.login(this.state.formLogin);
 
-      this.props.history.push('/dashboard');
+   
       this.setState(prevState => ({
         ...prevState,
         formLogin: {
@@ -95,16 +102,16 @@ export class AuthProvider extends Component {
         },
         user,
         loggedIn: true,
-        isLoading: false 
-      }),this.getUsers);
-
-      // setTimeout(() => {
-      //   this.setState({ });
-        
-      // }, 2000);
+        isLoading: false ,
+        message
+      }),() => {
+        this.getUsers()
+        this.props.history.push('/dashboard');
+      });
     } catch (err) {
-      this.displayError(err);
       this.setState({ isLoading: false})
+      this.displayError(err);
+
     }
   };
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -113,9 +120,9 @@ export class AuthProvider extends Component {
     e.preventDefault();
     try {
       this.setState({ message: 'Signing up...' });
-      const {data: {user}} = await AUTH_SERVICE.signup(this.state.formSignup);
+      const {data: {user, message}} = await AUTH_SERVICE.signup(this.state.formSignup);
 
-      this.props.history.push('/dashboard');
+      
       this.setState(prevState => ({
         ...prevState,
         formSignup: {
@@ -127,13 +134,15 @@ export class AuthProvider extends Component {
         },
         user,
         loggedIn: true,
-        isLoading: false 
-      }),this.getUsers);
-
-      
+        isLoading: false ,
+        message
+      }),() => {
+        this.getUsers()
+        this.props.history.push('/dashboard');
+      });
     } catch (err) {
-      this.displayError(err);
       this.setState({ isLoading: false })
+      this.displayError(err);
     }
   };
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -152,13 +161,15 @@ export class AuthProvider extends Component {
   handleLogout = async e => {
     try {
       this.setState({ isLoading: true, message: 'Logging out...' });
-      await AUTH_SERVICE.logout();
-      this.props.history.push('/');
+      const { message } = await AUTH_SERVICE.logout();
+     
 
       this.setState({ 
         loggedIn: false, user: null, users: null,
-        message: 'Successfully logged out!', isLoading: false  
-      });
+        message, isLoading: false  
+      },
+      () =>  this.props.history.push('/')
+      );
 
     } catch (err) {
       this.displayError(err);
@@ -175,7 +186,7 @@ toggleClassNavDropdown = () => {
   }
 };
 displayForm = (id) => {
-  console.log("Output for: AuthProvider -> displayForm -> id", id)
+  // console.log("Output for: AuthProvider -> displayForm -> id", id)
   document.querySelector(id).classList.toggle('show')
   document.querySelector(id).classList.toggle('hide')
 }
@@ -191,7 +202,8 @@ displayForm = (id) => {
       isUserLoggedIn,
       getUsers,
       toggleClassNavDropdown,
-      displayForm
+      displayForm,
+      displayError
     } = this;
     return (
       <AuthContext.Provider
@@ -206,7 +218,8 @@ displayForm = (id) => {
           isUserLoggedIn,
           getUsers,
           toggleClassNavDropdown,
-          displayForm
+          displayForm,
+          displayError
         }}
       >
         {this.props.children}

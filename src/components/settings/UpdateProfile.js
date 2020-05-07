@@ -79,14 +79,19 @@ export class UpdateProfile extends Component {
         this.props.context.isUserLoggedIn()
         this.setState({ isLoading: false })
         } catch (err) {
-          this.setState({ errorMessage: 'Sorry 😌, something went wrong. Please, try later!'})
+           const msg = this.props.context.displayError(err)
+          console.log("Output for: UpdateProfile -> err", err)
+          this.setState({ errorMessage: msg})
+          // this.setState({ errorMessage: 'Sorry 😌, something went wrong. Please, try later!'})
           this.setState({ isLoading: false })
         }
     }
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
   render() {
+    console.log(this.props)
     const { successMessage, errorMessage, userForm, isLoading} = this.state
+
     const styleColor = successMessage? 'green': errorMessage? 'red':''
     return (
       <>
@@ -146,13 +151,13 @@ const useStyles = makeStyles((theme) => ({
   return (
     <form onSubmit={handleFormSubmit} className={classes.root} noValidate autoComplete="off">
       <div className={classes.rows}>
-        <TextField className={classes.textField} onChange={handleFormInput} require={true} type='text' variant="filled" id="firstName" name='firstName'  value={firstName} label="First Name" />
-        <TextField className={classes.textField} onChange={handleFormInput} require={true} type='text' variant="filled" id="lastName" name='lastName' value={lastName} label="Last Name" />
+        <TextField className={classes.textField} onChange={handleFormInput} type='text' variant="filled" id="firstName" name='firstName'  value={firstName} label="First Name" />
+        <TextField className={classes.textField} onChange={handleFormInput} type='text' variant="filled" id="lastName" name='lastName' value={lastName} label="Last Name" />
       </div>
       <div className={classes.rows}>
-        <TextField className={classes.textField} onChange={handleFormInput} require={true} type='email' variant="filled" id="email" name='email' value={email} label="Email address" />
+        <TextField className={classes.textField} onChange={handleFormInput} type='email' variant="filled" id="email" name='email' value={email} label="Email address" />
         <TextField className={classes.textField} onChange={handleFormInput} type='number' variant="filled" id="phone" name='phone' value={phone} label="Phone number" />
-        <TextField className={classes.textField} onChange={handleFormInput} require={true} type='password' variant="filled" id="password" name='password' value={password} label="Password" />
+        <TextField className={classes.textField} onChange={handleFormInput} type='password' variant="filled" id="password" name='password' value={password} label="Password" />
       </div>
       <div className={classes.rows}>
         <TextField className={classes.textField} onChange={handleFormInput} type='text' variant="filled" id="username" name='username' value={username} label="Username" />

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function MySnackbar() {
+export default function MySnackbar() {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -57,10 +57,10 @@ return (
  
 }
 
-export default function IntegrationNotistack() {
-  return (
-    <SnackbarProvider maxSnack={3}>
-      <MySnackbar/>
-    </SnackbarProvider>
-  );
-}
+// export default function IntegrationNotistack() {
+//   return (
+//     <SnackbarProvider maxSnack={3}>
+//       <MySnackbar/>
+//     </SnackbarProvider>
+//   );
+// }

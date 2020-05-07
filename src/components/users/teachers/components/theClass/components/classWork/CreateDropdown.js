@@ -70,25 +70,25 @@ export default function MenuDropdown({ displayForm,
         </IconButton>
         </MenuItem>
 
+        <Link to={{
+          pathname: '/classwork/create',
+          state: {
+            openForm: true,
+            currClass,
+            classrooms,
+            students,
+            type: 'Create classwork',
+          }
+        }}>
         <MenuItem onClick={() => {
           handleClose()
           // displayForm('#classwork-form')
           }}>
-          <Link to={{
-            pathname: '/classwork/create',
-            state: {
-              openForm: true,
-              currClass,
-              classrooms,
-              students,
-              type: 'Create classwork',
-            }
-          }}>
           <IconButton >
         <WorkIcon /> <h4>Classwork</h4>
             </IconButton>
-          </Link>
         </MenuItem>
+          </Link>
 
         <MenuItem>
           <IconButton >

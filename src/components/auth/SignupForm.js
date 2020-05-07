@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link} from 'react-router-dom'
+import Snackbar from './Snackbar'
 
 
 const UserSignup = ({handleSignupInput, handleSignupSubmit}) => {
@@ -11,7 +12,8 @@ const UserSignup = ({handleSignupInput, handleSignupSubmit}) => {
           <h1>
             <i className="fas fa-user-plus"></i>Sign up
           </h1>
-          <div className="error-message"></div>
+          
+         <br/>
           <label htmlFor="username">
             Username
           </label>
@@ -44,10 +46,12 @@ const UserSignup = ({handleSignupInput, handleSignupSubmit}) => {
               <option>Parent</option>
               <option>TA</option>
             </select>
+            <br/>
 
-          <button id='signup-form-btn'  type="submit">
+          {/* <button id='signup-form-btn'  type="submit">
             Signup
-          </button>
+          </button> */}
+          <Snackbar/>
 
           <p>
             Already have an account?
