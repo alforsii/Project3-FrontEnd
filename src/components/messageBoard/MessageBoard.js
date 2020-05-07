@@ -74,14 +74,13 @@ export class MessageBoard extends Component {
                   <BoardBody isLoading={isLoading} newMessages={newMessages} state={this.context.messageState}/>
               </div>
             </div>
-            {receiver && 
             <SendMessage
             messageInputs={messageInputs}
             handleMessageSubmit={handleMessageSubmit}
             handleMessage={handleMessage}
             openEmojis={openEmojis}
             handleFileChange={handleFileChange}
-            />}
+            />
           </div>
         </div>
       </div>

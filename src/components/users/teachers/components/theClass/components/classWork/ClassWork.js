@@ -2,7 +2,7 @@ import React from 'react';
 
 import PageMessage from './PageMessage';
 import DisplayClassworks from './DisplayClassworks'
-import CreateWorkForm from './CreateWorkForm'
+// import CreateWorkForm from './CreateWorkForm'
 import CreateDropdown from './CreateDropdown'
 import './ClassWork.css';
 
@@ -10,7 +10,11 @@ export default function ClassWork({ classrooms, currClass, students, displayForm
 
   return (
     <div className="main-classwork">
-      <CreateDropdown displayForm={displayForm}/>
+      <CreateDropdown 
+      currClass={currClass}
+      classrooms={classrooms} 
+      students={students}
+      displayForm={displayForm}/>
       { 
       classworks.length > 0? <div className='classworks-div'>
         <DisplayClassworks classworks={classworks}/>
@@ -18,11 +22,11 @@ export default function ClassWork({ classrooms, currClass, students, displayForm
       :<PageMessage />
       }
 
-        <CreateWorkForm 
+        {/* <CreateWorkForm 
         displayForm={displayForm}
-        classrooms={classrooms} 
         currClass={currClass} 
-        students={students}/>
+        classrooms={classrooms} 
+        students={students}/> */}
 
     </div>
   );

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
+// import ListItemText from '@material-ui/core/ListItemText';
+// import ListItem from '@material-ui/core/ListItem';
+// import List from '@material-ui/core/List';
+// import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -22,6 +22,7 @@ import UpdateIcon from '@material-ui/icons/Update';
 
 import { AUTH_CLASSES } from '../../../../../services/classesAuth/ClassesAuth';
 import CreateClassForm from './CreateClassForm';
+import ProgressBar from '../../../../auth/progressBar/ProgressBar'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -108,7 +109,7 @@ export function FullScreenForm(props) {
 
   const handleClose = () => {
     setOpen(false);
-    props.history.push('/dashboard');
+    props.history.goBack();
   };
 
   return (
@@ -176,6 +177,8 @@ export function FullScreenForm(props) {
         )}
         <DialogTitle style={{ textAlign: 'center' }} id="form-dialog-title">
           {linkState?.type}
+          {isLoading ? <ProgressBar isLoading={true}/>
+          : <ProgressBar isLoading={false}/>}
         </DialogTitle>
         <DialogContent>
           <DialogContentText style={{ textAlign: 'center' }}>

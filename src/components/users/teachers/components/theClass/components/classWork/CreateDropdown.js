@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 import {Button} from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -12,7 +13,10 @@ import IconButton from '@material-ui/core/IconButton';
 
 const ITEM_HEIGHT = 48;
 
-export default function MenuDropdown({ displayForm }) {
+export default function MenuDropdown({ displayForm,
+  classrooms, 
+  students,
+   currClass }) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -68,11 +72,22 @@ export default function MenuDropdown({ displayForm }) {
 
         <MenuItem onClick={() => {
           handleClose()
-          displayForm('#classwork-form')
+          // displayForm('#classwork-form')
           }}>
-            <IconButton >
+          <Link to={{
+            pathname: '/classwork/create',
+            state: {
+              openForm: true,
+              currClass,
+              classrooms,
+              students,
+              type: 'Create classwork',
+            }
+          }}>
+          <IconButton >
         <WorkIcon /> <h4>Classwork</h4>
             </IconButton>
+          </Link>
         </MenuItem>
 
         <MenuItem>

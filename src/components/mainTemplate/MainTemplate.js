@@ -10,6 +10,7 @@ import UpdateProfile from '../settings/UpdateProfile'
 import MainSidebar from './MainSidebar'
 import MainNavbar from './MainNavbar'
 import CreateFormTemplate from '../users/teachers/components/create-class-form/CreateFormTemplate'
+import CreateWokTemplate from '../users/teachers/components/theClass/components/classWork/CreateWokTemplate'
 
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -125,6 +126,8 @@ export default function MiniDrawer({ user, isUserLoggedIn, handleLogout }) {
         <Switch>
             <ProtectedRoute exact path="/dashboard" component={TeacherPage} />
 
+            <ProtectedRoute exact path="/classwork/create" component={CreateWokTemplate} />
+            <ProtectedRoute exact path="/classwork/update" component={CreateWokTemplate} />
             <ProtectedRoute exact path="/new-class/add" component={CreateFormTemplate} />
             <ProtectedRoute exact path="/update-class/edit" component={CreateFormTemplate} />
             <ProtectedRoute exact path="/class/:classId" component={TheClass} />

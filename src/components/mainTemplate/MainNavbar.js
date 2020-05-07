@@ -330,7 +330,7 @@ export default function PrimarySearchAppBar({
             <Link
               style={{ color: '#fff' }}
               to={{
-                pathname: '/update-class/edit',
+                pathname: '/new-class/add',
                 state: {
                   openForm: true,
                   currClass: null,
