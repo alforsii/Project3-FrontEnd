@@ -2,11 +2,11 @@
 .users-div {
     display: flex;
     margin: 0;
-    width: 330px;
+    width: 320px;
     overflow: scroll;
 }
 .user-div {
-    width: 330px;
+    width: 310px;
     position: relative;
     margin: 2px;
 }
@@ -30,7 +30,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    width: 330px;
+    width: 320px;
     opacity: 0.9;
 }
 .messages-history {
