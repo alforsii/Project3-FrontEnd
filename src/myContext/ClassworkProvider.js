@@ -161,7 +161,6 @@ export class ClassworkProvider extends Component {
     
       //handle cover Img
       handleCoverImg = e => {
-          console.log("Output for: ClassworkProvider -> e.target.name", e.target.name)
         this.setState({ [e.target.name]: e.target.files[0] });
       };
       //handle cover Img submit
@@ -186,6 +185,7 @@ export class ClassworkProvider extends Component {
           coverImage: path,
           dashboardImg: '',
         }));
+        
       };
       //switch default page
       switchDefaultPage = (page) => {
@@ -211,6 +211,7 @@ export class ClassworkProvider extends Component {
             <ClassworkContext.Provider
             value={{
                 state,
+                context: this.context,
                 classworkState,
                 getClassData,
                 getOtherStudents,

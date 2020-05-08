@@ -9,6 +9,7 @@ import UsersList from './components/usersList/UsersList'
 import Loader from '../../messageBoard/components/loader/Loader'
 import { AUTH_CLASSES } from '../../../services/classesAuth/ClassesAuth';
 import AUTH_SERVICE from '../../../services/auth/AuthServices';
+import NewImageUploadForm from './components/img-uploadForm/NewImageUploadForm'
 
 import './TeacherPage.css';
 
@@ -90,51 +91,59 @@ export class Teacher extends Component {
   }
   //handle dashboardImg submit
   handleDashboardImgSubmit = async e => {
+  try {
     e.preventDefault()
-    this.setState({ isLoading: true, message: 'Updating cover image...'})
+    // this.setState({ isLoading: true, message: 'Updating cover image...'})
     const newFile = new FormData()
     newFile.append('image', this.state.dashboardImg,this.state.dashboardImg.name)
     const {data: {user}} = await AUTH_SERVICE.updateDashboardImg(newFile)
+
     this.props.context.updateState({ user })
-    this.setState({ isLoading: false, message: '' })
+    this.props.context.updateState({ message: 'Uploaded successfully!!!'})
+    // this.setState({ isLoading: false, message: '' })
+  } catch (err) {
+    this.props.context.displayError(err)
+  }
   }
   render() {
-    const { users, search, navigate, filteredClasses, 
-      filteredArchiveClasses, isLoading, dashboardImg, message } = this.state;
+    const { search, navigate, filteredClasses, 
+      filteredArchiveClasses } = this.state;
 
     const {
       updateState,
       toggleClassNavDropdown,
-      displayForm,
-      state:{ user}
+      // displayForm,
+
+      state:{ user,
+            // message,
+      // errMessage,
+    }
     } = this.props.context;
     return (
       <div className="main-teacher">
         <div id='t-main' className="t-child-div">
           <div className='cover-img-div'>
             <DashboardSkeleton user={user}/>
-            {/* {isLoading && <Loader message={message}/> }
-            <img id='cover-img' src={user?.dashboardImg} alt='dashboard image'/> */}
-            <button onClick={() => displayForm('#main-form')} id='cover-img-upload-btn'>
+            
+            {/* <button onClick={() => displayForm('#main-form')} id='cover-img-upload-btn'>
                 <span><i className="fas fa-camera"></i></span>
-            </button>
+            </button> */}
+            <NewImageUploadForm 
+            title='Upload new dashboard image'
+            src={user?.dashboardImg}
+            handleSubmit={this.handleDashboardImgSubmit} 
+            handleChange={this.handleDashboardImg}
+            />
           </div>
           <div className="t-dashboard">
-            
-            {/* <Navbar getUsers={this.getUsers.bind(this)}
-            toggleClassNavDropdown={toggleClassNavDropdown}
-            toggleSearchBar={this.toggleSearchBar}
-            updateState={data => this.updateState(data)}
-            /> */}
+  
             <MainClassNavbar
             getUsers={this.getUsers.bind(this)}
             toggleClassNavDropdown={toggleClassNavDropdown}
             toggleSearchBar={this.toggleSearchBar}
             updateState={data => this.updateState(data)}
             />
-            {/* { navigate === 'users-list' && <UsersList users={users}
-              updateState={userData => updateState(userData)}
-              />} */}
+            
 
            { navigate === 'archive' &&  <ClassesList  archive={true}
             classes={filteredArchiveClasses} 
@@ -155,12 +164,12 @@ export class Teacher extends Component {
         </div>
         {/* ----------- position fixed or hidden  */}
 
-        <ImageUploadForm src={user?.dashboardImg}
+        {/* <ImageUploadForm src={user?.dashboardImg}
             handleSubmit={this.handleDashboardImgSubmit} 
             handleChange={this.handleDashboardImg}
             inputForm={dashboardImg}
             displayForm={displayForm}
-            />
+            /> */}
 
       </div>
     );

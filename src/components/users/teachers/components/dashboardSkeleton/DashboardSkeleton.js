@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
+import Typography from '@material-ui/core/Typography';
 import moment from 'moment'
 
 
@@ -32,10 +32,10 @@ function Media(props) {
                  {user?.firstName} {user?.lastName}
                </Typography>
                <Typography display="block" variant="caption" color="textSecondary">
-                 {user?.country}
+               {user?.city && `${user?.city},`} {user?.state && user?.state} {user?.country && user?.country}
                </Typography>
                <Typography variant="caption" color="textSecondary">
-                 {`created • ${moment(user?.createdAt).calendar()}`}
+                 {`Since • ${moment(user?.createdAt).format('LL')}`}
                </Typography>
              </Box>
             </>

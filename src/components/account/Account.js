@@ -7,9 +7,9 @@ import Divider from '@material-ui/core/Divider';
 import { AUTH_SERVICE } from '../../services/auth/AuthServices'
 import ProgressBar from '../auth/progressBar/ProgressBar'
 // import moment from 'moment'
-import './UpdateAccount.css';
+import './Account.css';
 
-export class UpdateAccount extends Component {
+export class Account extends Component {
     state = {
         successMessage: '',
         errorMessage: '',
@@ -87,7 +87,7 @@ export class UpdateAccount extends Component {
     );
   }
 }
-export default UpdateAccount;
+export default Account;
 
 const useStyles = makeStyles((theme) => ({
   root: {

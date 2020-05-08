@@ -15,7 +15,7 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import ClassSideNavbar from '../users/teachers/components/theClass/components/classSidebar/ClassSidebar';
 import MessageSidebar from '../messageBoard/components/messageSidebar/MessageSidebar'  
 import SettingsSidebar from '../settings/SettingsSidebar'
-import UpdateAccount from '../account/UpdateAccount'
+// import Account from '../account/Account'
 import './MainSidebar.css';
 
 const useStyles = makeStyles({
@@ -112,7 +112,7 @@ export default function TemporaryDrawer({ user, isUserLoggedIn, handleDrawerOpen
           <Route exact strict path='/message-board' component={MessageSidebar}/>
           <Route exact strict path='/message-board/:id' component={MessageSidebar}/>
           <Route exact strict path='/class/:classId' component={ClassSideNavbar}/>
-          <Route exact strict path='/account' render={props => <UpdateAccount {...props} user={user}/>}/>
+          {/* <Route exact strict path='/account' render={props => <Account {...props} user={user}/>}/> */}
           <Route exact strict path='/dashboard' render={props => <SettingsSidebar {...props} user={user} isUserLoggedIn={isUserLoggedIn} />}/>
         </Switch>
 

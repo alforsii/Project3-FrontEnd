@@ -16,19 +16,19 @@ import {
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import DatePickers from './DatePickers'
-import { AUTH_CLASSES } from '../../../../../../../services/classesAuth/ClassesAuth'
 // import './CreateWorkForm.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    // display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // flexWrap: 'wrap',
     '& > *': {
       // margin: theme.spacing(1),
       // width: '100%',
-      color: '#068ce6',
-      margin: '10px'
+      // color: '#068ce6',
+      // margin: '10px'
     },
   },
   // form: {
@@ -38,12 +38,13 @@ const useStyles = makeStyles(theme => ({
   //   width: '100%'
   // },
   textField: {
-    width: '700px',
+    width: '100%',
     margin: '2px',
-    flexGrow: 5
+    // flexGrow: 5
   },
   shortInputs: {
     width: '100%',
+    // maxWidth: '200px',
     margin: '2px',
   },
   buttonGroup: {
@@ -119,8 +120,8 @@ export default function CreateWorkForm({
           size="small"
           limitTags={2}
           value={
-            classwork?.students.length > 0
-              ? classwork.students
+            classwork?.students?.length > 0
+              ? classwork?.students
               : [defaultStudents]
           }
           onChange={handleStudents}
@@ -138,7 +139,7 @@ export default function CreateWorkForm({
        <TextField
           name="title"
           label='Title'
-          required={true}
+          required='true'
           className={classes.textField}
           placeholder='Title(required)'
           variant="standard"
@@ -167,12 +168,12 @@ export default function CreateWorkForm({
           </Button>
         ) : (
           <React.Fragment>
-        <FormControl >
+        <FormControl className={classes.shortInputs}>
           <InputLabel htmlFor="create-topic">Create Topic</InputLabel>
           <Input className={classes.shortInputs}
             id="create-topic"
             name="topic"
-              label="Create Topic"
+            label="Create Topic(optional)"
             value={classwork?.topic?.name}
             onChange={handleWorkInput}
             endAdornment={
@@ -265,13 +266,6 @@ export default function CreateWorkForm({
           ))}
         </Menu>
        </div>
-
-              {/* <div  className={classes.buttonGroup} >
-                <Button type="submit">Create</Button>
-                <Button variant='outlined' disabled={ classwork.title ? false:true} type="submit">Create & Post</Button>
-              </div> */}
-
-       
       </form>
     </>
   );

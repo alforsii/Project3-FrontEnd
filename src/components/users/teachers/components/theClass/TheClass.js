@@ -9,6 +9,7 @@ import ClassWork from './components/classWork/ClassWork'
 import ClassConnections from './components/ClassConnections/ClassConnections'
 import ClassAlbums from './components/classAlbums/ClassAlbums'
 import ImageUploadForm from '../img-uploadForm/ImageForm';
+import NewImageUploadForm from '../img-uploadForm/NewImageUploadForm'
 
 import './TheClass.css';
 
@@ -254,13 +255,18 @@ export class TheClass extends Component {
         </div>
 
         {/*--------- below hidden user lists - appears on click -------------------*/}
-        <ImageUploadForm
+        {/* <ImageUploadForm
           src={coverImage ? coverImage : ''}
           handleSubmit={handleCoverImgSubmit}
           handleChange={handleCoverImg}
           inputForm={''}
           displayForm={displayForm}
-        />
+        /> */}
+        {/* <NewImageUploadForm
+          src={coverImage ? coverImage : ''}
+          handleSubmit={handleCoverImgSubmit}
+          handleChange={handleCoverImg}
+        /> */}
       </React.Fragment>
     );
   }

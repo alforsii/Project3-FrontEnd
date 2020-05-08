@@ -28,11 +28,19 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
     backgroundColor: '#068ce6',
+   
   },
   title: {
     marginLeft: theme.spacing(2),
     flex: 1,
+  
   },
+  content: {
+    // maxWidth: '800px',
+    // display: 'flex',
+    //  justifyContent: 'center',
+    //  alignItems: 'center',
+  }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -96,7 +104,7 @@ export function FullScreenForm(props) {
           schoolYearStart: '',
           schoolYearEnd: '',
         });
-        handleClose();
+        props.history.push('/dashboard');
       } catch (error) {
         setErrorMessage('Sorry something went wrong. Try again later!');
         setLoading(false);
@@ -180,7 +188,7 @@ export function FullScreenForm(props) {
           {isLoading ? <ProgressBar isLoading={true}/>
           : <ProgressBar isLoading={false}/>}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent className={classes.content}>
           <DialogContentText style={{ textAlign: 'center' }}>
           {successMessage? <p style={{color: '#00c853'}}>{successMessage}</p>
           :errorMessage? <p style={{color: '#d50000'}}> {errorMessage} </p>: ''}

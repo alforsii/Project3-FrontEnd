@@ -28,21 +28,21 @@ export default function MenuDropdown({ displayForm,
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const myStyle = {
-    padding: '10px',
-    marginLeft: '10px',
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    hover: {
-      transition: 'all 1s linier',
-      fontSize: '30px',
-      "&:hover": {
-        backgroundColor: "0  !important",
-        }
-    },
-  }
+  // const myStyle = {
+  //   padding: '10px',
+  //   marginLeft: '10px',
+  //   display: 'flex',
+  //   width: '100%',
+  //   justifyContent: 'space-around',
+  //   alignItems: 'center',
+  //   hover: {
+  //     transition: 'all 1s linier',
+  //     fontSize: '30px',
+  //     "&:hover": {
+  //       backgroundColor: "0  !important",
+  //       }
+  //   },
+  // }
 
   return (
     <div>
@@ -64,7 +64,7 @@ export default function MenuDropdown({ displayForm,
         }}
       >
       
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
         <IconButton >
            <TitleIcon/> <h4>Topic</h4>
         </IconButton>
@@ -90,7 +90,7 @@ export default function MenuDropdown({ displayForm,
         </MenuItem>
           </Link>
 
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <IconButton >
         <AssignmentIcon/> <h4>Assignment</h4>
           </IconButton>

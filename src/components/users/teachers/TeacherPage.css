@@ -104,11 +104,11 @@ button.delete-btn:focus {
       width: 60vw;
   } */
 .cover-img-div {
-  position: relative;
+  /* position: relative; */
 }
-#cover-img-upload-btn {
+/* #cover-img-upload-btn {
   position: absolute;
-  bottom: 60px;
+  top: 10px;
   right: 10px;
   font-size: 20px;
   border-radius: 5px;
@@ -121,4 +121,4 @@ button.delete-btn:focus {
 }
 #cover-img-upload-btn:hover {
   opacity: 0.8;
-}
+} */

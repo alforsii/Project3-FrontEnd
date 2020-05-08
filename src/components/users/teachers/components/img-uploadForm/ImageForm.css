@@ -1,4 +1,4 @@
-.main-form {
+/* .main-form {
     justify-content: center;
 }
 .img-upload-form {
@@ -68,4 +68,9 @@
 @keyframes clear-blur {
     0%{opacity: 0.5;}
     100%{opacity: 1;}
+} */
+.upload-img-btn {
+    float: right;
+    position: relative;
+    top: 5px;
 }

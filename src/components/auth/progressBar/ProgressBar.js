@@ -38,7 +38,7 @@ export default function CustomizedProgressBars({ isLoading, strengthValue }) {
   return (
     <div className={classes.root}>
         { isLoading? 
-      <ColorLinearProgress className={classes.margin} />
+      <ColorLinearProgress valueBuffer={strengthValue} className={classes.margin} />
       :<BorderLinearProgress
         className={classes.margin}
         variant="determinate"

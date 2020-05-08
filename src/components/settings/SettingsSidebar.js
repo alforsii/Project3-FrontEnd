@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import Container from '@material-ui/core/Container';
-import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import moment from 'moment'
 
 import { AUTH_SERVICE } from '../../services/auth/AuthServices'
 import  ProgressBar from '../auth/progressBar/ProgressBar'
 import Avatar from '../auth/avatar/Avatar';
 import './SettingsSidebar.css'
 
-const useStyles = makeStyles((theme) => ({
-    button: {
-    //   margin: theme.spacing(1),
-    //   color: '#068ce6'
-    },
-  }));
-  
-
 export default function SettingsSidebar({ user, isUserLoggedIn }) {
-    const classes = useStyles()
     const [imageInput,setImageInput] = useState('')
     const [isLoading,setLoading] = useState(false)
     const [userDetails, setUserDetails] = useState({})
@@ -45,7 +34,6 @@ export default function SettingsSidebar({ user, isUserLoggedIn }) {
     const profileStrength = arrFromUser.filter(elem => 
         userProps.includes(Object.keys(elem).toString()) 
         && elem !=='').length*10
-    console.log("Output for: SettingsSidebar -> profileStrength", profileStrength)
     const [progressBar,setProgressBar] = useState(profileStrength)
     useEffect(() => {
         setProgressBar(profileStrength)
@@ -77,20 +65,23 @@ const handleUploadInput = e => {
         <div className="upload-form update-form">
             <div className="user-profile-details">
               <Avatar src={user?.path} alt={user?.firstName} size='xl' variant='circle'/>
-              <h2>
-                {user?.firstName} {user?.lastName}{' '}
-              </h2>
-              <p>{user.city? `${user.city},`: ''} {user.state} {user?.country}</p>
+
+              <Typography variant="h5" component="h5">
+              {user?.firstName} {user?.lastName}{' '}
+              </Typography>
+              <Typography display="block" variant="caption" color="textSecondary">
+               {user?.city && `${user?.city},`} {user?.state && user?.state} {user?.country && user?.country}
+               </Typography>
+              
               <Typography gutterBottom variant="body2">
                 {user?.title}
               </Typography>
-              {/* <p><i>Since {user?.createdAt.split('T')[0]}</i> </p> */}
             </div>
 
           <form onSubmit={handleUploadSubmit} encType="multipart/form-data">
             <div className="progress">
             <Typography display="block" variant="caption" color="textSecondary">
-                Profile Strength {profileStrength}% 
+               {profileStrength === 100 ? 'Thanks! Your profile 100% complete.': `Profile Strength ${profileStrength}%`}   
             </Typography>
                     <ProgressBar isLoading={isLoading} strengthValue={profileStrength}/>
             </div>
@@ -106,15 +97,14 @@ const handleUploadInput = e => {
                         variant="contained"
                         color="default"
                         type='submit'
-                        className={classes.button}
                     >
                         Update avatar image
                     </Button>
             </div>
           </form>
-          <Typography gutterBottom variant="body2">
-              Since {user?.createdAt.split('T')[0]}
-              </Typography>
+          <Typography variant="caption" color="textSecondary">
+                 {`Since • ${moment(user?.createdAt).format('LL')}`}
+               </Typography>
       </div>
 
     )
