@@ -84,7 +84,8 @@ export class ClassworkProvider extends Component {
       //toggle userList
       toggleUserList = async e => {
     
-        const { id } = e.target.closest('button');
+        try {
+          const { id } = e.target.closest('button');
         // this.closeUserList();
         if (id === 'studentsBtn') {
          await this.getOtherStudents();
@@ -93,6 +94,9 @@ export class ClassworkProvider extends Component {
         if (id === 'teachersBtn') {
          await this.getOtherTAs();
           document.getElementById('teachersList').classList.toggle('show');
+        }
+        } catch (err) {
+          this.props.context.displayError(err)
         }
       };
       //close user list
@@ -108,6 +112,7 @@ export class ClassworkProvider extends Component {
     
       //Add student to class
       addToClass = async user => {
+       try {
         if (user.title === 'Student') {
           const {
             data: { studentFromDB },
@@ -132,10 +137,14 @@ export class ClassworkProvider extends Component {
             teachers: [...prevState.teachers, teacherFromDB].sort((a,b) => a.firstName > b.firstName ? 1 : -1),
           }));
         }
+       } catch (err) {
+         this.props.context.displayError(err)
+       }
       };
     
       //Remove a student from the class
       removeFromClass = async user => {
+       try {
         if (user.title === 'Student') {
           const res = await AUTH_CLASSES.removeStudent({
             studentData: user,
@@ -157,6 +166,9 @@ export class ClassworkProvider extends Component {
             teachers: res.data.updatedTeachers.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
           }));
         }
+       } catch (err) {
+        this.props.context.displayError(err)
+       }
       };
     
       //handle cover Img
@@ -166,6 +178,7 @@ export class ClassworkProvider extends Component {
       //handle cover Img submit
       handleCoverImgSubmit = async e => {
         e.preventDefault();
+       try {
         this.setState({ isLoading: true, coverImage: false });
         const newFile = new FormData();
         newFile.append(
@@ -185,7 +198,10 @@ export class ClassworkProvider extends Component {
           coverImage: path,
           dashboardImg: '',
         }));
-        
+       } catch (err) {
+        this.props.context.displayError(err)
+       }
+
       };
       //switch default page
       switchDefaultPage = (page) => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { AUTH_CLASSES } from '../../../../../services/classesAuth/ClassesAuth';
+// import { AUTH_CLASSES } from '../../../../../services/classesAuth/ClassesAuth';
 import {ClassworkContext} from '../../../../../myContext/ClassworkProvider'
 // import {MessageContext} from '../../../../../myContext/MessageProvider'
 import ClassNavbar from './components/classNavbar/ClassNavbar';
@@ -8,8 +8,8 @@ import ClassPosts from './components/classPosts/ClassPosts'
 import ClassWork from './components/classWork/ClassWork'
 import ClassConnections from './components/ClassConnections/ClassConnections'
 import ClassAlbums from './components/classAlbums/ClassAlbums'
-import ImageUploadForm from '../img-uploadForm/ImageForm';
-import NewImageUploadForm from '../img-uploadForm/NewImageUploadForm'
+// import ImageUploadForm from '../img-uploadForm/ImageForm';
+// import NewImageUploadForm from '../img-uploadForm/NewImageUploadForm'
 
 import './TheClass.css';
 
@@ -213,10 +213,10 @@ export class TheClass extends Component {
       classrooms,
       restStudents,
       restTeachers,
-      coverImage,
+      // coverImage,
       defaultPage,
     } = this.context.classworkState;
-    const { handleCoverImgSubmit, handleCoverImg,toggleUserList, addToClass,
+    const { toggleUserList, addToClass,
       closeUserList, removeFromClass, switchDefaultPage,
       updateState } = this.context
     return (

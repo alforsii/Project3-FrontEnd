@@ -32,12 +32,12 @@ export default function TitlebarGridList({ users }) {
 
   return (
     <div className={classes.root}>
-      <GridList cellHeight={380} className={classes.gridList}>
+      <GridList cellHeight={280} className={classes.gridList}>
         <GridListTile key="Subheader" cols={2}  style={{ height: 'auto' }}>
           <ListSubheader component="div">December</ListSubheader>
         </GridListTile>
         {users?.map((user) => (
-          <GridListTile key={user.path}>
+          <GridListTile key={user._id}>
             <img src={user.path} alt={user.firstName} />
             <GridListTileBar
               title={user.firstName}

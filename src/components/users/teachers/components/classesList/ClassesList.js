@@ -63,7 +63,6 @@ export default class ClassList extends Component {
           </thead>
 
           <tbody>
-            {classes?.length === 0 && <tr><MessageTemp/> </tr>}
             {currentPageClasses?.map(currClass => {
               const {
                 _id,
@@ -123,7 +122,7 @@ export default class ClassList extends Component {
                       ? `${moment(schoolYearEnd).format('ll').split(' ')[0]} ${
                           moment(schoolYearEnd).format('ll').split(' ')[2]
                         }`
-                      : ''}
+                      : 'Unlimited'}
                   </td>
 
                   <td>
@@ -145,6 +144,7 @@ export default class ClassList extends Component {
             })}
           </tbody>
         </table>
+        {classes?.length === 0 && <MessageTemp/> }
             <Divider/>
            
         <Pagination

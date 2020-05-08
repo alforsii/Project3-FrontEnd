@@ -18,7 +18,7 @@ export default function ClassConnections({
   students,
   teachers,
   // filterUsers,
-  updateState,
+  // updateState,
   removeFromClass,
   restStudents,
   restTeachers,

@@ -19,7 +19,7 @@ export default function LongMenu({ currUser, removeFromClass }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const { _id, firstName, lastName, path } = currUser;
+  const { _id, firstName, path } = currUser;
 
   return (
     <MessageContext.Consumer>

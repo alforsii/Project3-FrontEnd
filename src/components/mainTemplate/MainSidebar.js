@@ -67,7 +67,7 @@ export default function TemporaryDrawer({ user, isUserLoggedIn, handleDrawerOpen
         </Link>
         <Link onClick={() => {
           handleDrawerOpen()
-          setWebPage('Message board')
+          setWebPage('Chatroom')
         }} className={classes.link} to="/message-board">
           <ListItem button >
             <ListItemIcon >

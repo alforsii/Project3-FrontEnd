@@ -39,8 +39,8 @@ export default function DisabledTabs({switchDefaultPage}) {
         aria-label="tabs"
       >
         <Tab className={classes.tab} onClick={() => switchDefaultPage('posts')} label="Posts" />
-        <Tab className={classes.tab} onClick={() => switchDefaultPage('works')}  label="Classworks" />
-        <Tab className={classes.tab} onClick={() => switchDefaultPage('users')}  label="Connections" />
+        <Tab className={classes.tab} onClick={() => switchDefaultPage('works')}  label="Tasks" />
+        <Tab className={classes.tab} onClick={() => switchDefaultPage('users')}  label="People" />
         <Tab className={classes.tab} onClick={() => switchDefaultPage('albums')}  label="Albums" />
       </Tabs>
     </Paper>

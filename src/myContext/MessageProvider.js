@@ -53,7 +53,11 @@ export class MessageProvider extends Component {
   //Updates user status (online? true:false) and  messages status/read
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
   updateStatus = async (theUser) => {
-    await AUTH_MESSAGES.updateStatus({otherUser: {_id: theUser._id}})
+    try {
+      await AUTH_MESSAGES.updateStatus({otherUser: {_id: theUser._id}})
+    } catch (err) {
+      this.displayError(err)
+    }
 }
 
  //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -136,20 +140,28 @@ export class MessageProvider extends Component {
   //Get User boards to get messages
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   getUserBoards = async () => {
+   try {
     const res = await AUTH_MESSAGES.getUserBoards();
     this.setState({ userBoards: res.data, isLoading: false });
+   } catch (err) {
+     this.displayError(err)
+   }
   };
 
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //Updates message history list (left side with user image and las message and time)
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   updateMessageBoard = async () => {
-    if (this.state.receiver) {
-      const res = await AUTH_MESSAGES.updateUserBoard({
-        id: this.state.receiver._id,
-      });
-      const { messages, newMessages } = res.data;
-      this.setState({ messages, newMessages: newMessages });
+    try {
+      if (this.state.receiver) {
+        const res = await AUTH_MESSAGES.updateUserBoard({
+          id: this.state.receiver._id,
+        });
+        const { messages, newMessages } = res.data;
+        this.setState({ messages, newMessages: newMessages });
+      }
+    } catch (err) {
+      this.displayError(err)
     }
   };
 
