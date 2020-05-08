@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -34,9 +30,10 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   content: {
-    // maxWidth: '1000px',
+    maxWidth: '1100px',
     display: 'flex',
     justifyContent: 'center',
+    flexWrap: 'wrap',
     alignItems: 'center'
   }
 }));
@@ -46,7 +43,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export function FullScreenForm(props) {
-  console.log("Output for: FullScreenForm -> props", props)
+
   const classes = useStyles();
   const linkState = props.location.state;
   const openForm = linkState?.openForm;
@@ -239,7 +236,9 @@ export function FullScreenForm(props) {
            <Button onClick={handleClose} color="inherit">
               Cancel
             </Button>
-         {linkState?.type.includes('Create') && <Button variant='contained' onClick={handleClose}>
+         {linkState?.type.includes('Create') 
+         && <Button variant='contained' disabled={ classwork?.title ? false:true} type="submit"
+          onClick={handleClose}>
              Create & Post
           </Button>}
         </DialogActions>

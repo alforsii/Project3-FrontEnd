@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import {Button} from '@material-ui/core'
-import SendIcon from '@material-ui/icons/Send';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
@@ -42,10 +40,9 @@ export default function SendMessage({ messageInputs, handleMessageSubmit, handle
         onSubmit={handleMessageSubmit}>
             <Divider />
       <div className={classes.textField}>
-      {/* <div> */}
       <TextField
           id="standard-multiline-flexible"
-          label="Title"
+          label="Title(optional)"
           placeholder='Your message title here'
           multiline
           rowsMax={4}
@@ -55,7 +52,7 @@ export default function SendMessage({ messageInputs, handleMessageSubmit, handle
         />
       <TextField
           id="standard-multiline-flexible"
-          label="Header"
+          label="Header(optional)"
           placeholder='Your message header here'
           multiline
           rowsMax={4}
@@ -66,6 +63,7 @@ export default function SendMessage({ messageInputs, handleMessageSubmit, handle
       <TextField
           id="standard-multiline-flexible"
           label="Message"
+          required='true'
           placeholder='Your message goes here'
           multiline
           rowsMax={4}
@@ -74,7 +72,6 @@ export default function SendMessage({ messageInputs, handleMessageSubmit, handle
           onChange={handleMessage}
         />
 
-      {/* </div> */}
            <div>
             <Snackbar/>
            </div>

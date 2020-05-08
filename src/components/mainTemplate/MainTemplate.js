@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import { Switch} from 'react-router-dom'
+import { Switch, Route, Redirect} from 'react-router-dom'
 
 import ProtectedRoute from '../protectedRoute/ProtectedRoute'
 import TeacherPage from '../users/teachers/TeacherPage'
 import TheClass from '../users/teachers/components/theClass/TheClass'
-// import AddNewClass from '../users/teachers/components/create-class-form/ClassForm'
 import MessageBoard from '../messageBoard/MessageBoard';
 import UpdateProfile from '../settings/UpdateProfile'
 import MainSidebar from './MainSidebar'
@@ -136,6 +135,7 @@ export default function MiniDrawer({ user, isUserLoggedIn, handleLogout }) {
             <ProtectedRoute exact path="/message-board/:id" component={MessageBoard}/>
 
             <ProtectedRoute exact path="/settings" component={UpdateProfile}/>
+            <Route path='/' render={props => <Redirect to='/dashboard' />} />
           </Switch>
       </Container>
       </main>

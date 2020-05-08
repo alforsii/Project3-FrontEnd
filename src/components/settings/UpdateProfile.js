@@ -40,6 +40,7 @@ export class UpdateProfile extends Component {
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
     handleFormInput = e => {
       const {name, value} = e.target
+      console.log("Output for: UpdateProfile -> name, value", name, value)
         this.setState(prevState => ({
           userForm: {
             ...prevState.userForm,
@@ -80,7 +81,6 @@ export class UpdateProfile extends Component {
         this.setState({ isLoading: false })
         } catch (err) {
            const msg = this.props.context.displayError(err)
-          console.log("Output for: UpdateProfile -> err", err)
           this.setState({ errorMessage: msg})
           // this.setState({ errorMessage: 'Sorry 😌, something went wrong. Please, try later!'})
           this.setState({ isLoading: false })

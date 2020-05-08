@@ -20,13 +20,13 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     position: 'relative',
     '& > *': {
-      width: '150px',
+      // width: '150px',
     },
   },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 200,
+    width: '100%',
   },
 }));
 
