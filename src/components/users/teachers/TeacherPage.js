@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import Navbar from './components/navbar/Navbar'
+// import Navbar from './components/navbar/Navbar'
 import MainClassNavbar from './components/navbar/mainClassNavbar/ClassNavbar'
 import ClassesList from './components/classesList/ClassesList';
-import ImageUploadForm from  './components/img-uploadForm/ImageForm'
+// import ImageUploadForm from  './components/img-uploadForm/ImageForm'
 import DashboardSkeleton from './components/dashboardSkeleton/DashboardSkeleton'
-import UsersList from './components/usersList/UsersList'
+// import UsersList from './components/usersList/UsersList'
 import Loader from '../../messageBoard/components/loader/Loader'
 import { AUTH_CLASSES } from '../../../services/classesAuth/ClassesAuth';
 import AUTH_SERVICE from '../../../services/auth/AuthServices';
@@ -123,17 +123,22 @@ export class Teacher extends Component {
       <div className="main-teacher">
         <div id='t-main' className="t-child-div">
           <div className='cover-img-div'>
-            <DashboardSkeleton user={user}/>
+            <DashboardSkeleton 
+             title='Upload new Dashboard image'
+             src={user?.dashboardImg}
+             handleSubmit={this.handleDashboardImgSubmit} 
+             handleChange={this.handleDashboardImg}
+            user={user}/>
             
             {/* <button onClick={() => displayForm('#main-form')} id='cover-img-upload-btn'>
                 <span><i className="fas fa-camera"></i></span>
             </button> */}
-            <NewImageUploadForm 
+            {/* <NewImageUploadForm 
             title='Upload new dashboard image'
             src={user?.dashboardImg}
             handleSubmit={this.handleDashboardImgSubmit} 
             handleChange={this.handleDashboardImg}
-            />
+            /> */}
           </div>
           <div className="t-dashboard">
   

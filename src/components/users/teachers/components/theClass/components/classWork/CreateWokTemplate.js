@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -57,9 +57,9 @@ export function FullScreenForm(props) {
   const classrooms = linkState?.classrooms
 
  
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
     setOpen(false);
@@ -126,12 +126,12 @@ export function FullScreenForm(props) {
     if (classwork.students.length === 0) {
       const studentsIds = students.map(student => student._id)
       // console.log({ ...classwork, students: students });
-      const { data: { classworkFromDB}} = await AUTH_CLASSES.createClasswork({ ...classwork, schedule, students: studentsIds }, currClass._id)
-      // console.log("Output for: classworks", classworkFromDB)
+      await AUTH_CLASSES.createClasswork({ ...classwork, schedule, students: studentsIds }, currClass._id)
+      // const { data: { classworkFromDB}} 
     } else {
       const studentsIds = classwork.students.map(student => student._id)
-      const { data: { classworkFromDB}} = await AUTH_CLASSES.createClasswork({...classwork, schedule, students: studentsIds}, currClass._id)
-      // console.log("Output for: classworks", classworkFromDB)
+      await AUTH_CLASSES.createClasswork({...classwork, schedule, students: studentsIds}, currClass._id)
+      // const { data: { classworkFromDB}} = 
     }
     setErrorMessage('')
     setSuccessMessage('')
@@ -206,8 +206,8 @@ export function FullScreenForm(props) {
         )}
         <DialogTitle style={{ textAlign: 'center' }} id="form-dialog-title">
           {linkState?.type}
-          {isLoading ? <ProgressBar isLoading={true}/>
-          : <ProgressBar isLoading={false}/>}
+          {isLoading ? <ProgressBar isLoading={true} strengthValue={100}/>
+          : <ProgressBar isLoading={false} strengthValue={100}/>}
         </DialogTitle>
         <DialogContent>
           <DialogContentText style={{ textAlign: 'center' }}>

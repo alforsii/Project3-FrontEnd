@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+// import { Switch, Route } from 'react-router-dom';
 
 import { MessageContext } from '../../myContext/MessageProvider'
 import BoardNavbar from './components/BoardNavbar';
 import BoardBody from './components/BoardBody'
 import SendMessage from './components/SendMessage';
-import Avatar from '@material-ui/core/Avatar';
-import BubbleChartIcon from '@material-ui/icons/BubbleChart';
+// import Avatar from '@material-ui/core/Avatar';
+// import BubbleChartIcon from '@material-ui/icons/BubbleChart';
 import './MessageBoard.css';
 
 export class MessageBoard extends Component {
@@ -37,7 +37,7 @@ export class MessageBoard extends Component {
     const {
       newMessages,
       messageInputs,
-      receiver,
+      // receiver,
       isLoading
     } = this.context.messageState;
     const { handleMessageSubmit, handleMessage,openEmojis, handleFileChange } = this.context
@@ -64,7 +64,7 @@ export class MessageBoard extends Component {
             </div>
 
             <div id="message-board-body" className="message-board-body">
-              <div id="messageBoardUsers">
+              {/* <div id="messageBoardUsers"> */}
                 {/* <Switch>
                 <Route exact path="/message-board/:id" render={props => 
                 <BoardBody {...props} isLoading={isLoading}
@@ -72,7 +72,7 @@ export class MessageBoard extends Component {
                  newMessages={newMessages}/>} />
                 </Switch> */}
                   <BoardBody isLoading={isLoading} newMessages={newMessages} state={this.context.messageState}/>
-              </div>
+              {/* </div> */}
             </div>
             <SendMessage
             messageInputs={messageInputs}

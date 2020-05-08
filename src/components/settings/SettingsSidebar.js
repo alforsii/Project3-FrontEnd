@@ -34,9 +34,9 @@ export default function SettingsSidebar({ user, isUserLoggedIn }) {
     const profileStrength = arrFromUser.filter(elem => 
         userProps.includes(Object.keys(elem).toString()) 
         && elem !=='').length*10
-    const [progressBar,setProgressBar] = useState(profileStrength)
+    // const [progressBar,setProgressBar] = useState(profileStrength)
     useEffect(() => {
-        setProgressBar(profileStrength)
+        // setProgressBar(profileStrength)
         setUserDetails(user)
     }, [user])
 

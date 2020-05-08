@@ -3,9 +3,9 @@ import React from 'react';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import InfoIcon from '@material-ui/icons/Info';
-import IconButton from '@material-ui/core/IconButton';
+// import ListSubheader from '@material-ui/core/ListSubheader';
+// import InfoIcon from '@material-ui/icons/Info';
+// import IconButton from '@material-ui/core/IconButton';
 
 import { ClassworkContext } from '../../../../../../../myContext/ClassworkProvider';
 import BottomNav from './BottomNav';
@@ -31,9 +31,14 @@ export default function ClassSidebar(props) {
                   title={currClass?.name}
             subtitle={<span>by: {`${currClass?.author.firstName} ${currClass?.author.lastName}`}</span>}
                   actionIcon={
-                    <IconButton aria-label={`info about ${currClass?.name}`} >
-                      <InfoIcon />
-                    </IconButton>
+                    <NewImageUploadForm
+                    currClass={currClass}
+                    user={null}
+                    title='Upload new cover Image for your class'
+                    src={coverImage? coverImage : currClass?.path ? currClass.path: ''}
+                    handleChange={handleCoverImg}
+                    handleSubmit={handleCoverImgSubmit}
+                />
                   }
                 />
               </GridListTile>
@@ -49,12 +54,12 @@ export default function ClassSidebar(props) {
             </div>
 
             <div className='class-img-upload-btn'>
-                <NewImageUploadForm
+                {/* <NewImageUploadForm
                 title='Upload new class cover image'
                 src={coverImage? coverImage : currClass?.path ? currClass.path: ''}
                 handleChange={handleCoverImg}
                 handleSubmit={handleCoverImgSubmit}
-                />
+                /> */}
                 </div>
             </div>
           </div>

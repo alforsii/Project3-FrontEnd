@@ -54,13 +54,12 @@ export default function Message() {
         </ListItemAvatar>
         <ListItemText
           primary={
-            <>
+            <span>
               <span style={{width:'100%',display: 'flex', justifyContent: 'space-between', alignItems: 'flexStart'}}> 
               <span>{`${'MessageBot'}`}</span>
               <i style={{fontSize: '12px'}}>{moment(new Date()).calendar()}</i>
               </span>
-              <Divider/>
-            </>
+            </span>
           }
           secondary={
             <React.Fragment>
@@ -86,16 +85,15 @@ export default function Message() {
                 Follow me on GitHub: <a href='https://github.com/alforsii'>https://github.com/alforsii</a>
                 <Divider/>
                 <ul>
-                  <li>You can use this app for FREE</li>
-                  <li>For Teachers,Students and Parents!</li>
-                  <li> Teachers can:
-                    <li>Create, Update and Remove classes,students and even parent</li>
+                  <li>You can use this app absolutely for FREE <span style={{fontSize: '20px'}}>😀</span></li>
+                  <li>Connect with Teachers,Students and even Parents!</li>
+                  <ul> Teachers can:
+                    <li>Create, Update and Remove classes as you wish</li>
                     <li>Invite parents and add students to the class</li>
-                    <li>Check students activities</li>
                     <li>Share students activities with parents</li>
-                    <li>Keep in touch with your students,co-teachers and even with parents</li>
-                   </li>
-                  <li>Do your classwork here and enjoy my cool School app</li>
+                    <li>And much more...</li>
+                   </ul>
+                  <li>Do your classwork here and enjoy my ironSchool app</li>
                 </ul>
 
                 </CardContent>

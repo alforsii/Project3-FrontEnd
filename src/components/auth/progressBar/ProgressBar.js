@@ -1,6 +1,7 @@
 import React from 'react';
 import { lighten, makeStyles, withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
+// import Divider from '@material-ui/core/Divider';
 
 const ColorLinearProgress = withStyles({
   colorPrimary: {
@@ -45,6 +46,7 @@ export default function CustomizedProgressBars({ isLoading, strengthValue }) {
         color="secondary"
         value={strengthValue}
       />
+      // <Divider style={{backgroundColor: '#0794f3', height: '4px'}}/>
         }
     </div>
   );

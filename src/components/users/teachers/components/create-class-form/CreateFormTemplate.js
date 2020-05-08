@@ -185,8 +185,8 @@ export function FullScreenForm(props) {
         )}
         <DialogTitle style={{ textAlign: 'center' }} id="form-dialog-title">
           {linkState?.type}
-          {isLoading ? <ProgressBar isLoading={true}/>
-          : <ProgressBar isLoading={false}/>}
+          {isLoading ? <ProgressBar isLoading={true} strengthValue={100}/>
+          : <ProgressBar isLoading={false} strengthValue={100}/>}
         </DialogTitle>
         <DialogContent className={classes.content}>
           <DialogContentText style={{ textAlign: 'center' }}>

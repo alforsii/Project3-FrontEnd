@@ -40,7 +40,6 @@ export class UpdateProfile extends Component {
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
     handleFormInput = e => {
       const {name, value} = e.target
-      console.log("Output for: UpdateProfile -> name, value", name, value)
         this.setState(prevState => ({
           userForm: {
             ...prevState.userForm,

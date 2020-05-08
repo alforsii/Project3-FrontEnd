@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
+import BorderColorIcon from '@material-ui/icons/BorderColor';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import TitleIcon from '@material-ui/icons/Title';
 
 import {
   MenuItem,
@@ -45,7 +48,13 @@ const useStyles = makeStyles(theme => ({
   shortInputs: {
     width: '100%',
     // maxWidth: '200px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     margin: '2px',
+  },
+  icons: {
+    margin: '0 20px'
   },
   buttonGroup: {
     // display:'flex',
@@ -138,8 +147,7 @@ export default function CreateWorkForm({
         />
        <TextField
           name="title"
-          label='Title'
-          required='true'
+          label='Title*'
           className={classes.textField}
           placeholder='Title(required)'
           variant="standard"
@@ -164,7 +172,7 @@ export default function CreateWorkForm({
 
         {topic !== 'create topic' ? (
           <Button onClick={handleClickTopic} className={classes.shortInputs} variant="outlined">
-            {`${topic.name} ${topic.grade}`}
+           <span> {`${topic.name} ${topic.grade}`} </span><TitleIcon className={classes.icons}/>
           </Button>
         ) : (
           <React.Fragment>
@@ -199,7 +207,7 @@ export default function CreateWorkForm({
         :<Button className={classes.shortInputs}
        
          onClick={handleClickSchedule} variant="outlined">
-        { 'Schedule'}
+        <span>{ 'Schedule'}</span> <ScheduleIcon className={classes.icons}/>
       </Button>}
 
       <Menu
@@ -235,7 +243,7 @@ export default function CreateWorkForm({
           }}
         >
           <MenuItem
-            selected={topic.name === topic.name}
+            selected={topic.name === 'no topic'}
             onClick={() => {
               handleCloseTopic();
               handleTopic(defaultTopic);
@@ -243,14 +251,13 @@ export default function CreateWorkForm({
           >
             No Topic
           </MenuItem>
-          <MenuItem
-            selected={topic.name === topic.name}
+          <MenuItem style={{display: 'flex', justifyContent: 'space-between'}}
             onClick={() => {
               handleCloseTopic();
               handleTopic('create topic');
             }}
           >
-            Create topic
+            <span>Create topic </span><BorderColorIcon/>
           </MenuItem>
           <Divider style={{ width: '100%' }} />
           {classrooms?.map(topic => (

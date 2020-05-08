@@ -8,6 +8,7 @@ import './SendMessage.css'
 const useStyles = makeStyles((theme) => ({
   root: {
       padding: '10px',
+      backgroundColor: '#f5f5f5',
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
       width: '100%',
@@ -18,7 +19,8 @@ textField: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+   
   },
   button: {
     backgroundColor: '#0794f3',
@@ -38,7 +40,7 @@ export default function SendMessage({ messageInputs, handleMessageSubmit, handle
     return (
         <form className={classes.root} noValidate autoComplete="off"
         onSubmit={handleMessageSubmit}>
-            <Divider />
+            {/* <Divider /> */}
       <div className={classes.textField}>
       <TextField
           id="standard-multiline-flexible"
@@ -63,7 +65,7 @@ export default function SendMessage({ messageInputs, handleMessageSubmit, handle
       <TextField
           id="standard-multiline-flexible"
           label="Message"
-          required='true'
+          required={true}
           placeholder='Your message goes here'
           multiline
           rowsMax={4}

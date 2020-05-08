@@ -2,16 +2,17 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Container from '@material-ui/core/Container';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
+// import Container from '@material-ui/core/Container';
+// import ListItemText from '@material-ui/core/ListItemText';
+// import ListItem from '@material-ui/core/ListItem';
+// import List from '@material-ui/core/List';
+// import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
       justifyContent: 'space-around',
+      flexWrap: 'wrap',
       // alignItems: 'center',
      
     //   flexDirection: 'row',
@@ -57,9 +58,9 @@ const useStyles = makeStyles((theme) => ({
       <form className={classes.root} noValidate autoComplete="off">
          
         <img className='cover-image-md' src={image? image:'/images/cartoon-kids.jpg'} alt='School cover image' />
-          
+
         <div className={classes.columns}>
-          <TextField className={classes.textField} onChange={handleChange} required='true' type='text' variant="filled" id="name" name='name'  value={name} label="Class Name(required)" />
+          <TextField className={classes.textField} onChange={handleChange} type='text' variant="filled" id="name" name='name'  value={name} label="Class Name(required)" />
           <TextField className={classes.textField} onChange={handleChange} type='text' variant="filled" id="grade" name='grade' value={grade} label="Class Grade" />
           <TextField className={classes.textField} onChange={handleChange} type='text' variant="filled" id="description" name='description' value={description} label="Class Description" />
           <TextField className={classes.textField} onChange={handleChange} type='date' variant="filled" id="schoolYearStart" name='schoolYearStart' value={schoolYearStart} label="School Starts" />
