@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 
 import { AUTH_SERVICE } from '../../services/auth/AuthServices'
 import ProgressBar from '../auth/progressBar/ProgressBar'
@@ -88,16 +89,18 @@ export class UpdateProfile extends Component {
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
 //=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=
   render() {
-    console.log(this.props)
+
     const { successMessage, errorMessage, userForm, isLoading} = this.state
 
     const styleColor = successMessage? 'green': errorMessage? 'red':''
     return (
       <>
       <div className="main-settings">
-      <h2><i style={{color: `${styleColor}`}}> { successMessage? 
+      <Typography style={{textAlign: 'center'}} variant="h5" component="h5">
+      <i style={{color: `${styleColor}`, textAlign: 'center'}}> { successMessage? 
       successMessage
-      : errorMessage? errorMessage : 'Update your account details here'} </i></h2>
+      : errorMessage? errorMessage : 'Update your account details here'} </i>
+                  </Typography>
       <ProgressBar isLoading={isLoading} strengthValue={100}/>
       <UpdateUserDetails 
       userForm={userForm}
@@ -150,13 +153,13 @@ const useStyles = makeStyles((theme) => ({
   return (
     <form onSubmit={handleFormSubmit} className={classes.root} noValidate autoComplete="off">
       <div className={classes.rows}>
-        <TextField className={classes.textField} onChange={handleFormInput} type='text' variant="filled" id="firstName" name='firstName'  value={firstName} label="First Name" />
-        <TextField className={classes.textField} onChange={handleFormInput} type='text' variant="filled" id="lastName" name='lastName' value={lastName} label="Last Name" />
+        <TextField className={classes.textField} onChange={handleFormInput} required={true} type='text' variant="filled" id="firstName" name='firstName'  value={firstName} label="First Name" />
+        <TextField className={classes.textField} onChange={handleFormInput} required={true} type='text' variant="filled" id="lastName" name='lastName' value={lastName} label="Last Name" />
       </div>
       <div className={classes.rows}>
-        <TextField className={classes.textField} onChange={handleFormInput} type='email' variant="filled" id="email" name='email' value={email} label="Email address" />
-        <TextField className={classes.textField} onChange={handleFormInput} type='number' variant="filled" id="phone" name='phone' value={phone} label="Phone number" />
-        <TextField className={classes.textField} onChange={handleFormInput} type='password' variant="filled" id="password" name='password' value={password} label="Password" />
+        <TextField className={classes.textField} onChange={handleFormInput} required={true} type='email' variant="filled" id="email" name='email' value={email} label="Email address" />
+        <TextField className={classes.textField} onChange={handleFormInput} type='number' variant="filled" id="phone" name='phone' value={phone} label="Phone number" placeholder='(305)555-5555' />
+        <TextField className={classes.textField} onChange={handleFormInput} required={true} type='password' variant="filled" id="password" name='password' value={password} label="Password" />
       </div>
       <div className={classes.rows}>
         <TextField className={classes.textField} onChange={handleFormInput} type='text' variant="filled" id="username" name='username' value={username} label="Username" />

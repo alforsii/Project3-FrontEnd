@@ -93,7 +93,7 @@ export default function Message() {
                     <li>Share students activities with parents</li>
                     <li>And much more...</li>
                    </ul>
-                  <li>Do your classwork here and enjoy my ironSchool app</li>
+                  <li>Do your classworks here and enjoy my ironSchool app ✨</li>
                 </ul>
 
                 </CardContent>

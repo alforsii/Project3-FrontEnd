@@ -19,7 +19,17 @@ input#searchClass {
     /* margin-top: 7px; */
         margin-bottom: 5px;
     border: none;
+    opacity: 0;
     border: 0.5px solid #068ce6;
+    animation-name: input;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+    /* animation-delay: 0.5s; */
+}
+@keyframes input {
+    0%{opacity: 0}
+    100%{opacity: 1}
 }
 input#searchClass:focus {
     outline: 0;

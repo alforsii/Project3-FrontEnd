@@ -96,7 +96,7 @@ export class ClassworkProvider extends Component {
           document.getElementById('teachersList').classList.toggle('show');
         }
         } catch (err) {
-          this.props.context.displayError(err)
+          console.log(err)
         }
       };
       //close user list
@@ -125,7 +125,7 @@ export class ClassworkProvider extends Component {
             students: [...prevState.students, studentFromDB].sort((a,b) => a.firstName > b.firstName ? 1 : -1),
           }));
         }
-        if (user.title === 'TA') {
+        if (user.title === 'Teacher') {
           const {
             data: { teacherFromDB },
           } = await AUTH_CLASSES.addTeacher({
@@ -138,7 +138,7 @@ export class ClassworkProvider extends Component {
           }));
         }
        } catch (err) {
-         this.props.context.displayError(err)
+         console.log(err)
        }
       };
     
@@ -156,7 +156,7 @@ export class ClassworkProvider extends Component {
           }));
           
         }
-        if (user.title === 'TA') {
+        if (user.title === 'Teacher') {
           const res = await AUTH_CLASSES.removeTeacher({
             teacherData: user,
             classId: this.state.currClass._id,
@@ -167,7 +167,7 @@ export class ClassworkProvider extends Component {
           }));
         }
        } catch (err) {
-        this.props.context.displayError(err)
+        console.log(err)
        }
       };
     
@@ -199,7 +199,7 @@ export class ClassworkProvider extends Component {
           dashboardImg: '',
         }));
        } catch (err) {
-        this.props.context.displayError(err)
+        console.log(err)
        }
 
       };

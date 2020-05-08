@@ -16,6 +16,7 @@ export class AuthProvider extends Component {
         lastName: '',
         email: '',
         password: '',
+        title: ''
       },
       formLogin: { email: '', password: '' },
       loggedIn: false,
@@ -121,7 +122,6 @@ export class AuthProvider extends Component {
     try {
       this.setState({ message: 'Signing up...' });
       const {data: {user, message}} = await AUTH_SERVICE.signup(this.state.formSignup);
-
       
       this.setState(prevState => ({
         ...prevState,
@@ -131,6 +131,7 @@ export class AuthProvider extends Component {
           lastName: '',
           email: '',
           password: '',
+          title: ''
         },
         user,
         loggedIn: true,
@@ -205,6 +206,7 @@ displayForm = (id) => {
       displayForm,
       displayError
     } = this;
+    console.log("AuthProvider -> render -> state", state.formSignup)
     return (
       <AuthContext.Provider
         value={{
