@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import Snackbar from './Snackbar';
+import ProgressBar from './progressBar/ProgressBar'
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -10,7 +11,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
+// import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,7 +59,8 @@ function getStyles(name, personName, theme) {
   };
 }
 
-const UserSignup = ({ handleSignupInput, handleSignupSubmit, formSignup }) => {
+const UserSignup = (props) => {
+  const { handleSignupInput, handleSignupSubmit, formSignup, isLoading } = props
   const classes = useStyles();
   const theme = useTheme();
   const { username, firstName, lastName, email, title } = formSignup;
@@ -76,9 +79,11 @@ const UserSignup = ({ handleSignupInput, handleSignupSubmit, formSignup }) => {
         noValidate
         autoComplete="off"
       >
+     
         <Typography variant="h5" component="h5">
-          <i className="fas fa-user-plus"></i> Sign up
+          <i style={{color: '#0794f3'}} className="fas fa-user-plus"></i> Sign up
         </Typography>
+        
 
         <TextField
           className={classes.textField}
@@ -152,20 +157,28 @@ const UserSignup = ({ handleSignupInput, handleSignupSubmit, formSignup }) => {
 
         <br />
         <div>
-          <Snackbar type="Signup" />
+        {/* <Button
+      variant="contained"
+      color="primary"
+      type='submit' 
+      onClick={handleSnackbar}
+    >
+     Signup
+    </Button> */}
+     <Snackbar context={props.context} btn="Signup" />
+          {/* <Snackbar context={props.context} btn="Signup" /> */}
         </div>
-
         <Typography display="block" variant="subtitle1" color="textSecondary">
-          Already have an account? {/* <Link to='/login'>login</Link> */}
+          Already have an account? 
           <Link className={classes.link} to="/login">
             <span className={classes.link}>
               {' '}
               <i className="far fa-arrow-alt-circle-right"></i> Login
             </span>
           </Link>
+          <ProgressBar isLoading={isLoading} strengthValue={100} />
         </Typography>
-        <footer>
-          <Divider />
+          {/* <Divider /> */}
           <Typography display="block" variant="caption" color="textSecondary">
             Made with{' '}
             <span
@@ -177,8 +190,10 @@ const UserSignup = ({ handleSignupInput, handleSignupSubmit, formSignup }) => {
             </span>{' '}
             at Ironhack Miami - PTWD October 2019 &copy;
           </Typography>
-        </footer>
       </form>
+
+
+
     </div>
   );
 };

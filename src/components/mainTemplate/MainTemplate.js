@@ -129,7 +129,9 @@ export default function MiniDrawer({ user, isUserLoggedIn, handleLogout }) {
             <ProtectedRoute exact path="/classwork/update" component={CreateWokTemplate} />
             <ProtectedRoute exact path="/new-class/add" component={CreateFormTemplate} />
             <ProtectedRoute exact path="/update-class/edit" component={CreateFormTemplate} />
-            <ProtectedRoute exact path="/class/:classId" component={TheClass} />
+            <ProtectedRoute exact path="/class/:classId"
+              handleDrawerOpen={handleDrawerOpen}
+             component={TheClass} />
 
             <ProtectedRoute exact path="/message-board" component={MessageBoard}/>
             <ProtectedRoute exact path="/message-board/:id" component={MessageBoard}/>

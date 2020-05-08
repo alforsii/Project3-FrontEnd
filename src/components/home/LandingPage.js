@@ -2,7 +2,6 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
-// import { Switch, Redirect} from 'react-router-dom';
 import SignupForm from '../auth/SignupForm';
 
 import './LandingPage.css';
@@ -17,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
     '& > *': {
       margin: theme.spacing(1),
-      // width: '25ch',
     },
   },
   column: {
@@ -32,63 +30,73 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'base-line',
-    // flexWrap: 'wrap',
   },
   textField: {
     width: '100%',
-    // maxWidth: '450px',
-    margin: '5px'
-    // padding: 5
+    margin: '5px',
   },
-
+  image: {
+    width: '100%',
+    maxWidth: '500px'
+  }
 }));
 
-const HomePage = props => {
+const HomePage = (props) => {
   const classes = useStyles();
-  const { 
-    handleSignupSubmit, handleSignupInput,state
-   } = props.context;
+  const { handleSignupSubmit, handleSignupInput, state, isLoading } = props.context;
 
   return (
     <div className={classes.root}>
-      {/* Welcome Page Container */}
-      {/* <div className="landing-page-container"> */}
-        <div className={classes.column}>
-        <Typography style={{color: '#068ce6' }} className={classes.textField} variant="h4" component="h4">
-                Welcome to IronSchool
-             
-              </Typography>
-              <Divider />
-         <div className={classes.rows}>
-          <Typography className={classes.textField} variant="subtitle1" color="textSecondary">
-            <i className="fas fa-users fa-fw"></i> 
-            <Divider/>
+      <div className={classes.column}>
+        <Typography
+          style={{  textAlign: 'center' }}
+          className={classes.textField}
+          variant="h4"
+          component="h4"
+          color='primary'
+        >
+        <img className={classes.image} src='/images/bg-img.png' alt=''/>
+          Welcome to IronSchool
+        </Typography>
+        <div className={classes.rows}>
+          <Typography
+            className={classes.textField}
+            variant="subtitle1"
+            color="textSecondary"
+          >
+            <i style={{color: '#0794f3'}} className="fas fa-users fa-fw"></i>
+            <Divider />
             Invite teachers, students and parents to your class
-              </Typography>
-              <Typography className={classes.textField} display="block" variant="subtitle1" color="textSecondary">
-            <i className="fas fa-comments fa-fw"></i> 
-            <Divider  />
+          </Typography>
+          <Typography
+            className={classes.textField}
+            display="block"
+            variant="subtitle1"
+            color="textSecondary"
+          >
+            <i style={{color: '#0794f3'}} className="fas fa-comments fa-fw"></i>
+            <Divider />
             Connect with other teachers, students and parents
-               </Typography>
-              
-              <Typography className={classes.textField} display="block" variant="subtitle1" color="textSecondary">
-            <i className="fas fa-share-square fa-fw"></i>
-             <Divider/>
-             Share your classworks and much more
-              </Typography>
-
-         </div>
-          
+          </Typography>
+          <Typography
+            className={classes.textField}
+            display="block"
+            variant="subtitle1"
+            color="textSecondary"
+          >
+            <i style={{color: '#0794f3'}} className="fas fa-share-square fa-fw"></i>
+            <Divider />
+            Share your classworks and much more
+          </Typography>
         </div>
+      </div>
 
-        {/* { Sign up form  */}
-         <SignupForm
-         formSignup={state.formSignup}
-          handleSignupSubmit={handleSignupSubmit}
-          handleSignupInput={handleSignupInput}
-        />
-        {/* End of Sign Up form  */}
-      {/* </div> */}
+      <SignupForm
+      isLoading={isLoading}
+        formSignup={state.formSignup}
+        handleSignupSubmit={handleSignupSubmit}
+        handleSignupInput={handleSignupInput}
+      />
     </div>
   );
 };
