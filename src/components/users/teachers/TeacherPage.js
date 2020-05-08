@@ -6,10 +6,10 @@ import ClassesList from './components/classesList/ClassesList';
 // import ImageUploadForm from  './components/img-uploadForm/ImageForm'
 import DashboardSkeleton from './components/dashboardSkeleton/DashboardSkeleton'
 // import UsersList from './components/usersList/UsersList'
-import Loader from '../../messageBoard/components/loader/Loader'
+// import Loader from '../../messageBoard/components/loader/Loader'
 import { AUTH_CLASSES } from '../../../services/classesAuth/ClassesAuth';
 import AUTH_SERVICE from '../../../services/auth/AuthServices';
-import NewImageUploadForm from './components/img-uploadForm/NewImageUploadForm'
+// import NewImageUploadForm from './components/img-uploadForm/NewImageUploadForm'
 
 import './TeacherPage.css';
 
@@ -48,6 +48,7 @@ export class Teacher extends Component {
 
   //Get all classes
   getClasses = async () => {
+   try {
     const res = await AUTH_CLASSES.getClasses();
     this.setState({ 
       classes: res.data.classes,
@@ -55,6 +56,9 @@ export class Teacher extends Component {
       archiveClasses: res.data.removedClasses,
       filteredArchiveClasses: res.data.removedClasses,
      });
+   } catch (err) {
+   console.log("Teacher -> getClasses -> err", err)
+   }
   };
 
   //update state
@@ -78,11 +82,15 @@ export class Teacher extends Component {
 
   //Remove the class (move to archive not completely deleting)
   removeClass = async (classId) => {
+   try {
     const res = await AUTH_CLASSES.removeClass({classId})
     this.setState({ 
       classes: res.data.classes,
       filteredClasses: res.data.classes,
     })
+   } catch (err) {
+   console.log("Teacher -> removeClass -> err", err)
+   }
   }
 
   //handle dashboardImg

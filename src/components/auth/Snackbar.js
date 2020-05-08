@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MySnackbar() {
+export default function MySnackbar({type}) {
 
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
@@ -50,7 +50,7 @@ return (
       className={classes.button}
       onClick={ handleClickVariant()}
     >
-      Login
+     {type}
     </Button>
     {/* <Button onClick={handleClickVariant('success')}>Add to class</Button> */}
   </React.Fragment>

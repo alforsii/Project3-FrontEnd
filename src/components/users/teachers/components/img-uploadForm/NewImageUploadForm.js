@@ -100,9 +100,9 @@ export default function CustomizedDialogs({
                   subtitle={
                     <Typography display="block" variant="caption">
                     {user?.city && `${user?.city},`} {user?.state && user?.state} {user?.country && user?.country}
-                    <Typography variant="caption">
+                    {/* <br/><Typography variant="caption">
                       {`Since • ${moment(user?.createdAt).format('LL')}`}
-                    </Typography>
+                    </Typography> */}
                     </Typography>
                   }
             />}
