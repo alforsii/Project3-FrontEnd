@@ -16,7 +16,8 @@ export default function protectedRoute(props) {
               loggedIn ? (
                 <Redirect to="/dashboard" />
               ) : (
-                <Component {...props} {...rest} context={context}/>
+                <Component {...props} {...rest}
+                 context={context}/>
               )
             }
           />

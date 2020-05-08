@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MySnackbar({type}) {
+export default function MySnackbar({btn}) {
 
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
@@ -31,11 +31,11 @@ return (
 
         // variant could be success, error, warning, info, or default
 
-        if(!user){
+        if(errMessage){
           enqueueSnackbar(errMessage, { variant: 'error' });
         }
         if(user) {
-          enqueueSnackbar(`${message} Welcome ${user.firstName} ${user.firstName} to the board!`, { variant: 'success' });
+          enqueueSnackbar(`${message && message} Welcome ${user.firstName} ${user.firstName} to the board!`, { variant: 'success' });
         }
       return context?.updateState({message: '', errMessage: ''})
       };
@@ -43,6 +43,7 @@ return (
     
  return (
   <React.Fragment>
+    { handleClickVariant()}
       <Button
       variant="contained"
       color="primary"
@@ -50,9 +51,8 @@ return (
       className={classes.button}
       onClick={ handleClickVariant()}
     >
-     {type}
+     {btn}
     </Button>
-    {/* <Button onClick={handleClickVariant('success')}>Add to class</Button> */}
   </React.Fragment>
 );
     }}

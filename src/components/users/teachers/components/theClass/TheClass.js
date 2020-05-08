@@ -32,6 +32,7 @@ export class TheClass extends Component {
 
    componentDidMount(){
    this.context.getClassData();
+   this.props.handleDrawerOpen()
   };
 
   // getClassData = async () => {
@@ -204,7 +205,6 @@ export class TheClass extends Component {
       displayForm,
       state:{ users}
     } = this.props.context;
-    // const { currClass } = this.state
     const {
       currClass,
       classworks,

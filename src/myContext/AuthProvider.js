@@ -16,7 +16,7 @@ export class AuthProvider extends Component {
         lastName: '',
         email: '',
         password: '',
-        title: ''
+        title: 'Student'
       },
       formLogin: { email: '', password: '' },
       loggedIn: false,
@@ -91,8 +91,8 @@ export class AuthProvider extends Component {
   handleLoginSubmit = async e => {
     e.preventDefault();
     try {
-      this.setState({  message: 'Logging in...' });
       const {data: {user, message}} = await AUTH_SERVICE.login(this.state.formLogin);
+      // this.setState({  message: 'Successfully logged in!' });
 
    
       this.setState(prevState => ({
@@ -110,7 +110,7 @@ export class AuthProvider extends Component {
         this.props.history.push('/dashboard');
       });
     } catch (err) {
-      this.setState({ isLoading: false})
+      this.setState({ isLoading: false, message: ''})
       this.displayError(err);
 
     }
@@ -118,10 +118,11 @@ export class AuthProvider extends Component {
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   handleSignupSubmit = async e => {
-    e.preventDefault();
+  console.log("Output for: AuthProvider -> e", e)
+  e.preventDefault();
     try {
-      this.setState({ message: 'Signing up...' });
       const {data: {user, message}} = await AUTH_SERVICE.signup(this.state.formSignup);
+      // this.setState({ message: 'Thanks! Successfully signed up.' });
       
       this.setState(prevState => ({
         ...prevState,
@@ -142,7 +143,7 @@ export class AuthProvider extends Component {
         this.props.history.push('/dashboard');
       });
     } catch (err) {
-      this.setState({ isLoading: false })
+      this.setState({ isLoading: false, message: '' })
       this.displayError(err);
     }
   };
