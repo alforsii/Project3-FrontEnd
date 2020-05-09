@@ -68,7 +68,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MiniDrawer({ user, isUserLoggedIn, handleLogout }) {
+export default function MiniDrawer({ user, isUserLoggedIn,
+updateState }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -89,7 +90,7 @@ export default function MiniDrawer({ user, isUserLoggedIn, handleLogout }) {
       webPage={webPage}
        open={open}
        user={user}
-       handleLogout={handleLogout}
+       updateState={updateState}
       handleDrawerOpen={handleDrawerOpen}
        />
       <Drawer
@@ -115,7 +116,6 @@ export default function MiniDrawer({ user, isUserLoggedIn, handleLogout }) {
         setWebPage={setWebPage}
         open={open}
         handleDrawerOpen={handleDrawerOpen}
-        handleLogout={handleLogout}
         isUserLoggedIn={isUserLoggedIn} 
         user={user}/>
       </Drawer>

@@ -123,6 +123,7 @@ export class Teacher extends Component {
       // displayForm,
 
       state:{ user,
+        isLoading,
             // message,
       // errMessage,
     }
@@ -132,6 +133,7 @@ export class Teacher extends Component {
         <div id='t-main' className="t-child-div">
           <div className='cover-img-div'>
             <DashboardSkeleton 
+            isLoading={isLoading}
              title='Upload new Dashboard image'
              src={user?.dashboardImg}
              handleSubmit={this.handleDashboardImgSubmit} 

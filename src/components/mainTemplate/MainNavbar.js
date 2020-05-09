@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSnackbar } from 'notistack';
 import { Link } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -13,7 +14,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-// import MoreIcon from '@material-ui/icons/MoreVert';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Divider from '@material-ui/core/Divider';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -21,6 +21,7 @@ import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 
+import {AUTH_SERVICE} from '../../services/auth/AuthServices'
 import Avatar from '../auth/avatar/Avatar';
 import './MainNavbar.css';
 const drawerWidth = 400;
@@ -109,47 +110,69 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'center',
       alignItems: 'center',
     },
-  },
-  sectionMobile: {
-    // display: 'flex',
-    // justifyContent:'center',
-    // alignItems: 'center',
-    // [theme.breakpoints.up('md')]: {
-    //   display: 'none',
-    // },
-  },
+  }
 }));
 
 export default function PrimarySearchAppBar({
   user,
+  updateState,
   handleDrawerOpen,
   open,
-  handleLogout,
   webPage,
 }) {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  //   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
-  //   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  //   const handleMobileMenuClose = () => {
-  //     setMobileMoreAnchorEl(null);
-  //   };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
-    // handleMobileMenuClose();
   };
 
-  //   const handleMobileMenuOpen = (event) => {
-  //     setMobileMoreAnchorEl(event.currentTarget);
-  //   };
+
+  const handleClickVariant = (message, errorMessage,user) => {
+    // variant could be success, error, warning, info, or default
+    if(errorMessage){
+      enqueueSnackbar(errorMessage, { variant: 'error' });
+    }
+    if(message) {
+      enqueueSnackbar(`${message}`, { variant: 'success' });
+    }
+  };
+
+   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+   //logout
+  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  const handleLogout = async e => {
+    try {
+      updateState({ isLoading: true, message: 'Logging out...' });
+      const { data:{message} } = await AUTH_SERVICE.logout();
+      console.log("Output for: message", message)
+     
+      handleClickVariant(message,null, user)
+      updateState({ loggedIn: false, user: null, users: null, isLoading: false  },
+        () => this.props.history.push('/'));
+      
+    } catch (err) {
+      const error = displayError(err);
+      updateState({ isLoading: false})
+      handleClickVariant(null,error, user)
+    }
+  };
+
+  const displayError = err => {
+    if (err.response && err.response.data) {
+      return err.response.data.message
+    } else {
+      console.log(err);
+      return 'Sorry, something went wrong!'
+    }
+  };
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -204,7 +227,7 @@ export default function PrimarySearchAppBar({
       <Divider />
       <MenuItem
         onClick={() => {
-          handleMenuClose();
+          // handleMenuClose();
           handleLogout();
         }}
       >
@@ -216,67 +239,6 @@ export default function PrimarySearchAppBar({
     </Menu>
   );
 
-  //   const mobileMenuId = 'primary-search-account-menu-mobile';
-  //   const renderMobileMenu = (
-  //     <Menu
-  //       anchorEl={mobileMoreAnchorEl}
-  //       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-  //       id={mobileMenuId}
-  //       keepMounted
-  //       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-  //       open={isMobileMenuOpen}
-  //       onClose={handleMobileMenuClose}
-  //     >
-  //       <MenuItem onClick={handleMobileMenuClose}>
-  //         <IconButton
-  //           aria-label="account of current user"
-  //           aria-controls="primary-search-account-menu"
-  //           aria-haspopup="true"
-  //           color="inherit"
-  //         >
-  //           <Avatar src={user?.path} alt={user?.firstName} />
-  //         </IconButton>
-  //         <p>Profile</p>
-  //       </MenuItem>
-
-  //       <MenuItem onClick={handleMobileMenuClose}>
-  //         <IconButton aria-label="show 4 new mails" color="inherit">
-  //           <Badge badgeContent={4} color="secondary">
-  //             <MailIcon />
-  //           </Badge>
-  //         </IconButton>
-  //         <p>Messages</p>
-  //       </MenuItem>
-
-  //       <MenuItem onClick={handleMobileMenuClose}>
-  //         <IconButton aria-label="show 11 new notifications" color="inherit">
-  //           <Badge badgeContent={11} color="secondary">
-  //             <NotificationsIcon />
-  //           </Badge>
-  //         </IconButton>
-  //         <p>Notifications</p>
-  //       </MenuItem>
-
-  //       <MenuItem onClick={handleMobileMenuClose}>
-  //         <IconButton aria-label="settings" color="inherit">
-  //           <SettingsIcon />
-  //         </IconButton>
-  //         Settings
-  //       </MenuItem>
-  //       <Divider />
-  //       <MenuItem
-  //         onClick={() => {
-  //           handleMobileMenuClose();
-  //           handleLogout();
-  //         }}
-  //       >
-  //         <IconButton aria-label="settings" color="inherit">
-  //           <ExitToAppIcon />
-  //         </IconButton>
-  //         Logout
-  //       </MenuItem>
-  //     </Menu>
-  //   );
 
   return (
     <div className={classes.grow}>
@@ -356,31 +318,8 @@ export default function PrimarySearchAppBar({
               </Badge>
             </IconButton>
           </div>
-          {/* <div className={classes.sectionMobile}> */}
-          {/* <Link style={{color: '#fff'}}  to={{
-                        pathname: '/update-class/edit',
-                        state: {
-                            openForm: true,
-                            currClass: null
-                        },
-                        }}>
-                <IconButton aria-label="addClass" color="inherit">
-                        <AddIcon />
-                </IconButton>
-            </Link> */}
-          {/* <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton> */}
-          {/* </div> */}
         </Toolbar>
       </AppBar>
-      {/* {renderMobileMenu} */}
       {renderMenu}
     </div>
   );

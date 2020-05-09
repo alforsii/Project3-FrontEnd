@@ -43,7 +43,6 @@ return (
     
  return (
   <React.Fragment>
-    { handleClickVariant()}
       <Button
       variant="contained"
       color="primary"

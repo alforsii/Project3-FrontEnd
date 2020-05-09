@@ -75,109 +75,109 @@ export class AuthProvider extends Component {
       this.setState({ isLoading: false });
     }
   };
-  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  handleLoginInput = e => {
-    const { value, name } = e.target;
-    this.setState(prevState => ({
-      formLogin: {
-        ...prevState.formLogin,
-        [name]: value,
-      },
-    }));
-  };
-  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  handleLoginSubmit = async e => {
-    e.preventDefault();
-    try {
-      const {data: {user, message}} = await AUTH_SERVICE.login(this.state.formLogin);
-      // this.setState({  message: 'Successfully logged in!' });
+  // //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // handleLoginInput = e => {
+  //   const { value, name } = e.target;
+  //   this.setState(prevState => ({
+  //     formLogin: {
+  //       ...prevState.formLogin,
+  //       [name]: value,
+  //     },
+  //   }));
+  // };
+  // //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // handleLoginSubmit = async e => {
+  //   e.preventDefault();
+  //   try {
+  //     const {data: {user, message}} = await AUTH_SERVICE.login(this.state.formLogin);
+  //     // this.setState({  message: 'Successfully logged in!' });
 
    
-      this.setState(prevState => ({
-        ...prevState,
-        formLogin: {
-          email: '',
-          password: '',
-        },
-        user,
-        loggedIn: true,
-        isLoading: false ,
-        message
-      }),() => {
-        this.getUsers()
-        this.props.history.push('/dashboard');
-      });
-    } catch (err) {
-      this.setState({ isLoading: false, message: ''})
-      this.displayError(err);
+  //     this.setState(prevState => ({
+  //       ...prevState,
+  //       formLogin: {
+  //         email: '',
+  //         password: '',
+  //       },
+  //       user,
+  //       loggedIn: true,
+  //       isLoading: false ,
+  //       message
+  //     }),() => {
+  //       this.getUsers()
+  //       this.props.history.push('/dashboard');
+  //     });
+  //   } catch (err) {
+  //     this.setState({ isLoading: false, message: ''})
+  //     this.displayError(err);
 
-    }
-  };
-  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  handleSignupSubmit = async e => {
-  console.log("Output for: AuthProvider -> e", e)
-  e.preventDefault();
-    try {
-      const {data: {user, message}} = await AUTH_SERVICE.signup(this.state.formSignup);
-      // this.setState({ message: 'Thanks! Successfully signed up.' });
+  //   }
+  // };
+  // //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // handleSignupSubmit = async e => {
+  // console.log("Output for: AuthProvider -> e", e)
+  // e.preventDefault();
+  //   try {
+  //     const {data: {user, message}} = await AUTH_SERVICE.signup(this.state.formSignup);
+  //     // this.setState({ message: 'Thanks! Successfully signed up.' });
       
-      this.setState(prevState => ({
-        ...prevState,
-        formSignup: {
-          username: '',
-          firstName: '',
-          lastName: '',
-          email: '',
-          password: '',
-          title: ''
-        },
-        user,
-        loggedIn: true,
-        isLoading: false ,
-        message
-      }),() => {
-        this.getUsers()
-        this.props.history.push('/dashboard');
-      });
-    } catch (err) {
-      this.setState({ isLoading: false, message: '' })
-      this.displayError(err);
-    }
-  };
-  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  handleSignupInput = e => {
-    const { value, name } = e.target;
-    this.setState(prevState => ({
-      formSignup: {
-        ...prevState.formSignup,
-        [name]: value,
-      },
-    }));
-  };
-  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  handleLogout = async e => {
-    try {
-      this.setState({ isLoading: true, message: 'Logging out...' });
-      const { message } = await AUTH_SERVICE.logout();
+  //     this.setState(prevState => ({
+  //       ...prevState,
+  //       formSignup: {
+  //         username: '',
+  //         firstName: '',
+  //         lastName: '',
+  //         email: '',
+  //         password: '',
+  //         title: ''
+  //       },
+  //       user,
+  //       loggedIn: true,
+  //       isLoading: false ,
+  //       message
+  //     }),() => {
+  //       this.getUsers()
+  //       this.props.history.push('/dashboard');
+  //     });
+  //   } catch (err) {
+  //     this.setState({ isLoading: false, message: '' })
+  //     this.displayError(err);
+  //   }
+  // };
+  // //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // handleSignupInput = e => {
+  //   const { value, name } = e.target;
+  //   this.setState(prevState => ({
+  //     formSignup: {
+  //       ...prevState.formSignup,
+  //       [name]: value,
+  //     },
+  //   }));
+  // };
+  // //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // handleLogout = async e => {
+  //   try {
+  //     this.setState({ isLoading: true, message: 'Logging out...' });
+  //     const { message } = await AUTH_SERVICE.logout();
      
 
-      this.setState({ 
-        loggedIn: false, user: null, users: null,
-        message, isLoading: false  
-      },
-      () =>  this.props.history.push('/')
-      );
+  //     this.setState({ 
+  //       loggedIn: false, user: null, users: null,
+  //       message, isLoading: false  
+  //     },
+  //     () =>  this.props.history.push('/')
+  //     );
 
-    } catch (err) {
-      this.displayError(err);
-      this.setState({ isLoading: false})
-    }
-  };
+  //   } catch (err) {
+  //     this.displayError(err);
+  //     this.setState({ isLoading: false})
+  //   }
+  // };
 
     /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
@@ -195,11 +195,11 @@ displayForm = (id) => {
   render() {
     const {
       state,
-      handleLoginInput,
-      handleLoginSubmit,
-      handleSignupInput,
-      handleSignupSubmit,
-      handleLogout,
+      // handleLoginInput,
+      // handleLoginSubmit,
+      // handleSignupInput,
+      // handleSignupSubmit,
+      // handleLogout,
       updateState,
       isUserLoggedIn,
       getUsers,
@@ -207,16 +207,16 @@ displayForm = (id) => {
       displayForm,
       displayError
     } = this;
-    console.log("AuthProvider -> render -> state", state.formSignup)
+
     return (
       <AuthContext.Provider
         value={{
           state,
-          handleLoginInput,
-          handleLoginSubmit,
-          handleSignupInput,
-          handleSignupSubmit,
-          handleLogout,
+          // handleLoginInput,
+          // handleLoginSubmit,
+          // handleSignupInput,
+          // handleSignupSubmit,
+          // handleLogout,
           updateState,
           isUserLoggedIn,
           getUsers,
