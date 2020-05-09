@@ -17,6 +17,7 @@ import NewImageUploadForm from '../img-uploadForm/NewImageUploadForm'
 
 function Media(props) {
   const { user,
+    isLoading,
     title,
     src,
     handleSubmit,
@@ -26,7 +27,7 @@ function Media(props) {
   return (
     <Grid container wrap="nowrap" >
         <Box width={'100%'} my={5} style={{margin:0}}>
-        {!user ? 
+        {(isLoading || !user) ? 
            ( <>
             <Skeleton variant="rect" width={'100%'} height={'300px'} />
             <Box pt={0.5}>

@@ -2,7 +2,8 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
-import SignupForm from '../auth/SignupForm';
+// import SignupForm from '../auth/SignupForm';
+import SnackbarSignup from '../auth/SnackbarSignup'
 
 import './LandingPage.css';
 
@@ -43,7 +44,8 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = (props) => {
   const classes = useStyles();
-  const { handleSignupSubmit, handleSignupInput, state, isLoading } = props.context;
+  const { handleSignupSubmit, handleSignupInput, state, isLoading,
+    updateState, getUsers } = props.context;
 
   return (
     <div className={classes.root}>
@@ -91,12 +93,18 @@ const HomePage = (props) => {
         </div>
       </div>
 
-      <SignupForm
-      isLoading={isLoading}
-        formSignup={state.formSignup}
-        handleSignupSubmit={handleSignupSubmit}
-        handleSignupInput={handleSignupInput}
-      />
+    <SnackbarSignup
+    updateState={updateState}
+    getUsers={getUsers}
+    />
+      {/* <SignupForm
+      updateState={updateState}
+       getUsers={getUsers}
+      //  isLoading={isLoading}
+      //   formSignup={state.formSignup}
+      //   handleSignupSubmit={handleSignupSubmit}
+      //   handleSignupInput={handleSignupInput}
+      /> */}
     </div>
   );
 };
