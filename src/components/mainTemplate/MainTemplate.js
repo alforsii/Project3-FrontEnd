@@ -10,6 +10,7 @@ import MainSidebar from './MainSidebar'
 import MainNavbar from './MainNavbar'
 import CreateFormTemplate from '../users/teachers/components/create-class-form/CreateFormTemplate'
 import CreateWokTemplate from '../users/teachers/components/theClass/components/classWork/CreateWokTemplate'
+import UpcomingPageMessage from '../upcomingPage/UpcomingPageMessage'
 
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -135,6 +136,8 @@ updateState }) {
 
             <ProtectedRoute exact path="/message-board" component={MessageBoard}/>
             <ProtectedRoute exact path="/message-board/:id" component={MessageBoard}/>
+            <ProtectedRoute exact path="/class" component={UpcomingPageMessage}/>
+            <ProtectedRoute exact path="/account" component={UpcomingPageMessage}/>
 
             <ProtectedRoute exact path="/settings" component={UpdateProfile}/>
             <Route path='/' render={props => <Redirect to='/dashboard' />} />

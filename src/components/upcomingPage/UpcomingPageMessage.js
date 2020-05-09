@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'flex-start',
     width: '100%',
+    marginTop: '70px',
     // maxWidth: '70ch',
     backgroundColor: theme.palette.background.paper,
   },
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Message() {
+export default function UpcomingPageMessage() {
   const classes = useStyles();
   return (
     <List className={classes.root}>
@@ -79,15 +80,17 @@ export default function Message() {
               ></Typography>
               <Card className={classes.cardRoot}>
                 <CardContent>
-                  <Typography
+                  {/* <Typography
                     className={classes.title}
                     color="textSecondary"
                     gutterBottom
                   >
                     Hello there! Welcome to IronSchool app.
-                  </Typography>
+                  </Typography> */}
                   <Typography variant="body2" component="p">
-                    Here is message bot example by
+                    Sorry, this page is coming soon and it is not ready currently. But
+                    for now you do some other thing.<br/> Read for details below
+                    message. <br/>Thanks and have a fun 😊!
                     <br />
                     <b>"Admin"</b>
                   </Typography>
@@ -107,7 +110,7 @@ export default function Message() {
                         😀
                       </span>{' '}
                     </li>
-                    <li>Create, Update and Remove classes as you wish</li>
+                      <li>Create, Update and Remove classes as you wish</li>
                       <li>Connect with Teachers and Students!</li>
                       <b>On feature version which is coming soon Teachers can:</b>
                     <ul>
