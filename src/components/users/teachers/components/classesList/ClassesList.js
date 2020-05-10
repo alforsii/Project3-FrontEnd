@@ -64,6 +64,7 @@ export default class ClassList extends Component {
 
           <tbody>
             {currentPageClasses?.map(currClass => {
+            console.log("Output for: ClassList -> render -> currClass", currClass)
               const {
                 _id,
                 name,
@@ -81,7 +82,6 @@ export default class ClassList extends Component {
                         pathname: `/class/${_id}`,
                         state: {
                           currClass,
-                          classrooms: classes
                         },
                       }}
                     >

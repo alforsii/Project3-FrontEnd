@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import {Button} from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -9,14 +9,12 @@ import WorkIcon from '@material-ui/icons/Work';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import TitleIcon from '@material-ui/icons/Title';
 import IconButton from '@material-ui/core/IconButton';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
 const ITEM_HEIGHT = 48;
 
-export default function MenuDropdown({ displayForm,
-  classrooms, 
-  students,
-   currClass }) {
+function MenuDropdown({currClass, history }) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -46,6 +44,9 @@ export default function MenuDropdown({ displayForm,
 
   return (
     <div>
+      <Button onClick={() => history.goBack()}>
+        <ArrowBackIcon/>
+      </Button>
       <Button style={{borderRadius: '30px'}} onClick={handleClick}>
         <AddIcon />Create
       </Button>
@@ -75,8 +76,6 @@ export default function MenuDropdown({ displayForm,
           state: {
             openForm: true,
             currClass,
-            classrooms,
-            students,
             type: 'Create classwork',
           }
         }}>
@@ -105,3 +104,5 @@ export default function MenuDropdown({ displayForm,
     </div>
   );
 }
+
+export default withRouter(MenuDropdown)

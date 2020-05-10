@@ -81,9 +81,10 @@ export default function CreateWorkForm({
   handleTopic,
   handleWorkSubmit,
   handleWorkInput,
-  handleStudents
-
+  handleStudents,
+  
 }) {
+  
   const classes = useStyles();
   const [anchorElTopic, setAnchorElTopic] = useState(null);
   const [anchorElSchedule, setAnchorElSchedule] = useState(null);
@@ -123,28 +124,28 @@ export default function CreateWorkForm({
           defaultValue={`${currClass?.name}, grade ${currClass?.grade}`}
         />
         <Autocomplete
-          multiple
-          className={classes.textField}
-          id="fixed-tags-demo"
-          size="small"
-          limitTags={2}
-          value={
-            classwork?.students?.length > 0
-              ? classwork?.students
-              : [defaultStudents]
-          }
-          onChange={handleStudents}
-          options={students}
-          getOptionLabel={student => `${student.firstName} ${student.lastName}`}
-          renderInput={student => (
-            <TextField
-              {...student}
-              label="Students"
-              variant="standard"
-              placeholder="Search for student"
-            />
-          )}
-        />
+        multiple
+        className={classes.textField}
+        id="fixed-tags-demo"
+        size="small"
+        limitTags={2}
+        value={
+          classwork?.students?.length > 0
+            ? classwork?.students
+            : [defaultStudents]
+        }
+        onChange={handleStudents}
+        options={students || []}
+        getOptionLabel={student => `${student.firstName} ${student.lastName}`}
+        renderInput={student => (
+          <TextField
+            {...student}
+            label="Students"
+            variant="standard"
+            placeholder="Search for student"
+          />
+        )}
+      />
        <TextField
           name="title"
           label='Title*'

@@ -202,40 +202,34 @@ export class TheClass extends Component {
   // }
   render() {
     const {
-      displayForm,
+      // displayForm,
       state:{ users}
     } = this.props.context;
     const {
-      currClass,
-      classworks,
+      // currClass,
+      // classworks,
       students,
       teachers,
-      classrooms,
+      // classrooms,
       restStudents,
       restTeachers,
       // coverImage,
       defaultPage,
     } = this.context.classworkState;
+    const { currClass } = this.props.location.state
+    console.log("Output for: TheClass -> render -> this.props", this.props)
     const { toggleUserList, addToClass,
       closeUserList, removeFromClass, switchDefaultPage,
       updateState } = this.context
+      
     return (
       <React.Fragment>
         <div className="main-class-page">
-            {/* <div className="navbar-div"> */}
-              <ClassNavbar 
-              switchDefaultPage={switchDefaultPage}
-              />
-            {/* </div> */}
+            <ClassNavbar switchDefaultPage={switchDefaultPage}/>
 
             {defaultPage === 'posts' && <ClassPosts/>}
 
-            {defaultPage === 'works' && <ClassWork
-            displayForm={displayForm}
-            currClass={currClass}
-            classworks={classworks}
-            classrooms={classrooms}
-            students={students}/>}
+            {defaultPage === 'works' && <ClassWork currClass={currClass}/>}
 
               {defaultPage === 'users' 
               && <ClassConnections

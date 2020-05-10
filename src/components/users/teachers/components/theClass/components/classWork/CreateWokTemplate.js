@@ -48,13 +48,15 @@ export function FullScreenForm(props) {
   const linkState = props.location.state;
   const openForm = linkState?.openForm;
   const [open, setOpen] = React.useState(openForm || false);
+
   //Set message for notification
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setLoading] = useState(false);
+
   const currClass = linkState?.currClass;
-  const students = linkState?.students
-  const classrooms = linkState?.classrooms
+  const students = linkState?.currClass.students
+  const classrooms = linkState?.currClass.classrooms
 
  
   // const handleClickOpen = () => {
@@ -117,34 +119,44 @@ export function FullScreenForm(props) {
   //Handle final Submit
   const handleWorkSubmit = async event => {
     setLoading(true)
-    if (!classwork.title) {
-      setErrorMessage('Please enter your classwork title*');
+    try {
+      if (!classwork.title) {
+        setErrorMessage('Please enter your classwork title*');
+        setLoading(false)
+        return
+      }
+      setSuccessMessage('Creating a new classwork')
+      if (classwork.students.length === 0 && students?.length !== 0) {
+        console.log("Output for: FullScreenForm -> students", students)
+        const studentsIds = students.map(student => student._id)
+        // console.log({ ...classwork, students: students });
+        await AUTH_CLASSES.createClasswork({ ...classwork, schedule, students: studentsIds }, currClass._id)
+        // const { data: { classworkFromDB}} 
+      } 
+      else if(classwork.students.length === 0 && !students) {
+        await AUTH_CLASSES.createClasswork({ ...classwork, schedule }, currClass._id)
+      }
+      else {
+        const studentsIds = classwork.students.map(student => student._id)
+        await AUTH_CLASSES.createClasswork({...classwork, schedule, students: studentsIds}, currClass._id)
+        // const { data: { classworkFromDB}} 
+      }
+
+      setErrorMessage('')
+      setSuccessMessage('')
+      setClasswork({
+        ...classwork,
+        title: '',
+        description: '',
+        topic: '',
+        students: [],
+      });
+      setTopic(defaultTopic);
       setLoading(false)
-      return
+      handleClose()
+    } catch (err) {
+    console.log("FullScreenForm -> err", err)
     }
-    setSuccessMessage('Creating a new classwork')
-    if (classwork.students.length === 0) {
-      const studentsIds = students.map(student => student._id)
-      // console.log({ ...classwork, students: students });
-      await AUTH_CLASSES.createClasswork({ ...classwork, schedule, students: studentsIds }, currClass._id)
-      // const { data: { classworkFromDB}} 
-    } else {
-      const studentsIds = classwork.students.map(student => student._id)
-      await AUTH_CLASSES.createClasswork({...classwork, schedule, students: studentsIds}, currClass._id)
-      // const { data: { classworkFromDB}} = 
-    }
-    setErrorMessage('')
-    setSuccessMessage('')
-    setClasswork({
-      ...classwork,
-      title: '',
-      description: '',
-      topic: '',
-      students: [],
-    });
-    setTopic(defaultTopic);
-    setLoading(false)
-    handleClose()
   };
 
   return (

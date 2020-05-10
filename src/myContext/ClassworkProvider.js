@@ -23,8 +23,8 @@ export class ClassworkProvider extends Component {
         message: '',
       };
     
-      async componentDidMount(){
-      await this.getClassData();
+       componentDidMount(){
+       this.getClassData();
       };
     
       getClassData = async () => {
@@ -42,19 +42,20 @@ export class ClassworkProvider extends Component {
               currentClass,
             },
           } = await AUTH_CLASSES.getClassTAs(_id);
-          const {
-            data: {
-              classworks
-            },
-          } = await AUTH_CLASSES.getClassworks(_id);
+          // const {
+          //   data: {
+          //     classworks
+          //   },
+          // } = await AUTH_CLASSES.getClassworks(_id);
       
           this.setState(prevState => ({
             currClass: currentClass,
-            classworks,
+            // classworks,
             coverImage: currentClass.path,
-            students: students.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
-            teachers: teachers.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
+            students: students?.sort((a,b) => a.firstName > b.firstName ? 1 : -1) || [],
+            teachers: teachers?.sort((a,b) => a.firstName > b.firstName ? 1 : -1) || [],
           }));
+          console.log(this.state)
         } catch (err) {
         console.log("TheClass -> getClassData -> err", err)
         }
@@ -62,23 +63,33 @@ export class ClassworkProvider extends Component {
     
       //get other students that are not in class yet
       getOtherStudents = async () => {
-        const {
-          data: { students },
-        } = await AUTH_CLASSES.getOtherStudents(this.state.currClass._id);
-        
-        this.setState({
-          restStudents: students.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
-        });
+        try {
+          const {
+            data: { students },
+          } = await AUTH_CLASSES.getOtherStudents(this.state.currClass._id);
+          
+          this.setState({
+            restStudents: students?.sort((a,b) => a.firstName > b.firstName ? 1 : -1) || [],
+          });
+        } catch (err) {
+        console.log("ClassworkProvider -> getOtherStudents -> err", err)
+          
+        }
       };
       //get teachers
       getOtherTAs = async () => {
-        const {
-          data: { teachers },
-        } = await AUTH_CLASSES.getOtherTAs(this.state.currClass._id);
-    
-        this.setState({
-          restTeachers: teachers.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
-        });
+        try {
+          const {
+            data: { teachers },
+          } = await AUTH_CLASSES.getOtherTAs(this.state.currClass._id);
+      
+          this.setState({
+            restTeachers: teachers?.sort((a,b) => a.firstName > b.firstName ? 1 : -1) || [],
+          });
+        } catch (err) {
+        console.log("ClassworkProvider -> getOtherTAs -> err", err)
+          
+        }
       };
     
       //toggle userList
