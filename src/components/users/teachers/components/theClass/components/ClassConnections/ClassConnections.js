@@ -5,20 +5,21 @@ import ClassTeachers from './ClassUsers/ClassUsers';
 import Students from '../../../users/Students';
 import Teachers from '../../../users/Teachers';
 import SwitchButton from './switchModeButton/SwitchButton';
+import {ClassworkContext} from '../../../../../../../myContext/ClassworkProvider'
 import './ClassConnections.css'
 
 export default function ClassConnections({
   // switchUsersList,
   // toggleClassNavDropdown,
-  toggleUserList,
+  // toggleUserList,
   // displayUsers,
-  currClass,
   // filteredStudents,
   // filteredTeachers,
-  students,
-  teachers,
   // filterUsers,
   // updateState,
+  currClass,
+  students,
+  teachers,
   removeFromClass,
   restStudents,
   restTeachers,
@@ -35,11 +36,8 @@ export default function ClassConnections({
     setCurrentTeachers(teachers)
   },[students, teachers])
 
-  const switchUsersList = () => {
-    setDisplayUsers(!displayUsers)
-  };
 
-   //Search user
+          //Search user
  const filterUsers = e => {
   const searchUser = e.target.value.toUpperCase();
 
@@ -65,68 +63,83 @@ export default function ClassConnections({
 };
 
   
+  const switchUsersList = () => {
+    setDisplayUsers(!displayUsers)
+  };
+
+ 
+
   return (
-    <div className='users-connections'>
-      <div className='switch-btns'>
-        <SwitchButton switchUsersList={switchUsersList}/>
-        {displayUsers?  <button
-              id="studentsBtn"
-              className="userDisplayBtns"
-              onClick={toggleUserList}
-            >
-              <i className='fas fa-user-plus'></i>
-            </button>
-            :<button
-              id="teachersBtn"
-              className="userDisplayBtns"
-              onClick={toggleUserList}
-            >
-              <i className='fas fa-user-plus'></i>
-            </button>}
-      </div>
+    <ClassworkContext.Consumer>
+      {classContext => {
+        
+        return (
+          <div className='users-connections'>
+            <div className='switch-btns'>
+              <SwitchButton switchUsersList={switchUsersList}/>
+              {displayUsers?  <button
+                    id="studentsBtn"
+                    className="userDisplayBtns"
+                    onClick={e => classContext.toggleUserList(e)}
+                  >
+                    <i className='fas fa-user-plus'></i>
+                  </button>
+                  :<button
+                    id="teachersBtn"
+                    className="userDisplayBtns"
+                    onClick={e => classContext.toggleUserList(e)}
+                  >
+                    <i className='fas fa-user-plus'></i>
+                  </button>}
+            </div>
+      
+            {displayUsers ? (
+              <ClassStudents
+                currClass={currClass}
+                users={currentStudents}
+                filterUsers={filterUsers}
+                // updateState={updateState}
+                removeFromClass={removeFromClass}
+              />
+            ) : (
+              <ClassTeachers
+                currClass={currClass}
+                users={currentTeachers}
+                filterUsers={filterUsers}
+                // updateState={updateState}
+                removeFromClass={removeFromClass}
+              />
+            )}
+      
+            {/*--------- below hidden user lists - appears on click -------------------*/}
+            {displayUsers? 
+            <div id="studentsList" className="userListMenu-content">
+              {restStudents && (
+                <Students
+                  users={restStudents}
+                  // updateState={updateState}
+                  addToClass={addToClass}
+                  closeUserList={closeUserList}
+                />
+              )}
+            </div>
+      
+            :<div id="teachersList" className="userListMenu-content">
+              {restTeachers && (
+                <Teachers
+                  users={restTeachers}
+                  // updateState={updateState}
+                  addToClass={addToClass}
+                  closeUserList={closeUserList}
+                />
+              )}
+            </div>
+            }
+          </div>
+        );
+      }}
+    </ClassworkContext.Consumer>
+  )
 
-      {displayUsers ? (
-        <ClassStudents
-          currClass={currClass}
-          users={currentStudents}
-          filterUsers={filterUsers}
-          // updateState={updateState}
-          removeFromClass={removeFromClass}
-        />
-      ) : (
-        <ClassTeachers
-          currClass={currClass}
-          users={currentTeachers}
-          filterUsers={filterUsers}
-          // updateState={updateState}
-          removeFromClass={removeFromClass}
-        />
-      )}
-
-      {/*--------- below hidden user lists - appears on click -------------------*/}
-      {displayUsers? 
-      <div id="studentsList" className="userListMenu-content">
-        {restStudents && (
-          <Students
-            users={restStudents}
-            // updateState={updateState}
-            addToClass={addToClass}
-            closeUserList={closeUserList}
-          />
-        )}
-      </div>
-
-      :<div id="teachersList" className="userListMenu-content">
-        {restTeachers && (
-          <Teachers
-            users={restTeachers}
-            // updateState={updateState}
-            addToClass={addToClass}
-            closeUserList={closeUserList}
-          />
-        )}
-      </div>
-      }
-    </div>
-  );
+  
 }

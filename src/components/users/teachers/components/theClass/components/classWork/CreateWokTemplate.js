@@ -57,6 +57,7 @@ export function FullScreenForm(props) {
   const currClass = linkState?.currClass;
   const students = linkState?.currClass.students
   const classrooms = linkState?.currClass.classrooms
+  console.log("Output for: FullScreenForm -> currClass", currClass)
 
  
   // const handleClickOpen = () => {

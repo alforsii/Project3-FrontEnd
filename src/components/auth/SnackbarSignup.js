@@ -218,7 +218,8 @@ const {username,firstName,lastName,email,password,title} = formSignup
         />
         <FormControl className={classes.textField}>
           <InputLabel id="user-title">
-            Are you Teacher? Select type here
+            Are you a Teacher or Parent? Then select here {' '}
+            <i className="far fa-arrow-alt-circle-down"></i>
           </InputLabel>
           <Select
             className={classes.textField}
