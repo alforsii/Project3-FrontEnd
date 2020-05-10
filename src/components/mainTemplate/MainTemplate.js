@@ -73,7 +73,7 @@ export default function MiniDrawer({ user, isUserLoggedIn,
 updateState }) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [webPage, setWebPage] = useState('Dashboard')
 
   const handleDrawerOpen = () => {
@@ -126,8 +126,9 @@ updateState }) {
         <Switch>
             <ProtectedRoute exact path="/dashboard" component={TeacherPage} />
 
-            <ProtectedRoute exact path="/classwork/create" component={CreateWokTemplate} />
-            <ProtectedRoute exact path="/classwork/update" component={CreateWokTemplate} />
+            <Route exact path="/classwork/create" component={CreateWokTemplate} />
+            <Route exact path="/classwork/update" component={CreateWokTemplate} />
+
             <ProtectedRoute exact path="/new-class/add" component={CreateFormTemplate} />
             <ProtectedRoute exact path="/update-class/edit" component={CreateFormTemplate} />
             <ProtectedRoute exact path="/class/:classId"

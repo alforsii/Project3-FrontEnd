@@ -118,7 +118,7 @@ export class Teacher extends Component {
       filteredArchiveClasses } = this.state;
 
     const {
-      updateState,
+      // updateState,
       toggleClassNavDropdown,
       // displayForm,
 

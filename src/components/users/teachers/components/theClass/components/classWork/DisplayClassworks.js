@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import moment from 'moment'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,6 +27,8 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 // import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 
+import {AUTH_CLASSES} from '../../../../../././../../services/classesAuth/ClassesAuth'
+
 const ITEM_HEIGHT = 48;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,12 +53,36 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const dropMenu = ['Post', 'Copy', 'Edit', 'Delete'];
-export default function DisplayClassworks({ classworks }) {
+export default function DisplayClassworks({classworks}) {
+console.log("Output for: DisplayClassworks -> classworks", classworks)
+
 
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  
+  // const getClassworks = () => {
+    //   const {
+      //     data: {
+        //       classworks
+        //     },
+        //   } = await AUTH_CLASSES.getClassworks(_id);
+        // }
+        
+// const [classworks,setClassworks] = useState([])
+//   useEffect(() => {
+//   async function fetchDate() {
+//     const {
+//       data: {
+//         classworks
+//       },
+//     } = await AUTH_CLASSES.getClassworks(currClass._id);
+
+//     setClassworks(classworks)
+//   }
+//   fetchDate()
+//   },[currClass])
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);

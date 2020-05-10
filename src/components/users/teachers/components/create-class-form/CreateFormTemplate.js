@@ -111,9 +111,9 @@ export function FullScreenForm(props) {
       }
     };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
     setOpen(false);
@@ -124,9 +124,9 @@ export function FullScreenForm(props) {
     <div>
       {/* <Link to="/new-class/add" onClick={handleClickOpen} className="click-btn"><i className='fas fa-plus-circle'></i> Class</Link> */}
 
-      <button onClick={handleClickOpen} className="click-btn">
+      {/* <button onClick={handleClickOpen} className="click-btn">
         <i className="fas fa-plus-circle"></i> Class
-      </button>
+      </button> */}
 
       <Dialog
         fullScreen
