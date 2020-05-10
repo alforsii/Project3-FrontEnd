@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link, withRouter} from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles';
 import {Button} from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -13,8 +14,15 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
 const ITEM_HEIGHT = 48;
+const useStyles = makeStyles((theme) => ({
+  link: {
+    textDecoration: 'none',
+  },
+}));
 
-function MenuDropdown({currClass, history }) {
+function MenuDropdown(props) {
+  const {currClass, history } = props
+  const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -26,22 +34,7 @@ function MenuDropdown({currClass, history }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // const myStyle = {
-  //   padding: '10px',
-  //   marginLeft: '10px',
-  //   display: 'flex',
-  //   width: '100%',
-  //   justifyContent: 'space-around',
-  //   alignItems: 'center',
-  //   hover: {
-  //     transition: 'all 1s linier',
-  //     fontSize: '30px',
-  //     "&:hover": {
-  //       backgroundColor: "0  !important",
-  //       }
-  //   },
-  // }
-
+  
   return (
     <div>
       <Button onClick={() => history.goBack()}>
@@ -67,11 +60,12 @@ function MenuDropdown({currClass, history }) {
       
         <MenuItem onClick={handleClose}>
         <IconButton >
-           <TitleIcon/> <h4>Topic</h4>
-        </IconButton>
+           <TitleIcon/> 
+        </IconButton>Topic
         </MenuItem>
 
-        <Link to={{
+        <Link className={classes.link}
+         to={{
           pathname: '/classwork/create',
           state: {
             openForm: true,
@@ -81,24 +75,23 @@ function MenuDropdown({currClass, history }) {
         }}>
         <MenuItem onClick={() => {
           handleClose()
-          // displayForm('#classwork-form')
           }}>
           <IconButton >
-        <WorkIcon /> <h4>Classwork</h4>
-            </IconButton>
+        <WorkIcon /> 
+            </IconButton>Classwork
         </MenuItem>
           </Link>
 
         <MenuItem onClick={handleClose}>
           <IconButton >
-        <AssignmentIcon/> <h4>Assignment</h4>
-          </IconButton>
+        <AssignmentIcon/> 
+          </IconButton>Assignment
         </MenuItem>
      
         <MenuItem onClick={handleClose}>
           <IconButton >
-          <HelpIcon/> <h4>Question</h4>
-          </IconButton>
+          <HelpIcon/> 
+          </IconButton>Question
         </MenuItem>
       </Menu>
     </div>

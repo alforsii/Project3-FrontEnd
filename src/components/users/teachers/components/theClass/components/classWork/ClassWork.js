@@ -1,7 +1,5 @@
 import React, { useState, useEffect} from 'react';
 
-
-import PageMessage from './PageMessage';
 import DisplayClassworks from './DisplayClassworks'
 // import CreateWorkForm from './CreateWorkForm'
 import CreateDropdown from './CreateDropdown'
@@ -34,12 +32,9 @@ function ClassWork({ currClass }) {
   return (
     <div className="main-classwork">
       <CreateDropdown currClass={currClass}/>
-      { 
-      currClass?.classworks.length > 0? <div className='classworks-div'>
+       <div className='classworks-div'>
         <DisplayClassworks classworks={classworks}/>
       </div>
-      :<PageMessage />
-      }
     </div>
   );
 }

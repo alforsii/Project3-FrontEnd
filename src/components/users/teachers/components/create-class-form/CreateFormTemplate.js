@@ -72,26 +72,23 @@ export function FullScreenForm(props) {
     handleSubmit = async (e) => {
       try {
         setLoading(true);
+        if(!createForm.name){
+          setErrorMessage('Name of the classroom is required!')
+          setLoading(false);
+          return
+        }
+        let res;
         if (currClass) {
-          if(!createForm.name){
-            setErrorMessage('Name of the classroom is required!')
-            setLoading(false);
-            return
-          }
           setSuccessMessage('Updating details! Please wait, it may take a moment...');
-          await AUTH_CLASSES.updateClass(currClass._id, createForm);
+         res = await AUTH_CLASSES.updateClass(currClass._id, createForm);
         } else {
-          if (!createForm.name) {
-            setErrorMessage('Name of the classroom is required!')
-            setLoading(false);
-            return;
-          }
-
+          
           setSuccessMessage(
             'Creating a new class.Please wait, it may take a moment...'
           );
-          await AUTH_CLASSES.createClass(createForm);
+          res = await AUTH_CLASSES.createClass(createForm);
         }
+
         //set current state
         setLoading(false);
         setSuccessMessage('');

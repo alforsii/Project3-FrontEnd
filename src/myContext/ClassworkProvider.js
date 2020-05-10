@@ -10,7 +10,6 @@ export class ClassworkProvider extends Component {
     state = {
         currClass: this.props?.location.state?.currClass,
         classrooms: this.props.location.state?.classrooms,
-        classworks: [],
         coverImage: this.props.location.state?.currClass?.path,
         students: this.props.location.state?.currClass?.students,
         teachers: this.props.location.state?.currClass?.teachers,
@@ -23,34 +22,28 @@ export class ClassworkProvider extends Component {
         message: '',
       };
     
-       componentDidMount(){
-       this.getClassData();
-      };
+      //  componentDidMount(){
+      //  this.getClassData();
+      // };
     
-      getClassData = async () => {
+      getClassData = async (id) => {
           //Get current class students id's to filter out from the main list of students
           try {
-            const _id = this.state.currClass._id
+            // const id = this.state.currClass._id
           const {
             data: {
               currentClass: { students },
             },
-          } = await AUTH_CLASSES.getClassStudents(_id);
+          } = await AUTH_CLASSES.getClassStudents(id);
           const {
             data: {
               currentClass: { teachers },
               currentClass,
             },
-          } = await AUTH_CLASSES.getClassTAs(_id);
-          // const {
-          //   data: {
-          //     classworks
-          //   },
-          // } = await AUTH_CLASSES.getClassworks(_id);
-      
+          } = await AUTH_CLASSES.getClassTAs(id);
+
           this.setState(prevState => ({
             currClass: currentClass,
-            // classworks,
             coverImage: currentClass.path,
             students: students?.sort((a,b) => a.firstName > b.firstName ? 1 : -1) || [],
             teachers: teachers?.sort((a,b) => a.firstName > b.firstName ? 1 : -1) || [],

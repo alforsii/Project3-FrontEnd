@@ -30,10 +30,10 @@ function Media(props) {
         {(isLoading || !user) ? 
            ( <>
             <Skeleton variant="rect" width={'100%'} height={'300px'} />
-            <Box pt={0.5}>
+            {/* <Box pt={0.5}>
               <Skeleton />
               <Skeleton width="60%" />
-            </Box>
+            </Box> */}
             </>
           )
        

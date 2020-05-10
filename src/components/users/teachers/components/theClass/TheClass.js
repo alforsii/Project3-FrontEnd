@@ -31,7 +31,8 @@ export class TheClass extends Component {
   };
 
    componentDidMount(){
-   this.context.getClassData();
+     const {currClass} = this.props.location.state
+   this.context.getClassData(currClass._id);
    this.props.handleDrawerOpen()
   };
 
@@ -202,22 +203,18 @@ export class TheClass extends Component {
   // }
   render() {
     const {
-      // displayForm,
       state:{ users}
     } = this.props.context;
     const {
-      // currClass,
-      // classworks,
       students,
       teachers,
-      // classrooms,
       restStudents,
       restTeachers,
-      // coverImage,
       defaultPage,
     } = this.context.classworkState;
+
     const { currClass } = this.props.location.state
-    console.log("Output for: TheClass -> render -> this.props", this.props)
+
     const { toggleUserList, addToClass,
       closeUserList, removeFromClass, switchDefaultPage,
       updateState } = this.context
@@ -233,7 +230,7 @@ export class TheClass extends Component {
 
               {defaultPage === 'users' 
               && <ClassConnections
-              toggleUserList={toggleUserList}
+              // toggleUserList={toggleUserList}
               closeUserList={closeUserList}
               currClass={currClass}
               students={students}
