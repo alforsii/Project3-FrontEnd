@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Avatar from '@material-ui/core/Avatar'
+
 import {MenuDropdown} from './MenuDropdown'
+import Avatar from '@material-ui/core/Avatar'
 import Alert from './Alert'
 import './UserList.css';
 
@@ -13,11 +14,10 @@ export default class UserList extends Component {
   }
 
   toggleCheckbox = (e) => {
-    const checkboxes = document.querySelectorAll('.teachers');
-  this.setState({ selectAll: e.target.checked })
-  for (let i = 0; i < checkboxes.length; i++) {
-    checkboxes[i].checked = e.target.checked;
-  }
+    const checkboxes = document.querySelectorAll('.students');
+    for (let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = e.target.checked;
+    }
     
   }
 
@@ -31,15 +31,14 @@ export default class UserList extends Component {
     })
   }
 
-  //Remove added teacher from list
+  //remove added student from the list
   removeAddedUser = removedUser => {
     this.setState(prevState => ({
       users: prevState.users.filter(user => user._id !== removedUser._id),
       filterUsers: prevState.filterUsers.filter(user => user._id !== removedUser._id)
     }))
   }
-
-    //Alert
+  //Alert
   handleAlert = (user) => {
     this.setState(prevState => ({
       alert: true,
@@ -54,11 +53,12 @@ export default class UserList extends Component {
   }
   render() {
     const { filterUsers } = this.state;
+
     return (
       <div className='main-user-list'>
-         <button className="close-form-btn"
+        <button className='close-form-btn'
               onClick={this.props.closeUserList}>x</button>
-        <input type="text" placeholder='Search for co-teachers by name or email...' className="searchInput" onKeyUp={this.filterUsers} autoComplete='off'></input>
+        <input type="text" placeholder='Search for students by name or email...' className="searchInput" onKeyUp={this.filterUsers} autoComplete='off'></input>
         <div className='select-btns'>
           <div>
             <input type="checkbox" onChange={this.toggleCheckbox} />
@@ -66,7 +66,6 @@ export default class UserList extends Component {
           </div>
           <button id='addToClass'>Add all selected users</button>
         </div>
-        <hr/>
 
         <div className='userListScroll'>
         {filterUsers?.map(user => {
@@ -74,9 +73,8 @@ export default class UserList extends Component {
           return (
             <div key={_id} className="user-user-list-horizontal">
               <div className="user-image-div user-horizontal">
-                <input type="checkbox" className='add-user teachers' />
+                <input type="checkbox" className={`add-user students`} />
                 <div>
-                  {/* <img className="user-image-sm " src={path} alt={username} /> */}
                   <Avatar alt={username} src={path}/>
                   <p>
                     {' '}
@@ -84,13 +82,16 @@ export default class UserList extends Component {
                   </p>
                 </div>
               </div>
+
               <MenuDropdown
-               currUser={user}
-               updateState={this.props.updateState}
-               addToClass={this.props.addToClass}
-               removeAddedUser={this.removeAddedUser}
-               handleAlert={user => this.handleAlert(user)}
+                  currUser={user}
+                  updateState={this.props.updateState}
+                  addToClass={this.props.addToClass}
+                  removeAddedUser={this.removeAddedUser}
+                  handleAlert={user => this.handleAlert(user)}
+                  
                   />
+                  
             </div>
           );
         })}

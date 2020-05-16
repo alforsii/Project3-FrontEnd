@@ -19,7 +19,7 @@ import {
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import DatePickers from './DatePickers'
-// import './CreateWorkForm.css';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -76,6 +76,7 @@ export default function CreateWorkForm({
   setSchedule,
   schedule,
   classwork,
+  subject,
   defaultTopic,
   defaultStudents,
   handleTopic,
@@ -147,6 +148,15 @@ export default function CreateWorkForm({
         )}
       />
        <TextField
+          name="subject"
+          label='Subject'
+          className={classes.textField}
+          placeholder='Subject(optional)'
+          variant="standard"
+          value={classwork.subject}
+          onChange={handleWorkInput}
+        />
+       <TextField
           name="title"
           label='Title*'
           className={classes.textField}
@@ -157,9 +167,9 @@ export default function CreateWorkForm({
         />
         <TextField
           name="description"
-          label="Description"
+          label="Message"
           className={classes.textField}
-          placeholder="Description(optional)"
+          placeholder="TextField(optional) - put your material(text/message) for the subject/topic here."
           multiline
           rows={13}
           variant="filled"

@@ -29,7 +29,6 @@ export class ClassworkProvider extends Component {
       getClassData = async (id) => {
           //Get current class students id's to filter out from the main list of students
           try {
-            // const id = this.state.currClass._id
           const {
             data: {
               currentClass: { students },
@@ -62,7 +61,7 @@ export class ClassworkProvider extends Component {
           } = await AUTH_CLASSES.getOtherStudents(this.state.currClass._id);
           
           this.setState({
-            restStudents: students?.sort((a,b) => a.firstName > b.firstName ? 1 : -1) || [],
+            restStudents: students?.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
           });
         } catch (err) {
         console.log("ClassworkProvider -> getOtherStudents -> err", err)
@@ -77,7 +76,7 @@ export class ClassworkProvider extends Component {
           } = await AUTH_CLASSES.getOtherTAs(this.state.currClass._id);
       
           this.setState({
-            restTeachers: teachers?.sort((a,b) => a.firstName > b.firstName ? 1 : -1) || [],
+            restTeachers: teachers?.sort((a,b) => a.firstName > b.firstName ? 1 : -1),
           });
         } catch (err) {
         console.log("ClassworkProvider -> getOtherTAs -> err", err)
@@ -86,16 +85,15 @@ export class ClassworkProvider extends Component {
       };
     
       //toggle userList
-      toggleUserList = async e => {
+      toggleUserList = async (users) => {
     
         try {
-          const { id } = e.target.closest('button');
-        // this.closeUserList();
-        if (id === 'studentsBtn') {
+          // const { id } = e.target.closest('button');
+        if (users === 'students') {
          await this.getOtherStudents();
           document.getElementById('studentsList').classList.toggle('show');
         }
-        if (id === 'teachersBtn') {
+        if (users === 'teachers') {
          await this.getOtherTAs();
           document.getElementById('teachersList').classList.toggle('show');
         }
