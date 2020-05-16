@@ -43,7 +43,6 @@ export default class UserList extends Component {
     this.setState(prevState => ({
       alert: true,
       messages: [ {msg: `${user?.firstName} ${user?.lastName} successfully added to the class!`, time: 5000}, ...prevState.messages]
-      // messages: [...prevState.messages, {msg: `${user?.firstName} ${user?.lastName} successfully added to the class!`, time: new Date().getTime()}]
     }))
            
   }
@@ -75,7 +74,6 @@ export default class UserList extends Component {
               <div className="user-image-div user-horizontal">
                 <input type="checkbox" className={`add-user students`} />
                 <div>
-                  {/* <img className="user-image-sm " src={path} alt={username} /> */}
                   <Avatar alt={username} src={path}/>
                   <p>
                     {' '}

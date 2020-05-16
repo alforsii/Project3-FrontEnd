@@ -9,7 +9,7 @@ import UpdateProfile from '../settings/UpdateProfile'
 import MainSidebar from './MainSidebar'
 import MainNavbar from './MainNavbar'
 import CreateFormTemplate from '../users/teachers/components/create-class-form/CreateFormTemplate'
-import CreateWokTemplate from '../users/teachers/components/theClass/components/classWork/CreateWokTemplate'
+import CreateWokTemplate from '../users/teachers/components/theClass/components/classWorks/tasks/CreateWokTemplate'
 import UpcomingPageMessage from '../upcomingPage/UpcomingPageMessage'
 
 import clsx from 'clsx';

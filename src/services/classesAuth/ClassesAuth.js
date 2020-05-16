@@ -9,6 +9,7 @@ const service = axios.create({
 const endPointUrl = '/api/classes'
 
 export const AUTH_CLASSES = {
+  //class(classroom) routes
   getClasses(){
     return service.get(`${endPointUrl}`)
   },
@@ -22,7 +23,7 @@ export const AUTH_CLASSES = {
     return service.post(`${endPointUrl}/update-class/${classId}`, data)
   },
 
-
+  //students routes
   addStudent(data) {
     return service.post(`${endPointUrl}/add-student`, data)
   },
@@ -36,6 +37,7 @@ export const AUTH_CLASSES = {
     return service.get(`${endPointUrl}/${classId}/other-students`)
   },
   
+  //teachers routes
   addTeacher(data) {
     return service.post(`${endPointUrl}/add-teacher`, data)
   },
@@ -49,6 +51,7 @@ export const AUTH_CLASSES = {
     return service.get(`${endPointUrl}/${classId}/other-teachers`)
   },
   
+  //classwork routes
   createClasswork(data, classId) {
     return service.post(`${endPointUrl}/${classId}/classwork/create`, data)
   },
@@ -58,6 +61,14 @@ export const AUTH_CLASSES = {
 
   updateClassImg(userData) {
     return service.post(`${endPointUrl}/update/class-image`, userData);
+  },
+
+  //Post routes
+  createPost(classId, classwork) {
+    return service.post(`${endPointUrl}/${classId}/posts/create`, { classwork })
+  },
+  getPosts(classId) {
+    return service.post(`${endPointUrl}/${classId}/posts`)
   },
 };
 

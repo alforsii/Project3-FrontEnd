@@ -16,9 +16,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import AddIcon from '@material-ui/icons/Add';
 import UpdateIcon from '@material-ui/icons/Update';
 
-import {AUTH_CLASSES} from '../../../../../../../services/classesAuth/ClassesAuth'
-import CreateWorkFormCopy from './CreateWorkFormCopy';
-import ProgressBar from '../../../../../../auth/progressBar/ProgressBar'
+import {AUTH_CLASSES} from '../../../../../../../../services/classesAuth/ClassesAuth'
+import {ClassworkContext} from '../../../../../../../../myContext/ClassworkProvider'
+import CreateWorkForm from './CreateWorkForm';
+import ProgressBar from '../../../../../../../auth/progressBar/ProgressBar'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -47,7 +48,7 @@ export function FullScreenForm(props) {
   const classes = useStyles();
   const linkState = props.location.state;
   const openForm = linkState?.openForm;
-  const [open, setOpen] = React.useState(openForm || false);
+  const [open, setOpen] = useState(openForm || false);
 
   //Set message for notification
   const [successMessage, setSuccessMessage] = useState('');
@@ -55,10 +56,6 @@ export function FullScreenForm(props) {
   const [isLoading, setLoading] = useState(false);
 
   const currClass = linkState?.currClass;
-  const students = linkState?.currClass.students
-  const classrooms = linkState?.currClass.classrooms
-  console.log("Output for: FullScreenForm -> currClass", currClass)
-
  
   // const handleClickOpen = () => {
   //   setOpen(true);
@@ -92,6 +89,7 @@ export function FullScreenForm(props) {
     title: '',
     description: '',
     topic: '',
+    subject: '',
     students: [],
   });
 
@@ -117,7 +115,16 @@ export function FullScreenForm(props) {
       [event.target.name]: event.target.value,
     });
   };
-  //Handle final Submit
+
+
+  return (
+    <ClassworkContext.Consumer>
+    {classContext => {
+      const { students, classrooms } = classContext.classworkState
+      console.log("Output for: FullScreenForm -> classrooms", classrooms)
+      console.log("Output for: FullScreenForm -> students", students)
+
+        //Handle final Submit
   const handleWorkSubmit = async event => {
     setLoading(true)
     try {
@@ -160,104 +167,109 @@ export function FullScreenForm(props) {
     }
   };
 
-  return (
-    <div>
-      {/* <Link to="/new-class/add" onClick={handleClickOpen} className="click-btn"><i className='fas fa-plus-circle'></i> Class</Link> */}
+return (
+  <div>
+    {/* <Link to="/new-class/add" onClick={handleClickOpen} className="click-btn"><i className='fas fa-plus-circle'></i> Class</Link> */}
 
-      {/* <button onClick={handleClickOpen} className="click-btn">
-        <i className="fas fa-plus-circle"></i> Class
-      </button> */}
+    {/* <button onClick={handleClickOpen} className="click-btn">
+      <i className="fas fa-plus-circle"></i> Class
+    </button> */}
 
-      <Dialog
-        fullScreen
-        open={open}
-        onClose={handleClose}
-        TransitionComponent={Transition}
-      >
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              edge="start"
+    <Dialog
+      fullScreen
+      open={open}
+      onClose={handleClose}
+      TransitionComponent={Transition}
+    >
+      <AppBar className={classes.appBar}>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+          >
+            <CloseIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            Classwork 
+          </Typography>
+            <Button
+              autoFocus
               color="inherit"
-              onClick={handleClose}
-              aria-label="close"
+              onClick={() => {
+                handleWorkSubmit()
+              }}
             >
-              <CloseIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              Create or Update 
-            </Typography>
-              <Button
-                autoFocus
-                color="inherit"
-                onClick={() => {
-                  handleWorkSubmit()
-                }}
-              >
-                {linkState?.type.includes('Create') ? (
-                  <>
-                    <AddIcon /> Create
-                  </>
-                ) : (
-                  <>
-                    Update
-                    <UpdateIcon />
-                  </>
-                )}
-              </Button>
-          </Toolbar>
-        </AppBar>
-        <div className={classes.content}>
-        {linkState?.type.includes('Create') ? (
-          <IconButton aria-label="addClass" color="inherit">
-            <AddIcon />
-          </IconButton>
-        ) : (
-          <IconButton aria-label="addClass" color="inherit">
-            <UpdateIcon />
-          </IconButton>
-        )}
-        <DialogTitle style={{ textAlign: 'center' }} id="form-dialog-title">
-          {linkState?.type}
-          {isLoading ? <ProgressBar isLoading={true} strengthValue={100}/>
-          : <ProgressBar isLoading={false} strengthValue={100}/>}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText style={{ textAlign: 'center' }}>
-          {successMessage? <p style={{color: '#00c853'}}>{successMessage}</p>
-          :errorMessage? <p style={{color: '#d50000'}}> {errorMessage} </p>: ''}
-          </DialogContentText>
-
-          <CreateWorkFormCopy
-           currClass={currClass}
-           classrooms={classrooms}
-           students={students}
-           topic={topic}
-           setSchedule={setSchedule}
-           schedule={schedule}
-           classwork={classwork}
-           defaultTopic={defaultTopic}
-           defaultStudents={defaultStudents}
-           handleTopic={handleTopic}
-           handleWorkSubmit={handleWorkSubmit}
-           handleWorkInput={handleWorkInput}
-           handleStudents={handleStudents}
-          />
-        </DialogContent>
-        </div>
-        <DialogActions>
-           <Button onClick={handleClose} color="inherit">
-              Cancel
+              {linkState?.type.includes('Create') ? (
+                <>
+                  <AddIcon /> Create
+                </>
+              ) : (
+                <>
+                  Update
+                  <UpdateIcon />
+                </>
+              )}
             </Button>
-         {linkState?.type.includes('Create') 
-         && <Button variant='contained' disabled={ classwork?.title ? false:true} type="submit"
-          onClick={handleClose}>
-             Create & Post
-          </Button>}
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
+        </Toolbar>
+      </AppBar>
+      <div className={classes.content}>
+      {linkState?.type.includes('Create') ? (
+        <IconButton aria-label="addClass" color="inherit">
+          <AddIcon />
+        </IconButton>
+      ) : (
+        <IconButton aria-label="addClass" color="inherit">
+          <UpdateIcon />
+        </IconButton>
+      )}
+      <DialogTitle style={{ textAlign: 'center' }} id="form-dialog-title">
+        {linkState?.type}
+        {isLoading ? <ProgressBar isLoading={true} strengthValue={100}/>
+        : <ProgressBar isLoading={false} strengthValue={100}/>}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText style={{ textAlign: 'center' }}>
+        {successMessage? <p style={{color: '#00c853'}}>{successMessage}</p>
+        :errorMessage? <p style={{color: '#d50000'}}> {errorMessage} </p>: ''}
+        </DialogContentText>
+
+        <CreateWorkForm
+         currClass={currClass}
+         classrooms={classrooms}
+         students={students}
+         topic={topic}
+         setSchedule={setSchedule}
+         schedule={schedule}
+         classwork={classwork}
+         defaultTopic={defaultTopic}
+         defaultStudents={defaultStudents}
+         handleTopic={handleTopic}
+         handleWorkSubmit={handleWorkSubmit}
+         handleWorkInput={handleWorkInput}
+         handleStudents={handleStudents}
+        />
+      </DialogContent>
+      </div>
+      <DialogActions>
+         <Button onClick={handleClose} color="inherit">
+            Cancel
+          </Button>
+       {linkState?.type.includes('Create') 
+       && <Button variant='contained' disabled={ classwork?.title ? false:true} type="submit"
+        onClick={handleClose}>
+           Create & Post
+        </Button>}
+      </DialogActions>
+    </Dialog>
+  </div>
+);
+    }}
+  </ClassworkContext.Consumer>
+  )
+
+ 
 }
 
 export default withRouter(FullScreenForm);

@@ -142,7 +142,7 @@ export function FullScreenForm(props) {
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              Create or Update 
+              Classroom 
             </Typography>
             {isLoading ? (
               <CircularProgress />

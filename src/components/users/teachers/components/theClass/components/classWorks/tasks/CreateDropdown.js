@@ -40,7 +40,7 @@ function MenuDropdown(props) {
       <Button onClick={() => history.goBack()}>
         <ArrowBackIcon/>
       </Button>
-      <Button style={{borderRadius: '30px'}} onClick={handleClick}>
+      <Button onClick={handleClick}>
         <AddIcon />Create
       </Button>
       <Menu

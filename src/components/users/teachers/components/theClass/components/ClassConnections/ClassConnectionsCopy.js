@@ -12,8 +12,11 @@ export default function ClassConnections({
   currClass,
   students,
   teachers,
-  // restStudents,
-  // restTeachers,
+  removeFromClass,
+  restStudents,
+  restTeachers,
+  addToClass,
+  closeUserList,
 }) {
 
   const [displayUsers,setDisplayUsers] = useState(true)
@@ -61,16 +64,6 @@ export default function ClassConnections({
   return (
     <ClassworkContext.Consumer>
       {classContext => {
-
-        const { 
-          removeFromClass,
-          addToClass,
-          toggleUserList,
-          closeUserList} = classContext
-          const {
-              restStudents,
-              restTeachers,
-          } = classContext.classworkState
         
         return (
           <div className='users-connections'>
@@ -79,14 +72,14 @@ export default function ClassConnections({
               {displayUsers?  <button
                     id="studentsBtn"
                     className="userDisplayBtns"
-                    onClick={() => toggleUserList('students')}
+                    onClick={e => classContext.toggleUserList(e)}
                   >
                     <i className='fas fa-user-plus'></i>
                   </button>
                   :<button
                     id="teachersBtn"
                     className="userDisplayBtns"
-                    onClick={() => toggleUserList('teachers')}
+                    onClick={e => classContext.toggleUserList(e)}
                   >
                     <i className='fas fa-user-plus'></i>
                   </button>}

@@ -19,10 +19,10 @@ import { red } from '@material-ui/core/colors';
 import CommentIcon from '@material-ui/icons/Comment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import MessageTextField from './MessageTextField';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 
+import MessageTextField from './MessageTextField';
 import PageMessage from './PageMessage';
 
 const ITEM_HEIGHT = 48;

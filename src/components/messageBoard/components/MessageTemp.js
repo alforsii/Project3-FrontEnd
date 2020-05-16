@@ -70,13 +70,6 @@ export default function Message() {
             </span>
           }
           secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              ></Typography>
               <Card className={classes.cardRoot}>
                 <CardContent>
                   <Typography
@@ -126,7 +119,6 @@ export default function Message() {
                   <Button size="small">Learn More</Button>
                 </CardActions>
               </Card>
-            </React.Fragment>
           }
         />
       </ListItem>

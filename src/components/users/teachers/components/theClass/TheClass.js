@@ -5,7 +5,7 @@ import {ClassworkContext} from '../../../../../myContext/ClassworkProvider'
 // import {MessageContext} from '../../../../../myContext/MessageProvider'
 import ClassNavbar from './components/classNavbar/ClassNavbar';
 import ClassPosts from './components/classPosts/ClassPosts'
-import ClassWork from './components/classWork/ClassWork'
+import ClassWorks from './components/classWorks/ClassWorks'
 import ClassConnections from './components/ClassConnections/ClassConnections'
 import ClassAlbums from './components/classAlbums/ClassAlbums'
 // import ImageUploadForm from '../img-uploadForm/ImageForm';
@@ -214,10 +214,7 @@ export class TheClass extends Component {
     } = this.context.classworkState;
 
     const { currClass } = this.props.location.state
-
-    const { toggleUserList, addToClass,
-      closeUserList, removeFromClass, switchDefaultPage,
-      updateState } = this.context
+    const { switchDefaultPage,updateState } = this.context
       
     return (
       <React.Fragment>
@@ -226,20 +223,16 @@ export class TheClass extends Component {
 
             {defaultPage === 'posts' && <ClassPosts/>}
 
-            {defaultPage === 'works' && <ClassWork currClass={currClass}/>}
+            {defaultPage === 'works' && <ClassWorks currClass={currClass}/>}
 
               {defaultPage === 'users' 
               && <ClassConnections
-              // toggleUserList={toggleUserList}
-              closeUserList={closeUserList}
               currClass={currClass}
               students={students}
               teachers={teachers}
               updateState={updateState}
-              removeFromClass={user => removeFromClass(user)}
               restStudents={restStudents}
               restTeachers={restTeachers}
-              addToClass={user => addToClass(user)}
               />}
 
               { defaultPage === 'albums' && <ClassAlbums users={users}/>}

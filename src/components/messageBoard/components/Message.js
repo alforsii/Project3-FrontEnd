@@ -11,9 +11,9 @@ import Avatar from '../../auth/avatar/Avatar';
 import Typography from '@material-ui/core/Typography';
 import TelegramIcon from '@material-ui/icons/Telegram';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
+// import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 
 import MessageDropdown from './MessageDropdown'
 
@@ -87,14 +87,6 @@ export default function Message({
             </>
           }
           secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-              </Typography>
               <Card className={classes.cardRoot}>
                 <CardContent>
                   <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -114,11 +106,12 @@ export default function Message({
                   validURL(text)? <a href={text} key={`${Math.random()*999 +99+'kk'+ i}`}> {text} </a>
                   : <span key={`${Math.random()*999 +99+'kk'+ i}`}> {text} </span>)}</>
                 </CardContent>
-                <CardActions>
-                  <Button size="small">Learn More</Button>
-                </CardActions>
+                {/* <CardActions >
+                  <Button size='small'>
+                   Learn more
+                  </Button>
+                </CardActions> */}
               </Card>
-            </React.Fragment>
           }
         />
       </ListItem>
