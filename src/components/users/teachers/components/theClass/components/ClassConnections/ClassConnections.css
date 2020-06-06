@@ -1,36 +1,35 @@
 .userDisplayBtns {
-    background-color: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: #444;
-    padding: 5px;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #444;
+  padding: 5px;
 }
 .userDisplayBtns:focus {
-    outline: 0;
+  outline: 0;
 }
 .switch-btns {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    padding: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
 }
-.users-connections{
-    /* width: 60vw; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.users-connections {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .userListMenu-content {
-    width: 65vw;
-    background-color: 	#F5F5F5;
-    position: fixed;
-    top: 18%;
-    left: 15%;
+  width: 65vw;
+  background-color: #f5f5f5;
+  position: fixed;
+  top: 18%;
+  left: 15%;
+}
+@media (max-width: 500px) {
+  .userListMenu-content {
+    width: 80vw;
   }
-  @media(max-width: 500px) {
-    .userListMenu-content {
-        width: 80vw;
-      }
-  }
+}

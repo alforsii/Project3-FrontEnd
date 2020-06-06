@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import Snackbar from './Snackbar';
-import {AUTH_SERVICE} from '../../services/auth/AuthServices'
-import ProgressBar from './progressBar/ProgressBar'
-
+// import Snackbar from './Snackbar';
+import { AUTH_SERVICE } from '../../services/auth/AuthServices';
+import ProgressBar from './progressBar/ProgressBar';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -40,9 +39,9 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     backgroundColor: '#0794f3',
-    "&:hover": {
-      backgroundColor: "#0794f3  !important"
-      }
+    '&:hover': {
+      backgroundColor: '#0794f3  !important',
+    },
   },
 }));
 
@@ -73,90 +72,96 @@ const UserSignup = (props) => {
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
 
-  const {  updateState, getUsers } = props
-  const [isLoading,setLoading] = useState(false)
+  const { updateState, getUsers } = props;
+  const [isLoading, setLoading] = useState(false);
 
-const [formSignup, setFormSignup] = useState({
-  username: '', 
-  firstName: '', 
-  lastName: '',  
-  email: '',
-  password: '',
-  title: 'Student'
-})
-const {username,firstName,lastName,email,password,title} = formSignup
+  const [formSignup, setFormSignup] = useState({
+    username: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    title: 'Student',
+  });
+  const { username, firstName, lastName, email, password, title } = formSignup;
 
   const [personName, setPersonName] = useState([]);
-  
 
-  const handleClickVariant = (message, errorMessage,user) => {
+  const handleClickVariant = (message, errorMessage, user) => {
     // variant could be success, error, warning, info, or default
-    if(errorMessage){
+    if (errorMessage) {
       enqueueSnackbar(errorMessage, { variant: 'error' });
     }
-    if(message) {
-      enqueueSnackbar(`${message} Welcome ${user?.firstName} to IronSchool!`, { variant: 'success' });
+    if (message) {
+      enqueueSnackbar(`${message} Welcome ${user?.firstName} to IronSchool!`, {
+        variant: 'success',
+      });
     }
   };
 
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  const handleSignupSubmit = async e => {
+  const handleSignupSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true)
-        const {data: {user, message}} = await AUTH_SERVICE.signup(formSignup);
-        
-        setFormSignup({
-          username: '', 
-          firstName: '', 
-          lastName: '',  
-          email: '',
-          password: '',
-          title: ''
-        })
-        updateState(prevState => ({
+      setLoading(true);
+      const {
+        data: { user, message },
+      } = await AUTH_SERVICE.signup(formSignup);
+
+      setFormSignup({
+        username: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        title: '',
+      });
+      updateState(
+        (prevState) => ({
           ...prevState,
           user,
           loggedIn: true,
-          isLoading: false ,
-        }),() => {
+          isLoading: false,
+        }),
+        () => {
           this.props.history.push('/dashboard');
-        });
-        getUsers()
-        handleClickVariant(message,null,user)
-        setLoading(false)
-      } catch (err) {
-        updateState({ isLoading: false, message: ''})
-        const error = displayError(err);
-        handleClickVariant(null,error, null)
-        setLoading(false)
-      }
-    };
+        }
+      );
+      getUsers();
+      handleClickVariant(message, null, user);
+      setLoading(false);
+    } catch (err) {
+      updateState({ isLoading: false, message: '' });
+      const error = displayError(err);
+      handleClickVariant(null, error, null);
+      setLoading(false);
+    }
+  };
 
-    const displayError = err => {
-      if (err.response && err.response.data) {
-        return err.response.data.message
-      } else {
-        console.log(err);
-        return 'Sorry 😔, something went wrong!'
-      }
-    };
+  const displayError = (err) => {
+    if (err.response && err.response.data) {
+      return err.response.data.message;
+    } else {
+      console.log(err);
+      return 'Sorry 😔, something went wrong!';
+    }
+  };
 
-    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-    const handleSignupInput = e => {
-      const { value, name } = e.target;
-      setFormSignup({
-        ...formSignup,
-        [name]: value
-      })
-    };
-    //
-    const handleChange = (event) => {
-      setPersonName(event.target.value);
-      handleSignupInput(event);
-    };
+  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  const handleSignupInput = (e) => {
+    const { value, name } = e.target;
+    setFormSignup({
+      ...formSignup,
+      [name]: value,
+    });
+  };
+  //
+  const handleChange = (event) => {
+    setPersonName(event.target.value);
+    handleSignupInput(event);
+  };
 
   return (
     <div className={classes.root}>
@@ -166,17 +171,15 @@ const {username,firstName,lastName,email,password,title} = formSignup
         noValidate
         autoComplete="off"
       >
-     
         <Typography variant="h5" component="h5">
-          <i style={{color: '#0794f3'}} className="fas fa-user-plus"></i> Sign up
+          <i style={{ color: '#0794f3' }} className="fas fa-user-plus"></i> Sign
+          up
         </Typography>
-        
 
         <TextField
           className={classes.textField}
           value={username}
           onChange={handleSignupInput}
-
           type="text"
           name="username"
           label="Username"
@@ -185,7 +188,6 @@ const {username,firstName,lastName,email,password,title} = formSignup
           className={classes.textField}
           value={firstName}
           onChange={handleSignupInput}
-
           type="text"
           name="firstName"
           label="First name"
@@ -194,7 +196,6 @@ const {username,firstName,lastName,email,password,title} = formSignup
           className={classes.textField}
           value={lastName}
           onChange={handleSignupInput}
-
           type="text"
           name="lastName"
           label="Last name"
@@ -203,7 +204,6 @@ const {username,firstName,lastName,email,password,title} = formSignup
           className={classes.textField}
           value={email}
           onChange={handleSignupInput}
-
           type="email"
           name="email"
           label="Email address"
@@ -211,14 +211,14 @@ const {username,firstName,lastName,email,password,title} = formSignup
         <TextField
           className={classes.textField}
           onChange={handleSignupInput}
-
           type="password"
           name="password"
           label="Password"
+          value={password}
         />
         <FormControl className={classes.textField}>
           <InputLabel id="user-title">
-            Are you a Teacher or Parent? Then select here {' '}
+            {'Are you a Teacher or Parent? Then select here '}
             <i className="far fa-arrow-alt-circle-down"></i>
           </InputLabel>
           <Select
@@ -245,42 +245,37 @@ const {username,firstName,lastName,email,password,title} = formSignup
 
         <br />
         <div>
-        <Button
-      variant="contained"
-      color="primary"
-      type='submit' 
-      className={classes.button}
-    >
-     Signup
-    </Button>
-
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            className={classes.button}
+          >
+            Signup
+          </Button>
         </div>
         <Typography display="block" variant="subtitle1" color="textSecondary">
-          Already have an account? 
+          {'Already have an account? '}
           <Link className={classes.link} to="/login">
             <span className={classes.link}>
-              {' '}
               <i className="far fa-arrow-alt-circle-right"></i> Login
             </span>
           </Link>
           <ProgressBar isLoading={isLoading} strengthValue={100} />
         </Typography>
-          {/* <Divider /> */}
-          <Typography display="block" variant="caption" color="textSecondary">
-            Made with{' '}
-            <span
-              style={{ color: 'red', fontSize: '16px' }}
-              role="img"
-              aria-label="emoji"
-            >
-              ♥️
-            </span>{' '}
-            at Ironhack Miami - PTWD October 2019 &copy;
-          </Typography>
+        {/* <Divider /> */}
+        <Typography display="block" variant="caption" color="textSecondary">
+          {`Made with `}
+          <span
+            style={{ color: 'red', fontSize: '16px' }}
+            role="img"
+            aria-label="emoji"
+          >
+            ♥️
+          </span>
+          {` at Ironhack Miami - PTWD October 2019 &copy;`}
+        </Typography>
       </form>
-
-
-
     </div>
   );
 };

@@ -25,6 +25,7 @@ export function MenuDropdown({
     setAnchorEl(null);
   };
   const { _id, firstName, path } = currUser;
+  const selectedName = firstName;
   return (
     <MessageContext.Consumer>
       {(msgContext) => {
@@ -53,7 +54,7 @@ export function MenuDropdown({
               }}
             >
               <MenuItem
-                selected={firstName === firstName}
+                selected={firstName === selectedName}
                 onClick={handleClose}
               >
                 <div className="each-student">

@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     width: '200px',
-  }
+  },
 }));
 
 export default function TitlebarGridList({ users }) {
@@ -33,7 +33,7 @@ export default function TitlebarGridList({ users }) {
   return (
     <div className={classes.root}>
       <GridList cellHeight={280} className={classes.gridList}>
-        <GridListTile key="Subheader" cols={2}  style={{ height: 'auto' }}>
+        <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
           <ListSubheader component="div">December</ListSubheader>
         </GridListTile>
         {users?.map((user) => (
@@ -41,9 +41,16 @@ export default function TitlebarGridList({ users }) {
             <img src={user.path} alt={user.firstName} />
             <GridListTileBar
               title={user.firstName}
-              subtitle={<span>by: {user.firstName} {user.lastName}</span>}
+              subtitle={
+                <span>
+                  by: {user.firstName} {user.lastName}
+                </span>
+              }
               actionIcon={
-                <IconButton aria-label={`info about ${user.lastName}`} className={classes.icon}>
+                <IconButton
+                  aria-label={`info about ${user.lastName}`}
+                  className={classes.icon}
+                >
                   <InfoIcon />
                 </IconButton>
               }

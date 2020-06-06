@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Avatar from '../../../auth/avatar/Avatar'
+import Avatar from '../../../auth/avatar/Avatar';
 
 export default function MessagedUser(props) {
   const { lastMessage, state, createdAt, switchUser, status } = props;
@@ -21,12 +21,12 @@ export default function MessagedUser(props) {
           user: props.user,
         },
       }}
-      onClick={() =>switchUser(props.user)}
+      onClick={() => switchUser(props.user)}
     >
       <div className="user-div">
         <div className="user user1">
           <div className="user-image-div">
-            <Avatar src={path} alt={firstName} size='medium'/>
+            <Avatar src={path} alt={firstName} size="medium" />
           </div>
           <div>
             <h5 className="username">
@@ -40,7 +40,8 @@ export default function MessagedUser(props) {
                 <span className="message-other">
                   <span className="">
                     <i className="fas fa-microphone"></i>
-                  </span>{': '}
+                  </span>
+                  {': '}
                   {/* {lastMessage.author.firstName + ': '}{' '} */}
                 </span>
               )}

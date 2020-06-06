@@ -7,18 +7,16 @@ import ListItem from '@material-ui/core/ListItem';
 import Avatar from '../../../auth/avatar/Avatar';
 import MessageHistory from './MessageHistory';
 import { MessageContext } from '../../../../myContext/MessageProvider';
-import './MessageSidebar.css'
+import './MessageSidebar.css';
 
 export default function MessageSidebar() {
   return (
     <MessageContext.Consumer>
       {(msgContext) => {
-          const { users } = msgContext.state
-          const { message, userBoards } = msgContext.messageState
-          const { 
-            getReceivers,
-            switchUser } = msgContext
-          
+        const { users } = msgContext.state;
+        const { message, userBoards } = msgContext.messageState;
+        const { getReceivers, switchUser } = msgContext;
+
         return (
           <div>
             <div className="users-list">
@@ -32,7 +30,7 @@ export default function MessageSidebar() {
                           pathname: `/message-board/${_id}`,
                           state: {
                             user,
-                            message
+                            message,
                           },
                         }}
                         onClick={() => switchUser(user)}
@@ -47,11 +45,13 @@ export default function MessageSidebar() {
               </div>
 
               <div className="messages-history">
-              <h2 style={{textAlign: 'center'}}>
-                <ListItem>
-                  <MailOutlineIcon/>
-                </ListItem>Messages </h2>
-              <Divider/>
+                <h2 style={{ textAlign: 'center' }}>
+                  <ListItem>
+                    <MailOutlineIcon />
+                  </ListItem>
+                  Messages{' '}
+                </h2>
+                <Divider />
                 {userBoards && (
                   <MessageHistory
                     state={msgContext.state}

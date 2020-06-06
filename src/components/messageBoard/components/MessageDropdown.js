@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,7 +10,7 @@ export default function LongMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -41,12 +40,8 @@ export default function LongMenu() {
           },
         }}
       >
-        <MenuItem onClick={handleClose}>
-            About
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          Edit message
-        </MenuItem>
+        <MenuItem onClick={handleClose}>About</MenuItem>
+        <MenuItem onClick={handleClose}>Edit message</MenuItem>
         <MenuItem
           onClick={() => {
             handleClose();

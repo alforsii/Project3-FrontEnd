@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
-// import { Switch, Route } from 'react-router-dom';
 
-import { MessageContext } from '../../myContext/MessageProvider'
+import { MessageContext } from '../../myContext/MessageProvider';
 import BoardNavbar from './components/BoardNavbar';
-import BoardBody from './components/BoardBody'
+import BoardBody from './components/BoardBody';
 import SendMessage from './components/SendMessage';
-// import Avatar from '@material-ui/core/Avatar';
-// import BubbleChartIcon from '@material-ui/icons/BubbleChart';
 import './MessageBoard.css';
 
 export class MessageBoard extends Component {
   timer = 0;
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-    //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-    //1. Component did mount - then getUserBoards and updateMessageBoard
+  //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  //1. Component did mount - then getUserBoards and updateMessageBoard
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   componentDidMount = () => {
     //check for new updates
@@ -34,26 +31,21 @@ export class MessageBoard extends Component {
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   render() {
+    const { newMessages, messageInputs, isLoading } = this.context.messageState;
     const {
-      newMessages,
-      messageInputs,
-      // receiver,
-      isLoading
-    } = this.context.messageState;
-    const { handleMessageSubmit, handleMessage,openEmojis, handleFileChange } = this.context
+      handleMessageSubmit,
+      handleMessage,
+      openEmojis,
+      handleFileChange,
+    } = this.context;
     return (
       <div>
         <div className="main-message-board">
-          <div id='message-board' className="message-board">
+          <div id="message-board" className="message-board">
             <div className="message-board-nav">
-              {/* <Switch>
-                <Route exact path="/message-board/:id" component={BoardNavbar} />
-              </Switch> */}
-              <BoardNavbar/>
-              {/* {!receiver && <><Avatar/> <BubbleChartIcon/></>} */}
-             
+              <BoardNavbar />
+
               <div>
-                
                 <span>
                   <i className="fas fa-user-plus"></i>
                 </span>
@@ -64,22 +56,18 @@ export class MessageBoard extends Component {
             </div>
 
             <div id="message-board-body" className="message-board-body">
-              {/* <div id="messageBoardUsers"> */}
-                {/* <Switch>
-                <Route exact path="/message-board/:id" render={props => 
-                <BoardBody {...props} isLoading={isLoading}
+              <BoardBody
+                isLoading={isLoading}
+                newMessages={newMessages}
                 state={this.context.messageState}
-                 newMessages={newMessages}/>} />
-                </Switch> */}
-                  <BoardBody isLoading={isLoading} newMessages={newMessages} state={this.context.messageState}/>
-              {/* </div> */}
+              />
             </div>
             <SendMessage
-            messageInputs={messageInputs}
-            handleMessageSubmit={handleMessageSubmit}
-            handleMessage={handleMessage}
-            openEmojis={openEmojis}
-            handleFileChange={handleFileChange}
+              messageInputs={messageInputs}
+              handleMessageSubmit={handleMessageSubmit}
+              handleMessage={handleMessage}
+              openEmojis={openEmojis}
+              handleFileChange={handleFileChange}
             />
           </div>
         </div>
@@ -89,4 +77,4 @@ export class MessageBoard extends Component {
 }
 
 export default MessageBoard;
-MessageBoard.contextType = MessageContext
+MessageBoard.contextType = MessageContext;

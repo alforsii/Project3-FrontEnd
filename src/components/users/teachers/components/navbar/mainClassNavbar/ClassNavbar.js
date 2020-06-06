@@ -5,22 +5,26 @@ import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      margin: '5px 0',
-      // marginTop: '10px'
-    },
-    tabs: {
-        display: 'flex',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-    },
-    tab: {
-        width: '25%',
-    }
-  }));
+  root: {
+    margin: '5px 0',
+  },
+  tabs: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  tab: {
+    width: '25%',
+  },
+}));
 
-export default function DisabledTabs({getUsers, toggleSearchBar, updateState, toggleClassNavDropdown}) {
-    const classes = useStyles();
+export default function DisabledTabs({
+  getUsers,
+  toggleSearchBar,
+  updateState,
+  toggleClassNavDropdown,
+}) {
+  const classes = useStyles();
   const [value, setValue] = React.useState(1);
 
   const handleChange = (event, newValue) => {
@@ -28,22 +32,38 @@ export default function DisabledTabs({getUsers, toggleSearchBar, updateState, to
   };
 
   return (
-   <div className={classes.root}>
-        <Paper square>
-      <Tabs
-        value={value}
-        className={classes.tabs}
-        indicatorColor="primary"
-        textColor="primary"
-        onChange={handleChange}
-        aria-label="tabs example"
-      >
-        <Tab className={classes.tab} onClick={toggleSearchBar} label="Search" />
-        <Tab className={classes.tab} onClick={() => updateState({navigate: 'classrooms'})}  label="Classrooms" />
-        <Tab className={classes.tab} onClick={() => updateState({navigate: 'library'})}  label="Library" />
-        <Tab className={classes.tab} onClick={() => updateState({navigate: 'archive'})}  label="Archives" />
-      </Tabs>
-    </Paper>
-   </div>
+    <div className={classes.root}>
+      <Paper square>
+        <Tabs
+          value={value}
+          className={classes.tabs}
+          indicatorColor="primary"
+          textColor="primary"
+          onChange={handleChange}
+          aria-label="tabs example"
+        >
+          <Tab
+            className={classes.tab}
+            onClick={toggleSearchBar}
+            label="Search"
+          />
+          <Tab
+            className={classes.tab}
+            onClick={() => updateState({ navigate: 'classrooms' })}
+            label="Classrooms"
+          />
+          <Tab
+            className={classes.tab}
+            onClick={() => updateState({ navigate: 'library' })}
+            label="Library"
+          />
+          <Tab
+            className={classes.tab}
+            onClick={() => updateState({ navigate: 'archive' })}
+            label="Archives"
+          />
+        </Tabs>
+      </Paper>
+    </div>
   );
 }
