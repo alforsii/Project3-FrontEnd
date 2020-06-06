@@ -13,9 +13,9 @@ import MessageIcon from '@material-ui/icons/Message';
 import GitHubIcon from '@material-ui/icons/GitHub';
 
 import ClassSideNavbar from '../users/teachers/components/theClass/components/classSidebar/ClassSidebar';
-import MessageSidebar from '../messageBoard/components/messageSidebar/MessageSidebar'  
-import SettingsSidebar from '../settings/SettingsSidebar'
-// import Account from '../account/Account'
+import MessageSidebar from '../messageBoard/components/messageSidebar/MessageSidebar';
+import SettingsSidebar from '../settings/SettingsSidebar';
+
 import './MainSidebar.css';
 
 const useStyles = makeStyles({
@@ -30,14 +30,14 @@ const useStyles = makeStyles({
     textDecoration: 'none',
     color: '#333',
     padding: 1,
-    margin: 0
+    margin: 0,
   },
   hover: {
     transition: 'all 1s linier',
     fontSize: '30px',
-    "&:hover": {
-      color: "purple  !important",
-      }
+    '&:hover': {
+      color: 'purple  !important',
+    },
   },
   columnDiv: {
     display: 'flex',
@@ -52,46 +52,71 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TemporaryDrawer({ user, isUserLoggedIn, handleDrawerOpen, setWebPage }) {
+export default function TemporaryDrawer({
+  user,
+  isUserLoggedIn,
+  handleDrawerOpen,
+  setWebPage,
+}) {
   const classes = useStyles();
 
   return (
     <div className={(classes.list, 'mu-sidebar')}>
       <List className={classes.iconsDiv}>
-        <Link onClick={() => setWebPage('Dashboard')} className={classes.link} to="/dashboard">
-          <ListItem button >
-            <ListItemIcon >
+        <Link
+          onClick={() => setWebPage('Dashboard')}
+          className={classes.link}
+          to="/dashboard"
+        >
+          <ListItem button>
+            <ListItemIcon>
               <DashboardIcon className={classes.hover} />
             </ListItemIcon>
           </ListItem>
         </Link>
-        <Link onClick={() => {
-          handleDrawerOpen()
-          setWebPage('Chatroom')
-        }} className={classes.link} to="/message-board">
-          <ListItem button >
-            <ListItemIcon >
+        <Link
+          onClick={() => {
+            handleDrawerOpen();
+            setWebPage('Chatroom');
+          }}
+          className={classes.link}
+          to="/message-board"
+        >
+          <ListItem button>
+            <ListItemIcon>
               <MessageIcon className={classes.hover} />
             </ListItemIcon>
           </ListItem>
         </Link>
-        <Link onClick={() => setWebPage('Classrooms')} className={classes.link} to="/class">
-          <ListItem button >
-            <ListItemIcon >
-              <SchoolIcon className={classes.hover}/>
+        <Link
+          onClick={() => setWebPage('Classrooms')}
+          className={classes.link}
+          to="/class"
+        >
+          <ListItem button>
+            <ListItemIcon>
+              <SchoolIcon className={classes.hover} />
             </ListItemIcon>
           </ListItem>
         </Link>
-        <Link onClick={() => setWebPage('Account')} className={classes.link} to="/account">
-          <ListItem button >
-            <ListItemIcon >
+        <Link
+          onClick={() => setWebPage('Account')}
+          className={classes.link}
+          to="/account"
+        >
+          <ListItem button>
+            <ListItemIcon>
               <LockIcon className={classes.hover} />
             </ListItemIcon>
           </ListItem>
         </Link>
-        <Link onClick={() => setWebPage('Settings')} className={classes.link} to="/settings">
-          <ListItem button >
-            <ListItemIcon >
+        <Link
+          onClick={() => setWebPage('Settings')}
+          className={classes.link}
+          to="/settings"
+        >
+          <ListItem button>
+            <ListItemIcon>
               <SettingsIcon className={classes.hover} />
             </ListItemIcon>
           </ListItem>
@@ -99,7 +124,7 @@ export default function TemporaryDrawer({ user, isUserLoggedIn, handleDrawerOpen
 
         <Divider />
         <a className={classes.link} href="https://github.com/alforsii">
-          <ListItem button >
+          <ListItem button>
             <ListItemIcon className={classes.hover}>
               <GitHubIcon />
             </ListItemIcon>
@@ -109,13 +134,37 @@ export default function TemporaryDrawer({ user, isUserLoggedIn, handleDrawerOpen
       <Divider orientation="vertical" flexItem />
       <div className="dynamic-sidebars">
         <Switch>
-          <Route exact strict path='/message-board' component={MessageSidebar}/>
-          <Route exact strict path='/message-board/:id' component={MessageSidebar}/>
-          <Route exact strict path='/class/:classId' component={ClassSideNavbar}/>
-          {/* <Route exact strict path='/account' render={props => <Account {...props} user={user}/>}/> */}
-          <Route exact strict path='/dashboard' render={props => <SettingsSidebar {...props} user={user} isUserLoggedIn={isUserLoggedIn} />}/>
+          <Route
+            exact
+            strict
+            path="/message-board"
+            component={MessageSidebar}
+          />
+          <Route
+            exact
+            strict
+            path="/message-board/:id"
+            component={MessageSidebar}
+          />
+          <Route
+            exact
+            strict
+            path="/class/:classId"
+            component={ClassSideNavbar}
+          />
+          <Route
+            exact
+            strict
+            path="/dashboard"
+            render={(props) => (
+              <SettingsSidebar
+                {...props}
+                user={user}
+                isUserLoggedIn={isUserLoggedIn}
+              />
+            )}
+          />
         </Switch>
-
       </div>
     </div>
   );

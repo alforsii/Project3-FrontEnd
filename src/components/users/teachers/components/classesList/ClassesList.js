@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 
-import MenuDropdown from './MenuDropdown'
-import MessageTemp from '../../../../messageBoard/components/MessageTemp'
+import MenuDropdown from './MenuDropdown';
+import MessageTemp from '../../../../messageBoard/components/MessageTemp';
 
 import moment from 'moment';
 
@@ -16,19 +16,25 @@ export default class ClassList extends Component {
     currentPage: 1,
     postsPerPage: 5,
   };
-  toggleHiddenText = e => {
+  toggleHiddenText = (e) => {
     e.target.previousElementSibling.classList.toggle('show');
     if (e.target.innerText === 'show more') e.target.innerText = 'show less';
     else if (e.target.innerText === 'show less')
       e.target.innerText = 'show more';
   };
   // Change page
-  paginate = pageNumber => this.setState({ currentPage: pageNumber });
+  paginate = (pageNumber) => this.setState({ currentPage: pageNumber });
 
   render() {
     const { currentPage, postsPerPage } = this.state;
-    const { classes, search, archive, searchForClass, 
-       removeClass, removeArchiveClass  } = this.props
+    const {
+      classes,
+      search,
+      archive,
+      searchForClass,
+      removeClass,
+      removeArchiveClass,
+    } = this.props;
     // Get current posts
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -55,15 +61,15 @@ export default class ClassList extends Component {
               <th>Classrooms</th>
               <th>Grade</th>
               <th>Students</th>
-              <th className='bg-screen-display'>Description</th>
-              <th >From</th>
-              <th >To</th>
+              <th className="bg-screen-display">Description</th>
+              <th>From</th>
+              <th>To</th>
               <th>More</th>
             </tr>
           </thead>
 
           <tbody>
-            {currentPageClasses?.map(currClass => {
+            {currentPageClasses?.map((currClass) => {
               const {
                 _id,
                 name,
@@ -76,7 +82,7 @@ export default class ClassList extends Component {
               return (
                 <tr key={_id}>
                   <td>
-                    <Link 
+                    <Link
                       to={{
                         pathname: `/class/${_id}`,
                         state: {
@@ -109,14 +115,14 @@ export default class ClassList extends Component {
                       </>
                     )}
                   </td>
-                  <td >
+                  <td>
                     {schoolYearStart
                       ? `${
                           moment(schoolYearStart).format('ll').split(' ')[0]
                         } ${moment(schoolYearStart).format('ll').split(' ')[2]}`
                       : ''}
                   </td>
-                  <td >
+                  <td>
                     {schoolYearEnd
                       ? `${moment(schoolYearEnd).format('ll').split(' ')[0]} ${
                           moment(schoolYearEnd).format('ll').split(' ')[2]
@@ -125,27 +131,26 @@ export default class ClassList extends Component {
                   </td>
 
                   <td>
-                      {archive ? (
-                         <MenuDropdown
-                         currClass={currClass}
-                         removeClass={removeArchiveClass}
-                         />
-                      ) : (
+                    {archive ? (
                       <MenuDropdown
-                      currClass={currClass}
-                      removeClass={removeClass}
+                        currClass={currClass}
+                        removeClass={removeArchiveClass}
                       />
-                      )}
+                    ) : (
+                      <MenuDropdown
+                        currClass={currClass}
+                        removeClass={removeClass}
+                      />
+                    )}
                   </td>
                 </tr>
               );
-              
             })}
           </tbody>
         </table>
-        {classes?.length === 0 && <MessageTemp/> }
-            <Divider/>
-           
+        {classes?.length === 0 && <MessageTemp />}
+        <Divider />
+
         <Pagination
           postsPerPage={postsPerPage}
           totalPosts={classes?.length}

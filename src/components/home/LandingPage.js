@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 // import SignupForm from '../auth/SignupForm';
-import SnackbarSignup from '../auth/SnackbarSignup'
+import SnackbarSignup from '../auth/SnackbarSignup';
 
 import './LandingPage.css';
 
@@ -38,26 +38,25 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     width: '100%',
-    maxWidth: '500px'
-  }
+    maxWidth: '500px',
+  },
 }));
 
 const HomePage = (props) => {
   const classes = useStyles();
-  const { handleSignupSubmit, handleSignupInput, state, isLoading,
-    updateState, getUsers } = props.context;
+  const { updateState, getUsers } = props.context;
 
   return (
     <div className={classes.root}>
       <div className={classes.column}>
         <Typography
-          style={{  textAlign: 'center' }}
+          style={{ textAlign: 'center' }}
           className={classes.textField}
           variant="h4"
           component="h4"
-          color='primary'
+          color="primary"
         >
-        <img className={classes.image} src='/images/bg-img.png' alt=''/>
+          <img className={classes.image} src="/images/bg-img.png" alt="" />
           Welcome to IronSchool
         </Typography>
         <div className={classes.rows}>
@@ -66,7 +65,7 @@ const HomePage = (props) => {
             variant="subtitle1"
             color="textSecondary"
           >
-            <i style={{color: '#0794f3'}} className="fas fa-users fa-fw"></i>
+            <i style={{ color: '#0794f3' }} className="fas fa-users fa-fw"></i>
             <Divider />
             Invite teachers, students and parents to your class
           </Typography>
@@ -76,7 +75,10 @@ const HomePage = (props) => {
             variant="subtitle1"
             color="textSecondary"
           >
-            <i style={{color: '#0794f3'}} className="fas fa-comments fa-fw"></i>
+            <i
+              style={{ color: '#0794f3' }}
+              className="fas fa-comments fa-fw"
+            ></i>
             <Divider />
             Connect with other teachers, students and parents
           </Typography>
@@ -86,25 +88,17 @@ const HomePage = (props) => {
             variant="subtitle1"
             color="textSecondary"
           >
-            <i style={{color: '#0794f3'}} className="fas fa-share-square fa-fw"></i>
+            <i
+              style={{ color: '#0794f3' }}
+              className="fas fa-share-square fa-fw"
+            ></i>
             <Divider />
             Share your classworks and much more
           </Typography>
         </div>
       </div>
 
-    <SnackbarSignup
-    updateState={updateState}
-    getUsers={getUsers}
-    />
-      {/* <SignupForm
-      updateState={updateState}
-       getUsers={getUsers}
-      //  isLoading={isLoading}
-      //   formSignup={state.formSignup}
-      //   handleSignupSubmit={handleSignupSubmit}
-      //   handleSignupInput={handleSignupInput}
-      /> */}
+      <SnackbarSignup updateState={updateState} getUsers={getUsers} />
     </div>
   );
 };

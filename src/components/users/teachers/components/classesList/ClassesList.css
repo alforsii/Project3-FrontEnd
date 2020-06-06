@@ -1,104 +1,103 @@
 .main-classes-list {
-    /* position: relative;
-    top: -50px; */
-    font-size: 16px;
-    
+  font-size: 16px;
 }
 .search-input-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 input#searchClass {
-    width: 100%;
-    max-width: 900px;
-    padding: 10px;
-    padding-left: 30px;
-    font-size: 16px;
-    border-radius: 30px;
-    /* margin-top: 7px; */
-        margin-bottom: 5px;
-    border: none;
-    opacity: 0;
-    border: 0.5px solid #068ce6;
-    animation-name: input;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in-out;
-    /* animation-delay: 0.5s; */
+  width: 100%;
+  max-width: 900px;
+  padding: 10px;
+  padding-left: 30px;
+  font-size: 16px;
+  border-radius: 30px;
+  margin-bottom: 5px;
+  border: none;
+  opacity: 0;
+  border: 0.5px solid #068ce6;
+  animation-name: input;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
 }
 @keyframes input {
-    0%{opacity: 0}
-    100%{opacity: 1}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 input#searchClass:focus {
-    outline: 0;
+  outline: 0;
 }
 table.classList-table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 .classList-table tbody td {
-    height: 30px;
+  height: 30px;
 }
 .classList-table thead th {
-    background-color: #068ce6;
-    color: white;
-    padding: 15px;
-  }
-.classList-table th, td {
-    text-align: center;
-    padding: 10px;
+  background-color: #068ce6;
+  color: white;
+  padding: 15px;
+}
+.classList-table th,
+td {
+  text-align: center;
+  padding: 10px;
 }
 .classList-table tbody tr td:first-child {
-    text-align: left;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    max-width: 100px;
+  text-align: left;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  max-width: 100px;
 }
 td.description {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    max-width: 200px;
-    text-align: left;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  max-width: 200px;
+  text-align: left;
 }
-.classList-table tbody tr td:last-child{
-    color: #666;
-    cursor: pointer;
+.classList-table tbody tr td:last-child {
+  color: #666;
+  cursor: pointer;
 }
-.classList-table thead tr th:last-child{
-    text-align: left;
+.classList-table thead tr th:last-child {
+  text-align: left;
 }
-.classList-table tbody tr td:last-child:hover span{
-    color: #068ce6;
+.classList-table tbody tr td:last-child:hover span {
+  color: #068ce6;
 }
 .classList-table tbody a {
-    text-decoration: none;
+  text-decoration: none;
 }
-.classList-table tbody tr:nth-child(even){
-    background-color: #fff
+.classList-table tbody tr:nth-child(even) {
+  background-color: #fff;
 }
 
 /* read more hidden text style */
 .collapsible {
-    color: #068ce6;
-    cursor: pointer;
-  }
-  .content {
-    display: none;
-    overflow: hidden;
-  }
-  .show{
-      display: block;
-  }
+  color: #068ce6;
+  cursor: pointer;
+}
+.content {
+  display: none;
+  overflow: hidden;
+}
+.show {
+  display: block;
+}
 
-  /* pagination */
-  .pagination-div {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 10px;
-      padding: 5px;
-  }
- 
+/* pagination */
+.pagination-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  padding: 5px;
+}

@@ -1,61 +1,51 @@
 .upload-form {
-    width: 100%;
-    overflow: scroll;
-    display: flex;
-    flex-direction: column;
-    height: 79vh;
-    padding: 20px;
-    margin-top: 40px;
-    justify-content: space-between;
-    align-items: center;
+  width: 100%;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  height: 79vh;
+  padding: 20px;
+  margin-top: 40px;
+  justify-content: space-between;
+  align-items: center;
 }
-.form-submit-container{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-wrap: wrap;
+.form-submit-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
 }
 .form-submit-container span {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 .user-profile-details {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* padding: 25px; */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* padding: 25px; */
 }
 .user-profile-details p {
-    margin: 0;
-    padding: 0;
-} 
+  margin: 0;
+  padding: 0;
+}
 #image {
-    background: transparent;
+  background: transparent;
 }
 #image-label {
-    color: #0794f3;
-    padding: 10px;
-    cursor: pointer;
+  color: #0794f3;
+  padding: 10px;
+  cursor: pointer;
 }
 input#image {
-    display: none;
+  display: none;
 }
 .progress {
-    width: 100%;
-    text-align: center;
-    font-size: 16px;
-    padding-top: 15px;
-    background-color: #f2f2f2;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  padding-top: 15px;
+  background-color: #f2f2f2;
 }
-/* .progress-bar {
-    background-color: #0794f3;
-    width: 40%;
-    font-size: 1.5rem;
-}
-.progress-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */

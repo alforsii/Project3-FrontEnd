@@ -13,113 +13,17 @@ White: #fff
 const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600', '#eb4f82', '#73cae3', '#027ebc', ]
 */
 .main-settings {
-    margin-top: 70px;
+  margin-top: 70px;
 }
 .main-settings h2 {
-    text-align: center;
+  text-align: center;
 }
 .main-settings hr {
-    width: 100%;
-    border: 0.5px solid #addcfc;
+  width: 100%;
+  border: 0.5px solid #addcfc;
 }
 .footer-mark {
-    font-size: 14px;
-    font-family: monospace;
-    text-align: center;
-} 
-/* .update-form {
-    padding: 5px;
-    margin: 5px;
-    background-color: #f6f8fa;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    height: 450px;
+  font-size: 14px;
+  font-family: monospace;
+  text-align: center;
 }
-.update-form button {
-    color: #0794f3;
-    background-color: transparent;
-    border: none;
-    position: relative;
-    left: 40%;
-    padding: 10px 30px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-}
-.update-form button:hover {
-    background-color: #0794f3;
-    color: #f1f2f3;
-}
-.profile-info {
-    flex: 1;
-}
-form.user-update-form div:first-child{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-form.user-update-form div div {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
-.inputWithIcon {
-    position: relative;
-}
-form.user-update-form div div input {
-    width: 35vw;
-    padding: 10px 0px 10px 30px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-}
-@media(max-width:500px){
-    form.user-update-form div div input {
-        width: 35vw;
-    }
-}
-.inputWithIcon span {
-    position: absolute;
-    top: 43px;
-    left: 5px;
-    padding: 5px;
-}
-.inputWithIcon input + span
- {
-    color: #0794f3;
-}
-
-span#file-name {
-    font-size: 14px;
-    color: #555;
-    font-weight: bold;
-}
-form.user-update-form div div input:focus {
-    outline: 0;
-    border: 2px solid #0794f3;
-}
-form.user-update-form div div label {
-    padding: 5px;
-    text-align: left;
-    padding-top: 15px;
-}
-
-
-
-
-.user-profile-details {
-    flex: 1;
-    text-align: center;
-}
-
-.profile-pic {
-    width: 120px;
-    height: 120px;
-    border-radius: 5px;
-}
-
-
-.footer-mark {
-    font-size: 14px;
-    font-family: monospace;
-    text-align: center;
-} 
-*/

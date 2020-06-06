@@ -13,26 +13,13 @@ White: #fff
 const colors = ['#ff7802', '#52017f', '#ea0003', '#00809e', '#20c579', '#e7e600', '#eb4f82', '#73cae3', '#027ebc', ]
 */
 
-*{
+* {
   font-size: 16px;
 }
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
 }
-/* a {
-  color: #495dcc;
-  text-decoration: none;
-  font-weight: bolder;
-  font-size: 16px;
-}
-a:hover {
-  color: #3f51b5;
-} */
-/* button:hover {
-  background-color: #068ce6;
-  color: #fff;
-} */
 
 .side-bar-app {
   display: flex;
@@ -43,11 +30,14 @@ a:hover {
   animation-duration: 0.8s;
   animation-fill-mode: forwards;
   animation-timing-function: ease-in-out;
-  
 }
 @keyframes sidebar {
-  0%{left: -250px;}
-  100%{left: 0px;}
+  0% {
+    left: -250px;
+  }
+  100% {
+    left: 0px;
+  }
 }
 .show-sidebar {
   display: flex;
@@ -59,8 +49,14 @@ a:hover {
   animation-timing-function: ease-in-out;
 }
 @keyframes hide-sidebar {
-  0%{left: 0px;display: flex;}
-  100%{left: -250px;display: none;}
+  0% {
+    left: 0px;
+    display: flex;
+  }
+  100% {
+    left: -250px;
+    display: none;
+  }
 }
 
 /* global dropdown content css */
@@ -71,7 +67,7 @@ a:hover {
 }
 
 .dropdown3 .dropbtn3 {
-  font-size: 16px;  
+  font-size: 16px;
   border: none;
   outline: none;
   color: white;
@@ -88,7 +84,7 @@ a:hover {
   position: absolute;
   background-color: #fff;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1001;
   border-radius: 3px;
 }
@@ -111,12 +107,12 @@ a:hover {
   cursor: pointer;
   margin: 0;
 }
-.dropdown-content3 a{
+.dropdown-content3 a {
   text-decoration: none;
   color: black;
 }
 .dropdown-content3 p:hover {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 
 .dropdown3:hover .dropdown-content3.show {

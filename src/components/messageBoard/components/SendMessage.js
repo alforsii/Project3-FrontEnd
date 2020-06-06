@@ -1,26 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Divider from '@material-ui/core/Divider';
-import Snackbar from './Snackbar'
+import Snackbar from './Snackbar';
 
-import './SendMessage.css'
+import './SendMessage.css';
 const useStyles = makeStyles((theme) => ({
   root: {
-      padding: '10px',
-      backgroundColor: '#f5f5f5',
+    padding: '10px',
+    backgroundColor: '#f5f5f5',
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
       width: '100%',
-      maxWidth: '200px'
-},
-},
-textField: {
+      maxWidth: '200px',
+    },
+  },
+  textField: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     flexWrap: 'wrap',
-   
   },
   button: {
     backgroundColor: '#0794f3',
@@ -29,55 +27,60 @@ textField: {
 
 // import Emojis from './Emojis'
 
-export default function SendMessage({ messageInputs, handleMessageSubmit, handleMessage }) {
-        const classes = useStyles();
-        const [messageFromContext, setMessageFromContext] = useState({})
+export default function SendMessage({
+  messageInputs,
+  handleMessageSubmit,
+  handleMessage,
+}) {
+  const classes = useStyles();
+  const [messageFromContext, setMessageFromContext] = useState({});
 
-        useEffect(() => {
-            setMessageFromContext(messageInputs)
-        },[messageInputs])
+  useEffect(() => {
+    setMessageFromContext(messageInputs);
+  }, [messageInputs]);
 
-    return (
-        <form className={classes.root} noValidate autoComplete="off"
-        onSubmit={handleMessageSubmit}>
-            {/* <Divider /> */}
+  return (
+    <form
+      className={classes.root}
+      noValidate
+      autoComplete="off"
+      onSubmit={handleMessageSubmit}
+    >
+      {/* <Divider /> */}
       <div className={classes.textField}>
-      <TextField
-          id="standard-multiline-flexible"
+        <TextField
           label="Title(optional)"
-          placeholder='Your message title here'
+          placeholder="Your message title here"
           multiline
           rowsMax={4}
-          name='title'
+          name="title"
           value={messageFromContext?.title}
           onChange={handleMessage}
         />
-      <TextField
-          id="standard-multiline-flexible"
+        <TextField
           label="Header(optional)"
-          placeholder='Your message header here'
+          placeholder="Your message header here"
           multiline
           rowsMax={4}
-          name='header'
+          name="header"
           value={messageFromContext?.header}
           onChange={handleMessage}
         />
-      <TextField
-          id="standard-multiline-flexible"
+        <TextField
           label="Message"
           required={true}
-          placeholder='Your message goes here'
+          placeholder="Your message goes here"
           multiline
           rowsMax={4}
-          name='message'
+          name="message"
           value={messageFromContext?.message}
           onChange={handleMessage}
         />
 
-           <div>
-            <Snackbar/>
-           </div>
+        <div>
+          <Snackbar />
+        </div>
       </div>
-      </form>
-    )
+    </form>
+  );
 }

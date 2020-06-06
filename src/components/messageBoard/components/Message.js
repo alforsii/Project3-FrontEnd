@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment'
+import moment from 'moment';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -11,11 +11,9 @@ import Avatar from '../../auth/avatar/Avatar';
 import Typography from '@material-ui/core/Typography';
 import TelegramIcon from '@material-ui/icons/Telegram';
 import Card from '@material-ui/core/Card';
-// import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-// import Button from '@material-ui/core/Button';
 
-import MessageDropdown from './MessageDropdown'
+import MessageDropdown from './MessageDropdown';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-start',
 
     width: '100%',
-    // maxWidth: '70ch',
     backgroundColor: theme.palette.background.paper,
   },
   cardRoot: {
@@ -32,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   inline: {
     display: 'inline',
   },
-  
+
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
@@ -50,27 +47,26 @@ export default function Message({
   path,
   firstName,
   lastName,
-  // currUser,
-  // user,
-  msg:{title, header, message, createdAt},
-  // receiver
+  msg: { title, header, message, createdAt },
 }) {
   const classes = useStyles();
 
   //check for link in text
   function validURL(str) {
-    var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    var pattern = new RegExp(
+      '^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$',
+      'i'
+    ); // fragment locator
     return !!pattern.test(str);
   }
 
   return (
     <List className={classes.root}>
-
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
           <Avatar alt={firstName} src={path} />
@@ -78,44 +74,89 @@ export default function Message({
         <ListItemText
           primary={
             <>
-              <span style={{width:'100%',display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}> 
-              <span>{`${firstName} ${lastName}`}</span>
-              <i style={{fontSize: '12px'}}>{moment(createdAt).calendar()}</i>
-              <MessageDropdown/>
+              <span
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <span>{`${firstName} ${lastName}`}</span>
+                <i style={{ fontSize: '12px' }}>
+                  {moment(createdAt).calendar()}
+                </i>
+                <MessageDropdown />
               </span>
-              <Divider/>
+              <Divider />
             </>
           }
           secondary={
-              <Card className={classes.cardRoot}>
-                <CardContent>
-                  <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    <>{title.split(' ').map((text, i) =>
-                  validURL(text)? <a href={text} key={`${Math.random()*999 +99+'kk'+ i}`}> {text} </a>
-                  : <span key={`${Math.random()*999 +99+'kk'+ i}`}> {text} </span>)}</>
-                  </Typography>
-                  
-                  <Typography variant="body2" component="p">
-                    <b>{header.split(' ').map((text, i) =>
-                  validURL(text)? <a href={text} key={`${Math.random()*999 +99+'kk'+ i}`}> {text} </a>
-                  : <span key={`${Math.random()*999 +99+'kk'+ i}`}> {text} </span>)}</b>
-                  </Typography>
-                  <Divider/>
-                <TelegramIcon/>{' '}
-                 <>{message.split(' ').map((text, i) =>
-                  validURL(text)? <a href={text} key={`${Math.random()*999 +99+'kk'+ i}`}> {text} </a>
-                  : <span key={`${Math.random()*999 +99+'kk'+ i}`}> {text} </span>)}</>
-                </CardContent>
-                {/* <CardActions >
-                  <Button size='small'>
-                   Learn more
-                  </Button>
-                </CardActions> */}
-              </Card>
+            <Card className={classes.cardRoot}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  <>
+                    {title.split(' ').map((text, i) =>
+                      validURL(text) ? (
+                        <a
+                          href={text}
+                          key={`${Math.random() * 999 + 99 + 'kk' + i}`}
+                        >
+                          {text}
+                        </a>
+                      ) : (
+                        <span key={`${Math.random() * 999 + 99 + 'kk' + i}`}>
+                          {text}
+                        </span>
+                      )
+                    )}
+                  </>
+                </Typography>
+                <Typography variant="body2" component="p">
+                  <b>
+                    {header.split(' ').map((text, i) =>
+                      validURL(text) ? (
+                        <a
+                          href={text}
+                          key={`${Math.random() * 999 + 99 + 'kk' + i}`}
+                        >
+                          {text}
+                        </a>
+                      ) : (
+                        <span key={`${Math.random() * 999 + 99 + 'kk' + i}`}>
+                          {text}
+                        </span>
+                      )
+                    )}
+                  </b>
+                </Typography>
+                <Divider />
+                <TelegramIcon />
+                <>
+                  {message.split(' ').map((text, i) =>
+                    validURL(text) ? (
+                      <a
+                        href={text}
+                        key={`${Math.random() * 999 + 99 + 'kk' + i}`}
+                      >
+                        {text}
+                      </a>
+                    ) : (
+                      <span key={`${Math.random() * 999 + 99 + 'kk' + i}`}>
+                        {text}
+                      </span>
+                    )
+                  )}
+                </>
+              </CardContent>
+            </Card>
           }
         />
       </ListItem>
     </List>
   );
 }
-

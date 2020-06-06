@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-start',
     width: '100%',
     marginTop: '70px',
-    // maxWidth: '70ch',
     backgroundColor: theme.palette.background.paper,
   },
   cardRoot: {
@@ -80,17 +79,15 @@ export default function UpcomingPageMessage() {
               ></Typography>
               <Card className={classes.cardRoot}>
                 <CardContent>
-                  {/* <Typography
-                    className={classes.title}
-                    color="textSecondary"
-                    gutterBottom
-                  >
-                    Hello there! Welcome to IronSchool app.
-                  </Typography> */}
                   <Typography variant="body2" component="p">
-                    Sorry, this page is coming soon and it is not ready currently. But
-                    for now you do some other thing.<br/> Read for details below
-                    message. <br/>Thanks and have a fun 😊!
+                    Sorry, this page is coming soon and it is not ready
+                    currently. But for now you do some other thing.
+                    <br /> Read for details below message. <br />
+                    Thanks and have a fun{' '}
+                    <span aria-label="emoji" role="img">
+                      😊
+                    </span>
+                    !
                     <br />
                     <b>"Admin"</b>
                   </Typography>
@@ -107,21 +104,25 @@ export default function UpcomingPageMessage() {
                         role="img"
                         aria-label="emoji"
                       >
-                        😀
-                      </span>{' '}
+                        <span aria-label="emoji" role="img">
+                          😀
+                        </span>
+                      </span>
                     </li>
-                      <li>Create, Update and Remove classes as you wish</li>
-                      <li>Connect with Teachers and Students!</li>
-                      <b>On feature version which is coming soon Teachers can:</b>
+                    <li>Create, Update and Remove classes as you wish</li>
+                    <li>Connect with Teachers and Students!</li>
+                    <b>On feature version which is coming soon Teachers can:</b>
                     <ul>
-                      {' '}
-                    <li>Connect with even Parents!</li>
+                      <li>Connect with even Parents!</li>
                       <li>Invite parents and add students to the class</li>
                       <li>Share students activities with parents</li>
                       <li>And much more...</li>
                     </ul>
                     <li>
-                      Do your classworks here and enjoy my ironSchool app ✨
+                      {'Do your classworks here and enjoy my ironSchool app '}
+                      <span aria-label="emoji" role="img">
+                        ✨
+                      </span>
                     </li>
                   </ul>
                 </CardContent>

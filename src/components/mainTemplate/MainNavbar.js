@@ -21,7 +21,7 @@ import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 
-import {AUTH_SERVICE} from '../../services/auth/AuthServices'
+import { AUTH_SERVICE } from '../../services/auth/AuthServices';
 import Avatar from '../auth/avatar/Avatar';
 import './MainNavbar.css';
 const drawerWidth = 400;
@@ -97,11 +97,11 @@ const useStyles = makeStyles((theme) => ({
   mainLink: {
     color: 'purple',
     textDecoration: 'none',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   links: {
     color: 'inherit',
-    textDecoration: 'none'
+    textDecoration: 'none',
   },
   sectionDesktop: {
     display: 'none',
@@ -110,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'center',
       alignItems: 'center',
     },
-  }
+  },
 }));
 
 export default function PrimarySearchAppBar({
@@ -134,43 +134,45 @@ export default function PrimarySearchAppBar({
     setAnchorEl(null);
   };
 
-
-  const handleClickVariant = (message, errorMessage,user) => {
+  const handleClickVariant = (message, errorMessage, user) => {
     // variant could be success, error, warning, info, or default
-    if(errorMessage){
+    if (errorMessage) {
       enqueueSnackbar(errorMessage, { variant: 'error' });
     }
-    if(message) {
+    if (message) {
       enqueueSnackbar(`${message}`, { variant: 'success' });
     }
   };
 
-   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-   //logout
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  const handleLogout = async e => {
+  //logout
+  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  const handleLogout = async (e) => {
     try {
       updateState({ isLoading: true, message: 'Logging out...' });
-      const { data:{message} } = await AUTH_SERVICE.logout();
-      console.log("Output for: message", message)
-     
-      handleClickVariant(message,null, user)
-      updateState({ loggedIn: false, user: null, users: null, isLoading: false  },
-        () => this.props.history.push('/'));
-      
+      const {
+        data: { message },
+      } = await AUTH_SERVICE.logout();
+      console.log('Output for: message', message);
+
+      handleClickVariant(message, null, user);
+      updateState(
+        { loggedIn: false, user: null, users: null, isLoading: false },
+        () => this.props.history.push('/')
+      );
     } catch (err) {
       const error = displayError(err);
-      updateState({ isLoading: false})
-      handleClickVariant(null,error, user)
+      updateState({ isLoading: false });
+      handleClickVariant(null, error, user);
     }
   };
 
-  const displayError = err => {
+  const displayError = (err) => {
     if (err.response && err.response.data) {
-      return err.response.data.message
+      return err.response.data.message;
     } else {
       console.log(err);
-      return 'Sorry, something went wrong!'
+      return 'Sorry, something went wrong!';
     }
   };
 
@@ -185,7 +187,7 @@ export default function PrimarySearchAppBar({
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem  onClick={handleMenuClose}>
+      <MenuItem onClick={handleMenuClose}>
         <Link className={classes.mainLink} to="/dashboard">
           <IconButton aria-label="profile" color="inherit">
             <Avatar src={user?.path} alt={user?.firstName} />
@@ -194,7 +196,7 @@ export default function PrimarySearchAppBar({
         </Link>
       </MenuItem>
 
-      <MenuItem  onClick={handleMenuClose}>
+      <MenuItem onClick={handleMenuClose}>
         <Link className={classes.links} to="/message-board">
           <IconButton aria-label="show 4 new mails" color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -206,7 +208,7 @@ export default function PrimarySearchAppBar({
       </MenuItem>
 
       <MenuItem onClick={handleMenuClose}>
-        <Link  className={classes.links}  to="/notifications">
+        <Link className={classes.links} to="/notifications">
           <IconButton aria-label="show 17 new notifications" color="inherit">
             <Badge badgeContent={17} color="secondary">
               <NotificationsIcon />
@@ -216,7 +218,7 @@ export default function PrimarySearchAppBar({
         </Link>
       </MenuItem>
 
-      <MenuItem  onClick={handleMenuClose}>
+      <MenuItem onClick={handleMenuClose}>
         <Link className={classes.links} to="/settings">
           <IconButton aria-label="settings" color="inherit">
             <SettingsIcon />
@@ -239,7 +241,6 @@ export default function PrimarySearchAppBar({
     </Menu>
   );
 
-
   return (
     <div className={classes.grow}>
       <AppBar
@@ -250,13 +251,17 @@ export default function PrimarySearchAppBar({
       >
         <Toolbar>
           <Button
-            style={{  color: '#333' }}
+            style={{ color: '#333' }}
             color="inherit"
             aria-label="web-page"
             onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, {
-              [classes.hide]: !open,
-            },'web-page')}
+            className={clsx(
+              classes.menuButton,
+              {
+                [classes.hide]: !open,
+              },
+              'web-page'
+            )}
           >
             {webPage}
           </Button>

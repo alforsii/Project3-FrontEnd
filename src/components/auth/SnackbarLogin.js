@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,9 +6,9 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-import {AUTH_SERVICE} from '../../services/auth/AuthServices'
-import ProgressBar from './progressBar/ProgressBar'
-import './LoginForm.css';
+import { AUTH_SERVICE } from '../../services/auth/AuthServices';
+import ProgressBar from './progressBar/ProgressBar';
+// import './LoginForm.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexWrap: 'wrap',
-    
+
     '& > *': {
       margin: theme.spacing(1),
     },
@@ -39,98 +39,104 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     width: '100%',
-    maxWidth: '500px'
+    maxWidth: '500px',
   },
   button: {
     backgroundColor: '#0794f3',
-    "&:hover": {
-      backgroundColor: "#0794f3  !important"
-      }
+    '&:hover': {
+      backgroundColor: '#0794f3  !important',
+    },
   },
 }));
 
-
 export default function MySnackbar(props) {
-
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
 
- 
-// return (
-//   <AuthContext.Consumer>
-//     { context => {
-const { updateState, getUsers } = props.context;
-const [isLoading,setLoading] = useState(false)
-const [formLogin, setFormLogin] = useState({
-  email: '',
-  password: '',
-})
+  // return (
+  //   <AuthContext.Consumer>
+  //     { context => {
+  const { updateState, getUsers } = props.context;
+  const [isLoading, setLoading] = useState(false);
+  const [formLogin, setFormLogin] = useState({
+    email: '',
+    password: '',
+  });
 
-      const handleClickVariant = (message, errorMessage,user) => {
-        // variant could be success, error, warning, info, or default
-        if(errorMessage){
-          enqueueSnackbar(errorMessage, { variant: 'error' });
-        }
-        if(message) {
-          enqueueSnackbar(`${message} Welcome back ${user?.firstName} to the board!`, { variant: 'success' });
-        }
-      };
+  const handleClickVariant = (message, errorMessage, user) => {
+    // variant could be success, error, warning, info, or default
+    if (errorMessage) {
+      enqueueSnackbar(errorMessage, { variant: 'error' });
+    }
+    if (message) {
+      enqueueSnackbar(
+        `${message} Welcome back ${user?.firstName} to the board!`,
+        { variant: 'success' }
+      );
+    }
+  };
 
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
- const handleLoginInput = e => {
+  const handleLoginInput = (e) => {
     const { value, name } = e.target;
-   setFormLogin({
-     ...formLogin,
-     [name]: value
-   })
+    setFormLogin({
+      ...formLogin,
+      [name]: value,
+    });
   };
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  const handleLoginSubmit = async e => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true)
-      const {data: {user, message}} = await AUTH_SERVICE.login(formLogin);
+      setLoading(true);
+      const {
+        data: { user, message },
+      } = await AUTH_SERVICE.login(formLogin);
 
       setFormLogin({
         email: '',
-        password: ''
-      })
-      updateState(prevState => ({
-        ...prevState,
-        user,
-        loggedIn: true,
-        isLoading: false ,
-      }),() => {
-        this.props.history.push('/dashboard');
+        password: '',
       });
-      getUsers()
-      handleClickVariant(message,null,user)
-      setLoading(false)
+      updateState(
+        (prevState) => ({
+          ...prevState,
+          user,
+          loggedIn: true,
+          isLoading: false,
+        }),
+        () => {
+          this.props.history.push('/dashboard');
+        }
+      );
+      getUsers();
+      handleClickVariant(message, null, user);
+      setLoading(false);
     } catch (err) {
-      updateState({ isLoading: false, message: ''})
+      updateState({ isLoading: false, message: '' });
       const error = displayError(err);
-      handleClickVariant(null,error, null)
-      setLoading(false)
+      handleClickVariant(null, error, null);
+      setLoading(false);
     }
   };
 
- const displayError = err => {
+  const displayError = (err) => {
     if (err.response && err.response.data) {
-      return err.response.data.message
+      return err.response.data.message;
     } else {
       console.log(err);
-      return 'Sorry, something went wrong!'
+      return 'Sorry, something went wrong!';
     }
   };
-    
- return (
-  <div className={classes.root}>
-         <img className={classes.image} src='/images/bg-img.png' alt=''/>
+
+  return (
+    <div className={classes.root}>
+      <img className={classes.image} src="/images/bg-img.png" alt="" />
       <form className={classes.columns} onSubmit={handleLoginSubmit}>
         <Typography variant="h5" component="h5">
-          <i style={{color: '#0794f3'}} className="fas fa-sign-in-alt"></i> Login
+          <i style={{ color: '#0794f3' }} className="fas fa-sign-in-alt"></i>
+          {` Login`}
         </Typography>
 
         <TextField
@@ -150,28 +156,24 @@ const [formLogin, setFormLogin] = useState({
 
         <br />
         <Button
-      variant="contained"
-      color="primary"
-      type='submit' 
-      className={classes.button}
-    >
-     Login
-    </Button>
+          variant="contained"
+          color="primary"
+          type="submit"
+          className={classes.button}
+        >
+          Login
+        </Button>
 
         <Typography display="block" variant="subtitle1" color="textSecondary">
-          Don't have an account?{' '}
+          {`Don't have an account? `}
           <Link className={classes.link} to="/">
             <span className={classes.link}>
-              {' '}
               <i className="far fa-arrow-alt-circle-right"></i> Signup
             </span>
           </Link>
           <ProgressBar isLoading={isLoading} strengthValue={100} />
         </Typography>
       </form>
-     
     </div>
-);
+  );
 }
- 
-

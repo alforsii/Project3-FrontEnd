@@ -10,17 +10,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PaginationControlled({ postsPerPage, totalPosts, paginate, currentPage }) {
+export default function PaginationControlled({
+  postsPerPage,
+  totalPosts,
+  paginate,
+  currentPage,
+}) {
   const classes = useStyles();
   const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
     setPage(value);
-    paginate(value)
+    paginate(value);
   };
 
   return (
     <div className={`${classes.root} pagination-div`}>
-      <Pagination count={Math.ceil(totalPosts / postsPerPage)} page={page} onChange={handleChange} />
+      <Pagination
+        count={Math.ceil(totalPosts / postsPerPage)}
+        page={page}
+        onChange={handleChange}
+      />
     </div>
   );
 }

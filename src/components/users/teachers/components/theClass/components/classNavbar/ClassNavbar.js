@@ -5,22 +5,22 @@ import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      margin: '20px',
-      marginTop: '10px'
-    },
-    tabs: {
-        display: 'flex',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-    },
-    tab: {
-        width: '25%',
-    }
-  }));
+  root: {
+    margin: '20px',
+    marginTop: '10px',
+  },
+  tabs: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  tab: {
+    width: '25%',
+  },
+}));
 
-export default function DisabledTabs({switchDefaultPage}) {
-    const classes = useStyles();
+export default function DisabledTabs({ switchDefaultPage }) {
+  const classes = useStyles();
   const [value, setValue] = React.useState(1);
 
   const handleChange = (event, newValue) => {
@@ -28,50 +28,38 @@ export default function DisabledTabs({switchDefaultPage}) {
   };
 
   return (
-   <div className={classes.root}>
-        <Paper square>
-      <Tabs
-        value={value}
-        className={classes.tabs}
-        indicatorColor="primary"
-        textColor="primary"
-        onChange={handleChange}
-        aria-label="tabs"
-      >
-        <Tab className={classes.tab} onClick={() => switchDefaultPage('posts')} label="Posts" />
-        <Tab className={classes.tab} onClick={() => switchDefaultPage('works')}  label="Tasks" />
-        <Tab className={classes.tab} onClick={() => switchDefaultPage('users')}  label="People" />
-        <Tab className={classes.tab} onClick={() => switchDefaultPage('albums')}  label="Albums" />
-      </Tabs>
-    </Paper>
-   </div>
+    <div className={classes.root}>
+      <Paper square>
+        <Tabs
+          value={value}
+          className={classes.tabs}
+          indicatorColor="primary"
+          textColor="primary"
+          onChange={handleChange}
+          aria-label="tabs"
+        >
+          <Tab
+            className={classes.tab}
+            onClick={() => switchDefaultPage('posts')}
+            label="Posts"
+          />
+          <Tab
+            className={classes.tab}
+            onClick={() => switchDefaultPage('works')}
+            label="Tasks"
+          />
+          <Tab
+            className={classes.tab}
+            onClick={() => switchDefaultPage('users')}
+            label="People"
+          />
+          <Tab
+            className={classes.tab}
+            onClick={() => switchDefaultPage('albums')}
+            label="Albums"
+          />
+        </Tabs>
+      </Paper>
+    </div>
   );
 }
-
-
-//Old version
-// import React, { useState } from 'react'
-
-// import './ClassNavbar.css'
-
-// export default function ClassNav({switchDefaultPage}) {
-//     const [currentPage, setCurrentPage] = useState('2');
-//     return (
-//         <React.Fragment>
-//             <nav className="class-nav">
-//                 <button onClick={() => {
-//                     setCurrentPage('1')
-//                     switchDefaultPage('posts')
-//                 }} className={`click-btn2 ${currentPage === '1' && 'focus-on'}`}>Posts</button>
-//                 <button onClick={() => {
-//                     setCurrentPage('2')
-//                     switchDefaultPage('works')
-//                 }} className={`click-btn2 ${currentPage === '2' && 'focus-on'}`}>Classworks</button>
-//                 <button onClick={() => {
-//                     setCurrentPage('3')
-//                     switchDefaultPage('users')
-//                 }} className={`click-btn2 ${currentPage === '3' && 'focus-on'}`}>Connections</button>
-//           </nav>
-//         </React.Fragment>
-//     )
-// }

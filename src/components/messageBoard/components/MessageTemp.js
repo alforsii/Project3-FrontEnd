@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'flex-start',
     width: '100%',
-    // maxWidth: '70ch',
     backgroundColor: theme.palette.background.paper,
   },
   cardRoot: {
@@ -70,55 +69,59 @@ export default function Message() {
             </span>
           }
           secondary={
-              <Card className={classes.cardRoot}>
-                <CardContent>
-                  <Typography
-                    className={classes.title}
-                    color="textSecondary"
-                    gutterBottom
-                  >
-                    Hello there! Welcome to IronSchool app.
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                    Here is message bot example by
-                    <br />
-                    <b>"Admin"</b>
-                  </Typography>
-                  <TelegramIcon /> Follow me on GitHub:{' '}
-                  <a href="https://github.com/alforsii">
-                    https://github.com/alforsii
-                  </a>
-                  <Divider />
-                  <ul>
-                    <li>
-                      You can use this app absolutely for FREE
-                      <span
-                        style={{ fontSize: '20px' }}
-                        role="img"
-                        aria-label="emoji"
-                      >
+            <Card className={classes.cardRoot}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  Hello there! Welcome to IronSchool app.
+                </Typography>
+                <Typography variant="body2" component="p">
+                  Here is message bot example by
+                  <br />
+                  <b>"Admin"</b>
+                </Typography>
+                <TelegramIcon /> Follow me on GitHub:{' '}
+                <a href="https://github.com/alforsii">
+                  https://github.com/alforsii
+                </a>
+                <Divider />
+                <ul>
+                  <li>
+                    You can use this app absolutely for FREE
+                    <span
+                      style={{ fontSize: '20px' }}
+                      role="img"
+                      aria-label="emoji"
+                    >
+                      <span aria-label="emoji" role="img">
                         😀
-                      </span>{' '}
-                    </li>
-                    <li>Create, Update and Remove classes as you wish</li>
-                      <li>Connect with Teachers and Students!</li>
-                      <b>On feature version which is coming soon Teachers can:</b>
-                    <ul>
-                      {' '}
+                      </span>
+                    </span>
+                  </li>
+                  <li>Create, Update and Remove classes as you wish</li>
+                  <li>Connect with Teachers and Students!</li>
+                  <b>On feature version which is coming soon Teachers can:</b>
+                  <ul>
                     <li>Connect with even Parents!</li>
-                      <li>Invite parents and add students to the class</li>
-                      <li>Share students activities with parents</li>
-                      <li>And much more...</li>
-                    </ul>
-                    <li>
-                      Do your classworks here and enjoy my ironSchool app ✨
-                    </li>
+                    <li>Invite parents and add students to the class</li>
+                    <li>Share students activities with parents</li>
+                    <li>And much more...</li>
                   </ul>
-                </CardContent>
-                <CardActions>
-                  <Button size="small">Learn More</Button>
-                </CardActions>
-              </Card>
+                  <li>
+                    Do your classworks here and enjoy my ironSchool app
+                    <span aria-label="emoji" role="img">
+                      ✨
+                    </span>
+                  </li>
+                </ul>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Card>
           }
         />
       </ListItem>

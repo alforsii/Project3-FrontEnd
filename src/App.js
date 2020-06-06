@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { Switch, Route, Redirect} from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Container from '@material-ui/core/Container';
 
 import { AuthContext } from './myContext/AuthProvider';
-import PublicRoute from './components/protectedRoute/PublicRoutes'
+import PublicRoute from './components/protectedRoute/PublicRoutes';
 import MainTemplate from './components/mainTemplate/MainTemplate';
-// import LoginForm from './components/auth/LoginForm';
 import LandingPage from './components/home/LandingPage';
-import SnackbarLogin from './components/auth/SnackbarLogin'
+import SnackbarLogin from './components/auth/SnackbarLogin';
 import Loader from './/loader/Loader';
 import Loader2 from './components/messageBoard/components/loader/Loader';
 
@@ -19,7 +18,7 @@ export class App extends Component {
   }
 
   render() {
-    const { user,isLoading, message, loggedIn  } = this.context.state;
+    const { user, isLoading, message, loggedIn } = this.context.state;
     const { isUserLoggedIn, updateState } = this.context;
     return (
       <React.Fragment>
@@ -28,24 +27,24 @@ export class App extends Component {
             <Loader message={message} />
             <Loader2 message={message} />
           </>
-        ) : loggedIn?(
-            <>
-            <MainTemplate user={user} 
-            updateState={updateState}
-            isUserLoggedIn={isUserLoggedIn}/>
-            </>
+        ) : loggedIn ? (
+          <>
+            <MainTemplate
+              user={user}
+              updateState={updateState}
+              isUserLoggedIn={isUserLoggedIn}
+            />
+          </>
         ) : (
           <Container maxWidth="xl">
-          <Switch>
+            <Switch>
               <PublicRoute exact path="/" component={LandingPage} />
               <PublicRoute exact path="/login" component={SnackbarLogin} />
-              {/* <PublicRoute exact path="/login" component={LoginForm} /> */}
-              <Route path="/" render={props => <Redirect to='/login'/>} />
+              <Route path="/" render={(props) => <Redirect to="/login" />} />
             </Switch>
-        </Container>
-        )
-        }
-          </React.Fragment>
+          </Container>
+        )}
+      </React.Fragment>
     );
   }
 }
